@@ -6,17 +6,26 @@
   "plugins": [
     {
       "name": "atelier",
-      "source": "https://github.com/89jobrien/atelier.git",
+      "source": {
+        "source": "github",
+        "repo": "89jobrien/atelier"
+      },
       "description": "Personal dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse"
     },
     {
       "name": "sanctum",
-      "source": "https://github.com/89jobrien/sanctum.git",
+      "source": {
+        "source": "github",
+        "repo": "89jobrien/sanctum"
+      },
       "description": "1Password auth and .envrc chain tracing"
     },
     {
       "name": "orca-strait",
-      "source": "https://github.com/89jobrien/orca-strait.git",
+      "source": {
+        "source": "github",
+        "repo": "89jobrien/orca-strait"
+      },
       "description": "Parallel TDD orchestrator for Rust workspaces"
     }
   ]
