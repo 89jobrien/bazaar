@@ -1,0 +1,23 @@
+{
+  "name": "bazaar",
+  "owner": {
+    "name": "Joseph O'Brien"
+  },
+  "plugins": [
+    {
+      "name": "atelier",
+      "source": "https://github.com/89jobrien/atelier.git",
+      "description": "Personal dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse"
+    },
+    {
+      "name": "sanctum",
+      "source": "https://github.com/89jobrien/sanctum.git",
+      "description": "1Password auth and .envrc chain tracing"
+    },
+    {
+      "name": "orca-strait",
+      "source": "https://github.com/89jobrien/orca-strait.git",
+      "description": "Parallel TDD orchestrator for Rust workspaces"
+    }
+  ]
+}
