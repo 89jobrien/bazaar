@@ -1,0 +1,14 @@
+# handoff.bazaar.config.toml — machine-local runtime vars
+#
+# Copy this file to handoff.bazaar.config.toml and fill in your values.
+# This file is gitignored. The .example is committed as the reference.
+#
+# Variables defined here are loaded by handon at session start and injected
+# into session context.
+
+[vars]
+# Root directory where all projects live
+dev_dir = "~/dev"
+
+# Claude config and dotfiles root
+dotfiles = "~/.claude"
