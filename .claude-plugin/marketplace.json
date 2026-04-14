@@ -27,6 +27,14 @@
         "repo": "89jobrien/orca-strait"
       },
       "description": "Parallel TDD orchestrator for Rust workspaces"
+    },
+    {
+      "name": "cannibalizer",
+      "source": {
+        "source": "github",
+        "repo": "89jobrien/cannibalizer"
+      },
+      "description": "Absorb foreign repos into the Rust ecosystem — extract, classify, and generate hexagonal components"
     }
   ]
 }
