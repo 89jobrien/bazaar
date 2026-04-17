@@ -1,5 +1,7 @@
 mod config;
 mod error;
+mod model;
+mod port;
 
 use clap::Parser;
 use std::path::PathBuf;
