@@ -12,8 +12,8 @@ run = "cargo build --release -p bazaar-gen"
 
 [tasks.bz]
 description = "Generate showcase locally"
-run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --output index.html --readme README.md"
+run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --output examples/index.html --readme examples/README.md"
 
 [tasks.watch]
 description = "Watch mode: re-generate showcase every 5 minutes"
-run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --output index.html --readme README.md --watch"
+run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --output examples/index.html --readme examples/README.md --watch"
