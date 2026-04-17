@@ -7,6 +7,7 @@ _Generated 2026-04-17_
 
 | Project | Kind | Description | Updated |
 |---|---|---|---|
+| [atelier](https://github.com/89jobrien/atelier) | Repo / Plugin | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse | 2026-04-17 |
 | [bazaar](https://github.com/89jobrien/bazaar) | Repo | Static Site Generator for published OSS | 2026-04-17 |
 | [89jobrien.github.io](https://github.com/89jobrien/89jobrien.github.io) | Repo | Personal site | 2026-04-17 |
 | [crux](https://github.com/89jobrien/crux) | Repo | — | 2026-04-17 |
@@ -19,7 +20,6 @@ _Generated 2026-04-17_
 | [coursers](https://github.com/89jobrien/coursers) | Repo | Claude Code hook pipeline for command course-correction — rule-based blocking and learned failure prevention | 2026-04-17 |
 | [valerie](https://github.com/89jobrien/valerie) | Repo / Plugin | Task and todo management specialist — doob CLI integration, council report ingestion, HANDOFF reconciliation | 2026-04-17 |
 | [rx](https://github.com/89jobrien/rx) | Repo | — | 2026-04-17 |
-| [atelier](https://github.com/89jobrien/atelier) | Repo / Plugin | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse | 2026-04-17 |
 | [hj](https://github.com/89jobrien/hj) | Repo | Rust handoff CLI workspace for HANDOFF state, reconciliation, rendering, and closeout | 2026-04-17 |
 | [hj-cli](https://crates.io/crates/hj-cli) | Crate | CLI for handoff state, reconciliation, and handup surveys | 2026-04-16 |
 | [hj-render](https://crates.io/crates/hj-render) | Crate | Markdown rendering for hj handoff workflows | 2026-04-16 |
