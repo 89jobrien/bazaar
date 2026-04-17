@@ -10,6 +10,6 @@ run = "gh workflow run sync.yml --repo 89jobrien/89jobrien.github.io"
 description = "Build bz release binary"
 run = "cargo build --release -p bazaar-gen"
 
-[tasks.run]
+[tasks.bz]
 description = "Generate showcase locally"
 run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --output index.html --readme README.md"
