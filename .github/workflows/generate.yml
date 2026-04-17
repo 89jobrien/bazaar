@@ -57,5 +57,5 @@ jobs:
             echo "no changes"
           else
             git commit -m "chore: regenerate showcase [skip ci]"
-            git push
+            git pull --rebase && git push
           fi
