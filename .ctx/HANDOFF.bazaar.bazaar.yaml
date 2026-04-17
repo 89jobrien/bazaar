@@ -1,9 +1,28 @@
 project: bazaar
 updated: 2026-04-17
 
-items: []
+items:
+  - id: BAZ-P0
+    priority: P0
+    title: Fix test suite — unsafe{} blocks required for set_var/remove_var (Rust 2024)
+    status: open
+    notes: >
+      Tests fail to compile; config.rs tests use set_var/remove_var without unsafe{}. Rust 2024
+      edition requires wrapping in unsafe blocks. Fix all 12 instances then re-run `cargo test`.
+  - id: BAZ-P1
+    priority: P1
+    title: Clarify Council health metrics reporting
+    status: open
+    notes: >
+      Council health = 67% (P0 pin SHAs + P1 timeout/validation). Need clarity on how health is
+      calculated and whether 67% is actionable baseline or target-bound metric.
 
 log:
+  - date: 2026-04-17
+    summary: >
+      Session: Handoff skill workflow run. Identified test suite blockers: set_var/remove_var
+      unsafe{} blocks (Rust 2024), 12 errors. Release build succeeds. Build: passing (dev),
+      Tests: blocked. Council health 67% (P0 + P1 items). [Current: 8897508]
   - date: 2026-04-17
     summary: >
       BAZ-005 closed: vars set, 89jobrien.github.io recreated, sync workflow deployed; showcase
