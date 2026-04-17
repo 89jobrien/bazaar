@@ -25,11 +25,11 @@ jobs:
 
       - name: Preflight check
         env:
-          GITHUB_USER: ${{ vars.GITHUB_USER }}
-          CRATES_IO_USER: ${{ vars.CRATES_IO_USER }}
+          BAZAAR_GITHUB_USER: ${{ vars.BAZAAR_GITHUB_USER }}
+          BAZAAR_CRATES_IO_USER: ${{ vars.BAZAAR_CRATES_IO_USER }}
         run: |
-          test -n "$GITHUB_USER" || { echo ERROR: GITHUB_USER not set >&2; exit 1; }
-          test -n "$CRATES_IO_USER" || { echo ERROR: CRATES_IO_USER not set >&2; exit 1; }
+          test -n "$BAZAAR_GITHUB_USER" || { echo ERROR: BAZAAR_GITHUB_USER not set >&2; exit 1; }
+          test -n "$BAZAAR_CRATES_IO_USER" || { echo ERROR: BAZAAR_CRATES_IO_USER not set >&2; exit 1; }
 
       - name: Build bz
         run: cargo build --release -p bazaar-gen
@@ -37,8 +37,8 @@ jobs:
       - name: Generate showcase
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_USER: ${{ vars.GITHUB_USER }}
-          CRATES_IO_USER: ${{ vars.CRATES_IO_USER }}
+          BAZAAR_GITHUB_USER: ${{ vars.BAZAAR_GITHUB_USER }}
+          BAZAAR_CRATES_IO_USER: ${{ vars.BAZAAR_CRATES_IO_USER }}
         run: ./target/release/bz --output index.html --readme README.md
 
       - name: Validate output

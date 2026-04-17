@@ -18,10 +18,10 @@ struct PypiToml {
 
 impl Config {
     pub fn from_env(pypi_toml_path: &Path, plugin_manifest: std::path::PathBuf) -> Result<Self> {
-        let github_user = std::env::var("GITHUB_USER")
-            .map_err(|_| anyhow::anyhow!("GITHUB_USER env var is required"))?;
-        let crates_io_user = std::env::var("CRATES_IO_USER")
-            .map_err(|_| anyhow::anyhow!("CRATES_IO_USER env var is required"))?;
+        let github_user = std::env::var("BAZAAR_GITHUB_USER")
+            .map_err(|_| anyhow::anyhow!("BAZAAR_GITHUB_USER env var is required"))?;
+        let crates_io_user = std::env::var("BAZAAR_CRATES_IO_USER")
+            .map_err(|_| anyhow::anyhow!("BAZAAR_CRATES_IO_USER env var is required"))?;
         let github_token = std::env::var("GITHUB_TOKEN").ok();
 
         if github_token.is_none() {
@@ -55,37 +55,38 @@ mod tests {
     #[test]
     #[serial_test::serial]
     fn missing_github_user_returns_error() {
-        std::env::remove_var("GITHUB_USER");
-        std::env::remove_var("CRATES_IO_USER");
+        std::env::remove_var("BAZAAR_GITHUB_USER");
+        std::env::remove_var("BAZAAR_CRATES_IO_USER");
         let result = Config::from_env(Path::new("nonexistent.toml"), "manifest.json".into());
         assert!(result.is_err());
-        assert!(result.unwrap_err().to_string().contains("GITHUB_USER"));
+        assert!(result.unwrap_err().to_string().contains("BAZAAR_GITHUB_USER"));
     }
 
     #[test]
     #[serial_test::serial]
     fn missing_crates_io_user_returns_error() {
-        std::env::remove_var("GITHUB_USER");
-        std::env::remove_var("CRATES_IO_USER");
-        std::env::set_var("GITHUB_USER", "testuser");
+        std::env::remove_var("BAZAAR_GITHUB_USER");
+        std::env::remove_var("BAZAAR_CRATES_IO_USER");
+        std::env::set_var("BAZAAR_GITHUB_USER", "testuser");
         let result = Config::from_env(Path::new("nonexistent.toml"), "manifest.json".into());
         assert!(result.is_err());
-        assert!(result.unwrap_err().to_string().contains("CRATES_IO_USER"));
-        std::env::remove_var("GITHUB_USER");
+        assert!(result.unwrap_err().to_string().contains("BAZAAR_CRATES_IO_USER"));
+        std::env::remove_var("BAZAAR_GITHUB_USER");
     }
 
     #[test]
     #[serial_test::serial]
     fn parses_pypi_toml() {
-        std::env::remove_var("GITHUB_USER");
-        std::env::remove_var("CRATES_IO_USER");
+        std::env::remove_var("BAZAAR_GITHUB_USER");
+        std::env::remove_var("BAZAAR_CRATES_IO_USER");
         let mut f = NamedTempFile::new().unwrap();
         writeln!(f, r#"packages = ["foo", "bar"]"#).unwrap();
-        std::env::set_var("GITHUB_USER", "u");
-        std::env::set_var("CRATES_IO_USER", "u");
+        std::env::set_var("BAZAAR_GITHUB_USER", "u");
+        std::env::set_var("BAZAAR_CRATES_IO_USER", "u");
         let cfg = Config::from_env(f.path(), "manifest.json".into()).unwrap();
         assert_eq!(cfg.pypi_packages, vec!["foo", "bar"]);
-        std::env::remove_var("GITHUB_USER");
-        std::env::remove_var("CRATES_IO_USER");
+        std::env::remove_var("BAZAAR_GITHUB_USER");
+        std::env::remove_var("BAZAAR_CRATES_IO_USER");
     }
 }
+
