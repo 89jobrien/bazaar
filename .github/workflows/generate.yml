@@ -13,14 +13,23 @@ permissions:
 jobs:
   generate:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8  # stable
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32  # v2
         with:
           workspaces: ". -> target"
+
+      - name: Preflight check
+        env:
+          GITHUB_USER: ${{ vars.GITHUB_USER }}
+          CRATES_IO_USER: ${{ vars.CRATES_IO_USER }}
+        run: |
+          test -n "$GITHUB_USER" || { echo ERROR: GITHUB_USER not set >&2; exit 1; }
+          test -n "$CRATES_IO_USER" || { echo ERROR: CRATES_IO_USER not set >&2; exit 1; }
 
       - name: Build bz
         run: cargo build --release -p bazaar-gen
@@ -31,6 +40,12 @@ jobs:
           GITHUB_USER: ${{ vars.GITHUB_USER }}
           CRATES_IO_USER: ${{ vars.CRATES_IO_USER }}
         run: ./target/release/bz --output index.html --readme README.md
+
+      - name: Validate output
+        run: |
+          test -s index.html || { echo ERROR: index.html missing or empty >&2; exit 1; }
+          test -s README.md || { echo ERROR: README.md missing or empty >&2; exit 1; }
+          python3 -c 'import sys; d=open("index.html").read(); sys.exit(0 if "bazaar" in d else 1)' || { echo ERROR: index.html missing marker >&2; exit 1; }
 
       - name: Commit if changed
         run: |
