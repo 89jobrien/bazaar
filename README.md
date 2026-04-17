@@ -6,7 +6,8 @@ _Generated 2026-04-17_
 
 | Project | Kind | Description | Updated |
 |---|---|---|---|
-| [bazaar](https://github.com/89jobrien/bazaar) | Repo | Claude Code plugin marketplace | 2026-04-17 |
+| [89jobrien.github.io](https://github.com/89jobrien/89jobrien.github.io) | Repo | Personal site | 2026-04-17 |
+| [bazaar](https://github.com/89jobrien/bazaar) | Repo | Static Site Generator for published OSS | 2026-04-17 |
 | [crux](https://github.com/89jobrien/crux) | Repo | — | 2026-04-17 |
 | [crux-agentic](https://crates.io/crates/crux-agentic) | Crate | Built-in step handlers for crux-script pipelines | 2026-04-17 |
 | [cruxai](https://crates.io/crates/cruxai) | Crate | An agentic DSL for Rust — inspectable, serializable, replayable agent execution | 2026-04-17 |
@@ -52,9 +53,7 @@ _Generated 2026-04-17_
 | [tbh](https://github.com/89jobrien/tbh) | Repo | CLI tool for running parallel agent experiments with automatic metric collection and statistical analysis | 2026-03-05 |
 | [shell-aliases](https://github.com/89jobrien/shell-aliases) | Repo | — | 2026-02-28 |
 | [hooks](https://github.com/89jobrien/hooks) | Repo | — | 2026-02-12 |
-| [89jobrien.github.io](https://github.com/89jobrien/89jobrien.github.io) | Repo | — | 2026-01-11 |
 | [TradingAgents](https://github.com/89jobrien/TradingAgents) | Repo | TradingAgents: Multi-Agents LLM Financial Trading Framework | 2025-12-03 |
-| [joecode](https://github.com/89jobrien/joecode) | Repo | open coding agent built for the terminal. | 2025-11-21 |
 | [alfred](https://github.com/89jobrien/alfred) | Repo | — | 2025-11-06 |
 | [agentic](https://github.com/89jobrien/agentic) | Repo | RAG Agent that generates embeddings for a repository and answers queries | 2025-11-06 |
 | [valai](https://github.com/89jobrien/valai) | Repo | ValAI is an agentic personal assistant with productivity in mind. | 2025-11-02 |
