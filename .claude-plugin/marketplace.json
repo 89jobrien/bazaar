@@ -29,6 +29,14 @@
       "description": "Parallel TDD orchestrator for Rust workspaces"
     },
     {
+      "name": "valerie",
+      "source": {
+        "source": "github",
+        "repo": "89jobrien/valerie"
+      },
+      "description": "Task and todo management specialist — doob CLI integration, council report ingestion, HANDOFF reconciliation"
+    },
+    {
       "name": "cannibalizer",
       "source": {
         "source": "github",
