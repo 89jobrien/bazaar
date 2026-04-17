@@ -21,8 +21,8 @@ clap, anyhow. Binary name: `bz`. Crate name: `bazaar-gen`.
 ## File Map
 
 ```
-Cargo.toml                          workspace root (add bazaar-gen member)
-bazaar-gen/
+Cargo.toml                          workspace root (members = ["crates/bazaar-gen"])
+crates/bazaar-gen/
   Cargo.toml                        [bin] name = "bz"
   src/
     main.rs                         composition root: parse args, load config, run fetchers, render
@@ -40,8 +40,8 @@ bazaar-gen/
       mod.rs                        render_html(), render_readme()
       html.rs                       Askama template struct + impl
       markdown.rs                   README table generator
-    templates/
-      index.html                    Askama template (include via askama derive)
+  templates/
+    index.html                      Askama template (include via askama derive)
 .github/workflows/generate.yml      CI: build bz, run, commit output
 pypi.toml                           user's PyPI package list (no PII in code)
 README.header.md                    human-authored header for README.md
@@ -53,8 +53,8 @@ README.header.md                    human-authored header for README.md
 
 **Files:**
 - Modify: `Cargo.toml` (workspace root)
-- Create: `bazaar-gen/Cargo.toml`
-- Create: `bazaar-gen/src/main.rs`
+- Create: `crates/bazaar-gen/Cargo.toml`
+- Create: `crates/bazaar-gen/src/main.rs`
 
 - [ ] **Step 1: Add bazaar-gen to workspace**
 
@@ -62,13 +62,13 @@ If no `Cargo.toml` exists at repo root, create one:
 
 ```toml
 [workspace]
-members = ["bazaar-gen"]
+members = ["crates/bazaar-gen"]
 resolver = "2"
 ```
 
 If one already exists, add `"bazaar-gen"` to the `members` array.
 
-- [ ] **Step 2: Create bazaar-gen/Cargo.toml**
+- [ ] **Step 2: Create crates/bazaar-gen/Cargo.toml**
 
 ```toml
 [package]
@@ -111,7 +111,7 @@ Expected: compiles, `./target/debug/bz` exists, prints "bz ok".
 - [ ] **Step 5: Commit**
 
 ```
-git add Cargo.toml bazaar-gen/
+git add Cargo.toml crates/bazaar-gen/
 git commit -m "chore: scaffold bazaar-gen crate with bz binary"
 ```
 
@@ -120,13 +120,13 @@ git commit -m "chore: scaffold bazaar-gen crate with bz binary"
 ## Task 2: Config and error types
 
 **Files:**
-- Create: `bazaar-gen/src/config.rs`
-- Create: `bazaar-gen/src/error.rs`
+- Create: `crates/bazaar-gen/src/config.rs`
+- Create: `crates/bazaar-gen/src/error.rs`
 - Create: `pypi.toml`
 
 - [ ] **Step 1: Write failing tests for config loading**
 
-Create `bazaar-gen/src/config.rs`:
+Create `crates/bazaar-gen/src/config.rs`:
 
 ```rust
 use anyhow::{bail, Result};
@@ -218,7 +218,7 @@ mod tests {
 
 - [ ] **Step 2: Add tempfile dev-dependency**
 
-In `bazaar-gen/Cargo.toml`:
+In `crates/bazaar-gen/Cargo.toml`:
 
 ```toml
 [dev-dependencies]
@@ -294,7 +294,7 @@ packages = []
 - [ ] **Step 7: Commit**
 
 ```
-git add bazaar-gen/ pypi.toml
+git add crates/bazaar-gen/ pypi.toml
 git commit -m "feat(bz): config loading from env vars and pypi.toml"
 ```
 
@@ -303,12 +303,12 @@ git commit -m "feat(bz): config loading from env vars and pypi.toml"
 ## Task 3: Domain model and port trait
 
 **Files:**
-- Create: `bazaar-gen/src/model.rs`
-- Create: `bazaar-gen/src/port.rs`
+- Create: `crates/bazaar-gen/src/model.rs`
+- Create: `crates/bazaar-gen/src/port.rs`
 
 - [ ] **Step 1: Write failing model tests**
 
-Create `bazaar-gen/src/model.rs`:
+Create `crates/bazaar-gen/src/model.rs`:
 
 ```rust
 use chrono::{DateTime, Utc};
@@ -462,7 +462,7 @@ Expected: 4 tests pass (3 config + 4 model).
 - [ ] **Step 6: Commit**
 
 ```
-git add bazaar-gen/src/model.rs bazaar-gen/src/port.rs bazaar-gen/Cargo.toml bazaar-gen/src/main.rs
+git add crates/bazaar-gen/src/model.rs crates/bazaar-gen/src/port.rs crates/bazaar-gen/Cargo.toml crates/bazaar-gen/src/main.rs
 git commit -m "feat(bz): domain model and SourceFetcher port trait"
 ```
 
@@ -471,8 +471,8 @@ git commit -m "feat(bz): domain model and SourceFetcher port trait"
 ## Task 4: GitHub adapter
 
 **Files:**
-- Create: `bazaar-gen/src/fetch/mod.rs`
-- Create: `bazaar-gen/src/fetch/github.rs`
+- Create: `crates/bazaar-gen/src/fetch/mod.rs`
+- Create: `crates/bazaar-gen/src/fetch/github.rs`
 
 - [ ] **Step 1: Create fetch/mod.rs**
 
@@ -588,7 +588,7 @@ Expected: compiles cleanly.
 - [ ] **Step 4: Commit**
 
 ```
-git add bazaar-gen/src/fetch/
+git add crates/bazaar-gen/src/fetch/
 git commit -m "feat(bz): GitHub adapter — fetches public repos from past 6 months"
 ```
 
@@ -597,7 +597,7 @@ git commit -m "feat(bz): GitHub adapter — fetches public repos from past 6 mon
 ## Task 5: crates.io adapter
 
 **Files:**
-- Create: `bazaar-gen/src/fetch/crates_io.rs`
+- Create: `crates/bazaar-gen/src/fetch/crates_io.rs`
 
 - [ ] **Step 1: Create fetch/crates_io.rs**
 
@@ -822,7 +822,7 @@ Expected: compiles cleanly.
 - [ ] **Step 4: Commit**
 
 ```
-git add bazaar-gen/src/fetch/crates_io.rs
+git add crates/bazaar-gen/src/fetch/crates_io.rs
 git commit -m "feat(bz): crates.io adapter — user crate listing with pagination"
 ```
 
@@ -831,8 +831,8 @@ git commit -m "feat(bz): crates.io adapter — user crate listing with paginatio
 ## Task 6: PyPI and plugins adapters
 
 **Files:**
-- Create: `bazaar-gen/src/fetch/pypi.rs`
-- Create: `bazaar-gen/src/fetch/plugins.rs`
+- Create: `crates/bazaar-gen/src/fetch/pypi.rs`
+- Create: `crates/bazaar-gen/src/fetch/plugins.rs`
 
 - [ ] **Step 1: Create fetch/pypi.rs**
 
@@ -962,7 +962,7 @@ Expected: compiles cleanly.
 - [ ] **Step 4: Commit**
 
 ```
-git add bazaar-gen/src/fetch/pypi.rs bazaar-gen/src/fetch/plugins.rs
+git add crates/bazaar-gen/src/fetch/pypi.rs crates/bazaar-gen/src/fetch/plugins.rs
 git commit -m "feat(bz): PyPI and Claude plugin adapters"
 ```
 
@@ -971,14 +971,14 @@ git commit -m "feat(bz): PyPI and Claude plugin adapters"
 ## Task 7: HTML renderer (Askama template)
 
 **Files:**
-- Create: `bazaar-gen/src/render/mod.rs`
-- Create: `bazaar-gen/src/render/html.rs`
-- Create: `bazaar-gen/templates/index.html`
+- Create: `crates/bazaar-gen/src/render/mod.rs`
+- Create: `crates/bazaar-gen/src/render/html.rs`
+- Create: `crates/bazaar-gen/templates/index.html`
 
 - [ ] **Step 1: Create templates/index.html**
 
 Note: Askama looks for templates relative to the crate root by default. Create
-`bazaar-gen/templates/index.html`:
+`crates/bazaar-gen/templates/index.html`:
 
 ```html
 <!DOCTYPE html>
@@ -1112,7 +1112,7 @@ Expected: compiles. If Askama reports template errors, fix the template syntax �
 - [ ] **Step 5: Commit**
 
 ```
-git add bazaar-gen/src/render/ bazaar-gen/templates/
+git add crates/bazaar-gen/src/render/ crates/bazaar-gen/templates/
 git commit -m "feat(bz): Askama HTML renderer with dark monospace theme"
 ```
 
@@ -1121,7 +1121,7 @@ git commit -m "feat(bz): Askama HTML renderer with dark monospace theme"
 ## Task 8: README renderer
 
 **Files:**
-- Create: `bazaar-gen/src/render/markdown.rs`
+- Create: `crates/bazaar-gen/src/render/markdown.rs`
 - Create: `README.header.md`
 
 - [ ] **Step 1: Create render/markdown.rs**
@@ -1190,7 +1190,7 @@ Expected: compiles.
 - [ ] **Step 4: Commit**
 
 ```
-git add bazaar-gen/src/render/markdown.rs README.header.md
+git add crates/bazaar-gen/src/render/markdown.rs README.header.md
 git commit -m "feat(bz): README markdown renderer"
 ```
 
@@ -1199,7 +1199,7 @@ git commit -m "feat(bz): README markdown renderer"
 ## Task 9: Wire composition root and run end-to-end
 
 **Files:**
-- Modify: `bazaar-gen/src/main.rs`
+- Modify: `crates/bazaar-gen/src/main.rs`
 
 - [ ] **Step 1: Replace main.rs with full composition root**
 
@@ -1317,7 +1317,7 @@ Expected: non-zero line counts. Open `/tmp/index.html` in a browser to verify la
 - [ ] **Step 5: Commit**
 
 ```
-git add bazaar-gen/src/main.rs
+git add crates/bazaar-gen/src/main.rs
 git commit -m "feat(bz): wire composition root — all fetchers, merge, render"
 ```
 
