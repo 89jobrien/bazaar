@@ -15,13 +15,13 @@ See [`examples/`](examples/) for sample generated output.
 
 ## Plugins
 
-| Plugin | Description |
-|---|---|
-| `atelier` | Personal dev workflow — Rust gates, code review, CI, git safety, multi-repo pulse |
-| `sanctum` | 1Password auth and `.envrc` chain tracing |
-| `orca-strait` | Parallel TDD orchestrator for Rust workspaces |
-| `valerie` | Task and todo management — doob CLI integration, HANDOFF reconciliation |
-| `cannibalizer` | Absorb foreign repos — extract, classify, generate hexagonal components |
+| Plugin         | Description                                                                       |
+| -------------- | --------------------------------------------------------------------------------- |
+| `atelier`      | Personal dev workflow — Rust gates, code review, CI, git safety, multi-repo pulse |
+| `sanctum`      | 1Password auth and `.envrc` chain tracing                                         |
+| `orca-strait`  | Parallel TDD orchestrator for Rust workspaces                                     |
+| `valerie`      | Task and todo management — doob CLI integration, HANDOFF reconciliation           |
+| `cannibalizer` | Absorb foreign repos — extract, classify, generate hexagonal components           |
 
 ### Install
 
@@ -58,11 +58,11 @@ Options:
 
 ### Environment variables
 
-| Variable | Required | Description |
-|---|---|---|
-| `BAZAAR_GITHUB_USER` | yes | GitHub username to fetch repos for |
-| `BAZAAR_CRATES_IO_USER` | yes | crates.io username to fetch crates for |
-| `GITHUB_TOKEN` | no | GitHub API token (unauthenticated: 60 req/hr) |
+| Variable                | Required | Description                                   |
+| ----------------------- | -------- | --------------------------------------------- |
+| `BAZAAR_GITHUB_USER`    | yes      | GitHub username to fetch repos for            |
+| `BAZAAR_CRATES_IO_USER` | yes      | crates.io username to fetch crates for        |
+| `GITHUB_TOKEN`          | no       | GitHub API token (unauthenticated: 60 req/hr) |
 
 ### Build
 
