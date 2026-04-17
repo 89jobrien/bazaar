@@ -1,0 +1,68 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this
+repository.
+
+## What This Repo Is
+
+`bazaar` is a Claude Code plugin marketplace — a registry of plugins hosted on GitHub that can
+be installed via `claude plugin install <name>@bazaar`. It is not a Rust project; there is no
+build step.
+
+The repo contains:
+
+- `.claude-plugin/marketplace.json` — the marketplace manifest listing all plugins
+- `repos.json` — a snapshot of active public Rust repos under `89jobrien`, refreshed periodically
+- `scripts/` — maintenance scripts (fetch-repos, archive-project)
+
+## Registered Plugins
+
+| Plugin | Source | Purpose |
+|---|---|---|
+| `atelier` | `89jobrien/atelier` | Personal dev workflow — Rust gates, code review, CI, git safety |
+| `sanctum` | `89jobrien/sanctum` | 1Password auth and `.envrc` chain tracing |
+| `orca-strait` | `89jobrien/orca-strait` | Parallel TDD orchestrator for Rust workspaces |
+| `valerie` | `89jobrien/valerie` | Task/todo management, doob CLI integration |
+| `cannibalizer` | `89jobrien/cannibalizer` | Absorb foreign repos — extract, classify, generate hexagonal components |
+
+## Common Tasks
+
+### Add a new plugin
+
+Edit `.claude-plugin/marketplace.json` and add an entry to the `plugins` array:
+
+```json
+{
+  "name": "plugin-name",
+  "source": { "source": "github", "repo": "89jobrien/plugin-name" },
+  "description": "One-line description"
+}
+```
+
+### Refresh repos.json
+
+```bash
+bash scripts/fetch-repos.sh
+```
+
+Fetches Rust repos under `89jobrien` updated in the last 3 months via `gh` CLI, writes to
+`repos.json` sorted by push date descending.
+
+### Archive a local project to SSD
+
+```bash
+bash scripts/archive-project.sh <project-name>
+```
+
+Copies `~/dev/<project-name>` to `/Volumes/Extreme SSD/vault/<project-name>`, verifies checksum,
+indexes in Obsidian (`archived-projects.md`), then removes the local copy. Requires the Extreme
+SSD to be mounted and `gh` CLI available.
+
+## Marketplace Registration
+
+To use this marketplace on a new machine:
+
+```bash
+claude plugin marketplace add https://github.com/89jobrien/bazaar
+claude plugin install atelier@bazaar
+```

@@ -8,7 +8,6 @@ pub struct Config {
     pub github_user: String,
     pub crates_io_user: String,
     pub pypi_packages: Vec<String>,
-    pub plugin_manifest: std::path::PathBuf,
 }
 
 #[derive(Deserialize)]
@@ -17,7 +16,7 @@ struct PypiToml {
 }
 
 impl Config {
-    pub fn from_env(pypi_toml_path: &Path, plugin_manifest: std::path::PathBuf) -> Result<Self> {
+    pub fn from_env(pypi_toml_path: &Path) -> Result<Self> {
         let github_user = std::env::var("BAZAAR_GITHUB_USER")
             .map_err(|_| anyhow::anyhow!("BAZAAR_GITHUB_USER env var is required"))?;
         let crates_io_user = std::env::var("BAZAAR_CRATES_IO_USER")
@@ -41,7 +40,6 @@ impl Config {
             github_user,
             crates_io_user,
             pypi_packages,
-            plugin_manifest,
         })
     }
 }
@@ -57,7 +55,7 @@ mod tests {
     fn missing_github_user_returns_error() {
         std::env::remove_var("BAZAAR_GITHUB_USER");
         std::env::remove_var("BAZAAR_CRATES_IO_USER");
-        let result = Config::from_env(Path::new("nonexistent.toml"), "manifest.json".into());
+        let result = Config::from_env(Path::new("nonexistent.toml"), );
         assert!(result.is_err());
         assert!(result.unwrap_err().to_string().contains("BAZAAR_GITHUB_USER"));
     }
@@ -68,7 +66,7 @@ mod tests {
         std::env::remove_var("BAZAAR_GITHUB_USER");
         std::env::remove_var("BAZAAR_CRATES_IO_USER");
         std::env::set_var("BAZAAR_GITHUB_USER", "testuser");
-        let result = Config::from_env(Path::new("nonexistent.toml"), "manifest.json".into());
+        let result = Config::from_env(Path::new("nonexistent.toml"), );
         assert!(result.is_err());
         assert!(result.unwrap_err().to_string().contains("BAZAAR_CRATES_IO_USER"));
         std::env::remove_var("BAZAAR_GITHUB_USER");
@@ -83,7 +81,7 @@ mod tests {
         writeln!(f, r#"packages = ["foo", "bar"]"#).unwrap();
         std::env::set_var("BAZAAR_GITHUB_USER", "u");
         std::env::set_var("BAZAAR_CRATES_IO_USER", "u");
-        let cfg = Config::from_env(f.path(), "manifest.json".into()).unwrap();
+        let cfg = Config::from_env(f.path(), ).unwrap();
         assert_eq!(cfg.pypi_packages, vec!["foo", "bar"]);
         std::env::remove_var("BAZAAR_GITHUB_USER");
         std::env::remove_var("BAZAAR_CRATES_IO_USER");

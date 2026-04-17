@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 #[derive(Debug, thiserror::Error)]
 pub enum BazaarError {
     #[error("HTTP error fetching {url}: {status}")]

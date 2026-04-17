@@ -16,6 +16,7 @@ use fetch::{
 use port::SourceFetcher;
 use reqwest::Client;
 use std::path::PathBuf;
+use std::time::Duration;
 use tokio::try_join;
 
 #[derive(Parser)]
@@ -31,14 +32,13 @@ struct Args {
     plugin_manifest: PathBuf,
     #[arg(long, default_value = "README.header.md")]
     readme_header: PathBuf,
+    #[arg(long)]
+    watch: bool,
+    #[arg(long, default_value = "300")]
+    interval: u64,
 }
 
-#[tokio::main]
-async fn main() -> anyhow::Result<()> {
-    let args = Args::parse();
-    let config = Config::from_env(&args.pypi_toml, args.plugin_manifest.clone())?;
-    let client = Client::new();
-
+async fn generate(client: &Client, args: &Args, config: &Config) -> anyhow::Result<()> {
     let github = GitHubFetcher {
         client: client.clone(),
         user: config.github_user.clone(),
@@ -53,7 +53,7 @@ async fn main() -> anyhow::Result<()> {
         packages: config.pypi_packages.clone(),
     };
     let plugins = PluginFetcher {
-        manifest_path: args.plugin_manifest,
+        manifest_path: args.plugin_manifest.clone(),
     };
 
     eprintln!("fetching from all sources...");
@@ -81,4 +81,26 @@ async fn main() -> anyhow::Result<()> {
     eprintln!("wrote {}", args.readme.display());
 
     Ok(())
+}
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    let args = Args::parse();
+    let config = Config::from_env(&args.pypi_toml)?;
+    let client = Client::new();
+
+    if args.watch {
+        let mut ticker = tokio::time::interval(Duration::from_secs(args.interval));
+        loop {
+            ticker.tick().await;
+            let ts = chrono::Local::now().format("%H:%M:%S");
+            eprintln!("[{ts}] fetching...");
+            match generate(&client, &args, &config).await {
+                Ok(()) => eprintln!("[{ts}] done — next in {}s", args.interval),
+                Err(e) => eprintln!("[{ts}] error (continuing): {e:#}"),
+            }
+        }
+    } else {
+        generate(&client, &args, &config).await
+    }
 }
