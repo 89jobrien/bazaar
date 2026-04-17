@@ -9,6 +9,7 @@ pub struct Config {
     pub crates_io_user: String,
     pub pypi_packages: Vec<String>,
     pub plugin_manifest: std::path::PathBuf,
+    pub pages_repo: Option<String>,
 }
 
 #[derive(Deserialize)]
@@ -23,6 +24,7 @@ impl Config {
         let crates_io_user = std::env::var("BAZAAR_CRATES_IO_USER")
             .map_err(|_| anyhow::anyhow!("BAZAAR_CRATES_IO_USER env var is required"))?;
         let github_token = std::env::var("GITHUB_TOKEN").ok();
+        let pages_repo = std::env::var("BAZAAR_PAGES_REPO").ok();
 
         if github_token.is_none() {
             eprintln!("warning: GITHUB_TOKEN not set — using unauthenticated GitHub API (60 req/hr)");
@@ -42,6 +44,7 @@ impl Config {
             crates_io_user,
             pypi_packages,
             plugin_manifest,
+            pages_repo,
         })
     }
 }

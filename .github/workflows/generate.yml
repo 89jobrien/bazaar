@@ -39,6 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BAZAAR_GITHUB_USER: ${{ vars.BAZAAR_GITHUB_USER }}
           BAZAAR_CRATES_IO_USER: ${{ vars.BAZAAR_CRATES_IO_USER }}
+          BAZAAR_PAGES_REPO: ${{ vars.BAZAAR_PAGES_REPO }}
         run: ./target/release/bz --output index.html --readme README.md
 
       - name: Validate output
