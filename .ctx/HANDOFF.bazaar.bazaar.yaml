@@ -1,31 +1,24 @@
 project: bazaar
 updated: 2026-04-17
 
-items:
-  - id: BAZ-005
-    title: Set GITHUB_USER and CRATES_IO_USER repo variables + enable GitHub Pages
-    status: open
-    priority: P1
-    description: >
-      Two manual GitHub UI steps required before the showcase goes live:
-      1. Settings → Secrets and variables → Actions → Variables: set GITHUB_USER=89jobrien
-         and CRATES_IO_USER=89jobrien.
-      2. Settings → Pages → Source: Deploy from branch → main → / (root).
-      Workflow is already pushed and running but will fail until vars are set.
+items: []
 
 log:
   - date: 2026-04-17
     summary: >
-      BAZ-001–004 closed: pinned all GHA actions to immutable SHAs, added timeout-minutes: 15,
+      BAZ-005 closed: vars set, 89jobrien.github.io recreated, sync workflow deployed; showcase
+      live at https://89jobrien.github.io; bazaar generates daily at 06:00 UTC, pages syncs at
+      06:30 UTC; actions/checkout bumped to v6.0.2 (Node 24). [89a3544]
+  - date: 2026-04-17
+    summary: >
+      BAZ-001-004 closed: pinned all GHA actions to immutable SHAs, added timeout-minutes: 15,
       preflight guard for env vars, output validation gate, scoped GITHUB_TOKEN to generate step
       only. [e0c0e19]
   - date: 2026-04-17
     summary: >
       Built bz Rust binary (hexagonal: SourceFetcher port, 4 adapters, Askama HTML renderer,
-      markdown README generator); 10-task subagent execution; end-to-end 53 projects fetched,
-      1271-line HTML, 61-line README; GitHub Actions workflow deployed (daily cron + on-push).
-      [25f867b..889c840]
+      markdown README generator); 53 projects fetched, 1271-line HTML, 61-line README; GitHub
+      Actions workflow deployed (daily cron + on-push). [25f867b..889c840]
   - date: 2026-04-17
     summary: >
-      Added valerie plugin to marketplace manifest; created CLAUDE.md for repo.
-      [fc7c714]
+      Added valerie plugin to marketplace manifest; created CLAUDE.md for repo. [fc7c714]
