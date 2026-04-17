@@ -1,6 +1,7 @@
-# bazaar
+# Open Source
 
-My open-source software — plugins, crates, tools, and experiments.
+Projects I maintain or contribute to.
+
 
 _Generated 2026-04-17_
 
