@@ -2,6 +2,7 @@ mod config;
 mod error;
 mod model;
 mod port;
+mod fetch;
 
 use clap::Parser;
 use std::path::PathBuf;
