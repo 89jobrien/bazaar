@@ -2,50 +2,6 @@ project: bazaar
 updated: 2026-04-17
 
 items:
-  - id: BAZ-001
-    title: Pin GitHub Actions to immutable commit SHAs
-    status: open
-    priority: P0
-    description: >
-      generate.yml uses mutable tags (actions/checkout@v4, dtolnay/rust-toolchain@stable,
-      Swatinem/rust-cache@v2) on a contents:write workflow targeting main. Council flagged
-      this as a critical supply-chain risk. Pin all three to full commit SHAs.
-    files:
-      - .github/workflows/generate.yml
-
-  - id: BAZ-002
-    title: Add workflow job timeout and env var preflight guard
-    status: open
-    priority: P1
-    description: >
-      No timeout-minutes set — a hung bz run could consume up to 6hr runner quota.
-      GITHUB_USER / CRATES_IO_USER are not validated early; unset vars produce opaque
-      mid-build failures. Add timeout-minutes: 15 and an explicit preflight shell step.
-    files:
-      - .github/workflows/generate.yml
-
-  - id: BAZ-003
-    title: Add output validation gate before commit step
-    status: open
-    priority: P1
-    description: >
-      Nothing verifies index.html or README.md are well-formed before committing them to
-      main. A minimum sanity check (test -s index.html, grep expected marker) prevents
-      committing a zero-byte or truncated artifact.
-    files:
-      - .github/workflows/generate.yml
-
-  - id: BAZ-004
-    title: Remove GITHUB_TOKEN from bz generation step env
-    status: open
-    priority: P1
-    description: >
-      The bz binary does not need the commit credential — only the Git push step does.
-      Scope the token to only the commit/push step. Relies on actions/checkout persisted
-      credentials for the push.
-    files:
-      - .github/workflows/generate.yml
-
   - id: BAZ-005
     title: Set GITHUB_USER and CRATES_IO_USER repo variables + enable GitHub Pages
     status: open
@@ -58,6 +14,11 @@ items:
       Workflow is already pushed and running but will fail until vars are set.
 
 log:
+  - date: 2026-04-17
+    summary: >
+      BAZ-001–004 closed: pinned all GHA actions to immutable SHAs, added timeout-minutes: 15,
+      preflight guard for env vars, output validation gate, scoped GITHUB_TOKEN to generate step
+      only. [e0c0e19]
   - date: 2026-04-17
     summary: >
       Built bz Rust binary (hexagonal: SourceFetcher port, 4 adapters, Askama HTML renderer,
