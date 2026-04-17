@@ -6,8 +6,8 @@ _Generated 2026-04-17_
 
 | Project | Kind | Description | Updated |
 |---|---|---|---|
-| [89jobrien.github.io](https://github.com/89jobrien/89jobrien.github.io) | Repo | Personal site | 2026-04-17 |
 | [bazaar](https://github.com/89jobrien/bazaar) | Repo | Static Site Generator for published OSS | 2026-04-17 |
+| [89jobrien.github.io](https://github.com/89jobrien/89jobrien.github.io) | Repo | Personal site | 2026-04-17 |
 | [crux](https://github.com/89jobrien/crux) | Repo | — | 2026-04-17 |
 | [crux-agentic](https://crates.io/crates/crux-agentic) | Crate | Built-in step handlers for crux-script pipelines | 2026-04-17 |
 | [cruxai](https://crates.io/crates/cruxai) | Crate | An agentic DSL for Rust — inspectable, serializable, replayable agent execution | 2026-04-17 |
