@@ -3,6 +3,7 @@ mod error;
 mod model;
 mod port;
 mod fetch;
+mod render;
 
 use clap::Parser;
 use std::path::PathBuf;

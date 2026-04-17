@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ username }}'s open source</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;color:#e6edf3;font-family:'Courier New',monospace;padding:2rem;max-width:1100px;margin:0 auto}
+h1{font-size:1.5rem;margin-bottom:.25rem}
+.sub{color:#8b949e;margin-bottom:2rem;font-size:.9rem}
+nav{display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
+nav a{color:#58a6ff;text-decoration:none;font-size:.85rem;padding:.25rem .5rem;border:1px solid #30363d;border-radius:4px}
+nav a:hover{background:#161b22}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.card{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:1rem}
+.card-name{font-weight:bold;margin-bottom:.25rem}
+.card-name a{color:#58a6ff;text-decoration:none}
+.card-name a:hover{text-decoration:underline}
+.badges{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.5rem}
+.badge{font-size:.7rem;padding:.1rem .4rem;border-radius:3px;font-weight:bold}
+.badge-gh{background:#21262d;color:#8b949e;border:1px solid #30363d}
+.badge-crate{background:#1a1a2e;color:#f78166;border:1px solid #3d1a1a}
+.badge-pypi{background:#1a2a1a;color:#56d364;border:1px solid #1a3d1a}
+.badge-plugin{background:#1a1a3d;color:#a371f7;border:1px solid #2d1f7a}
+.desc{color:#8b949e;font-size:.85rem;margin-bottom:.5rem;line-height:1.4}
+.meta{font-size:.75rem;color:#6e7681;display:flex;gap:.75rem;flex-wrap:wrap}
+footer{margin-top:3rem;color:#6e7681;font-size:.75rem;text-align:center}
+</style>
+</head>
+<body>
+<h1>{{ username }}'s open source</h1>
+<p class="sub">{{ projects_count }} projects across GitHub, crates.io, PyPI, and Claude plugins</p>
+<nav>
+  <a href="https://github.com/{{ username }}">GitHub</a>
+  <a href="https://crates.io/users/{{ crates_user }}">crates.io</a>
+</nav>
+<div class="grid">
+{% for p in projects %}
+<div class="card">
+  <div class="card-name"><a href="{{ p.url }}" target="_blank" rel="noopener">{{ p.name }}</a></div>
+  <div class="badges">
+    {% for k in p.kinds %}
+    {% match k %}
+    {% when Kind::GitHubRepo %}
+    <span class="badge badge-gh">GitHub</span>
+    {% when Kind::CratesIo %}
+    <span class="badge badge-crate">crate</span>
+    {% when Kind::PyPI %}
+    <span class="badge badge-pypi">PyPI</span>
+    {% when Kind::ClaudePlugin %}
+    <span class="badge badge-plugin">plugin</span>
+    {% endmatch %}
+    {% endfor %}
+    {% if let Some(lang) = p.language.as_deref() %}
+    <span class="badge badge-gh">{{ lang }}</span>
+    {% endif %}
+  </div>
+  {% if let Some(desc) = p.description.as_deref() %}
+  <div class="desc">{{ desc }}</div>
+  {% endif %}
+  <div class="meta">
+    {% if let Some(v) = p.version.as_deref() %}<span>v{{ v }}</span>{% endif %}
+    {% if let Some(s) = p.stars %}<span>&#9733; {{ s }}</span>{% endif %}
+    {% if let Some(d) = p.downloads %}<span>{{ d }} downloads</span>{% endif %}
+    {% if let Some(pushed) = p.pushed_at %}<span>{{ pushed }}</span>{% endif %}
+  </div>
+</div>
+{% endfor %}
+</div>
+<footer>Generated {{ generated_at }}</footer>
+</body>
+</html>
