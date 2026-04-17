@@ -27,11 +27,9 @@ jobs:
         env:
           BAZAAR_GITHUB_USER: ${{ vars.BAZAAR_GITHUB_USER }}
           BAZAAR_CRATES_IO_USER: ${{ vars.BAZAAR_CRATES_IO_USER }}
-          BAZAAR_PAGES_REPO: ${{ vars.BAZAAR_PAGES_REPO }}
         run: |
           test -n "$BAZAAR_GITHUB_USER" || { echo ERROR: BAZAAR_GITHUB_USER not set >&2; exit 1; }
           test -n "$BAZAAR_CRATES_IO_USER" || { echo ERROR: BAZAAR_CRATES_IO_USER not set >&2; exit 1; }
-          test -n "$BAZAAR_PAGES_REPO" || { echo ERROR: BAZAAR_PAGES_REPO not set >&2; exit 1; }
 
       - name: Build bz
         run: cargo build --release -p bazaar-gen
@@ -48,23 +46,6 @@ jobs:
           test -s index.html || { echo ERROR: index.html missing or empty >&2; exit 1; }
           test -s README.md || { echo ERROR: README.md missing or empty >&2; exit 1; }
           python3 -c 'import sys; d=open("index.html").read(); sys.exit(0 if "bazaar" in d else 1)' || { echo ERROR: index.html missing marker >&2; exit 1; }
-
-      - name: Publish to pages repo
-        env:
-          BAZAAR_PAGES_REPO: ${{ vars.BAZAAR_PAGES_REPO }}
-        run: |
-          git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$BAZAAR_PAGES_REPO.git" pages-repo
-          cp index.html pages-repo/index.html
-          cd pages-repo
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html
-          if git diff --staged --quiet; then
-            echo "no changes"
-          else
-            git commit -m "chore: regenerate showcase"
-            git push
-          fi
 
       - name: Commit if changed
         run: |
