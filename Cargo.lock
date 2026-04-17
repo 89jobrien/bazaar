@@ -156,7 +156,6 @@ dependencies = [
  "anyhow",
  "askama",
  "async-trait",
- "base64",
  "chrono",
  "clap",
  "indexmap",

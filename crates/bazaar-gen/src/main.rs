@@ -3,7 +3,6 @@ mod error;
 mod fetch;
 mod model;
 mod port;
-mod publish;
 mod render;
 
 use clap::Parser;
@@ -32,10 +31,6 @@ struct Args {
     plugin_manifest: PathBuf,
     #[arg(long, default_value = "README.header.md")]
     readme_header: PathBuf,
-    /// Push generated index.html to this GitHub repo (e.g. owner/owner.github.io).
-    /// Overrides BAZAAR_PAGES_REPO env var.
-    #[arg(long)]
-    pages_repo: Option<String>,
 }
 
 #[tokio::main]
@@ -84,26 +79,6 @@ async fn main() -> anyhow::Result<()> {
     let md = render::markdown::render_readme(&projects, &args.readme_header)?;
     std::fs::write(&args.readme, &md)?;
     eprintln!("wrote {}", args.readme.display());
-
-    let pages_repo = args.pages_repo.or(config.pages_repo);
-    if let Some(repo) = pages_repo {
-        let token = config.github_token.as_deref().unwrap_or_default();
-        if token.is_empty() {
-            eprintln!("warning: GITHUB_TOKEN not set — skipping pages push");
-        } else {
-            eprintln!("pushing index.html to {}...", repo);
-            publish::push_to_pages(
-                &client,
-                token,
-                &repo,
-                "index.html",
-                html.as_bytes(),
-                "chore: regenerate showcase",
-            )
-            .await?;
-            eprintln!("pushed to {}", repo);
-        }
-    }
 
     Ok(())
 }
