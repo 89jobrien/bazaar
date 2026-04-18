@@ -8,6 +8,7 @@ on:
       - '.claude-plugin/marketplace.json'
       - 'pypi.toml'
       - 'repos.json'
+      - 'examples/header.md'
   schedule:
     - cron: '0 11,23 * * *'
   workflow_dispatch:
@@ -44,7 +45,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BAZAAR_GITHUB_USER: ${{ vars.BAZAAR_GITHUB_USER }}
           BAZAAR_CRATES_IO_USER: ${{ vars.BAZAAR_CRATES_IO_USER }}
-        run: ./target/release/bz --output examples/index.html --readme examples/showcase.md
+        run: ./target/release/bz --output examples/index.html --readme examples/showcase.md --readme-header examples/header.md
 
       - name: Validate output
         run: |
