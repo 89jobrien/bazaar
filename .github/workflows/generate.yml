@@ -44,12 +44,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BAZAAR_GITHUB_USER: ${{ vars.BAZAAR_GITHUB_USER }}
           BAZAAR_CRATES_IO_USER: ${{ vars.BAZAAR_CRATES_IO_USER }}
-        run: ./target/release/bz --output examples/index.html --readme examples/README.md
+        run: ./target/release/bz --output examples/index.html --readme examples/showcase.md
 
       - name: Validate output
         run: |
           test -s examples/index.html || { echo ERROR: examples/index.html missing or empty >&2; exit 1; }
-          test -s examples/README.md || { echo ERROR: examples/README.md missing or empty >&2; exit 1; }
+          test -s examples/showcase.md || { echo ERROR: examples/showcase.md missing or empty >&2; exit 1; }
           python3 -c 'import sys; d=open("examples/index.html").read(); sys.exit(0 if "bazaar" in d else 1)' \
             || { echo ERROR: examples/index.html missing marker >&2; exit 1; }
 
@@ -57,7 +57,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add examples/index.html examples/README.md
+          git add examples/index.html examples/showcase.md
           if git diff --staged --quiet; then
             echo "no changes"
           else
