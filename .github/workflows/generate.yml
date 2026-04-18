@@ -3,6 +3,11 @@ name: Generate showcase
 on:
   push:
     branches: [main]
+    paths:
+      - 'crates/**'
+      - '.claude-plugin/marketplace.json'
+      - 'pypi.toml'
+      - 'repos.json'
   schedule:
     - cron: '0 11,23 * * *'
   workflow_dispatch:
