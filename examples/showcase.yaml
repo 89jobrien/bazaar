@@ -1,4 +1,4 @@
-generated: 2026-04-18T11:18:51.292468919+00:00
+generated: 2026-04-18T11:34:22.483513968+00:00
 projects:
 - name: bazaar
   description: Claude Code plugin marketplace and showcase generator
@@ -6,17 +6,17 @@ projects:
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-04-18T11:01:56Z
+  pushed_at: 2026-04-18T11:33:47Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'feat: per-project pages, sort/filter/search, bz --deploy'
+    date: 2026-04-18T11:33:32Z
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-04-18T11:18:51Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-04-18T11:01:55Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-04-18T10:40:24Z
-  - message: 'fix: use --autostash on git pull --rebase to handle dirty worktree after build'
-    date: 2026-04-18T10:37:24Z
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
   url: https://github.com/89jobrien/atelier
@@ -91,7 +91,7 @@ projects:
   downloads: 0
   recent_commits: []
 - name: coursers
-  description: Claude Code hook pipeline for command course-correction — rule-based blocking and learned failure prevention
+  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
   url: https://github.com/89jobrien/coursers
   kinds:
   - GitHubRepo
@@ -107,6 +107,8 @@ projects:
     date: 2026-04-18T06:39:41Z
   - message: 'feat(pre): block ls with Glob redirect + eza file-tree in deny message'
     date: 2026-04-18T06:36:32Z
+  tags:
+  - cli
 - name: rx
   description: null
   url: https://github.com/89jobrien/rx
@@ -234,7 +236,7 @@ projects:
   tags:
   - agents
 - name: valerie
-  description: Task and todo management specialist — doob CLI integration, council report ingestion, HANDOFF reconciliation
+  description: Claude Code plugin for task and todo management via doob
   url: https://github.com/89jobrien/valerie
   kinds:
   - GitHubRepo
@@ -252,7 +254,7 @@ projects:
   tags:
   - plugins
 - name: hj
-  description: Rust handoff CLI workspace for HANDOFF state, reconciliation, rendering, and closeout
+  description: Handoff state, reconciliation, rendering, and handup surveys
   url: https://github.com/89jobrien/hj
   kinds:
   - GitHubRepo
@@ -385,8 +387,10 @@ projects:
     date: 2026-04-08T01:41:56Z
   - message: 'fix: model badge quality fixes (dead code, Path, BTreeMap, labels)'
     date: 2026-04-07T21:51:05Z
+  tags:
+  - tools
 - name: peeprs
-  description: Claude Code session logs dashboard — Rust/Axum web server with embedded high-density UI
+  description: Claude Code session logs dashboard
   url: https://github.com/89jobrien/peeprs
   kinds:
   - GitHubRepo
@@ -402,8 +406,10 @@ projects:
     date: 2026-03-01T23:47:03Z
   - message: 'chore: stop ignoring AGENTS.md, CLAUDE.md, and *.public.md'
     date: 2026-03-01T22:37:31Z
+  tags:
+  - tools
 - name: harvestrs
-  description: Polyglot data harvester — syncs Claude memory, git commits, Obsidian notes, and Pieces activities to JSONL
+  description: Polyglot data harvester — syncs Claude memory, git, Obsidian, Pieces to JSONL
   url: https://github.com/89jobrien/harvestrs
   kinds:
   - GitHubRepo
@@ -419,6 +425,8 @@ projects:
     date: 2026-04-07T00:13:02Z
   - message: 'ci: standardize CI workflows and git hooks'
     date: 2026-04-07T00:06:30Z
+  tags:
+  - tools
 - name: mcpipe
   description: Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI
   url: https://github.com/89jobrien/mcpipe
@@ -439,7 +447,7 @@ projects:
   tags:
   - cli
 - name: notfiles
-  description: A pure-Rust dotfiles manager and new-machine bootstrap system
+  description: Nix-based dotfiles and system configuration
   url: https://github.com/89jobrien/notfiles
   kinds:
   - GitHubRepo
@@ -455,8 +463,11 @@ projects:
     date: 2026-04-01T12:59:28Z
   - message: 'test(integration): improve cross_crate test clarity'
     date: 2026-04-01T10:33:34Z
+  tags:
+  - cli
+  - infra
 - name: obfsck
-  description: What the fsck is this?
+  description: Secret-detection and redaction CLI for pre-commit hooks
   url: https://github.com/89jobrien/obfsck
   kinds:
   - GitHubRepo
@@ -492,6 +503,8 @@ projects:
     date: 2026-04-13T19:29:38Z
   - message: Initialize README with project overview
     date: 2026-04-13T19:26:23Z
+  tags:
+  - tools
 - name: sanctum
   description: Personal Claude Code plugin — 1Password and direnv session management
   url: https://github.com/89jobrien/sanctum
@@ -529,6 +542,8 @@ projects:
     date: 2026-04-13T21:28:14Z
   - message: 'feat: format_args field, lint+autofix config, integration tests'
     date: 2026-04-13T21:26:55Z
+  tags:
+  - cli
 - name: rusty-hooks
   description: PostToolUse validation hook for Claude Code — blocks Edit/Write when on-disk content diverges from expected
   url: https://crates.io/crates/rusty-hooks

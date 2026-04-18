@@ -9,20 +9,31 @@
 body{background:#0d1117;color:#e6edf3;font-family:'Courier New',monospace;padding:1.5rem;max-width:1200px;margin:0 auto}
 h1{font-size:1.25rem;margin-bottom:.2rem}
 .sub{color:#8b949e;margin-bottom:1rem;font-size:.85rem}
-nav{display:flex;gap:.75rem;margin-bottom:1.25rem;flex-wrap:wrap}
+nav{display:flex;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
 nav a{color:#58a6ff;text-decoration:none;font-size:.8rem}
 nav a:hover{text-decoration:underline}
+.controls{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
+#search{background:#161b22;border:1px solid #30363d;color:#e6edf3;padding:.25rem .5rem;font-family:inherit;font-size:.8rem;border-radius:3px;width:200px}
+#search:focus{outline:none;border-color:#58a6ff}
+.filters{display:flex;gap:.35rem;flex-wrap:wrap}
+.filter-btn{background:#161b22;border:1px solid #30363d;color:#8b949e;padding:.2rem .5rem;font-family:inherit;font-size:.7rem;border-radius:3px;cursor:pointer}
+.filter-btn:hover{border-color:#58a6ff;color:#e6edf3}
+.filter-btn.active{background:#1f3a5f;border-color:#58a6ff;color:#58a6ff}
+.sort-btn{background:none;border:none;color:#8b949e;font-family:inherit;font-size:.8rem;cursor:pointer;padding:0}
+.sort-btn:hover{color:#e6edf3}
+.sort-btn.asc::after{content:' ↑'}
+.sort-btn.desc::after{content:' ↓'}
 table{width:100%;border-collapse:collapse;font-size:.8rem}
 thead th{color:#8b949e;text-align:left;padding:.3rem .5rem;border-bottom:1px solid #30363d;white-space:nowrap}
 tbody tr{border-bottom:1px solid #21262d}
 tbody tr:hover{background:#161b22}
+tbody tr.hidden{display:none}
 td{padding:.35rem .5rem;vertical-align:top}
 td.name a{color:#58a6ff;text-decoration:none;font-weight:bold}
 td.name a:hover{text-decoration:underline}
 td.desc{color:#8b949e;max-width:320px}
 td.commits{color:#6e7681;max-width:280px}
 .commit-msg{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px;display:block}
-.commit-date{color:#484f58;font-size:.7rem}
 .badges{display:flex;gap:.25rem;flex-wrap:wrap}
 .badge{font-size:.65rem;padding:.05rem .3rem;border-radius:2px;font-weight:bold}
 .badge-gh{background:#21262d;color:#8b949e;border:1px solid #30363d}
@@ -31,30 +42,40 @@ td.commits{color:#6e7681;max-width:280px}
 .badge-plugin{background:#1a1a3d;color:#a371f7;border:1px solid #2d1f7a}
 .badge-tag{background:#0d2230;color:#79c0ff;border:1px solid #1f4060}
 .meta{color:#6e7681;white-space:nowrap}
+#count{color:#8b949e;font-size:.75rem;margin-left:auto}
 footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
 </style>
 </head>
 <body>
 <h1>Open Source</h1>
-<p class="sub">Projects I maintain or contribute to. &middot; 54 projects</p>
+<p class="sub">Projects I maintain or contribute to.</p>
 <nav>
   <a href="https://github.com/89jobrien">GitHub</a>
   <a href="https://crates.io/users/89jobrien">crates.io</a>
 </nav>
-<table>
+<div class="controls">
+  <input id="search" type="search" placeholder="search…" autocomplete="off">
+  <div class="filters" id="filters"></div>
+  <span id="count"></span>
+</div>
+<table id="table">
   <thead>
     <tr>
-      <th>project</th>
+      <th><button class="sort-btn" data-col="name">project</button></th>
       <th>type</th>
       <th>description</th>
       <th>recent commits</th>
-      <th>meta</th>
+      <th><button class="sort-btn" data-col="pushed_at">updated</button></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="tbody">
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/bazaar" target="_blank" rel="noopener">bazaar</a></td>
+  <tr data-name="bazaar"
+      data-desc="Claude Code plugin marketplace and showcase generator"
+      data-pushed="2026-04-18"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/bazaar/" >bazaar</a></td>
     <td>
       <div class="badges">
         
@@ -68,11 +89,11 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     <td class="desc">Claude Code plugin marketplace and showcase generator</td>
     <td class="commits">
       
-      <span class="commit-msg" title="chore: regenerate showcase [skip ci]">chore: regenerate showcase [skip ci]</span>
+      <span class="commit-msg" title="feat: per-project pages, sort/filter/search, bz --deploy">feat: per-project pages, sort/filter/search, bz --deploy</span>
       
       <span class="commit-msg" title="chore: regenerate showcase [skip ci]">chore: regenerate showcase [skip ci]</span>
       
-      <span class="commit-msg" title="fix: use --autostash on git pull --rebase to handle dirty worktree after build">fix: use --autostash on git pull --rebase to handle dirty worktree after build</span>
+      <span class="commit-msg" title="chore: regenerate showcase [skip ci]">chore: regenerate showcase [skip ci]</span>
       
     </td>
     <td class="meta">
@@ -83,8 +104,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/atelier" target="_blank" rel="noopener">atelier</a></td>
+  <tr data-name="atelier"
+      data-desc="Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse"
+      data-pushed="2026-04-18"
+      data-tags="plugins"
+      data-kinds="gh plugin">
+    <td class="name"><a href="projects/atelier/" >atelier</a></td>
     <td>
       <div class="badges">
         
@@ -116,8 +141,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/orca-strait" target="_blank" rel="noopener">orca-strait</a></td>
+  <tr data-name="orca-strait"
+      data-desc="Parallel TDD sub-agent orchestrator for Rust workspaces"
+      data-pushed="2026-04-18"
+      data-tags="plugins"
+      data-kinds="gh plugin">
+    <td class="name"><a href="projects/orca-strait/" >orca-strait</a></td>
     <td>
       <div class="badges">
         
@@ -149,8 +178,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/rx-rxx" target="_blank" rel="noopener">rx-rxx</a></td>
+  <tr data-name="rx-rxx"
+      data-desc="Execute compatible scripts directly"
+      data-pushed="2026-04-18"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/rx-rxx/" >rx-rxx</a></td>
     <td>
       <div class="badges">
         
@@ -173,8 +206,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/rx-registry-json" target="_blank" rel="noopener">rx-registry-json</a></td>
+  <tr data-name="rx-registry-json"
+      data-desc="JSON registry and HTTP fetcher adapters for rx"
+      data-pushed="2026-04-18"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/rx-registry-json/" >rx-registry-json</a></td>
     <td>
       <div class="badges">
         
@@ -197,8 +234,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/rx-script-core" target="_blank" rel="noopener">rx-script-core</a></td>
+  <tr data-name="rx-script-core"
+      data-desc="Core runtime detection and execution planning for rx"
+      data-pushed="2026-04-18"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/rx-script-core/" >rx-script-core</a></td>
     <td>
       <div class="badges">
         
@@ -221,8 +262,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/coursers" target="_blank" rel="noopener">coursers</a></td>
+  <tr data-name="coursers"
+      data-desc="Claude Code hook — blocks anti-pattern CLI commands and tracks failures"
+      data-pushed="2026-04-18"
+      data-tags="cli"
+      data-kinds="gh">
+    <td class="name"><a href="projects/coursers/" >coursers</a></td>
     <td>
       <div class="badges">
         
@@ -230,10 +275,10 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
-        
+        <span class="badge badge-tag">cli</span>
       </div>
     </td>
-    <td class="desc">Claude Code hook pipeline for command course-correction — rule-based blocking and learned failure prevention</td>
+    <td class="desc">Claude Code hook — blocks anti-pattern CLI commands and tracks failures</td>
     <td class="commits">
       
       <span class="commit-msg" title="feat(stats): record live block counts per rule, add crs stats subcommand">feat(stats): record live block counts per rule, add crs stats subcommand</span>
@@ -251,8 +296,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/rx" target="_blank" rel="noopener">rx</a></td>
+  <tr data-name="rx"
+      data-desc=""
+      data-pushed="2026-04-18"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/rx/" >rx</a></td>
     <td>
       <div class="badges">
         
@@ -281,8 +330,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/crux" target="_blank" rel="noopener">crux</a></td>
+  <tr data-name="crux"
+      data-desc=""
+      data-pushed="2026-04-18"
+      data-tags="agents"
+      data-kinds="gh">
+    <td class="name"><a href="projects/crux/" >crux</a></td>
     <td>
       <div class="badges">
         
@@ -311,8 +364,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/crux-agentic" target="_blank" rel="noopener">crux-agentic</a></td>
+  <tr data-name="crux-agentic"
+      data-desc="Built-in step handlers for crux-script pipelines"
+      data-pushed="2026-04-18"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/crux-agentic/" >crux-agentic</a></td>
     <td>
       <div class="badges">
         
@@ -335,8 +392,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/89jobrien.github.io" target="_blank" rel="noopener">89jobrien.github.io</a></td>
+  <tr data-name="89jobrien.github.io"
+      data-desc="Personal site"
+      data-pushed="2026-04-17"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/89jobrien-github-io/" >89jobrien.github.io</a></td>
     <td>
       <div class="badges">
         
@@ -365,8 +426,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/cruxai" target="_blank" rel="noopener">cruxai</a></td>
+  <tr data-name="cruxai"
+      data-desc="An agentic DSL for Rust — inspectable, serializable, replayable agent execution"
+      data-pushed="2026-04-17"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/cruxai/" >cruxai</a></td>
     <td>
       <div class="badges">
         
@@ -389,8 +454,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/cruxai-script" target="_blank" rel="noopener">cruxai-script</a></td>
+  <tr data-name="cruxai-script"
+      data-desc="YAML-driven pipeline scripting for the cruxai agentic DSL"
+      data-pushed="2026-04-17"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/cruxai-script/" >cruxai-script</a></td>
     <td>
       <div class="badges">
         
@@ -413,8 +482,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/cruxai-macros" target="_blank" rel="noopener">cruxai-macros</a></td>
+  <tr data-name="cruxai-macros"
+      data-desc="Proc macros for the cruxai agentic DSL"
+      data-pushed="2026-04-17"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/cruxai-macros/" >cruxai-macros</a></td>
     <td>
       <div class="badges">
         
@@ -437,8 +510,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/cruxai-core" target="_blank" rel="noopener">cruxai-core</a></td>
+  <tr data-name="cruxai-core"
+      data-desc="Core types, traits, and runtime for the cruxai agentic DSL"
+      data-pushed="2026-04-17"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/cruxai-core/" >cruxai-core</a></td>
     <td>
       <div class="badges">
         
@@ -461,8 +538,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/slashcrux" target="_blank" rel="noopener">slashcrux</a></td>
+  <tr data-name="slashcrux"
+      data-desc="Shared vocabulary types for the Slash and Crux agentic Rust ecosystem"
+      data-pushed="2026-04-17"
+      data-tags="agents"
+      data-kinds="gh crate">
+    <td class="name"><a href="projects/slashcrux/" >slashcrux</a></td>
     <td>
       <div class="badges">
         
@@ -492,8 +573,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/valerie" target="_blank" rel="noopener">valerie</a></td>
+  <tr data-name="valerie"
+      data-desc="Claude Code plugin for task and todo management via doob"
+      data-pushed="2026-04-17"
+      data-tags="plugins"
+      data-kinds="gh plugin">
+    <td class="name"><a href="projects/valerie/" >valerie</a></td>
     <td>
       <div class="badges">
         
@@ -507,7 +592,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         <span class="badge badge-tag">plugins</span>
       </div>
     </td>
-    <td class="desc">Task and todo management specialist — doob CLI integration, council report ingestion, HANDOFF reconciliation</td>
+    <td class="desc">Claude Code plugin for task and todo management via doob</td>
     <td class="commits">
       
       <span class="commit-msg" title="fix: add missing handoff-reconcile.sh, correct default shell to sh">fix: add missing handoff-reconcile.sh, correct default shell to sh</span>
@@ -523,8 +608,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/hj" target="_blank" rel="noopener">hj</a></td>
+  <tr data-name="hj"
+      data-desc="Handoff state, reconciliation, rendering, and handup surveys"
+      data-pushed="2026-04-17"
+      data-tags="agents"
+      data-kinds="gh">
+    <td class="name"><a href="projects/hj/" >hj</a></td>
     <td>
       <div class="badges">
         
@@ -535,7 +624,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         <span class="badge badge-tag">agents</span>
       </div>
     </td>
-    <td class="desc">Rust handoff CLI workspace for HANDOFF state, reconciliation, rendering, and closeout</td>
+    <td class="desc">Handoff state, reconciliation, rendering, and handup surveys</td>
     <td class="commits">
       
       <span class="commit-msg" title="feat: add ci workflow and refresh visual demo">feat: add ci workflow and refresh visual demo</span>
@@ -553,8 +642,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/hj-cli" target="_blank" rel="noopener">hj-cli</a></td>
+  <tr data-name="hj-cli"
+      data-desc="CLI for handoff state, reconciliation, and handup surveys"
+      data-pushed="2026-04-16"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/hj-cli/" >hj-cli</a></td>
     <td>
       <div class="badges">
         
@@ -577,8 +670,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/hj-render" target="_blank" rel="noopener">hj-render</a></td>
+  <tr data-name="hj-render"
+      data-desc="Markdown rendering for hj handoff workflows"
+      data-pushed="2026-04-16"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/hj-render/" >hj-render</a></td>
     <td>
       <div class="badges">
         
@@ -601,8 +698,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/hj-doob" target="_blank" rel="noopener">hj-doob</a></td>
+  <tr data-name="hj-doob"
+      data-desc="Doob integration helpers for hj handoff workflows"
+      data-pushed="2026-04-16"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/hj-doob/" >hj-doob</a></td>
     <td>
       <div class="badges">
         
@@ -625,8 +726,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/hj-sqlite" target="_blank" rel="noopener">hj-sqlite</a></td>
+  <tr data-name="hj-sqlite"
+      data-desc="SQLite backing stores for hj handoff workflows"
+      data-pushed="2026-04-16"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/hj-sqlite/" >hj-sqlite</a></td>
     <td>
       <div class="badges">
         
@@ -649,8 +754,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/hj-git" target="_blank" rel="noopener">hj-git</a></td>
+  <tr data-name="hj-git"
+      data-desc="Git and repo discovery utilities for hj handoff workflows"
+      data-pushed="2026-04-16"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/hj-git/" >hj-git</a></td>
     <td>
       <div class="badges">
         
@@ -673,8 +782,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/hj-core" target="_blank" rel="noopener">hj-core</a></td>
+  <tr data-name="hj-core"
+      data-desc="Core data types for hj handoff workflows"
+      data-pushed="2026-04-16"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/hj-core/" >hj-core</a></td>
     <td>
       <div class="badges">
         
@@ -697,8 +810,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/rx-install" target="_blank" rel="noopener">rx-install</a></td>
+  <tr data-name="rx-install"
+      data-desc="Install rust-script scripts from local directories, files, and URLs"
+      data-pushed="2026-04-15"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/rx-install/" >rx-install</a></td>
     <td>
       <div class="badges">
         
@@ -721,8 +838,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/cannibalizer" target="_blank" rel="noopener">cannibalizer</a></td>
+  <tr data-name="cannibalizer"
+      data-desc="Absorb foreign repos into the Rust ecosystem — extract, classify, and generate hexagonal components"
+      data-pushed="2026-04-14"
+      data-tags="plugins"
+      data-kinds="gh plugin">
+    <td class="name"><a href="projects/cannibalizer/" >cannibalizer</a></td>
     <td>
       <div class="badges">
         
@@ -754,8 +875,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/looprs" target="_blank" rel="noopener">looprs</a></td>
+  <tr data-name="looprs"
+      data-desc="Just tools in a loop."
+      data-pushed="2026-04-14"
+      data-tags="tools"
+      data-kinds="gh crate">
+    <td class="name"><a href="projects/looprs/" >looprs</a></td>
     <td>
       <div class="badges">
         
@@ -766,7 +891,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
-        
+        <span class="badge badge-tag">tools</span>
       </div>
     </td>
     <td class="desc">Just tools in a loop.</td>
@@ -787,8 +912,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/peeprs" target="_blank" rel="noopener">peeprs</a></td>
+  <tr data-name="peeprs"
+      data-desc="Claude Code session logs dashboard"
+      data-pushed="2026-04-14"
+      data-tags="tools"
+      data-kinds="gh">
+    <td class="name"><a href="projects/peeprs/" >peeprs</a></td>
     <td>
       <div class="badges">
         
@@ -796,10 +925,10 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
-        
+        <span class="badge badge-tag">tools</span>
       </div>
     </td>
-    <td class="desc">Claude Code session logs dashboard — Rust/Axum web server with embedded high-density UI</td>
+    <td class="desc">Claude Code session logs dashboard</td>
     <td class="commits">
       
       <span class="commit-msg" title="docs: add README">docs: add README</span>
@@ -817,8 +946,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/harvestrs" target="_blank" rel="noopener">harvestrs</a></td>
+  <tr data-name="harvestrs"
+      data-desc="Polyglot data harvester — syncs Claude memory, git, Obsidian, Pieces to JSONL"
+      data-pushed="2026-04-14"
+      data-tags="tools"
+      data-kinds="gh">
+    <td class="name"><a href="projects/harvestrs/" >harvestrs</a></td>
     <td>
       <div class="badges">
         
@@ -826,10 +959,10 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
-        
+        <span class="badge badge-tag">tools</span>
       </div>
     </td>
-    <td class="desc">Polyglot data harvester — syncs Claude memory, git commits, Obsidian notes, and Pieces activities to JSONL</td>
+    <td class="desc">Polyglot data harvester — syncs Claude memory, git, Obsidian, Pieces to JSONL</td>
     <td class="commits">
       
       <span class="commit-msg" title="docs: add README">docs: add README</span>
@@ -847,8 +980,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/mcpipe" target="_blank" rel="noopener">mcpipe</a></td>
+  <tr data-name="mcpipe"
+      data-desc="Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI"
+      data-pushed="2026-04-14"
+      data-tags="cli"
+      data-kinds="gh">
+    <td class="name"><a href="projects/mcpipe/" >mcpipe</a></td>
     <td>
       <div class="badges">
         
@@ -877,8 +1014,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/notfiles" target="_blank" rel="noopener">notfiles</a></td>
+  <tr data-name="notfiles"
+      data-desc="Nix-based dotfiles and system configuration"
+      data-pushed="2026-04-14"
+      data-tags="cli infra"
+      data-kinds="gh">
+    <td class="name"><a href="projects/notfiles/" >notfiles</a></td>
     <td>
       <div class="badges">
         
@@ -886,10 +1027,10 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
-        
+        <span class="badge badge-tag">cli</span><span class="badge badge-tag">infra</span>
       </div>
     </td>
-    <td class="desc">A pure-Rust dotfiles manager and new-machine bootstrap system</td>
+    <td class="desc">Nix-based dotfiles and system configuration</td>
     <td class="commits">
       
       <span class="commit-msg" title="docs: note absorption of pj into notfiles workspace">docs: note absorption of pj into notfiles workspace</span>
@@ -907,8 +1048,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/obfsck" target="_blank" rel="noopener">obfsck</a></td>
+  <tr data-name="obfsck"
+      data-desc="Secret-detection and redaction CLI for pre-commit hooks"
+      data-pushed="2026-04-14"
+      data-tags="cli"
+      data-kinds="gh crate">
+    <td class="name"><a href="projects/obfsck/" >obfsck</a></td>
     <td>
       <div class="badges">
         
@@ -922,7 +1067,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         <span class="badge badge-tag">cli</span>
       </div>
     </td>
-    <td class="desc">What the fsck is this?</td>
+    <td class="desc">Secret-detection and redaction CLI for pre-commit hooks</td>
     <td class="commits">
       
       <span class="commit-msg" title="docs: standardize README">docs: standardize README</span>
@@ -940,8 +1085,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/rascal" target="_blank" rel="noopener">rascal</a></td>
+  <tr data-name="rascal"
+      data-desc="Rust Semantic Code Linter"
+      data-pushed="2026-04-14"
+      data-tags="tools"
+      data-kinds="gh">
+    <td class="name"><a href="projects/rascal/" >rascal</a></td>
     <td>
       <div class="badges">
         
@@ -949,7 +1098,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
-        
+        <span class="badge badge-tag">tools</span>
       </div>
     </td>
     <td class="desc">Rust Semantic Code Linter</td>
@@ -970,8 +1119,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/sanctum" target="_blank" rel="noopener">sanctum</a></td>
+  <tr data-name="sanctum"
+      data-desc="Personal Claude Code plugin — 1Password and direnv session management"
+      data-pushed="2026-04-13"
+      data-tags="plugins"
+      data-kinds="gh plugin">
+    <td class="name"><a href="projects/sanctum/" >sanctum</a></td>
     <td>
       <div class="badges">
         
@@ -1003,8 +1156,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/fmtx" target="_blank" rel="noopener">fmtx</a></td>
+  <tr data-name="fmtx"
+      data-desc=""
+      data-pushed="2026-04-13"
+      data-tags="cli"
+      data-kinds="gh">
+    <td class="name"><a href="projects/fmtx/" >fmtx</a></td>
     <td>
       <div class="badges">
         
@@ -1012,7 +1169,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
-        
+        <span class="badge badge-tag">cli</span>
       </div>
     </td>
     <td class="desc"></td>
@@ -1033,8 +1190,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/rusty-hooks" target="_blank" rel="noopener">rusty-hooks</a></td>
+  <tr data-name="rusty-hooks"
+      data-desc="PostToolUse validation hook for Claude Code — blocks Edit/Write when on-disk content diverges from expected"
+      data-pushed="2026-04-12"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/rusty-hooks/" >rusty-hooks</a></td>
     <td>
       <div class="badges">
         
@@ -1057,8 +1218,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/slash-cmd" target="_blank" rel="noopener">slash-cmd</a></td>
+  <tr data-name="slash-cmd"
+      data-desc="CLI for the slash-command language"
+      data-pushed="2026-04-12"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/slash-cmd/" >slash-cmd</a></td>
     <td>
       <div class="badges">
         
@@ -1081,8 +1246,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/slash-testing" target="_blank" rel="noopener">slash-testing</a></td>
+  <tr data-name="slash-testing"
+      data-desc="Proptest strategies and harness configuration for testing slash-command language parsers"
+      data-pushed="2026-04-12"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/slash-testing/" >slash-testing</a></td>
     <td>
       <div class="badges">
         
@@ -1105,8 +1274,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/slash-lib" target="_blank" rel="noopener">slash-lib</a></td>
+  <tr data-name="slash-lib"
+      data-desc="Executor types and high-level API for the slash-command language"
+      data-pushed="2026-04-12"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/slash-lib/" >slash-lib</a></td>
     <td>
       <div class="badges">
         
@@ -1129,8 +1302,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/slash-lang" target="_blank" rel="noopener">slash-lang</a></td>
+  <tr data-name="slash-lang"
+      data-desc="Parser and AST for the slash-command language"
+      data-pushed="2026-04-12"
+      data-tags=""
+      data-kinds="crate">
+    <td class="name"><a href="projects/slash-lang/" >slash-lang</a></td>
     <td>
       <div class="badges">
         
@@ -1153,8 +1330,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/dotfiles" target="_blank" rel="noopener">dotfiles</a></td>
+  <tr data-name="dotfiles"
+      data-desc=""
+      data-pushed="2026-04-12"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/dotfiles/" >dotfiles</a></td>
     <td>
       <div class="badges">
         
@@ -1183,8 +1364,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/steve" target="_blank" rel="noopener">steve</a></td>
+  <tr data-name="steve"
+      data-desc="Steve&#x27;s not here, man."
+      data-pushed="2026-04-11"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/steve/" >steve</a></td>
     <td>
       <div class="badges">
         
@@ -1213,8 +1398,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/doob" target="_blank" rel="noopener">doob</a></td>
+  <tr data-name="doob"
+      data-desc="Modern, agent-first todo CLI built with Rust and SurrealDB"
+      data-pushed="2026-04-11"
+      data-tags="cli"
+      data-kinds="gh crate">
+    <td class="name"><a href="projects/doob/" >doob</a></td>
     <td>
       <div class="badges">
         
@@ -1246,8 +1435,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/devkit" target="_blank" rel="noopener">devkit</a></td>
+  <tr data-name="devkit"
+      data-desc="AI-powered dev workflow toolkit"
+      data-pushed="2026-04-11"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/devkit/" >devkit</a></td>
     <td>
       <div class="badges">
         
@@ -1276,8 +1469,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/hand" target="_blank" rel="noopener">hand</a></td>
+  <tr data-name="hand"
+      data-desc="Session handoff toolkit for Claude Code — start, end, and visualize project state via HANDOFF.yaml"
+      data-pushed="2026-04-05"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/hand/" >hand</a></td>
     <td>
       <div class="badges">
         
@@ -1306,8 +1503,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/jorts" target="_blank" rel="noopener">jorts</a></td>
+  <tr data-name="jorts"
+      data-desc=""
+      data-pushed="2026-04-02"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/jorts/" >jorts</a></td>
     <td>
       <div class="badges">
         
@@ -1334,8 +1535,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/pjlib" target="_blank" rel="noopener">pjlib</a></td>
+  <tr data-name="pjlib"
+      data-desc=""
+      data-pushed="2026-03-16"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/pjlib/" >pjlib</a></td>
     <td>
       <div class="badges">
         
@@ -1364,8 +1569,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/tbh" target="_blank" rel="noopener">tbh</a></td>
+  <tr data-name="tbh"
+      data-desc="CLI tool for running parallel agent experiments with automatic metric collection and statistical analysis"
+      data-pushed="2026-03-05"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/tbh/" >tbh</a></td>
     <td>
       <div class="badges">
         
@@ -1394,8 +1603,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/shell-aliases" target="_blank" rel="noopener">shell-aliases</a></td>
+  <tr data-name="shell-aliases"
+      data-desc=""
+      data-pushed="2026-02-28"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/shell-aliases/" >shell-aliases</a></td>
     <td>
       <div class="badges">
         
@@ -1420,8 +1633,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/hooks" target="_blank" rel="noopener">hooks</a></td>
+  <tr data-name="hooks"
+      data-desc=""
+      data-pushed="2026-02-12"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/hooks/" >hooks</a></td>
     <td>
       <div class="badges">
         
@@ -1450,8 +1667,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/TradingAgents" target="_blank" rel="noopener">TradingAgents</a></td>
+  <tr data-name="TradingAgents"
+      data-desc="TradingAgents: Multi-Agents LLM Financial Trading Framework"
+      data-pushed="2025-12-03"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/tradingagents/" >TradingAgents</a></td>
     <td>
       <div class="badges">
         
@@ -1480,8 +1701,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/agentic" target="_blank" rel="noopener">agentic</a></td>
+  <tr data-name="agentic"
+      data-desc="RAG Agent that generates embeddings for a repository and answers queries"
+      data-pushed="2025-11-06"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/agentic/" >agentic</a></td>
     <td>
       <div class="badges">
         
@@ -1510,8 +1735,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/valai" target="_blank" rel="noopener">valai</a></td>
+  <tr data-name="valai"
+      data-desc="ValAI is an agentic personal assistant with productivity in mind."
+      data-pushed="2025-11-02"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/valai/" >valai</a></td>
     <td>
       <div class="badges">
         
@@ -1540,8 +1769,12 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/docs" target="_blank" rel="noopener">docs</a></td>
+  <tr data-name="docs"
+      data-desc=""
+      data-pushed="2025-10-28"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="projects/docs/" >docs</a></td>
     <td>
       <div class="badges">
         
@@ -1570,6 +1803,1322 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
 
   </tbody>
 </table>
-<footer>Generated 2026-04-18 11:18 UTC</footer>
+<footer>Generated 2026-04-18 11:34 UTC &middot; <span id="total">54</span> projects</footer>
+<script type="application/json" id="data">[
+  {
+    &quot;name&quot;: &quot;bazaar&quot;,
+    &quot;description&quot;: &quot;Claude Code plugin marketplace and showcase generator&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/bazaar&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-18T11:33:47Z&quot;,
+    &quot;version&quot;: &quot;v0.4.0&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;feat: per-project pages, sort/filter/search, bz --deploy&quot;,
+        &quot;date&quot;: &quot;2026-04-18T11:33:32Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;chore: regenerate showcase [skip ci]&quot;,
+        &quot;date&quot;: &quot;2026-04-18T11:18:51Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;chore: regenerate showcase [skip ci]&quot;,
+        &quot;date&quot;: &quot;2026-04-18T11:01:55Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;atelier&quot;,
+    &quot;description&quot;: &quot;Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/atelier&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;,
+      &quot;ClaudePlugin&quot;
+    ],
+    &quot;language&quot;: &quot;Shell&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-18T00:46:55Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;feat(forge): route to minion, midion, maxion for task execution&quot;,
+        &quot;date&quot;: &quot;2026-04-18T00:46:51Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;chore: set plugin version to dd23116&quot;,
+        &quot;date&quot;: &quot;2026-04-18T00:46:07Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;refactor(forge): drop internal knowledge block, route session context through handon&quot;,
+        &quot;date&quot;: &quot;2026-04-18T00:46:06Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;plugins&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;orca-strait&quot;,
+    &quot;description&quot;: &quot;Parallel TDD sub-agent orchestrator for Rust workspaces&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/orca-strait&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;,
+      &quot;ClaudePlugin&quot;
+    ],
+    &quot;language&quot;: &quot;Shell&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-18T09:05:06Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;chore: set plugin version to b388aa0&quot;,
+        &quot;date&quot;: &quot;2026-04-18T09:05:03Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;fix: inline hooks into plugin.json for Claude Code compatibility&quot;,
+        &quot;date&quot;: &quot;2026-04-18T09:05:02Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;chore: set plugin version to 167d8a3&quot;,
+        &quot;date&quot;: &quot;2026-04-13T23:48:56Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;plugins&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;rx-rxx&quot;,
+    &quot;description&quot;: &quot;Execute compatible scripts directly&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/rx-rxx&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-18T07:05:01.068084Z&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 0,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;rx-registry-json&quot;,
+    &quot;description&quot;: &quot;JSON registry and HTTP fetcher adapters for rx&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/rx-registry-json&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-18T07:04:46.194699Z&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 0,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;rx-script-core&quot;,
+    &quot;description&quot;: &quot;Core runtime detection and execution planning for rx&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/rx-script-core&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-18T07:04:12.919826Z&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 0,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;coursers&quot;,
+    &quot;description&quot;: &quot;Claude Code hook — blocks anti-pattern CLI commands and tracks failures&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/coursers&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-18T06:53:28Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;feat(stats): record live block counts per rule, add crs stats subcommand&quot;,
+        &quot;date&quot;: &quot;2026-04-18T06:53:26Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;docs: update handoff — prune done items, add 2026-04-18 log entry, fix .gitignore for .ctx/&quot;,
+        &quot;date&quot;: &quot;2026-04-18T06:39:41Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;feat(pre): block ls with Glob redirect + eza file-tree in deny message&quot;,
+        &quot;date&quot;: &quot;2026-04-18T06:36:32Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;cli&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;rx&quot;,
+    &quot;description&quot;: null,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/rx&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-18T06:31:45Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;feat(rx-1): wire changed-path args into shell preflight&quot;,
+        &quot;date&quot;: &quot;2026-04-18T06:30:50Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;feat: move preflight.rs to .ctx/scripts, add plugin scaffolding and skills&quot;,
+        &quot;date&quot;: &quot;2026-04-18T06:28:03Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;docs: update handoff&quot;,
+        &quot;date&quot;: &quot;2026-04-17T22:56:17Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;crux&quot;,
+    &quot;description&quot;: null,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/crux&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-18T05:09:24Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;feat: add examples, shared test fixtures, and restructured CI workflows&quot;,
+        &quot;date&quot;: &quot;2026-04-18T04:59:22Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;docs: update handoff — session 15&quot;,
+        &quot;date&quot;: &quot;2026-04-18T03:58:23Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;docs: add BAML section to CLAUDE.md (version parity, gitignore, test injection)&quot;,
+        &quot;date&quot;: &quot;2026-04-18T03:51:20Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;agents&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;crux-agentic&quot;,
+    &quot;description&quot;: &quot;Built-in step handlers for crux-script pipelines&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/crux-agentic&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-18T03:06:19.281785Z&quot;,
+    &quot;version&quot;: &quot;0.2.2&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 30,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;89jobrien.github.io&quot;,
+    &quot;description&quot;: &quot;Personal site&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/89jobrien.github.io&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;HTML&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-17T22:05:53Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;chore: sync showcase from bazaar&quot;,
+        &quot;date&quot;: &quot;2026-04-17T22:05:52Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;ci: add showcase sync workflow&quot;,
+        &quot;date&quot;: &quot;2026-04-17T22:05:27Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;chore: regenerate showcase&quot;,
+        &quot;date&quot;: &quot;2026-04-17T21:55:39Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;cruxai&quot;,
+    &quot;description&quot;: &quot;An agentic DSL for Rust — inspectable, serializable, replayable agent execution&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/cruxai&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-17T20:22:28.979321Z&quot;,
+    &quot;version&quot;: &quot;0.2.1&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 34,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;cruxai-script&quot;,
+    &quot;description&quot;: &quot;YAML-driven pipeline scripting for the cruxai agentic DSL&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/cruxai-script&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-17T20:22:19.898003Z&quot;,
+    &quot;version&quot;: &quot;0.2.1&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 44,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;cruxai-macros&quot;,
+    &quot;description&quot;: &quot;Proc macros for the cruxai agentic DSL&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/cruxai-macros&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-17T20:22:07.564880Z&quot;,
+    &quot;version&quot;: &quot;0.2.1&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 41,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;cruxai-core&quot;,
+    &quot;description&quot;: &quot;Core types, traits, and runtime for the cruxai agentic DSL&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/cruxai-core&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-17T20:21:56.223989Z&quot;,
+    &quot;version&quot;: &quot;0.2.1&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 53,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;slashcrux&quot;,
+    &quot;description&quot;: &quot;Shared vocabulary types for the Slash and Crux agentic Rust ecosystem&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/slashcrux&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;,
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-17T20:18:20Z&quot;,
+    &quot;version&quot;: &quot;0.1.1&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 37,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;refactor: rename StepStatus -&gt; StepState (lifecycle vs outcome distinction)&quot;,
+        &quot;date&quot;: &quot;2026-04-17T20:18:17Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;feat: initial release — shared vocabulary types for Slash and Crux&quot;,
+        &quot;date&quot;: &quot;2026-04-17T20:15:11Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;agents&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;valerie&quot;,
+    &quot;description&quot;: &quot;Claude Code plugin for task and todo management via doob&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/valerie&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;,
+      &quot;ClaudePlugin&quot;
+    ],
+    &quot;language&quot;: &quot;Shell&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-17T03:59:27Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;fix: add missing handoff-reconcile.sh, correct default shell to sh&quot;,
+        &quot;date&quot;: &quot;2026-04-17T03:59:26Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;feat: initial valerie plugin — task and todo management specialist&quot;,
+        &quot;date&quot;: &quot;2026-04-17T02:30:03Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;plugins&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;hj&quot;,
+    &quot;description&quot;: &quot;Handoff state, reconciliation, rendering, and handup surveys&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/hj&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-17T01:28:12Z&quot;,
+    &quot;version&quot;: &quot;v0.1.2&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;feat: add ci workflow and refresh visual demo&quot;,
+        &quot;date&quot;: &quot;2026-04-17T01:27:41Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;refactor: derive state files from session context&quot;,
+        &quot;date&quot;: &quot;2026-04-16T11:40:14Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;fix: rebind nested handoff state paths&quot;,
+        &quot;date&quot;: &quot;2026-04-16T11:11:29Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;agents&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;hj-cli&quot;,
+    &quot;description&quot;: &quot;CLI for handoff state, reconciliation, and handup surveys&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/hj-cli&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-16T10:49:00.113250Z&quot;,
+    &quot;version&quot;: &quot;0.1.2&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 10,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;hj-render&quot;,
+    &quot;description&quot;: &quot;Markdown rendering for hj handoff workflows&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/hj-render&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-16T10:48:40.318249Z&quot;,
+    &quot;version&quot;: &quot;0.1.2&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 23,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;hj-doob&quot;,
+    &quot;description&quot;: &quot;Doob integration helpers for hj handoff workflows&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/hj-doob&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-16T10:48:40.097995Z&quot;,
+    &quot;version&quot;: &quot;0.1.2&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 25,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;hj-sqlite&quot;,
+    &quot;description&quot;: &quot;SQLite backing stores for hj handoff workflows&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/hj-sqlite&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-16T10:48:39.860929Z&quot;,
+    &quot;version&quot;: &quot;0.1.2&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 21,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;hj-git&quot;,
+    &quot;description&quot;: &quot;Git and repo discovery utilities for hj handoff workflows&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/hj-git&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-16T10:48:37.111269Z&quot;,
+    &quot;version&quot;: &quot;0.1.2&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 21,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;hj-core&quot;,
+    &quot;description&quot;: &quot;Core data types for hj handoff workflows&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/hj-core&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-16T10:48:15.416904Z&quot;,
+    &quot;version&quot;: &quot;0.1.2&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 39,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;rx-install&quot;,
+    &quot;description&quot;: &quot;Install rust-script scripts from local directories, files, and URLs&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/rx-install&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-15T17:48:33.647352Z&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 9,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;cannibalizer&quot;,
+    &quot;description&quot;: &quot;Absorb foreign repos into the Rust ecosystem — extract, classify, and generate hexagonal components&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/cannibalizer&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;,
+      &quot;ClaudePlugin&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-14T13:38:33Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;feat(cnbl): cnbl exec subcommand — apply migration plan (#11)&quot;,
+        &quot;date&quot;: &quot;2026-04-14T13:38:23Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;feat(cnbl): cnbl gen subcommand — emit hexagonal scaffold stubs (#10)&quot;,
+        &quot;date&quot;: &quot;2026-04-14T13:38:17Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;feat(cnbl): cnbl plan subcommand — route harvest to migration plan (#9)&quot;,
+        &quot;date&quot;: &quot;2026-04-14T13:38:10Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;plugins&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;looprs&quot;,
+    &quot;description&quot;: &quot;Just tools in a loop.&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/looprs&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;,
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-14T12:57:13Z&quot;,
+    &quot;version&quot;: &quot;v0.2.0&quot;,
+    &quot;stars&quot;: 1,
+    &quot;downloads&quot;: 11,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;docs: audit and trim README&quot;,
+        &quot;date&quot;: &quot;2026-04-14T12:57:13Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;fix: log SessionEnd, outsource command reads config&quot;,
+        &quot;date&quot;: &quot;2026-04-08T01:41:56Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;fix: model badge quality fixes (dead code, Path, BTreeMap, labels)&quot;,
+        &quot;date&quot;: &quot;2026-04-07T21:51:05Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;tools&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;peeprs&quot;,
+    &quot;description&quot;: &quot;Claude Code session logs dashboard&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/peeprs&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-14T12:55:18Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;docs: add README&quot;,
+        &quot;date&quot;: &quot;2026-04-14T12:55:18Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;feat: add 7 new dashboard components for token, tool, duration, timeline, cache, error, and hook analytics&quot;,
+        &quot;date&quot;: &quot;2026-03-01T23:47:03Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;chore: stop ignoring AGENTS.md, CLAUDE.md, and *.public.md&quot;,
+        &quot;date&quot;: &quot;2026-03-01T22:37:31Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;tools&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;harvestrs&quot;,
+    &quot;description&quot;: &quot;Polyglot data harvester — syncs Claude memory, git, Obsidian, Pieces to JSONL&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/harvestrs&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-14T12:55:06Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;docs: add README&quot;,
+        &quot;date&quot;: &quot;2026-04-14T12:55:05Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;fix: add license field, remove unused deps (deny + machete)&quot;,
+        &quot;date&quot;: &quot;2026-04-07T00:13:02Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;ci: standardize CI workflows and git hooks&quot;,
+        &quot;date&quot;: &quot;2026-04-07T00:06:30Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;tools&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;mcpipe&quot;,
+    &quot;description&quot;: &quot;Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/mcpipe&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-14T12:54:53Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;docs: add README&quot;,
+        &quot;date&quot;: &quot;2026-04-14T12:54:52Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;fix: ignore RUSTSEC-2025-0134 (rustls-pemfile, transitive, no fix)&quot;,
+        &quot;date&quot;: &quot;2026-04-07T00:15:55Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;style: cargo fmt&quot;,
+        &quot;date&quot;: &quot;2026-04-07T00:12:07Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;cli&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;notfiles&quot;,
+    &quot;description&quot;: &quot;Nix-based dotfiles and system configuration&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/notfiles&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-14T12:54:51Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;docs: note absorption of pj into notfiles workspace&quot;,
+        &quot;date&quot;: &quot;2026-04-14T12:54:51Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;fix: address blocking sentinel findings (unsafe SAFETY comment, unwrap panics)&quot;,
+        &quot;date&quot;: &quot;2026-04-01T12:59:28Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;test(integration): improve cross_crate test clarity&quot;,
+        &quot;date&quot;: &quot;2026-04-01T10:33:34Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;cli&quot;,
+      &quot;infra&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;obfsck&quot;,
+    &quot;description&quot;: &quot;Secret-detection and redaction CLI for pre-commit hooks&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/obfsck&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;,
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-14T12:54:40Z&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 15,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;docs: standardize README&quot;,
+        &quot;date&quot;: &quot;2026-04-14T12:54:40Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;docs: add obfsck-11 — MCP server mode required by coursers-11&quot;,
+        &quot;date&quot;: &quot;2026-04-11T04:39:09Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;docs: update handoff&quot;,
+        &quot;date&quot;: &quot;2026-04-07T01:24:21Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;cli&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;rascal&quot;,
+    &quot;description&quot;: &quot;Rust Semantic Code Linter&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/rascal&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-14T12:54:33Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;docs: standardize README&quot;,
+        &quot;date&quot;: &quot;2026-04-14T12:54:33Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;Enhance README with features section&quot;,
+        &quot;date&quot;: &quot;2026-04-13T19:29:38Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;Initialize README with project overview&quot;,
+        &quot;date&quot;: &quot;2026-04-13T19:26:23Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;tools&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;sanctum&quot;,
+    &quot;description&quot;: &quot;Personal Claude Code plugin — 1Password and direnv session management&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/sanctum&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;,
+      &quot;ClaudePlugin&quot;
+    ],
+    &quot;language&quot;: &quot;Go&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-13T23:48:48Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;chore: add pre-push version-stamp hook, switch install to bazaar&quot;,
+        &quot;date&quot;: &quot;2026-04-13T23:48:35Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;docs: sanctum binary design spec + handoff update&quot;,
+        &quot;date&quot;: &quot;2026-04-06T16:00:35Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;fix: auto-bump version in pre-commit — patch on modify, minor on new files&quot;,
+        &quot;date&quot;: &quot;2026-04-05T22:42:58Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;plugins&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;fmtx&quot;,
+    &quot;description&quot;: null,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/fmtx&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-13T21:30:34Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;docs: update CLAUDE.md with config path gotcha and format_args&quot;,
+        &quot;date&quot;: &quot;2026-04-13T21:30:31Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;docs: update handoff — session end 2026-04-13&quot;,
+        &quot;date&quot;: &quot;2026-04-13T21:28:14Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;feat: format_args field, lint+autofix config, integration tests&quot;,
+        &quot;date&quot;: &quot;2026-04-13T21:26:55Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;cli&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;rusty-hooks&quot;,
+    &quot;description&quot;: &quot;PostToolUse validation hook for Claude Code — blocks Edit/Write when on-disk content diverges from expected&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/rusty-hooks&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-12T22:31:24.579183Z&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 11,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;slash-cmd&quot;,
+    &quot;description&quot;: &quot;CLI for the slash-command language&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/slash-cmd&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-12T22:21:14.454502Z&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 12,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;slash-testing&quot;,
+    &quot;description&quot;: &quot;Proptest strategies and harness configuration for testing slash-command language parsers&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/slash-testing&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-12T22:20:40.803525Z&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 11,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;slash-lib&quot;,
+    &quot;description&quot;: &quot;Executor types and high-level API for the slash-command language&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/slash-lib&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-12T22:20:30.589964Z&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 15,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;slash-lang&quot;,
+    &quot;description&quot;: &quot;Parser and AST for the slash-command language&quot;,
+    &quot;url&quot;: &quot;https://crates.io/crates/slash-lang&quot;,
+    &quot;kinds&quot;: [
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-12T22:19:22.090671Z&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 16,
+    &quot;recent_commits&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;dotfiles&quot;,
+    &quot;description&quot;: null,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/dotfiles&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Shell&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-12T03:53:29Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;fix(direnv): remove unsafe global source_up_if_exists; guard nushell hook against empty export&quot;,
+        &quot;date&quot;: &quot;2026-04-12T03:52:16Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;feat(direnv): add first-class direnv integration&quot;,
+        &quot;date&quot;: &quot;2026-04-11T05:58:43Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;Merge remote-tracking branch &#x27;origin/main&#x27;&quot;,
+        &quot;date&quot;: &quot;2026-04-11T05:57:24Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;steve&quot;,
+    &quot;description&quot;: &quot;Steve&#x27;s not here, man.&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/steve&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Python&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-11T04:47:59Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: 4,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;fix: add ruff as dev dependency&quot;,
+        &quot;date&quot;: &quot;2026-04-09T11:49:44Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;fix: load_local_registry returns correct default for missing path&quot;,
+        &quot;date&quot;: &quot;2026-04-05T00:34:08Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;chore: archive components from .claude project&quot;,
+        &quot;date&quot;: &quot;2026-03-04T05:07:46Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;doob&quot;,
+    &quot;description&quot;: &quot;Modern, agent-first todo CLI built with Rust and SurrealDB&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/doob&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;,
+      &quot;CratesIo&quot;
+    ],
+    &quot;language&quot;: &quot;Rust&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-11T04:47:57Z&quot;,
+    &quot;version&quot;: &quot;0.1.0&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: 11,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;docs: update handoff — doob-6 gh-sync complete&quot;,
+        &quot;date&quot;: &quot;2026-04-10T20:40:07Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;feat: pretty table output for gh-sync, --json support, dry-run by default&quot;,
+        &quot;date&quot;: &quot;2026-04-10T20:38:49Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;fix: dry-run by default, --execute to perform real sync&quot;,
+        &quot;date&quot;: &quot;2026-04-10T20:34:38Z&quot;
+      }
+    ],
+    &quot;tags&quot;: [
+      &quot;cli&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;devkit&quot;,
+    &quot;description&quot;: &quot;AI-powered dev workflow toolkit&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/devkit&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Go&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-11T04:47:56Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;fix(repl): replace os.Exit with ErrExit sentinel for clean shutdown&quot;,
+        &quot;date&quot;: &quot;2026-04-11T03:35:41Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;docs: update handoff&quot;,
+        &quot;date&quot;: &quot;2026-04-11T03:29:38Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;fix(cmd): clarify repl auth contract, add cwd fallback, add execution-path tests&quot;,
+        &quot;date&quot;: &quot;2026-04-11T02:23:59Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;hand&quot;,
+    &quot;description&quot;: &quot;Session handoff toolkit for Claude Code — start, end, and visualize project state via HANDOFF.yaml&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/hand&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Shell&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-05T22:42:51Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;fix: auto-bump version in pre-commit — patch on modify, minor on new files&quot;,
+        &quot;date&quot;: &quot;2026-04-05T22:42:31Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;feat: add justfile init, .githooks, and onboard skill&quot;,
+        &quot;date&quot;: &quot;2026-04-05T20:53:55Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;feat: initial commit — hand session handoff plugin&quot;,
+        &quot;date&quot;: &quot;2026-04-05T20:27:00Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;jorts&quot;,
+    &quot;description&quot;: null,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/jorts&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Shell&quot;,
+    &quot;pushed_at&quot;: &quot;2026-04-02T20:43:07Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;docs: add repository guidelines and readme&quot;,
+        &quot;date&quot;: &quot;2026-04-02T20:43:04Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;chore: add tailscale setup script&quot;,
+        &quot;date&quot;: &quot;2026-04-02T20:42:05Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;pjlib&quot;,
+    &quot;description&quot;: null,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/pjlib&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Shell&quot;,
+    &quot;pushed_at&quot;: &quot;2026-03-16T02:12:58Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;Merge chore/archive-core-sets-2026-01-20 into main&quot;,
+        &quot;date&quot;: &quot;2026-03-16T02:12:42Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;chore: archive legacy agents and reorganize structure&quot;,
+        &quot;date&quot;: &quot;2026-03-16T02:08:24Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;docs: optimize documentation for AI consumption&quot;,
+        &quot;date&quot;: &quot;2026-03-16T02:02:13Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;tbh&quot;,
+    &quot;description&quot;: &quot;CLI tool for running parallel agent experiments with automatic metric collection and statistical analysis&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/tbh&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Go&quot;,
+    &quot;pushed_at&quot;: &quot;2026-03-05T09:41:31Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;Implement FR3 (benchmark aggregation) and FR4 (report generation)&quot;,
+        &quot;date&quot;: &quot;2026-03-05T05:34:28Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;Simplify justfile to 5 essential commands&quot;,
+        &quot;date&quot;: &quot;2026-03-05T05:29:38Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;Add justfile with development and demo commands&quot;,
+        &quot;date&quot;: &quot;2026-03-05T05:22:52Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;shell-aliases&quot;,
+    &quot;description&quot;: null,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/shell-aliases&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Shell&quot;,
+    &quot;pushed_at&quot;: &quot;2026-02-28T04:50:11Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;feat: initial public aliases repo&quot;,
+        &quot;date&quot;: &quot;2026-02-28T04:50:06Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;hooks&quot;,
+    &quot;description&quot;: null,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/hooks&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Go&quot;,
+    &quot;pushed_at&quot;: &quot;2026-02-12T06:46:02Z&quot;,
+    &quot;version&quot;: &quot;hooks-v0.3.2&quot;,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;Merge pull request #12 from 89jobrien/release-please--branches--main--components--hooks&quot;,
+        &quot;date&quot;: &quot;2026-02-12T06:45:53Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;chore(main): release hooks 0.3.2&quot;,
+        &quot;date&quot;: &quot;2026-02-12T06:29:50Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;Merge pull request #11 from 89jobrien/fix/absolute-paths-and-ci&quot;,
+        &quot;date&quot;: &quot;2026-02-12T06:29:39Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;TradingAgents&quot;,
+    &quot;description&quot;: &quot;TradingAgents: Multi-Agents LLM Financial Trading Framework&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/TradingAgents&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Python&quot;,
+    &quot;pushed_at&quot;: &quot;2025-12-03T22:37:10Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;Improve CLI with loading indicators and enhance discovery pipeline&quot;,
+        &quot;date&quot;: &quot;2025-12-03T05:49:49Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;Add Brave and Tavily news data vendors with retry handling&quot;,
+        &quot;date&quot;: &quot;2025-12-03T05:43:27Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;update README.md&quot;,
+        &quot;date&quot;: &quot;2025-12-03T03:43:21Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;agentic&quot;,
+    &quot;description&quot;: &quot;RAG Agent that generates embeddings for a repository and answers queries&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/agentic&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Python&quot;,
+    &quot;pushed_at&quot;: &quot;2025-11-06T12:55:27Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;Delete scripts/embtest.py&quot;,
+        &quot;date&quot;: &quot;2025-11-06T12:55:26Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;Update README.md&quot;,
+        &quot;date&quot;: &quot;2025-08-18T15:43:40Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;Update .gitignore&quot;,
+        &quot;date&quot;: &quot;2025-08-08T08:11:21Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;valai&quot;,
+    &quot;description&quot;: &quot;ValAI is an agentic personal assistant with productivity in mind.&quot;,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/valai&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;Python&quot;,
+    &quot;pushed_at&quot;: &quot;2025-11-02T15:36:42Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;old stash&quot;,
+        &quot;date&quot;: &quot;2025-11-02T15:36:35Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;Update pyproject.toml&quot;,
+        &quot;date&quot;: &quot;2025-07-29T20:57:32Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;Update pyproject.toml&quot;,
+        &quot;date&quot;: &quot;2025-07-29T20:56:35Z&quot;
+      }
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;docs&quot;,
+    &quot;description&quot;: null,
+    &quot;url&quot;: &quot;https://github.com/89jobrien/docs&quot;,
+    &quot;kinds&quot;: [
+      &quot;GitHubRepo&quot;
+    ],
+    &quot;language&quot;: &quot;MDX&quot;,
+    &quot;pushed_at&quot;: &quot;2025-10-28T03:32:47Z&quot;,
+    &quot;version&quot;: null,
+    &quot;stars&quot;: null,
+    &quot;downloads&quot;: null,
+    &quot;recent_commits&quot;: [
+      {
+        &quot;message&quot;: &quot;Documentation edits made through Mintlify web editor&quot;,
+        &quot;date&quot;: &quot;2025-10-28T03:32:47Z&quot;
+      },
+      {
+        &quot;message&quot;: &quot;Initial commit&quot;,
+        &quot;date&quot;: &quot;2025-10-28T03:15:53Z&quot;
+      }
+    ]
+  }
+]</script>
+<script>
+(function() {
+  var rows = Array.from(document.querySelectorAll('#tbody tr'));
+  var searchEl = document.getElementById('search');
+  var filtersEl = document.getElementById('filters');
+  var countEl = document.getElementById('count');
+  var sortState = { col: null, dir: 0 };
+  var activeFilter = null;
+
+  // Collect all unique tags from rows
+  var tagSet = new Set();
+  rows.forEach(function(r) {
+    r.dataset.tags.trim().split(/\s+/).forEach(function(t) { if (t) tagSet.add(t); });
+  });
+
+  // Build filter buttons
+  ['all'].concat(Array.from(tagSet).sort()).forEach(function(tag) {
+    var btn = document.createElement('button');
+    btn.className = 'filter-btn' + (tag === 'all' ? ' active' : '');
+    btn.textContent = tag;
+    btn.dataset.tag = tag;
+    btn.addEventListener('click', function() {
+      activeFilter = tag === 'all' ? null : tag;
+      document.querySelectorAll('.filter-btn').forEach(function(b) {
+        b.classList.toggle('active', b.dataset.tag === tag);
+      });
+      applyFilters();
+    });
+    filtersEl.appendChild(btn);
+  });
+
+  function applyFilters() {
+    var q = searchEl.value.toLowerCase();
+    var visible = 0;
+    rows.forEach(function(r) {
+      var matchSearch = !q ||
+        r.dataset.name.toLowerCase().includes(q) ||
+        r.dataset.desc.toLowerCase().includes(q);
+      var matchFilter = !activeFilter ||
+        r.dataset.tags.includes(activeFilter) ||
+        r.dataset.kinds.includes(activeFilter);
+      var show = matchSearch && matchFilter;
+      r.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    countEl.textContent = visible + ' of ' + rows.length;
+  }
+
+  searchEl.addEventListener('input', applyFilters);
+
+  // Sort
+  document.querySelectorAll('.sort-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var col = btn.dataset.col;
+      if (sortState.col === col) {
+        sortState.dir = sortState.dir === 1 ? -1 : 1;
+      } else {
+        sortState.col = col;
+        sortState.dir = 1;
+      }
+      document.querySelectorAll('.sort-btn').forEach(function(b) {
+        b.className = 'sort-btn' + (b.dataset.col === col ? (sortState.dir === 1 ? ' asc' : ' desc') : '');
+      });
+      var tbody = document.getElementById('tbody');
+      rows.sort(function(a, b) {
+        var av = a.dataset[col] || '';
+        var bv = b.dataset[col] || '';
+        return av < bv ? -sortState.dir : av > bv ? sortState.dir : 0;
+      });
+      rows.forEach(function(r) { tbody.appendChild(r); });
+    });
+  });
+
+  applyFilters();
+})();
+</script>
 </body>
 </html>
