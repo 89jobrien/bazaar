@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>89jobrien's open source</title>
+<title>Open Source</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0d1117;color:#e6edf3;font-family:'Courier New',monospace;padding:1.5rem;max-width:1200px;margin:0 auto}
@@ -29,13 +29,14 @@ td.commits{color:#6e7681;max-width:280px}
 .badge-crate{background:#1a1a2e;color:#f78166;border:1px solid #3d1a1a}
 .badge-pypi{background:#1a2a1a;color:#56d364;border:1px solid #1a3d1a}
 .badge-plugin{background:#1a1a3d;color:#a371f7;border:1px solid #2d1f7a}
+.badge-tag{background:#0d2230;color:#79c0ff;border:1px solid #1f4060}
 .meta{color:#6e7681;white-space:nowrap}
 footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
 </style>
 </head>
 <body>
-<h1>89jobrien's open source</h1>
-<p class="sub">52 projects &middot; GitHub &middot; crates.io &middot; PyPI &middot; Claude plugins</p>
+<h1>Open Source</h1>
+<p class="sub">Projects I maintain or contribute to. &middot; 54 projects</p>
 <nav>
   <a href="https://github.com/89jobrien">GitHub</a>
   <a href="https://crates.io/users/89jobrien">crates.io</a>
@@ -61,74 +62,23 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
-    <td class="desc">Static Site Generator for published OSS</td>
+    <td class="desc">Claude Code plugin marketplace and showcase generator</td>
     <td class="commits">
       
-      <span class="commit-msg" title="feat: dense table layout with recent commits">feat: dense table layout with recent commits</span>
+      <span class="commit-msg" title="fix: use --autostash on git pull --rebase to handle dirty worktree after build">fix: use --autostash on git pull --rebase to handle dirty worktree after build</span>
       
-      <span class="commit-msg" title="docs: update handoff — test suite blockers (unsafe{} blocks needed)">docs: update handoff — test suite blockers (unsafe{} blocks needed)</span>
+      <span class="commit-msg" title="feat: YAML-driven header config and generated showcase output (closes #1)">feat: YAML-driven header config and generated showcase output (closes #1)</span>
       
-      <span class="commit-msg" title="chore: regenerate showcase [skip ci]">chore: regenerate showcase [skip ci]</span>
+      <span class="commit-msg" title="feat: add examples/header.md, wire --readme-header">feat: add examples/header.md, wire --readme-header</span>
       
     </td>
     <td class="meta">
-      <div>vv0.2.0</div>
+      <div>vv0.4.0</div>
       
       
-      <div>2026-04-18</div>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/crux" target="_blank" rel="noopener">crux</a></td>
-    <td>
-      <div class="badges">
-        
-        <span class="badge badge-gh">gh</span>
-        
-        
-        <span class="badge badge-gh">Rust</span>
-      </div>
-    </td>
-    <td class="desc"></td>
-    <td class="commits">
-      
-      <span class="commit-msg" title="docs: address council findings — restore descriptions, add missing SHAs, fix timestamps">docs: address council findings — restore descriptions, add missing SHAs, fix timestamps</span>
-      
-      <span class="commit-msg" title="docs: update handoff — session 13 complete (crux-20, crux-22 closed)">docs: update handoff — session 13 complete (crux-20, crux-22 closed)</span>
-      
-      <span class="commit-msg" title="chore: bump crux-agentic to v0.2.2 (adds baml feature + llm::extract)">chore: bump crux-agentic to v0.2.2 (adds baml feature + llm::extract)</span>
-      
-    </td>
-    <td class="meta">
-      
-      
-      
-      <div>2026-04-18</div>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="name"><a href="https://crates.io/crates/crux-agentic" target="_blank" rel="noopener">crux-agentic</a></td>
-    <td>
-      <div class="badges">
-        
-        <span class="badge badge-crate">crate</span>
-        
-        
-        <span class="badge badge-gh">Rust</span>
-      </div>
-    </td>
-    <td class="desc">Built-in step handlers for crux-script pipelines</td>
-    <td class="commits">
-      
-    </td>
-    <td class="meta">
-      <div>v0.2.2</div>
-      
-      <div>17dl</div>
       <div>2026-04-18</div>
     </td>
   </tr>
@@ -145,6 +95,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Shell</span>
+        <span class="badge badge-tag">plugins</span>
       </div>
     </td>
     <td class="desc">Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse</td>
@@ -166,6 +117,225 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
   </tr>
 
   <tr>
+    <td class="name"><a href="https://github.com/89jobrien/orca-strait" target="_blank" rel="noopener">orca-strait</a></td>
+    <td>
+      <div class="badges">
+        
+        <span class="badge badge-gh">gh</span>
+        
+        
+        <span class="badge badge-plugin">plugin</span>
+        
+        
+        <span class="badge badge-gh">Shell</span>
+        <span class="badge badge-tag">plugins</span>
+      </div>
+    </td>
+    <td class="desc">Parallel TDD sub-agent orchestrator for Rust workspaces</td>
+    <td class="commits">
+      
+      <span class="commit-msg" title="chore: set plugin version to b388aa0">chore: set plugin version to b388aa0</span>
+      
+      <span class="commit-msg" title="fix: inline hooks into plugin.json for Claude Code compatibility">fix: inline hooks into plugin.json for Claude Code compatibility</span>
+      
+      <span class="commit-msg" title="chore: set plugin version to 167d8a3">chore: set plugin version to 167d8a3</span>
+      
+    </td>
+    <td class="meta">
+      
+      
+      
+      <div>2026-04-18</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="name"><a href="https://crates.io/crates/rx-rxx" target="_blank" rel="noopener">rx-rxx</a></td>
+    <td>
+      <div class="badges">
+        
+        <span class="badge badge-crate">crate</span>
+        
+        
+        <span class="badge badge-gh">Rust</span>
+        
+      </div>
+    </td>
+    <td class="desc">Execute compatible scripts directly</td>
+    <td class="commits">
+      
+    </td>
+    <td class="meta">
+      <div>v0.1.0</div>
+      
+      <div>0dl</div>
+      <div>2026-04-18</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="name"><a href="https://crates.io/crates/rx-registry-json" target="_blank" rel="noopener">rx-registry-json</a></td>
+    <td>
+      <div class="badges">
+        
+        <span class="badge badge-crate">crate</span>
+        
+        
+        <span class="badge badge-gh">Rust</span>
+        
+      </div>
+    </td>
+    <td class="desc">JSON registry and HTTP fetcher adapters for rx</td>
+    <td class="commits">
+      
+    </td>
+    <td class="meta">
+      <div>v0.1.0</div>
+      
+      <div>0dl</div>
+      <div>2026-04-18</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="name"><a href="https://crates.io/crates/rx-script-core" target="_blank" rel="noopener">rx-script-core</a></td>
+    <td>
+      <div class="badges">
+        
+        <span class="badge badge-crate">crate</span>
+        
+        
+        <span class="badge badge-gh">Rust</span>
+        
+      </div>
+    </td>
+    <td class="desc">Core runtime detection and execution planning for rx</td>
+    <td class="commits">
+      
+    </td>
+    <td class="meta">
+      <div>v0.1.0</div>
+      
+      <div>0dl</div>
+      <div>2026-04-18</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="name"><a href="https://github.com/89jobrien/coursers" target="_blank" rel="noopener">coursers</a></td>
+    <td>
+      <div class="badges">
+        
+        <span class="badge badge-gh">gh</span>
+        
+        
+        <span class="badge badge-gh">Rust</span>
+        
+      </div>
+    </td>
+    <td class="desc">Claude Code hook pipeline for command course-correction — rule-based blocking and learned failure prevention</td>
+    <td class="commits">
+      
+      <span class="commit-msg" title="feat(stats): record live block counts per rule, add crs stats subcommand">feat(stats): record live block counts per rule, add crs stats subcommand</span>
+      
+      <span class="commit-msg" title="docs: update handoff — prune done items, add 2026-04-18 log entry, fix .gitignore for .ctx/">docs: update handoff — prune done items, add 2026-04-18 log entry, fix .gitignore for .ctx/</span>
+      
+      <span class="commit-msg" title="feat(pre): block ls with Glob redirect + eza file-tree in deny message">feat(pre): block ls with Glob redirect + eza file-tree in deny message</span>
+      
+    </td>
+    <td class="meta">
+      
+      
+      
+      <div>2026-04-18</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="name"><a href="https://github.com/89jobrien/rx" target="_blank" rel="noopener">rx</a></td>
+    <td>
+      <div class="badges">
+        
+        <span class="badge badge-gh">gh</span>
+        
+        
+        <span class="badge badge-gh">Rust</span>
+        
+      </div>
+    </td>
+    <td class="desc"></td>
+    <td class="commits">
+      
+      <span class="commit-msg" title="feat(rx-1): wire changed-path args into shell preflight">feat(rx-1): wire changed-path args into shell preflight</span>
+      
+      <span class="commit-msg" title="feat: move preflight.rs to .ctx/scripts, add plugin scaffolding and skills">feat: move preflight.rs to .ctx/scripts, add plugin scaffolding and skills</span>
+      
+      <span class="commit-msg" title="docs: update handoff">docs: update handoff</span>
+      
+    </td>
+    <td class="meta">
+      
+      
+      
+      <div>2026-04-18</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="name"><a href="https://github.com/89jobrien/crux" target="_blank" rel="noopener">crux</a></td>
+    <td>
+      <div class="badges">
+        
+        <span class="badge badge-gh">gh</span>
+        
+        
+        <span class="badge badge-gh">Rust</span>
+        <span class="badge badge-tag">agents</span>
+      </div>
+    </td>
+    <td class="desc"></td>
+    <td class="commits">
+      
+      <span class="commit-msg" title="feat: add examples, shared test fixtures, and restructured CI workflows">feat: add examples, shared test fixtures, and restructured CI workflows</span>
+      
+      <span class="commit-msg" title="docs: update handoff — session 15">docs: update handoff — session 15</span>
+      
+      <span class="commit-msg" title="docs: add BAML section to CLAUDE.md (version parity, gitignore, test injection)">docs: add BAML section to CLAUDE.md (version parity, gitignore, test injection)</span>
+      
+    </td>
+    <td class="meta">
+      
+      
+      
+      <div>2026-04-18</div>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="name"><a href="https://crates.io/crates/crux-agentic" target="_blank" rel="noopener">crux-agentic</a></td>
+    <td>
+      <div class="badges">
+        
+        <span class="badge badge-crate">crate</span>
+        
+        
+        <span class="badge badge-gh">Rust</span>
+        
+      </div>
+    </td>
+    <td class="desc">Built-in step handlers for crux-script pipelines</td>
+    <td class="commits">
+      
+    </td>
+    <td class="meta">
+      <div>v0.2.2</div>
+      
+      <div>30dl</div>
+      <div>2026-04-18</div>
+    </td>
+  </tr>
+
+  <tr>
     <td class="name"><a href="https://github.com/89jobrien/89jobrien.github.io" target="_blank" rel="noopener">89jobrien.github.io</a></td>
     <td>
       <div class="badges">
@@ -174,6 +344,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">HTML</span>
+        
       </div>
     </td>
     <td class="desc">Personal site</td>
@@ -203,6 +374,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">An agentic DSL for Rust — inspectable, serializable, replayable agent execution</td>
@@ -212,7 +384,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     <td class="meta">
       <div>v0.2.1</div>
       
-      <div>30dl</div>
+      <div>34dl</div>
       <div>2026-04-17</div>
     </td>
   </tr>
@@ -226,6 +398,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">YAML-driven pipeline scripting for the cruxai agentic DSL</td>
@@ -235,7 +408,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     <td class="meta">
       <div>v0.2.1</div>
       
-      <div>39dl</div>
+      <div>44dl</div>
       <div>2026-04-17</div>
     </td>
   </tr>
@@ -249,6 +422,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Proc macros for the cruxai agentic DSL</td>
@@ -258,7 +432,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     <td class="meta">
       <div>v0.2.1</div>
       
-      <div>37dl</div>
+      <div>41dl</div>
       <div>2026-04-17</div>
     </td>
   </tr>
@@ -272,6 +446,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Core types, traits, and runtime for the cruxai agentic DSL</td>
@@ -281,7 +456,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     <td class="meta">
       <div>v0.2.1</div>
       
-      <div>48dl</div>
+      <div>53dl</div>
       <div>2026-04-17</div>
     </td>
   </tr>
@@ -298,6 +473,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        <span class="badge badge-tag">agents</span>
       </div>
     </td>
     <td class="desc">Shared vocabulary types for the Slash and Crux agentic Rust ecosystem</td>
@@ -311,36 +487,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     <td class="meta">
       <div>v0.1.1</div>
       
-      <div>32dl</div>
-      <div>2026-04-17</div>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="name"><a href="https://github.com/89jobrien/coursers" target="_blank" rel="noopener">coursers</a></td>
-    <td>
-      <div class="badges">
-        
-        <span class="badge badge-gh">gh</span>
-        
-        
-        <span class="badge badge-gh">Rust</span>
-      </div>
-    </td>
-    <td class="desc">Claude Code hook pipeline for command course-correction — rule-based blocking and learned failure prevention</td>
-    <td class="commits">
-      
-      <span class="commit-msg" title="feat(crs): add rx-audit subcommand">feat(crs): add rx-audit subcommand</span>
-      
-      <span class="commit-msg" title="fix: apply council recommendations — serde-saphyr, ProbeStore trait, CRS_CTX_DIR path, || tie-breaking tests">fix: apply council recommendations — serde-saphyr, ProbeStore trait, CRS_CTX_DIR path, || tie-breaking tests</span>
-      
-      <span class="commit-msg" title="chore: lock file update + rx prefix integration plan doc">chore: lock file update + rx prefix integration plan doc</span>
-      
-    </td>
-    <td class="meta">
-      
-      
-      
+      <div>37dl</div>
       <div>2026-04-17</div>
     </td>
   </tr>
@@ -357,6 +504,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Shell</span>
+        <span class="badge badge-tag">plugins</span>
       </div>
     </td>
     <td class="desc">Task and todo management specialist — doob CLI integration, council report ingestion, HANDOFF reconciliation</td>
@@ -376,35 +524,6 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
   </tr>
 
   <tr>
-    <td class="name"><a href="https://github.com/89jobrien/rx" target="_blank" rel="noopener">rx</a></td>
-    <td>
-      <div class="badges">
-        
-        <span class="badge badge-gh">gh</span>
-        
-        
-        <span class="badge badge-gh">Rust</span>
-      </div>
-    </td>
-    <td class="desc"></td>
-    <td class="commits">
-      
-      <span class="commit-msg" title="feat: add command expansion and CI workflows">feat: add command expansion and CI workflows</span>
-      
-      <span class="commit-msg" title="docs: update handoff">docs: update handoff</span>
-      
-      <span class="commit-msg" title="docs: add workspace handoff">docs: add workspace handoff</span>
-      
-    </td>
-    <td class="meta">
-      
-      
-      
-      <div>2026-04-17</div>
-    </td>
-  </tr>
-
-  <tr>
     <td class="name"><a href="https://github.com/89jobrien/hj" target="_blank" rel="noopener">hj</a></td>
     <td>
       <div class="badges">
@@ -413,6 +532,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        <span class="badge badge-tag">agents</span>
       </div>
     </td>
     <td class="desc">Rust handoff CLI workspace for HANDOFF state, reconciliation, rendering, and closeout</td>
@@ -442,6 +562,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">CLI for handoff state, reconciliation, and handup surveys</td>
@@ -465,6 +586,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Markdown rendering for hj handoff workflows</td>
@@ -488,6 +610,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Doob integration helpers for hj handoff workflows</td>
@@ -511,6 +634,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">SQLite backing stores for hj handoff workflows</td>
@@ -534,6 +658,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Git and repo discovery utilities for hj handoff workflows</td>
@@ -557,6 +682,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Core data types for hj handoff workflows</td>
@@ -580,6 +706,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Install rust-script scripts from local directories, files, and URLs</td>
@@ -606,6 +733,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        <span class="badge badge-tag">plugins</span>
       </div>
     </td>
     <td class="desc">Absorb foreign repos into the Rust ecosystem — extract, classify, and generate hexagonal components</td>
@@ -638,6 +766,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Just tools in a loop.</td>
@@ -667,6 +796,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Claude Code session logs dashboard — Rust/Axum web server with embedded high-density UI</td>
@@ -696,6 +826,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Polyglot data harvester — syncs Claude memory, git commits, Obsidian notes, and Pieces activities to JSONL</td>
@@ -725,6 +856,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        <span class="badge badge-tag">cli</span>
       </div>
     </td>
     <td class="desc">Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI</td>
@@ -754,6 +886,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">A pure-Rust dotfiles manager and new-machine bootstrap system</td>
@@ -786,6 +919,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        <span class="badge badge-tag">cli</span>
       </div>
     </td>
     <td class="desc">What the fsck is this?</td>
@@ -815,6 +949,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Rust Semantic Code Linter</td>
@@ -836,38 +971,6 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
   </tr>
 
   <tr>
-    <td class="name"><a href="https://github.com/89jobrien/orca-strait" target="_blank" rel="noopener">orca-strait</a></td>
-    <td>
-      <div class="badges">
-        
-        <span class="badge badge-gh">gh</span>
-        
-        
-        <span class="badge badge-plugin">plugin</span>
-        
-        
-        <span class="badge badge-gh">Shell</span>
-      </div>
-    </td>
-    <td class="desc">Parallel TDD sub-agent orchestrator for Rust workspaces</td>
-    <td class="commits">
-      
-      <span class="commit-msg" title="chore: set plugin version to 167d8a3">chore: set plugin version to 167d8a3</span>
-      
-      <span class="commit-msg" title="Merge branch &#x27;main&#x27; of https://github.com/89jobrien/orca-strait">Merge branch &#x27;main&#x27; of https://github.com/89jobrien/orca-strait</span>
-      
-      <span class="commit-msg" title="chore: set plugin version to 5b10fd6">chore: set plugin version to 5b10fd6</span>
-      
-    </td>
-    <td class="meta">
-      
-      
-      
-      <div>2026-04-13</div>
-    </td>
-  </tr>
-
-  <tr>
     <td class="name"><a href="https://github.com/89jobrien/sanctum" target="_blank" rel="noopener">sanctum</a></td>
     <td>
       <div class="badges">
@@ -879,6 +982,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Go</span>
+        <span class="badge badge-tag">plugins</span>
       </div>
     </td>
     <td class="desc">Personal Claude Code plugin — 1Password and direnv session management</td>
@@ -908,6 +1012,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc"></td>
@@ -937,6 +1042,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">PostToolUse validation hook for Claude Code — blocks Edit/Write when on-disk content diverges from expected</td>
@@ -960,6 +1066,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">CLI for the slash-command language</td>
@@ -983,6 +1090,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Proptest strategies and harness configuration for testing slash-command language parsers</td>
@@ -1006,6 +1114,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Executor types and high-level API for the slash-command language</td>
@@ -1029,6 +1138,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        
       </div>
     </td>
     <td class="desc">Parser and AST for the slash-command language</td>
@@ -1052,6 +1162,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Shell</span>
+        
       </div>
     </td>
     <td class="desc"></td>
@@ -1081,6 +1192,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Python</span>
+        
       </div>
     </td>
     <td class="desc">Steve&#x27;s not here, man.</td>
@@ -1113,6 +1225,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Rust</span>
+        <span class="badge badge-tag">cli</span>
       </div>
     </td>
     <td class="desc">Modern, agent-first todo CLI built with Rust and SurrealDB</td>
@@ -1142,6 +1255,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Go</span>
+        
       </div>
     </td>
     <td class="desc">AI-powered dev workflow toolkit</td>
@@ -1171,6 +1285,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Shell</span>
+        
       </div>
     </td>
     <td class="desc">Session handoff toolkit for Claude Code — start, end, and visualize project state via HANDOFF.yaml</td>
@@ -1200,6 +1315,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Shell</span>
+        
       </div>
     </td>
     <td class="desc"></td>
@@ -1227,6 +1343,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Shell</span>
+        
       </div>
     </td>
     <td class="desc"></td>
@@ -1256,6 +1373,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Go</span>
+        
       </div>
     </td>
     <td class="desc">CLI tool for running parallel agent experiments with automatic metric collection and statistical analysis</td>
@@ -1285,6 +1403,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Shell</span>
+        
       </div>
     </td>
     <td class="desc"></td>
@@ -1310,6 +1429,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Go</span>
+        
       </div>
     </td>
     <td class="desc"></td>
@@ -1339,6 +1459,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Python</span>
+        
       </div>
     </td>
     <td class="desc">TradingAgents: Multi-Agents LLM Financial Trading Framework</td>
@@ -1360,29 +1481,6 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
   </tr>
 
   <tr>
-    <td class="name"><a href="https://github.com/89jobrien/alfred" target="_blank" rel="noopener">alfred</a></td>
-    <td>
-      <div class="badges">
-        
-        <span class="badge badge-gh">gh</span>
-        
-        
-        
-      </div>
-    </td>
-    <td class="desc"></td>
-    <td class="commits">
-      
-    </td>
-    <td class="meta">
-      
-      
-      
-      <div>2025-11-06</div>
-    </td>
-  </tr>
-
-  <tr>
     <td class="name"><a href="https://github.com/89jobrien/agentic" target="_blank" rel="noopener">agentic</a></td>
     <td>
       <div class="badges">
@@ -1391,6 +1489,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Python</span>
+        
       </div>
     </td>
     <td class="desc">RAG Agent that generates embeddings for a repository and answers queries</td>
@@ -1420,6 +1519,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">Python</span>
+        
       </div>
     </td>
     <td class="desc">ValAI is an agentic personal assistant with productivity in mind.</td>
@@ -1449,6 +1549,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         
         
         <span class="badge badge-gh">MDX</span>
+        
       </div>
     </td>
     <td class="desc"></td>
@@ -1469,6 +1570,6 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
 
   </tbody>
 </table>
-<footer>Generated 2026-04-18 04:06 UTC</footer>
+<footer>Generated 2026-04-18 10:40 UTC</footer>
 </body>
 </html>
