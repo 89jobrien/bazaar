@@ -10,10 +10,14 @@ _Generated 2026-04-18_
 | [bazaar](https://github.com/89jobrien/bazaar) | Repo | — | Claude Code plugin marketplace and showcase generator | 2026-04-18 |
 | [atelier](https://github.com/89jobrien/atelier) | Repo / Plugin | `plugins` | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse | 2026-04-18 |
 | [orca-strait](https://github.com/89jobrien/orca-strait) | Repo / Plugin | `plugins` | Parallel TDD sub-agent orchestrator for Rust workspaces | 2026-04-18 |
+| [obfsck](https://github.com/89jobrien/obfsck) | Repo / Crate | `cli` | Secret-detection and redaction CLI for pre-commit hooks | 2026-04-18 |
+| [doob](https://github.com/89jobrien/doob) | Repo / Crate | `cli` | Modern, agent-first todo CLI built with Rust and SurrealDB | 2026-04-18 |
+| [harvestrs](https://github.com/89jobrien/harvestrs) | Repo | `tools` | Polyglot data harvester — syncs Claude memory, git, Obsidian, Pieces to JSONL | 2026-04-18 |
+| [mcpipe](https://github.com/89jobrien/mcpipe) | Repo | `cli` | Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI | 2026-04-18 |
+| [coursers](https://github.com/89jobrien/coursers) | Repo | `cli` | Claude Code hook — blocks anti-pattern CLI commands and tracks failures | 2026-04-18 |
 | [rx-rxx](https://crates.io/crates/rx-rxx) | Crate | — | Execute compatible scripts directly | 2026-04-18 |
 | [rx-registry-json](https://crates.io/crates/rx-registry-json) | Crate | — | JSON registry and HTTP fetcher adapters for rx | 2026-04-18 |
 | [rx-script-core](https://crates.io/crates/rx-script-core) | Crate | — | Core runtime detection and execution planning for rx | 2026-04-18 |
-| [coursers](https://github.com/89jobrien/coursers) | Repo | `cli` | Claude Code hook — blocks anti-pattern CLI commands and tracks failures | 2026-04-18 |
 | [rx](https://github.com/89jobrien/rx) | Repo | — | — | 2026-04-18 |
 | [crux](https://github.com/89jobrien/crux) | Repo | `agents` | — | 2026-04-18 |
 | [crux-agentic](https://crates.io/crates/crux-agentic) | Crate | — | Built-in step handlers for crux-script pipelines | 2026-04-18 |
@@ -35,10 +39,7 @@ _Generated 2026-04-18_
 | [cannibalizer](https://github.com/89jobrien/cannibalizer) | Repo / Plugin | `plugins` | Absorb foreign repos into the Rust ecosystem — extract, classify, and generate hexagonal components | 2026-04-14 |
 | [looprs](https://github.com/89jobrien/looprs) | Repo / Crate | `tools` | Just tools in a loop. | 2026-04-14 |
 | [peeprs](https://github.com/89jobrien/peeprs) | Repo | `tools` | Claude Code session logs dashboard | 2026-04-14 |
-| [harvestrs](https://github.com/89jobrien/harvestrs) | Repo | `tools` | Polyglot data harvester — syncs Claude memory, git, Obsidian, Pieces to JSONL | 2026-04-14 |
-| [mcpipe](https://github.com/89jobrien/mcpipe) | Repo | `cli` | Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI | 2026-04-14 |
 | [notfiles](https://github.com/89jobrien/notfiles) | Repo | `cli` `infra` | Nix-based dotfiles and system configuration | 2026-04-14 |
-| [obfsck](https://github.com/89jobrien/obfsck) | Repo / Crate | `cli` | Secret-detection and redaction CLI for pre-commit hooks | 2026-04-14 |
 | [rascal](https://github.com/89jobrien/rascal) | Repo | `tools` | Rust Semantic Code Linter | 2026-04-14 |
 | [sanctum](https://github.com/89jobrien/sanctum) | Repo / Plugin | `plugins` | Personal Claude Code plugin — 1Password and direnv session management | 2026-04-13 |
 | [fmtx](https://github.com/89jobrien/fmtx) | Repo | `cli` | — | 2026-04-13 |
@@ -49,7 +50,6 @@ _Generated 2026-04-18_
 | [slash-lang](https://crates.io/crates/slash-lang) | Crate | — | Parser and AST for the slash-command language | 2026-04-12 |
 | [dotfiles](https://github.com/89jobrien/dotfiles) | Repo | — | — | 2026-04-12 |
 | [steve](https://github.com/89jobrien/steve) | Repo | — | Steve's not here, man. | 2026-04-11 |
-| [doob](https://github.com/89jobrien/doob) | Repo / Crate | `cli` | Modern, agent-first todo CLI built with Rust and SurrealDB | 2026-04-11 |
 | [devkit](https://github.com/89jobrien/devkit) | Repo | — | AI-powered dev workflow toolkit | 2026-04-11 |
 | [hand](https://github.com/89jobrien/hand) | Repo | — | Session handoff toolkit for Claude Code — start, end, and visualize project state via HANDOFF.yaml | 2026-04-05 |
 | [jorts](https://github.com/89jobrien/jorts) | Repo | — | — | 2026-04-02 |
