@@ -10,6 +10,12 @@ pub enum Kind {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Commit {
+    pub message: String,
+    pub date: DateTime<Utc>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Project {
     pub name: String,
     pub description: Option<String>,
@@ -20,6 +26,7 @@ pub struct Project {
     pub version: Option<String>,
     pub stars: Option<u32>,
     pub downloads: Option<u64>,
+    pub recent_commits: Vec<Commit>,
 }
 
 /// Merge projects from multiple sources. Projects with the same `name` are combined:
@@ -39,6 +46,7 @@ pub fn merge(mut projects: Vec<Project>) -> Vec<Project> {
                 if existing.version.is_none() { existing.version = p.version.clone(); }
                 if existing.stars.is_none() { existing.stars = p.stars; }
                 if existing.downloads.is_none() { existing.downloads = p.downloads; }
+                if existing.recent_commits.is_empty() { existing.recent_commits = p.recent_commits.clone(); }
             })
             .or_insert(p);
     }
@@ -69,6 +77,7 @@ mod tests {
             version: None,
             stars: None,
             downloads: None,
+            recent_commits: vec![],
         }
     }
 

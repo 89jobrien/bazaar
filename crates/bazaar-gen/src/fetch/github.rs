@@ -1,4 +1,4 @@
-use crate::model::{Kind, Project};
+use crate::model::{Commit, Kind, Project};
 use crate::port::SourceFetcher;
 use anyhow::Result;
 use chrono::{DateTime, Utc};
@@ -27,6 +27,22 @@ struct Release {
     tag_name: String,
 }
 
+#[derive(Deserialize)]
+struct CommitItem {
+    commit: CommitDetail,
+}
+
+#[derive(Deserialize)]
+struct CommitDetail {
+    message: String,
+    author: CommitAuthor,
+}
+
+#[derive(Deserialize)]
+struct CommitAuthor {
+    date: Option<DateTime<Utc>>,
+}
+
 impl GitHubFetcher {
     fn request(&self, url: &str) -> reqwest::RequestBuilder {
         let req = self.client
@@ -38,6 +54,25 @@ impl GitHubFetcher {
         } else {
             req
         }
+    }
+
+    async fn recent_commits(&self, owner: &str, repo: &str) -> Vec<Commit> {
+        let url = format!(
+            "https://api.github.com/repos/{owner}/{repo}/commits?per_page=3"
+        );
+        let resp = match self.request(&url).send().await {
+            Ok(r) if r.status().is_success() => r,
+            _ => return vec![],
+        };
+        let items: Vec<CommitItem> = match resp.json().await {
+            Ok(v) => v,
+            Err(_) => return vec![],
+        };
+        items.into_iter().filter_map(|item| {
+            let date = item.commit.author.date?;
+            let message = item.commit.message.lines().next()?.to_string();
+            Some(Commit { message, date })
+        }).collect()
     }
 
     async fn latest_release(&self, owner: &str, repo: &str) -> Option<String> {
@@ -71,7 +106,10 @@ impl SourceFetcher for GitHubFetcher {
             if repo.archived { continue; }
             let pushed = repo.pushed_at.unwrap_or(Utc::now());
             if pushed < cutoff { continue; }
-            let version = self.latest_release(&self.user, &repo.name).await;
+            let (version, recent_commits) = tokio::join!(
+                self.latest_release(&self.user, &repo.name),
+                self.recent_commits(&self.user, &repo.name),
+            );
             projects.push(Project {
                 name: repo.name,
                 description: repo.description,
@@ -82,6 +120,7 @@ impl SourceFetcher for GitHubFetcher {
                 version,
                 stars: if repo.stargazers_count > 0 { Some(repo.stargazers_count) } else { None },
                 downloads: None,
+                recent_commits,
             });
         }
         Ok(projects)

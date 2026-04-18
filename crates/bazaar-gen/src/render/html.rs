@@ -4,6 +4,11 @@ use askama::Template;
 use chrono::Utc;
 
 #[derive(Clone)]
+struct CommitDisplay {
+    message: String,
+}
+
+#[derive(Clone)]
 struct ProjectDisplay {
     name: String,
     description: Option<String>,
@@ -14,6 +19,7 @@ struct ProjectDisplay {
     version: Option<String>,
     stars: Option<u32>,
     downloads: Option<u64>,
+    recent_commits: Vec<CommitDisplay>,
 }
 
 fn project_display(p: &Project) -> ProjectDisplay {
@@ -27,6 +33,9 @@ fn project_display(p: &Project) -> ProjectDisplay {
         version: p.version.clone(),
         stars: p.stars,
         downloads: p.downloads,
+        recent_commits: p.recent_commits.iter().map(|c| CommitDisplay {
+            message: c.message.clone(),
+        }).collect(),
     }
 }
 

@@ -43,6 +43,7 @@ impl SourceFetcher for PluginFetcher {
             version: None,
             stars: None,
             downloads: None,
+            recent_commits: vec![],
         }).collect())
     }
 }

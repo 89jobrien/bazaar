@@ -52,6 +52,7 @@ impl SourceFetcher for PypiFetcher {
                 version: Some(body.info.version),
                 stars: None,
                 downloads: None,
+                recent_commits: vec![],
             });
         }
         Ok(projects)
