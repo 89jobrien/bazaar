@@ -3,15 +3,15 @@
 Projects I maintain or contribute to.
 
 
-_Generated 2026-04-17_
+_Generated 2026-04-18_
 
 | Project | Kind | Description | Updated |
 |---|---|---|---|
-| [atelier](https://github.com/89jobrien/atelier) | Repo / Plugin | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse | 2026-04-17 |
-| [bazaar](https://github.com/89jobrien/bazaar) | Repo | Static Site Generator for published OSS | 2026-04-17 |
+| [bazaar](https://github.com/89jobrien/bazaar) | Repo | Static Site Generator for published OSS | 2026-04-18 |
+| [crux](https://github.com/89jobrien/crux) | Repo | — | 2026-04-18 |
+| [crux-agentic](https://crates.io/crates/crux-agentic) | Crate | Built-in step handlers for crux-script pipelines | 2026-04-18 |
+| [atelier](https://github.com/89jobrien/atelier) | Repo / Plugin | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse | 2026-04-18 |
 | [89jobrien.github.io](https://github.com/89jobrien/89jobrien.github.io) | Repo | Personal site | 2026-04-17 |
-| [crux](https://github.com/89jobrien/crux) | Repo | — | 2026-04-17 |
-| [crux-agentic](https://crates.io/crates/crux-agentic) | Crate | Built-in step handlers for crux-script pipelines | 2026-04-17 |
 | [cruxai](https://crates.io/crates/cruxai) | Crate | An agentic DSL for Rust — inspectable, serializable, replayable agent execution | 2026-04-17 |
 | [cruxai-script](https://crates.io/crates/cruxai-script) | Crate | YAML-driven pipeline scripting for the cruxai agentic DSL | 2026-04-17 |
 | [cruxai-macros](https://crates.io/crates/cruxai-macros) | Crate | Proc macros for the cruxai agentic DSL | 2026-04-17 |
