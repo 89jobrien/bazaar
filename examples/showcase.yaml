@@ -1,4 +1,4 @@
-generated: 2026-04-18T10:40:24.723859274+00:00
+generated: 2026-04-18T11:01:55.544422292+00:00
 projects:
 - name: bazaar
   description: Claude Code plugin marketplace and showcase generator
@@ -6,17 +6,17 @@ projects:
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-04-18T10:37:25Z
+  pushed_at: 2026-04-18T10:40:25Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-04-18T10:40:24Z
   - message: 'fix: use --autostash on git pull --rebase to handle dirty worktree after build'
     date: 2026-04-18T10:37:24Z
   - message: 'feat: YAML-driven header config and generated showcase output (closes #1)'
     date: 2026-04-18T05:06:00Z
-  - message: 'feat: add examples/header.md, wire --readme-header'
-    date: 2026-04-18T04:32:40Z
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
   url: https://github.com/89jobrien/atelier
