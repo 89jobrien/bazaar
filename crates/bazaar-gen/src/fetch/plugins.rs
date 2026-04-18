@@ -44,6 +44,7 @@ impl SourceFetcher for PluginFetcher {
             stars: None,
             downloads: None,
             recent_commits: vec![],
+            tags: vec![],
         }).collect())
     }
 }

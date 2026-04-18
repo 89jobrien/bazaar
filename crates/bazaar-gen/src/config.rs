@@ -53,9 +53,11 @@ mod tests {
     #[test]
     #[serial_test::serial]
     fn missing_github_user_returns_error() {
-        std::env::remove_var("BAZAAR_GITHUB_USER");
-        std::env::remove_var("BAZAAR_CRATES_IO_USER");
-        let result = Config::from_env(Path::new("nonexistent.toml"), );
+        unsafe {
+            std::env::remove_var("BAZAAR_GITHUB_USER");
+            std::env::remove_var("BAZAAR_CRATES_IO_USER");
+        }
+        let result = Config::from_env(Path::new("nonexistent.toml"));
         assert!(result.is_err());
         assert!(result.unwrap_err().to_string().contains("BAZAAR_GITHUB_USER"));
     }
@@ -63,28 +65,36 @@ mod tests {
     #[test]
     #[serial_test::serial]
     fn missing_crates_io_user_returns_error() {
-        std::env::remove_var("BAZAAR_GITHUB_USER");
-        std::env::remove_var("BAZAAR_CRATES_IO_USER");
-        std::env::set_var("BAZAAR_GITHUB_USER", "testuser");
-        let result = Config::from_env(Path::new("nonexistent.toml"), );
+        unsafe {
+            std::env::remove_var("BAZAAR_GITHUB_USER");
+            std::env::remove_var("BAZAAR_CRATES_IO_USER");
+            std::env::set_var("BAZAAR_GITHUB_USER", "testuser");
+        }
+        let result = Config::from_env(Path::new("nonexistent.toml"));
         assert!(result.is_err());
         assert!(result.unwrap_err().to_string().contains("BAZAAR_CRATES_IO_USER"));
-        std::env::remove_var("BAZAAR_GITHUB_USER");
+        unsafe { std::env::remove_var("BAZAAR_GITHUB_USER"); }
     }
 
     #[test]
     #[serial_test::serial]
     fn parses_pypi_toml() {
-        std::env::remove_var("BAZAAR_GITHUB_USER");
-        std::env::remove_var("BAZAAR_CRATES_IO_USER");
+        unsafe {
+            std::env::remove_var("BAZAAR_GITHUB_USER");
+            std::env::remove_var("BAZAAR_CRATES_IO_USER");
+        }
         let mut f = NamedTempFile::new().unwrap();
         writeln!(f, r#"packages = ["foo", "bar"]"#).unwrap();
-        std::env::set_var("BAZAAR_GITHUB_USER", "u");
-        std::env::set_var("BAZAAR_CRATES_IO_USER", "u");
-        let cfg = Config::from_env(f.path(), ).unwrap();
+        unsafe {
+            std::env::set_var("BAZAAR_GITHUB_USER", "u");
+            std::env::set_var("BAZAAR_CRATES_IO_USER", "u");
+        }
+        let cfg = Config::from_env(f.path()).unwrap();
         assert_eq!(cfg.pypi_packages, vec!["foo", "bar"]);
-        std::env::remove_var("BAZAAR_GITHUB_USER");
-        std::env::remove_var("BAZAAR_CRATES_IO_USER");
+        unsafe {
+            std::env::remove_var("BAZAAR_GITHUB_USER");
+            std::env::remove_var("BAZAAR_CRATES_IO_USER");
+        }
     }
 }
 

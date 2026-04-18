@@ -20,6 +20,7 @@ struct ProjectDisplay {
     stars: Option<u32>,
     downloads: Option<u64>,
     recent_commits: Vec<CommitDisplay>,
+    tags: Vec<String>,
 }
 
 fn project_display(p: &Project) -> ProjectDisplay {
@@ -36,6 +37,7 @@ fn project_display(p: &Project) -> ProjectDisplay {
         recent_commits: p.recent_commits.iter().map(|c| CommitDisplay {
             message: c.message.clone(),
         }).collect(),
+        tags: p.tags.clone(),
     }
 }
 
@@ -44,17 +46,27 @@ fn project_display(p: &Project) -> ProjectDisplay {
 struct IndexTemplate<'a> {
     username: &'a str,
     crates_user: &'a str,
+    title: &'a str,
+    subtitle: &'a str,
     projects: Vec<ProjectDisplay>,
     projects_count: usize,
     generated_at: String,
 }
 
-pub fn render_html(username: &str, crates_user: &str, projects: &[Project]) -> Result<String> {
+pub fn render_html(
+    username: &str,
+    crates_user: &str,
+    title: &str,
+    subtitle: &str,
+    projects: &[Project],
+) -> Result<String> {
     let display_projects = projects.iter().map(project_display).collect::<Vec<_>>();
     let projects_count = display_projects.len();
     let tmpl = IndexTemplate {
         username,
         crates_user,
+        title,
+        subtitle,
         projects: display_projects,
         projects_count,
         generated_at: Utc::now().format("%Y-%m-%d %H:%M UTC").to_string(),

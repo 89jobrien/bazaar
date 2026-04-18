@@ -88,6 +88,7 @@ impl SourceFetcher for CratesIoFetcher {
                     stars: None,
                     downloads: c.downloads,
                     recent_commits: vec![],
+                    tags: vec![],
                 });
             }
             fetched += count;

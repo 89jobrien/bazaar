@@ -121,6 +121,7 @@ impl SourceFetcher for GitHubFetcher {
                 stars: if repo.stargazers_count > 0 { Some(repo.stargazers_count) } else { None },
                 downloads: None,
                 recent_commits,
+                tags: vec![],
             });
         }
         Ok(projects)

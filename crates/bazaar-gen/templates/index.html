@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{{ username }}'s open source</title>
+<title>{{ title }}</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0d1117;color:#e6edf3;font-family:'Courier New',monospace;padding:1.5rem;max-width:1200px;margin:0 auto}
@@ -29,13 +29,14 @@ td.commits{color:#6e7681;max-width:280px}
 .badge-crate{background:#1a1a2e;color:#f78166;border:1px solid #3d1a1a}
 .badge-pypi{background:#1a2a1a;color:#56d364;border:1px solid #1a3d1a}
 .badge-plugin{background:#1a1a3d;color:#a371f7;border:1px solid #2d1f7a}
+.badge-tag{background:#0d2230;color:#79c0ff;border:1px solid #1f4060}
 .meta{color:#6e7681;white-space:nowrap}
 footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
 </style>
 </head>
 <body>
-<h1>{{ username }}'s open source</h1>
-<p class="sub">{{ projects_count }} projects &middot; GitHub &middot; crates.io &middot; PyPI &middot; Claude plugins</p>
+<h1>{{ title }}</h1>
+<p class="sub">{{ subtitle }} &middot; {{ projects_count }} projects</p>
 <nav>
   <a href="https://github.com/{{ username }}">GitHub</a>
   <a href="https://crates.io/users/{{ crates_user }}">crates.io</a>
@@ -65,6 +66,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
         {% endmatch %}
         {% endfor %}
         {% if let Some(lang) = p.language.as_deref() %}<span class="badge badge-gh">{{ lang }}</span>{% endif %}
+        {% for tag in p.tags %}<span class="badge badge-tag">{{ tag }}</span>{% endfor %}
       </div>
     </td>
     <td class="desc">{% if let Some(desc) = p.description.as_deref() %}{{ desc }}{% endif %}</td>

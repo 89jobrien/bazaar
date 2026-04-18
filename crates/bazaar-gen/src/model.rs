@@ -27,6 +27,8 @@ pub struct Project {
     pub stars: Option<u32>,
     pub downloads: Option<u64>,
     pub recent_commits: Vec<Commit>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub tags: Vec<String>,
 }
 
 /// Merge projects from multiple sources. Projects with the same `name` are combined:
@@ -78,6 +80,7 @@ mod tests {
             stars: None,
             downloads: None,
             recent_commits: vec![],
+            tags: vec![],
         }
     }
 

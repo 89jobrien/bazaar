@@ -1,0 +1,19 @@
+title: "Open Source"
+subtitle: "Projects I maintain or contribute to."
+
+# Optional: override description for a specific project
+overrides:
+  bazaar:
+    description: "Claude Code plugin marketplace and showcase generator"
+
+# Optional: pin projects to the top, in order
+pinned:
+  - bazaar
+  - atelier
+  - orca-strait
+
+# Optional: tag projects for filtering/grouping in the render
+tags:
+  cli: [bz, doob, mcpipe, obfsck]
+  plugins: [atelier, sanctum, orca-strait, valerie, cannibalizer]
+  agents: [crux, slashcrux, hj]
