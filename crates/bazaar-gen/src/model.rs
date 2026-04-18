@@ -31,6 +31,16 @@ pub struct Project {
     pub tags: Vec<String>,
 }
 
+impl Project {
+    pub fn slug(&self) -> String {
+        self.name
+            .to_lowercase()
+            .replace(|c: char| !c.is_alphanumeric() && c != '-', "-")
+            .trim_matches('-')
+            .to_string()
+    }
+}
+
 /// Merge projects from multiple sources. Projects with the same `name` are combined:
 /// kinds are unioned, and fields from later entries fill in None fields from earlier ones.
 pub fn merge(mut projects: Vec<Project>) -> Vec<Project> {

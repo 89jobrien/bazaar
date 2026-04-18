@@ -10,10 +10,12 @@ struct CommitDisplay {
 
 #[derive(Clone)]
 struct ProjectDisplay {
+    slug: String,
     name: String,
     description: Option<String>,
     url: String,
     kinds: Vec<Kind>,
+    kinds_str: String,
     language: Option<String>,
     pushed_at: Option<String>,
     version: Option<String>,
@@ -21,14 +23,28 @@ struct ProjectDisplay {
     downloads: Option<u64>,
     recent_commits: Vec<CommitDisplay>,
     tags: Vec<String>,
+    tags_str: String,
+}
+
+fn kind_token(k: &Kind) -> &'static str {
+    match k {
+        Kind::GitHubRepo => "gh",
+        Kind::CratesIo => "crate",
+        Kind::PyPI => "pypi",
+        Kind::ClaudePlugin => "plugin",
+    }
 }
 
 fn project_display(p: &Project) -> ProjectDisplay {
+    let kinds_str = p.kinds.iter().map(kind_token).collect::<Vec<_>>().join(" ");
+    let tags_str = p.tags.join(" ");
     ProjectDisplay {
+        slug: p.slug(),
         name: p.name.clone(),
         description: p.description.clone(),
         url: p.url.clone(),
         kinds: p.kinds.clone(),
+        kinds_str,
         language: p.language.clone(),
         pushed_at: p.pushed_at.as_ref().map(|dt| dt.format("%Y-%m-%d").to_string()),
         version: p.version.clone(),
@@ -38,6 +54,7 @@ fn project_display(p: &Project) -> ProjectDisplay {
             message: c.message.clone(),
         }).collect(),
         tags: p.tags.clone(),
+        tags_str,
     }
 }
 
@@ -51,6 +68,14 @@ struct IndexTemplate<'a> {
     projects: Vec<ProjectDisplay>,
     projects_count: usize,
     generated_at: String,
+    data_json: String,
+}
+
+#[derive(Template)]
+#[template(path = "project.html")]
+struct ProjectTemplate {
+    project: ProjectDisplay,
+    generated_at: String,
 }
 
 pub fn render_html(
@@ -59,6 +84,7 @@ pub fn render_html(
     title: &str,
     subtitle: &str,
     projects: &[Project],
+    data_json: &str,
 ) -> Result<String> {
     let display_projects = projects.iter().map(project_display).collect::<Vec<_>>();
     let projects_count = display_projects.len();
@@ -70,6 +96,15 @@ pub fn render_html(
         projects: display_projects,
         projects_count,
         generated_at: Utc::now().format("%Y-%m-%d %H:%M UTC").to_string(),
+        data_json: data_json.to_string(),
     };
     tmpl.render().map_err(|e| anyhow::anyhow!("template render failed: {e}"))
+}
+
+pub fn render_project_html(_username: &str, project: &Project) -> Result<String> {
+    let tmpl = ProjectTemplate {
+        project: project_display(project),
+        generated_at: Utc::now().format("%Y-%m-%d %H:%M UTC").to_string(),
+    };
+    tmpl.render().map_err(|e| anyhow::anyhow!("project template render failed: {e}"))
 }

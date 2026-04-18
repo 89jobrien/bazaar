@@ -1,4 +1,5 @@
 mod config;
+mod deploy;
 mod error;
 mod fetch;
 mod header;
@@ -25,8 +26,9 @@ use tokio::try_join;
 #[derive(Parser)]
 #[command(name = "bz", about = "bazaar showcase generator")]
 struct Args {
-    #[arg(long, default_value = "index.html")]
-    output: PathBuf,
+    /// Output directory for generated site files (default: examples/)
+    #[arg(long, default_value = "examples")]
+    output_dir: PathBuf,
     #[arg(long, default_value = "README.md")]
     readme: PathBuf,
     #[arg(long, default_value = "pypi.toml")]
@@ -37,6 +39,12 @@ struct Args {
     header_config: PathBuf,
     #[arg(long, default_value = "examples/showcase.yaml")]
     showcase_yaml: PathBuf,
+    /// Push generated site directly to the GitHub Pages repo
+    #[arg(long)]
+    deploy: bool,
+    /// GitHub repo to deploy to (owner/name)
+    #[arg(long, default_value = "89jobrien/89jobrien.github.io")]
+    deploy_repo: String,
     #[arg(long)]
     watch: bool,
     #[arg(long, default_value = "300")]
@@ -77,25 +85,54 @@ async fn generate(client: &Client, args: &Args, config: &Config) -> anyhow::Resu
     let merged = model::merge(all);
     eprintln!("{} projects after merge", merged.len());
 
-    // Load header config and apply overrides/pinned/tags
     let hcfg = HeaderConfig::load(&args.header_config)?;
     let projects = hcfg.apply(merged);
 
+    // When deploying, generate into a tempdir; otherwise use output_dir
+    let tmp;
+    let out: &std::path::Path = if args.deploy {
+        tmp = tempfile::tempdir()?;
+        tmp.path()
+    } else {
+        std::fs::create_dir_all(&args.output_dir)?;
+        args.output_dir.as_path()
+    };
+
+    let projects_dir = out.join("projects");
+    std::fs::create_dir_all(&projects_dir)?;
+
+    // data.json
+    let data_json = render::json::render_data_json(&projects)?;
+    std::fs::write(out.join("data.json"), &data_json)?;
+    eprintln!("wrote data.json");
+
+    // index.html
     let html = render::html::render_html(
         &config.github_user,
         &config.crates_io_user,
         &hcfg.title,
         &hcfg.subtitle,
         &projects,
+        &data_json,
     )?;
-    std::fs::write(&args.output, &html)?;
-    eprintln!("wrote {}", args.output.display());
+    std::fs::write(out.join("index.html"), &html)?;
+    eprintln!("wrote index.html");
 
+    // projects/<slug>/index.html
+    for p in &projects {
+        let slug = p.slug();
+        let project_dir = projects_dir.join(&slug);
+        std::fs::create_dir_all(&project_dir)?;
+        let project_html = render::html::render_project_html(&config.github_user, p)?;
+        std::fs::write(project_dir.join("index.html"), project_html)?;
+        eprintln!("wrote projects/{slug}/index.html");
+    }
+
+    // README + showcase.yaml always go to their configured paths
     let md = render::markdown::render_readme(&projects, &hcfg.title, &hcfg.subtitle)?;
     std::fs::write(&args.readme, &md)?;
     eprintln!("wrote {}", args.readme.display());
 
-    // Write showcase.yaml
     #[derive(serde::Serialize)]
     struct ShowcaseYaml<'a> {
         generated: String,
@@ -105,9 +142,12 @@ async fn generate(client: &Client, args: &Args, config: &Config) -> anyhow::Resu
         generated: Utc::now().to_rfc3339(),
         projects: &projects,
     };
-    let yaml_text = serde_yaml::to_string(&showcase)?;
-    std::fs::write(&args.showcase_yaml, yaml_text)?;
+    std::fs::write(&args.showcase_yaml, serde_yaml::to_string(&showcase)?)?;
     eprintln!("wrote {}", args.showcase_yaml.display());
+
+    if args.deploy {
+        deploy::deploy(out, &args.deploy_repo, config.github_token.as_deref())?;
+    }
 
     Ok(())
 }

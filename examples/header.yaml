@@ -5,6 +5,24 @@ subtitle: "Projects I maintain or contribute to."
 overrides:
   bazaar:
     description: "Claude Code plugin marketplace and showcase generator"
+  hj:
+    description: "Handoff state, reconciliation, rendering, and handup surveys"
+  peeprs:
+    description: "Claude Code session logs dashboard"
+  harvestrs:
+    description: "Polyglot data harvester — syncs Claude memory, git, Obsidian, Pieces to JSONL"
+  coursers:
+    description: "Claude Code hook — blocks anti-pattern CLI commands and tracks failures"
+  devloop:
+    description: "Container orchestration and council analysis platform"
+  minibox:
+    description: "Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning"
+  notfiles:
+    description: "Nix-based dotfiles and system configuration"
+  obfsck:
+    description: "Secret-detection and redaction CLI for pre-commit hooks"
+  valerie:
+    description: "Claude Code plugin for task and todo management via doob"
 
 # Optional: pin projects to the top, in order
 pinned:
@@ -14,6 +32,8 @@ pinned:
 
 # Optional: tag projects for filtering/grouping in the render
 tags:
-  cli: [bz, doob, mcpipe, obfsck]
-  plugins: [atelier, sanctum, orca-strait, valerie, cannibalizer]
+  cli: [bz, doob, mcpipe, obfsck, notfiles, coursers, fmtx]
+  plugins: [atelier, sanctum, orca-strait, valerie, cannibalizer, plugit]
   agents: [crux, slashcrux, hj]
+  tools: [harvestrs, looprs, peeprs, rascal, pj]
+  infra: [minibox, devloop, notfiles]
