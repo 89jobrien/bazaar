@@ -1,4 +1,4 @@
-generated: 2026-04-18T23:17:18.833664960+00:00
+generated: 2026-04-19T07:05:04.248916491+00:00
 projects:
 - name: bazaar
   description: Claude Code plugin marketplace and showcase generator
@@ -6,17 +6,17 @@ projects:
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-04-18T11:34:23Z
+  pushed_at: 2026-04-19T06:34:27Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: update .gitignore managed block'
+    date: 2026-04-19T06:34:04Z
+  - message: 'docs: update handoff'
+    date: 2026-04-18T12:47:29Z
   - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-04-18T11:34:22Z
-  - message: 'feat: per-project pages, sort/filter/search, bz --deploy'
-    date: 2026-04-18T11:33:32Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-04-18T11:18:51Z
+    date: 2026-04-18T23:17:18Z
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
   url: https://github.com/89jobrien/atelier
@@ -24,17 +24,17 @@ projects:
   - GitHubRepo
   - ClaudePlugin
   language: Shell
-  pushed_at: 2026-04-18T00:46:55Z
+  pushed_at: 2026-04-19T00:13:31Z
   version: null
   stars: null
   downloads: null
   recent_commits:
-  - message: 'feat(forge): route to minion, midion, maxion for task execution'
-    date: 2026-04-18T00:46:51Z
-  - message: 'chore: set plugin version to dd23116'
-    date: 2026-04-18T00:46:07Z
-  - message: 'refactor(forge): drop internal knowledge block, route session context through handon'
-    date: 2026-04-18T00:46:06Z
+  - message: 'fix(handoff-reconcile): resolve valerie script via cache glob fallback'
+    date: 2026-04-19T00:13:27Z
+  - message: 'docs: update handoff'
+    date: 2026-04-18T21:51:25Z
+  - message: 'feat(handoff): track claude_session_id in log entries'
+    date: 2026-04-18T21:50:17Z
   tags:
   - plugins
 - name: orca-strait
@@ -64,37 +64,17 @@ projects:
   - GitHubRepo
   - CratesIo
   language: Rust
-  pushed_at: 2026-04-18T22:00:31Z
+  pushed_at: 2026-04-19T01:14:48Z
   version: 0.1.0
   stars: null
   downloads: 15
   recent_commits:
+  - message: 'ci: add CodeRabbit review config'
+    date: 2026-04-19T01:14:16Z
   - message: 'fix(analyzer): extract_json_object() uses bracket-counting, not find/rfind (#16)'
     date: 2026-04-18T22:00:30Z
   - message: 'fix(build): validate_patterns() panics loudly on empty fields (#15)'
     date: 2026-04-18T21:59:54Z
-  - message: 'fix(api): do not rewrite cache file on every hit (#14)'
-    date: 2026-04-18T21:59:08Z
-  tags:
-  - cli
-- name: doob
-  description: Modern, agent-first todo CLI built with Rust and SurrealDB
-  url: https://github.com/89jobrien/doob
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-04-18T19:08:11Z
-  version: 0.1.0
-  stars: null
-  downloads: 11
-  recent_commits:
-  - message: 'fix(add): only link deps to the first todo in a batch add (#7)'
-    date: 2026-04-18T17:57:45Z
-  - message: 'fix: expand status allowlist to include todo statuses and fix test infra (#3) (#13)'
-    date: 2026-04-18T19:04:49Z
-  - message: 'docs: update handoff — doob-6 gh-sync complete'
-    date: 2026-04-10T20:40:07Z
   tags:
   - cli
 - name: harvestrs
@@ -103,19 +83,50 @@ projects:
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-04-18T19:06:32Z
+  pushed_at: 2026-04-19T01:14:46Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'ci: add CodeRabbit review config'
+    date: 2026-04-19T01:14:15Z
   - message: 'fix(dedup): include source ID in content hash to prevent cross-source dedup collisions (#2) (#13)'
     date: 2026-04-18T19:06:31Z
   - message: 'fix(facets): skip malformed JSON files instead of aborting harvest (#8) (#12)'
     date: 2026-04-18T19:06:16Z
-  - message: 'fix(sync): use full slug as project key to prevent name collisions (#6) (#11)'
-    date: 2026-04-18T19:05:42Z
   tags:
   - tools
+- name: doob
+  description: Modern, agent-first todo CLI built with Rust and SurrealDB
+  url: https://github.com/89jobrien/doob
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-04-19T01:14:45Z
+  version: 0.1.0
+  stars: null
+  downloads: 11
+  recent_commits:
+  - message: 'ci: add CodeRabbit review config'
+    date: 2026-04-19T01:14:07Z
+  - message: 'fix(add): only link deps to the first todo in a batch add (#7)'
+    date: 2026-04-18T17:57:45Z
+  - message: 'fix: expand status allowlist to include todo statuses and fix test infra (#3) (#13)'
+    date: 2026-04-18T19:04:49Z
+  tags:
+  - cli
+- name: crux-agentic
+  description: Built-in step handlers for crux-script pipelines
+  url: https://crates.io/crates/crux-agentic
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-04-18T23:42:19.260031Z
+  version: 0.2.3
+  stars: null
+  downloads: 41
+  recent_commits: []
 - name: mcpipe
   description: Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI
   url: https://github.com/89jobrien/mcpipe
@@ -223,17 +234,6 @@ projects:
     date: 2026-04-18T03:51:20Z
   tags:
   - agents
-- name: crux-agentic
-  description: Built-in step handlers for crux-script pipelines
-  url: https://crates.io/crates/crux-agentic
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-04-18T03:06:19.281785Z
-  version: 0.2.2
-  stars: null
-  downloads: 30
-  recent_commits: []
 - name: 89jobrien.github.io
   description: Personal site
   url: https://github.com/89jobrien/89jobrien.github.io
@@ -260,7 +260,7 @@ projects:
   pushed_at: 2026-04-17T20:22:28.979321Z
   version: 0.2.1
   stars: null
-  downloads: 34
+  downloads: 35
   recent_commits: []
 - name: cruxai-script
   description: YAML-driven pipeline scripting for the cruxai agentic DSL
@@ -271,7 +271,7 @@ projects:
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 44
+  downloads: 46
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -293,7 +293,7 @@ projects:
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 53
+  downloads: 55
   recent_commits: []
 - name: slashcrux
   description: Shared vocabulary types for the Slash and Crux agentic Rust ecosystem
@@ -305,7 +305,7 @@ projects:
   pushed_at: 2026-04-17T20:18:20Z
   version: 0.1.1
   stars: null
-  downloads: 40
+  downloads: 43
   recent_commits:
   - message: 'refactor: rename StepStatus -> StepState (lifecycle vs outcome distinction)'
     date: 2026-04-17T20:18:17Z

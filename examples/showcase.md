@@ -3,16 +3,17 @@
 Projects I maintain or contribute to.
 
 
-_Generated 2026-04-18_
+_Generated 2026-04-19_
 
 | Project | Kind | Tags | Description | Updated |
 |---|---|---|---|---|
-| [bazaar](https://github.com/89jobrien/bazaar) | Repo | — | Claude Code plugin marketplace and showcase generator | 2026-04-18 |
-| [atelier](https://github.com/89jobrien/atelier) | Repo / Plugin | `plugins` | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse | 2026-04-18 |
+| [bazaar](https://github.com/89jobrien/bazaar) | Repo | — | Claude Code plugin marketplace and showcase generator | 2026-04-19 |
+| [atelier](https://github.com/89jobrien/atelier) | Repo / Plugin | `plugins` | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse | 2026-04-19 |
 | [orca-strait](https://github.com/89jobrien/orca-strait) | Repo / Plugin | `plugins` | Parallel TDD sub-agent orchestrator for Rust workspaces | 2026-04-18 |
-| [obfsck](https://github.com/89jobrien/obfsck) | Repo / Crate | `cli` | Secret-detection and redaction CLI for pre-commit hooks | 2026-04-18 |
-| [doob](https://github.com/89jobrien/doob) | Repo / Crate | `cli` | Modern, agent-first todo CLI built with Rust and SurrealDB | 2026-04-18 |
-| [harvestrs](https://github.com/89jobrien/harvestrs) | Repo | `tools` | Polyglot data harvester — syncs Claude memory, git, Obsidian, Pieces to JSONL | 2026-04-18 |
+| [obfsck](https://github.com/89jobrien/obfsck) | Repo / Crate | `cli` | Secret-detection and redaction CLI for pre-commit hooks | 2026-04-19 |
+| [harvestrs](https://github.com/89jobrien/harvestrs) | Repo | `tools` | Polyglot data harvester — syncs Claude memory, git, Obsidian, Pieces to JSONL | 2026-04-19 |
+| [doob](https://github.com/89jobrien/doob) | Repo / Crate | `cli` | Modern, agent-first todo CLI built with Rust and SurrealDB | 2026-04-19 |
+| [crux-agentic](https://crates.io/crates/crux-agentic) | Crate | — | Built-in step handlers for crux-script pipelines | 2026-04-18 |
 | [mcpipe](https://github.com/89jobrien/mcpipe) | Repo | `cli` | Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI | 2026-04-18 |
 | [coursers](https://github.com/89jobrien/coursers) | Repo | `cli` | Claude Code hook — blocks anti-pattern CLI commands and tracks failures | 2026-04-18 |
 | [rx-rxx](https://crates.io/crates/rx-rxx) | Crate | — | Execute compatible scripts directly | 2026-04-18 |
@@ -20,7 +21,6 @@ _Generated 2026-04-18_
 | [rx-script-core](https://crates.io/crates/rx-script-core) | Crate | — | Core runtime detection and execution planning for rx | 2026-04-18 |
 | [rx](https://github.com/89jobrien/rx) | Repo | — | — | 2026-04-18 |
 | [crux](https://github.com/89jobrien/crux) | Repo | `agents` | — | 2026-04-18 |
-| [crux-agentic](https://crates.io/crates/crux-agentic) | Crate | — | Built-in step handlers for crux-script pipelines | 2026-04-18 |
 | [89jobrien.github.io](https://github.com/89jobrien/89jobrien.github.io) | Repo | — | Personal site | 2026-04-17 |
 | [cruxai](https://crates.io/crates/cruxai) | Crate | — | An agentic DSL for Rust — inspectable, serializable, replayable agent execution | 2026-04-17 |
 | [cruxai-script](https://crates.io/crates/cruxai-script) | Crate | — | YAML-driven pipeline scripting for the cruxai agentic DSL | 2026-04-17 |
