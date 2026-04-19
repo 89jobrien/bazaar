@@ -16,3 +16,7 @@ target/
 !.ctx/handoff.*.config.toml.example
 .ctx/.initialized
 # handoff-end
+examples/projects/*
+examples/data.json
+examples/showcase.yaml
+examples/showcase.md

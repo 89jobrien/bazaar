@@ -45,6 +45,12 @@ impl SourceFetcher for PluginFetcher {
             downloads: None,
             recent_commits: vec![],
             tags: vec![],
+            topics: vec![],
+            readme: None,
+            category: None,
+            changelog: None,
+            health: None,
+            related: vec![],
         }).collect())
     }
 }

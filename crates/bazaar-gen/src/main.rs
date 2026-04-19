@@ -1,5 +1,6 @@
 mod config;
 mod deploy;
+mod enrich;
 mod error;
 mod fetch;
 mod header;
@@ -39,6 +40,12 @@ struct Args {
     header_config: PathBuf,
     #[arg(long, default_value = "examples/showcase.yaml")]
     showcase_yaml: PathBuf,
+    /// Run LLM enrichment (descriptions, changelog, category, related) via crux pipelines
+    #[arg(long)]
+    enrich: bool,
+    /// Force re-enrichment even if cached results exist
+    #[arg(long)]
+    force_enrich: bool,
     /// Push generated site directly to the GitHub Pages repo
     #[arg(long)]
     deploy: bool,
@@ -86,7 +93,16 @@ async fn generate(client: &Client, args: &Args, config: &Config) -> anyhow::Resu
     eprintln!("{} projects after merge", merged.len());
 
     let hcfg = HeaderConfig::load(&args.header_config)?;
-    let projects = hcfg.apply(merged);
+    let mut projects = hcfg.apply(merged);
+
+    if args.enrich {
+        let pipeline_dir = PathBuf::from("examples");
+        let cache_path = PathBuf::from(".ctx/enrich-cache.json");
+        enrich::enrich(&mut projects, &pipeline_dir, &cache_path, args.force_enrich)?;
+        eprintln!("enrichment complete");
+    }
+
+    let projects = projects;
 
     // When deploying, generate into a tempdir; otherwise use output_dir
     let tmp;

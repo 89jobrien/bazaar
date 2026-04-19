@@ -54,6 +54,12 @@ impl SourceFetcher for PypiFetcher {
                 downloads: None,
                 recent_commits: vec![],
                 tags: vec![],
+                topics: vec![],
+                readme: None,
+                category: None,
+                changelog: None,
+                health: None,
+                related: vec![],
             });
         }
         Ok(projects)

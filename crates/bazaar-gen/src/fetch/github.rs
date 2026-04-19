@@ -20,7 +20,14 @@ struct Repo {
     pushed_at: Option<DateTime<Utc>>,
     stargazers_count: u32,
     archived: bool,
+    topics: Option<Vec<String>>,
 }
+
+#[derive(Deserialize)]
+struct ReadmeResponse {
+    content: String,
+}
+
 
 #[derive(Deserialize)]
 struct Release {
@@ -56,9 +63,29 @@ impl GitHubFetcher {
         }
     }
 
+    async fn fetch_readme(&self, owner: &str, repo: &str) -> Option<String> {
+        let url = format!("https://api.github.com/repos/{owner}/{repo}/readme");
+        let resp = self.request(&url)
+            .header("Accept", "application/vnd.github+json")
+            .send().await.ok()?;
+        if !resp.status().is_success() { return None; }
+        let readme: ReadmeResponse = resp.json().await.ok()?;
+        let decoded = base64::Engine::decode(
+            &base64::engine::general_purpose::STANDARD,
+            readme.content.replace('\n', ""),
+        ).ok()?;
+        let text = String::from_utf8(decoded).ok()?;
+        // Truncate to ~2000 chars to keep LLM context manageable
+        if text.len() > 2000 {
+            Some(text[..2000].to_string())
+        } else {
+            Some(text)
+        }
+    }
+
     async fn recent_commits(&self, owner: &str, repo: &str) -> Vec<Commit> {
         let url = format!(
-            "https://api.github.com/repos/{owner}/{repo}/commits?per_page=3"
+            "https://api.github.com/repos/{owner}/{repo}/commits?per_page=10"
         );
         let resp = match self.request(&url).send().await {
             Ok(r) if r.status().is_success() => r,
@@ -106,10 +133,12 @@ impl SourceFetcher for GitHubFetcher {
             if repo.archived { continue; }
             let pushed = repo.pushed_at.unwrap_or(Utc::now());
             if pushed < cutoff { continue; }
-            let (version, recent_commits) = tokio::join!(
+            let (version, recent_commits, readme) = tokio::join!(
                 self.latest_release(&self.user, &repo.name),
                 self.recent_commits(&self.user, &repo.name),
+                self.fetch_readme(&self.user, &repo.name),
             );
+            let topics = repo.topics.unwrap_or_default();
             projects.push(Project {
                 name: repo.name,
                 description: repo.description,
@@ -122,6 +151,12 @@ impl SourceFetcher for GitHubFetcher {
                 downloads: None,
                 recent_commits,
                 tags: vec![],
+                topics,
+                readme,
+                category: None,
+                changelog: None,
+                health: None,
+                related: vec![],
             });
         }
         Ok(projects)

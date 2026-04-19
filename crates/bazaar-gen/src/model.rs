@@ -9,6 +9,32 @@ pub enum Kind {
     ClaudePlugin,
 }
 
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum ProjectStatus {
+    Active,
+    Stale,
+    Dormant,
+}
+
+impl ProjectStatus {
+    pub fn from_pushed_at(pushed_at: Option<DateTime<Utc>>) -> Self {
+        let Some(pushed) = pushed_at else { return Self::Dormant };
+        let days = (Utc::now() - pushed).num_days();
+        if days <= 30 { Self::Active }
+        else if days <= 90 { Self::Stale }
+        else { Self::Dormant }
+    }
+
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            Self::Active => "active",
+            Self::Stale => "stale",
+            Self::Dormant => "dormant",
+        }
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Commit {
     pub message: String,
@@ -29,6 +55,18 @@ pub struct Project {
     pub recent_commits: Vec<Commit>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub tags: Vec<String>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub topics: Vec<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub readme: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub category: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub changelog: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub health: Option<String>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub related: Vec<String>,
 }
 
 impl Project {
@@ -59,6 +97,12 @@ pub fn merge(mut projects: Vec<Project>) -> Vec<Project> {
                 if existing.stars.is_none() { existing.stars = p.stars; }
                 if existing.downloads.is_none() { existing.downloads = p.downloads; }
                 if existing.recent_commits.is_empty() { existing.recent_commits = p.recent_commits.clone(); }
+                if existing.topics.is_empty() { existing.topics = p.topics.clone(); }
+                if existing.readme.is_none() { existing.readme = p.readme.clone(); }
+                if existing.category.is_none() { existing.category = p.category.clone(); }
+                if existing.changelog.is_none() { existing.changelog = p.changelog.clone(); }
+                if existing.health.is_none() { existing.health = p.health.clone(); }
+                if existing.related.is_empty() { existing.related = p.related.clone(); }
             })
             .or_insert(p);
     }
@@ -91,6 +135,12 @@ mod tests {
             downloads: None,
             recent_commits: vec![],
             tags: vec![],
+            topics: vec![],
+            readme: None,
+            category: None,
+            changelog: None,
+            health: None,
+            related: vec![],
         }
     }
 
