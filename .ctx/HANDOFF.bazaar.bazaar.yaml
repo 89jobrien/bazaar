@@ -1,5 +1,5 @@
 project: bazaar
-updated: 2026-04-18
+updated: 2026-04-19
 
 items:
   - id: BAZ-P1
@@ -11,6 +11,14 @@ items:
       calculated and whether 67% is actionable baseline or target-bound metric.
 
 log:
+  - date: 2026-04-19
+    summary: >
+      Cloned 89jobrien.github.io locally. Stripped redundant default args from all mise tasks;
+      added mise run local (generates into ~/dev/89jobrien.github.io without pushing). Fixed global
+      pre-push hook (~/.config/git/hooks/pre-push) to scope maestro nextest filter to maestro repo
+      only — other Rust repos now run plain cargo nextest run. Migrated coursers rules to canonical
+      ~/.config/coursers/course-correct-rules.json (cci-12). Updated CLAUDE.md with bz binary
+      docs and correct repo description. [058d839..84bda97]
   - date: 2026-04-18
     summary: >
       Added per-project pages (projects/<slug>/index.html), sort/filter/search to index,
@@ -32,8 +40,3 @@ log:
       BAZ-001-004 closed: pinned all GHA actions to immutable SHAs, added timeout-minutes: 15,
       preflight guard for env vars, output validation gate, scoped GITHUB_TOKEN to generate step
       only. [e0c0e19]
-  - date: 2026-04-17
-    summary: >
-      Built bz Rust binary (hexagonal: SourceFetcher port, 4 adapters, Askama HTML renderer,
-      markdown README generator); 53 projects fetched, 1271-line HTML, 61-line README; GitHub
-      Actions workflow deployed (daily cron + on-push). [25f867b..889c840]
