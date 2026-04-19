@@ -27,9 +27,9 @@ use tokio::try_join;
 #[derive(Parser)]
 #[command(name = "bz", about = "bazaar showcase generator")]
 struct Args {
-    /// Output directory for generated site files (default: examples/)
-    #[arg(long, default_value = "examples")]
-    output_dir: PathBuf,
+    /// Output directory for generated site files
+    #[arg(long)]
+    output_dir: Option<PathBuf>,
     #[arg(long, default_value = "README.md")]
     readme: PathBuf,
     #[arg(long, default_value = "pypi.toml")]
@@ -58,7 +58,7 @@ struct Args {
     interval: u64,
 }
 
-async fn generate(client: &Client, args: &Args, config: &Config) -> anyhow::Result<()> {
+async fn generate(client: &Client, args: &Args, config: &Config, output_dir: &PathBuf) -> anyhow::Result<()> {
     let github = GitHubFetcher {
         client: client.clone(),
         user: config.github_user.clone(),
@@ -110,8 +110,8 @@ async fn generate(client: &Client, args: &Args, config: &Config) -> anyhow::Resu
         tmp = tempfile::tempdir()?;
         tmp.path()
     } else {
-        std::fs::create_dir_all(&args.output_dir)?;
-        args.output_dir.as_path()
+        std::fs::create_dir_all(output_dir)?;
+        output_dir.as_path()
     };
 
     let projects_dir = out.join("projects");
@@ -174,18 +174,24 @@ async fn main() -> anyhow::Result<()> {
     let config = Config::from_env(&args.pypi_toml)?;
     let client = Client::new();
 
+    let home = std::env::var("HOME").unwrap_or_else(|_| ".".to_string());
+    let output_dir = args
+        .output_dir
+        .clone()
+        .unwrap_or_else(|| PathBuf::from(format!("{home}/dev/89jobrien.github.io")));
+
     if args.watch {
         let mut ticker = tokio::time::interval(Duration::from_secs(args.interval));
         loop {
             ticker.tick().await;
             let ts = chrono::Local::now().format("%H:%M:%S");
             eprintln!("[{ts}] fetching...");
-            match generate(&client, &args, &config).await {
+            match generate(&client, &args, &config, &output_dir).await {
                 Ok(()) => eprintln!("[{ts}] done — next in {}s", args.interval),
                 Err(e) => eprintln!("[{ts}] error (continuing): {e:#}"),
             }
         }
     } else {
-        generate(&client, &args, &config).await
+        generate(&client, &args, &config, &output_dir).await
     }
 }

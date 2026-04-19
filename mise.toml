@@ -12,16 +12,20 @@ run = "cargo build --release -p bazaar-gen"
 
 [tasks.bz]
 description = "Generate showcase locally"
-run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --output-dir examples --readme examples/showcase.md --header-config examples/header.yaml --showcase-yaml examples/showcase.yaml"
+run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz"
 
 [tasks.enrich]
 description = "Enrich project descriptions, changelogs, categories via LLM"
-run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --enrich --output-dir examples --readme examples/showcase.md --header-config examples/header.yaml --showcase-yaml examples/showcase.yaml"
+run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --enrich"
 
 [tasks.deploy]
 description = "Generate and deploy showcase to 89jobrien.github.io"
-run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --deploy --readme examples/showcase.md --header-config examples/header.yaml --showcase-yaml examples/showcase.yaml"
+run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --deploy"
+
+[tasks.local]
+description = "Generate showcase into local 89jobrien.github.io clone"
+run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --output-dir $HOME/dev/89jobrien.github.io"
 
 [tasks.watch]
 description = "Watch mode: re-generate showcase every 5 minutes"
-run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --output-dir examples --readme examples/showcase.md --header-config examples/header.yaml --showcase-yaml examples/showcase.yaml --watch"
+run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --watch"
