@@ -52,6 +52,9 @@ struct Args {
     /// GitHub repo to deploy to (owner/name)
     #[arg(long, default_value = "89jobrien/89jobrien.github.io")]
     deploy_repo: String,
+    /// Maximum number of recent commits to show per project in HTML output
+    #[arg(long, default_value = "3")]
+    max_commits: usize,
     #[arg(long)]
     watch: bool,
     #[arg(long, default_value = "300")]
@@ -130,6 +133,7 @@ async fn generate(client: &Client, args: &Args, config: &Config, output_dir: &Pa
         &hcfg.subtitle,
         &projects,
         &data_json,
+        args.max_commits,
     )?;
     std::fs::write(out.join("index.html"), &html)?;
     eprintln!("wrote index.html");
@@ -139,7 +143,7 @@ async fn generate(client: &Client, args: &Args, config: &Config, output_dir: &Pa
         let slug = p.slug();
         let project_dir = projects_dir.join(&slug);
         std::fs::create_dir_all(&project_dir)?;
-        let project_html = render::html::render_project_html(&config.github_user, p)?;
+        let project_html = render::html::render_project_html(&config.github_user, p, args.max_commits)?;
         std::fs::write(project_dir.join("index.html"), project_html)?;
         eprintln!("wrote projects/{slug}/index.html");
     }
