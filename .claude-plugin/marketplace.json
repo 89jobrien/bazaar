@@ -43,6 +43,14 @@
         "repo": "89jobrien/cannibalizer"
       },
       "description": "Absorb foreign repos into the Rust ecosystem — extract, classify, and generate hexagonal components"
+    },
+    {
+      "name": "godmode",
+      "source": {
+        "source": "github",
+        "repo": "89jobrien/godmode"
+      },
+      "description": "Rust-native development methodology — CLI-backed task graph, TDD skills, session rituals. Inspired by obra/superpowers."
     }
   ]
 }
