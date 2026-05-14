@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Joseph O&#x27;Brien</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;color:#e6edf3;font-family:'Courier New',monospace;padding:1.5rem;max-width:900px;margin:0 auto}
+.back{color:#58a6ff;text-decoration:none;font-size:.8rem}
+.back:hover{text-decoration:underline}
+h1{font-size:1.25rem;margin:.75rem 0 .1rem}
+.role{color:#8b949e;font-size:.85rem;margin-bottom:.25rem}
+.location{color:#6e7681;font-size:.8rem;margin-bottom:1rem}
+.tagline{color:#e6edf3;font-size:.95rem;margin-bottom:1.25rem;line-height:1.5;border-left:2px solid #58a6ff;padding-left:.75rem}
+.summary{color:#8b949e;font-size:.85rem;line-height:1.6;margin-bottom:1.5rem}
+h2{font-size:.8rem;color:#8b949e;margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.06em;margin-top:1.25rem}
+.focus-list{list-style:none;font-size:.82rem;color:#6e7681}
+.focus-list li::before{content:"— ";color:#30363d}
+.focus-list li{padding:.15rem 0}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.5rem;margin-top:.5rem}
+.project-card{background:#161b22;border:1px solid #30363d;border-radius:4px;padding:.6rem .75rem}
+.project-card a{color:#58a6ff;text-decoration:none;font-size:.82rem;font-weight:bold}
+.project-card a:hover{text-decoration:underline}
+.project-card p{color:#6e7681;font-size:.75rem;margin-top:.2rem;line-height:1.4}
+.workflow{color:#8b949e;font-size:.82rem;line-height:1.6;margin-top:.5rem}
+.stats-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-top:.5rem}
+.stats-table td{padding:.3rem .5rem;border-bottom:1px solid #21262d;color:#8b949e}
+.stats-table td:first-child{color:#6e7681;white-space:nowrap;padding-right:1rem}
+.links{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.5rem}
+.links a{color:#58a6ff;text-decoration:none;font-size:.82rem}
+.links a:hover{text-decoration:underline}
+footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
+</style>
+</head>
+<body>
+<a class="back" href="../">← back</a>
+<h1>Joseph O&#x27;Brien</h1>
+<div class="role">Agentic Engineer</div>
+<div class="location">Philadelphia, PA</div>
+<p class="tagline">Building sovereign developer infrastructure — container runtimes, observability platforms, and agentic orchestration tooling in Rust.
+</p>
+<p class="summary">I design and build self-hosted developer infrastructure with a focus on hexagonal architecture, parallel agent orchestration, and Rust-first systems. My work spans container runtimes (minibox/VZ.framework), static analysis tooling (devloop), secret detection (obfsck), and the Claude Code plugin ecosystem (atelier, sanctum, orca-strait). I treat my development environment as an automated factory: skills, hooks, and handoff protocols keep the pipeline flowing so I can operate at high velocity across many repos simultaneously.
+</p>
+
+<h2>Focus Areas</h2>
+<ul class="focus-list">
+
+  <li>Rust workspace and crate development</li>
+
+  <li>Agentic workflow automation and orchestration</li>
+
+  <li>CI/CD infrastructure and GitHub Actions</li>
+
+  <li>Hexagonal architecture and SOLID design</li>
+
+  <li>Knowledge graph tooling and observability</li>
+
+</ul>
+
+<h2>Active Projects</h2>
+<div class="projects-grid">
+
+  <div class="project-card">
+    <a href="https://github.com/89jobrien/minibox" target="_blank" rel="noopener">minibox</a>
+    <p>Linux container runtime with VZ.framework macOS backend (mbx crate)</p>
+  </div>
+
+  <div class="project-card">
+    <a href="https://github.com/89jobrien/devloop" target="_blank" rel="noopener">devloop</a>
+    <p>Static analysis and council review platform for Rust workspaces</p>
+  </div>
+
+  <div class="project-card">
+    <a href="https://github.com/89jobrien/atelier" target="_blank" rel="noopener">atelier</a>
+    <p>Claude Code plugin — handoff, herald, sentinel, forge agents</p>
+  </div>
+
+  <div class="project-card">
+    <a href="https://github.com/89jobrien/obfsck" target="_blank" rel="noopener">obfsck</a>
+    <p>Secret detection and redaction CLI for pre-commit hooks</p>
+  </div>
+
+  <div class="project-card">
+    <a href="https://github.com/89jobrien/crux" target="_blank" rel="noopener">crux</a>
+    <p>Agentic Rust DSL and runtime trace model</p>
+  </div>
+
+  <div class="project-card">
+    <a href="https://github.com/89jobrien/bazaar" target="_blank" rel="noopener">bazaar</a>
+    <p>Claude Code plugin marketplace and showcase generator</p>
+  </div>
+
+</div>
+
+<h2>Workflow</h2>
+<p class="workflow">Parallel-dispatch orchestration: high-level directives to subagents, sharp course-correction when scope drifts. Skills extracted from sessions, handoff state tracked across git SHAs, council analysis closing P0s same-day.
+</p>
+
+<h2>By the Numbers</h2>
+<table class="stats-table">
+  <tr><td>sessions / day</td><td>~15</td></tr>
+  <tr><td>total sessions</td><td>498</td></tr>
+  <tr><td>commit peak</td><td>83 commits in a single day across 2 repos (Mar 21)</td></tr>
+  <tr><td>spec → ship</td><td>devkit: zero to shipped Go CI tool in 2.5 hours (Mar 24)</td></tr>
+
+  <tr><td>total tokens</td><td>6196552700</td></tr>
+  <tr><td>total cost (USD)</td><td>$2841.87</td></tr>
+  <tr><td>peak day</td><td>2026-04-01 — $203.35</td></tr>
+
+</table>
+
+<h2>Links</h2>
+<div class="links">
+  <a href="https://github.com/89jobrien" target="_blank" rel="noopener">GitHub</a>
+  <a href="https://crates.io/users/89jobrien" target="_blank" rel="noopener">crates.io</a>
+</div>
+
+<footer>Generated 2026-05-14 09:05 UTC</footer>
+</body>
+</html>
