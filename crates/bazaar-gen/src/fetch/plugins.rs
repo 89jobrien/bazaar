@@ -33,24 +33,28 @@ impl SourceFetcher for PluginFetcher {
         }
         let raw = tokio::fs::read_to_string(&self.manifest_path).await?;
         let manifest: Manifest = serde_json::from_str(&raw)?;
-        Ok(manifest.plugins.into_iter().map(|p| Project {
-            url: format!("https://github.com/{}", p.source.repo),
-            name: p.name,
-            description: Some(p.description),
-            kinds: vec![Kind::ClaudePlugin],
-            language: None,
-            pushed_at: None,
-            version: None,
-            stars: None,
-            downloads: None,
-            recent_commits: vec![],
-            tags: vec![],
-            topics: vec![],
-            readme: None,
-            category: None,
-            changelog: None,
-            health: None,
-            related: vec![],
-        }).collect())
+        Ok(manifest
+            .plugins
+            .into_iter()
+            .map(|p| Project {
+                url: format!("https://github.com/{}", p.source.repo),
+                name: p.name,
+                description: Some(p.description),
+                kinds: vec![Kind::ClaudePlugin],
+                language: None,
+                pushed_at: None,
+                version: None,
+                stars: None,
+                downloads: None,
+                recent_commits: vec![],
+                tags: vec![],
+                topics: vec![],
+                readme: None,
+                category: None,
+                changelog: None,
+                health: None,
+                related: vec![],
+            })
+            .collect())
     }
 }

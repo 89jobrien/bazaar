@@ -1,0 +1,58 @@
+name: Joseph O'Brien
+handle: 89jobrien
+location: Philadelphia, PA
+role: Agentic Engineer
+tagline: >
+  Building sovereign developer infrastructure — container runtimes,
+  observability platforms, and agentic orchestration tooling in Rust.
+
+summary: >
+  I design and build self-hosted developer infrastructure with a focus on hexagonal
+  architecture, parallel agent orchestration, and Rust-first systems. My work spans
+  container runtimes (minibox/VZ.framework), static analysis tooling (devloop),
+  secret detection (obfsck), and the Claude Code plugin ecosystem (atelier, sanctum,
+  orca-strait). I treat my development environment as an automated factory: skills,
+  hooks, and handoff protocols keep the pipeline flowing so I can operate at high
+  velocity across many repos simultaneously.
+
+focus_areas:
+  - Rust workspace and crate development
+  - Agentic workflow automation and orchestration
+  - CI/CD infrastructure and GitHub Actions
+  - Hexagonal architecture and SOLID design
+  - Knowledge graph tooling and observability
+
+active_projects:
+  - name: minibox
+    description: Linux container runtime with VZ.framework macOS backend (mbx crate)
+    url: https://github.com/89jobrien/minibox
+  - name: devloop
+    description: Static analysis and council review platform for Rust workspaces
+    url: https://github.com/89jobrien/devloop
+  - name: atelier
+    description: Claude Code plugin — handoff, herald, sentinel, forge agents
+    url: https://github.com/89jobrien/atelier
+  - name: obfsck
+    description: Secret detection and redaction CLI for pre-commit hooks
+    url: https://github.com/89jobrien/obfsck
+  - name: crux
+    description: Agentic Rust DSL and runtime trace model
+    url: https://github.com/89jobrien/crux
+  - name: bazaar
+    description: Claude Code plugin marketplace and showcase generator
+    url: https://github.com/89jobrien/bazaar
+
+workflow_style: >
+  Parallel-dispatch orchestration: high-level directives to subagents, sharp
+  course-correction when scope drifts. Skills extracted from sessions, handoff state
+  tracked across git SHAs, council analysis closing P0s same-day.
+
+stats:
+  sessions_per_day: ~15
+  total_sessions_march_april_2026: 498
+  commit_streak_peak: "83 commits in a single day across 2 repos (Mar 21)"
+  spec_to_ship_best: "devkit: zero to shipped Go CI tool in 2.5 hours (Mar 24)"
+
+links:
+  github: https://github.com/89jobrien
+  crates_io: https://crates.io/users/89jobrien

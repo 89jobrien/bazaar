@@ -1,4 +1,4 @@
-pipeline: enrich-changelog
+pipeline: enrich_changelog
 # Input: { function: "GenerateChangelog", input: { name, commits } }
 # Output: { summary: "...", highlights: [...] }
 budget: { calls: 2 }

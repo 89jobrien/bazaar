@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ profile.name }}</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0d1117;color:#e6edf3;font-family:'Courier New',monospace;padding:1.5rem;max-width:900px;margin:0 auto}
+.back{color:#58a6ff;text-decoration:none;font-size:.8rem}
+.back:hover{text-decoration:underline}
+h1{font-size:1.25rem;margin:.75rem 0 .1rem}
+.role{color:#8b949e;font-size:.85rem;margin-bottom:.25rem}
+.location{color:#6e7681;font-size:.8rem;margin-bottom:1rem}
+.tagline{color:#e6edf3;font-size:.95rem;margin-bottom:1.25rem;line-height:1.5;border-left:2px solid #58a6ff;padding-left:.75rem}
+.summary{color:#8b949e;font-size:.85rem;line-height:1.6;margin-bottom:1.5rem}
+h2{font-size:.8rem;color:#8b949e;margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.06em;margin-top:1.25rem}
+.focus-list{list-style:none;font-size:.82rem;color:#6e7681}
+.focus-list li::before{content:"— ";color:#30363d}
+.focus-list li{padding:.15rem 0}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.5rem;margin-top:.5rem}
+.project-card{background:#161b22;border:1px solid #30363d;border-radius:4px;padding:.6rem .75rem}
+.project-card a{color:#58a6ff;text-decoration:none;font-size:.82rem;font-weight:bold}
+.project-card a:hover{text-decoration:underline}
+.project-card p{color:#6e7681;font-size:.75rem;margin-top:.2rem;line-height:1.4}
+.workflow{color:#8b949e;font-size:.82rem;line-height:1.6;margin-top:.5rem}
+.stats-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-top:.5rem}
+.stats-table td{padding:.3rem .5rem;border-bottom:1px solid #21262d;color:#8b949e}
+.stats-table td:first-child{color:#6e7681;white-space:nowrap;padding-right:1rem}
+.links{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.5rem}
+.links a{color:#58a6ff;text-decoration:none;font-size:.82rem}
+.links a:hover{text-decoration:underline}
+footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
+</style>
+</head>
+<body>
+<a class="back" href="../">← back</a>
+<h1>{{ profile.name }}</h1>
+<div class="role">{{ profile.role }}</div>
+<div class="location">{{ profile.location }}</div>
+<p class="tagline">{{ profile.tagline }}</p>
+<p class="summary">{{ profile.summary }}</p>
+
+<h2>Focus Areas</h2>
+<ul class="focus-list">
+{% for area in profile.focus_areas %}
+  <li>{{ area }}</li>
+{% endfor %}
+</ul>
+
+<h2>Active Projects</h2>
+<div class="projects-grid">
+{% for p in profile.active_projects %}
+  <div class="project-card">
+    <a href="{{ p.url }}" target="_blank" rel="noopener">{{ p.name }}</a>
+    <p>{{ p.description }}</p>
+  </div>
+{% endfor %}
+</div>
+
+<h2>Workflow</h2>
+<p class="workflow">{{ profile.workflow_style }}</p>
+
+<h2>By the Numbers</h2>
+<table class="stats-table">
+  <tr><td>sessions / day</td><td>{{ profile.stats.sessions_per_day }}</td></tr>
+  <tr><td>total sessions</td><td>{{ profile.stats.total_sessions_march_april_2026 }}</td></tr>
+  <tr><td>commit peak</td><td>{{ profile.stats.commit_streak_peak }}</td></tr>
+  <tr><td>spec → ship</td><td>{{ profile.stats.spec_to_ship_best }}</td></tr>
+{% if let Some(u) = usage_display.as_ref() %}
+  <tr><td>total tokens</td><td>{{ u.total_tokens }}</td></tr>
+  <tr><td>total cost (USD)</td><td>${{ u.total_cost }}</td></tr>
+  <tr><td>peak day</td><td>{{ u.peak_day }}</td></tr>
+{% endif %}
+</table>
+
+<h2>Links</h2>
+<div class="links">
+  <a href="{{ profile.links.github }}" target="_blank" rel="noopener">GitHub</a>
+  <a href="{{ profile.links.crates_io }}" target="_blank" rel="noopener">crates.io</a>
+</div>
+
+<footer>Generated {{ generated_at }}</footer>
+</body>
+</html>

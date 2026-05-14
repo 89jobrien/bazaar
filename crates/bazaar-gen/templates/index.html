@@ -44,6 +44,12 @@ td.commits{color:#6e7681;max-width:280px}
 .meta{color:#6e7681;white-space:nowrap}
 #count{color:#8b949e;font-size:.75rem;margin-left:auto}
 footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
+.profile-card{font-size:.8rem;color:#8b949e;margin-bottom:1rem}
+.profile-role{color:#e6edf3}
+.profile-sep{margin:0 .4rem;color:#30363d}
+.profile-loc{color:#8b949e}
+.profile-link{color:#58a6ff;text-decoration:none}
+.profile-link:hover{text-decoration:underline}
 </style>
 </head>
 <body>
@@ -52,7 +58,15 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
 <nav>
   <a href="https://github.com/{{ username }}">GitHub</a>
   <a href="https://crates.io/users/{{ crates_user }}">crates.io</a>
+  <a href="profile/">about</a>
 </nav>
+<div class="profile-card">
+  <span class="profile-role">{{ profile.role }}</span>
+  <span class="profile-sep">&middot;</span>
+  <span class="profile-loc">{{ profile.location }}</span>
+  <span class="profile-sep">&middot;</span>
+  <a class="profile-link" href="profile/">{{ profile.tagline }}</a>
+</div>
 <div class="controls">
   <input id="search" type="search" placeholder="search…" autocomplete="off">
   <div class="filters" id="filters"></div>
@@ -75,7 +89,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
       data-pushed="{% if let Some(d) = p.pushed_at.as_deref() %}{{ d }}{% endif %}"
       data-tags="{{ p.tags_str }}"
       data-kinds="{{ p.kinds_str }}">
-    <td class="name"><a href="projects/{{ p.slug }}/" >{{ p.name }}</a></td>
+    <td class="name"><a href="{{ p.url }}" target="_blank" rel="noopener">{{ p.name }}</a></td>
     <td>
       <div class="badges">
         {% for k in p.kinds %}
@@ -107,7 +121,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
   </tbody>
 </table>
 <footer>Generated {{ generated_at }} &middot; <span id="total">{{ projects_count }}</span> projects</footer>
-<script type="application/json" id="data">{{ data_json }}</script>
+<script type="application/x-yaml" id="data">{{ data_yaml }}</script>
 <script>
 (function() {
   var rows = Array.from(document.querySelectorAll('#tbody tr'));

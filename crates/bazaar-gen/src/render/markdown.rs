@@ -30,14 +30,20 @@ pub fn render_readme(projects: &[Project], title: &str, subtitle: &str) -> Resul
         let tags = if p.tags.is_empty() {
             "—".to_string()
         } else {
-            p.tags.iter().map(|t| format!("`{t}`")).collect::<Vec<_>>().join(" ")
+            p.tags
+                .iter()
+                .map(|t| format!("`{t}`"))
+                .collect::<Vec<_>>()
+                .join(" ")
         };
         let desc = p.description.as_deref().unwrap_or("—");
         let updated = p
             .pushed_at
             .map(|d| d.format("%Y-%m-%d").to_string())
             .unwrap_or_else(|| "—".to_string());
-        out.push_str(&format!("| {name} | {kind} | {tags} | {desc} | {updated} |\n"));
+        out.push_str(&format!(
+            "| {name} | {kind} | {tags} | {desc} | {updated} |\n"
+        ));
     }
 
     Ok(out)

@@ -28,7 +28,6 @@ struct ReadmeResponse {
     content: String,
 }
 
-
 #[derive(Deserialize)]
 struct Release {
     tag_name: String,
@@ -52,7 +51,8 @@ struct CommitAuthor {
 
 impl GitHubFetcher {
     fn request(&self, url: &str) -> reqwest::RequestBuilder {
-        let req = self.client
+        let req = self
+            .client
             .get(url)
             .header("User-Agent", "bazaar-gen/bz")
             .header("Accept", "application/vnd.github+json");
@@ -65,15 +65,21 @@ impl GitHubFetcher {
 
     async fn fetch_readme(&self, owner: &str, repo: &str) -> Option<String> {
         let url = format!("https://api.github.com/repos/{owner}/{repo}/readme");
-        let resp = self.request(&url)
+        let resp = self
+            .request(&url)
             .header("Accept", "application/vnd.github+json")
-            .send().await.ok()?;
-        if !resp.status().is_success() { return None; }
+            .send()
+            .await
+            .ok()?;
+        if !resp.status().is_success() {
+            return None;
+        }
         let readme: ReadmeResponse = resp.json().await.ok()?;
         let decoded = base64::Engine::decode(
             &base64::engine::general_purpose::STANDARD,
             readme.content.replace('\n', ""),
-        ).ok()?;
+        )
+        .ok()?;
         let text = String::from_utf8(decoded).ok()?;
         // Truncate to ~2000 chars to keep LLM context manageable
         if text.len() > 2000 {
@@ -84,9 +90,7 @@ impl GitHubFetcher {
     }
 
     async fn recent_commits(&self, owner: &str, repo: &str) -> Vec<Commit> {
-        let url = format!(
-            "https://api.github.com/repos/{owner}/{repo}/commits?per_page=10"
-        );
+        let url = format!("https://api.github.com/repos/{owner}/{repo}/commits?per_page=10");
         let resp = match self.request(&url).send().await {
             Ok(r) if r.status().is_success() => r,
             _ => return vec![],
@@ -95,17 +99,22 @@ impl GitHubFetcher {
             Ok(v) => v,
             Err(_) => return vec![],
         };
-        items.into_iter().filter_map(|item| {
-            let date = item.commit.author.date?;
-            let message = item.commit.message.lines().next()?.to_string();
-            Some(Commit { message, date })
-        }).collect()
+        items
+            .into_iter()
+            .filter_map(|item| {
+                let date = item.commit.author.date?;
+                let message = item.commit.message.lines().next()?.to_string();
+                Some(Commit { message, date })
+            })
+            .collect()
     }
 
     async fn latest_release(&self, owner: &str, repo: &str) -> Option<String> {
         let url = format!("https://api.github.com/repos/{owner}/{repo}/releases/latest");
         let resp = self.request(&url).send().await.ok()?;
-        if resp.status() == 404 { return None; }
+        if resp.status() == 404 {
+            return None;
+        }
         let release: Release = resp.json().await.ok()?;
         Some(release.tag_name)
     }
@@ -130,9 +139,13 @@ impl SourceFetcher for GitHubFetcher {
         let repos: Vec<Repo> = resp.json().await?;
         let mut projects = Vec::new();
         for repo in repos {
-            if repo.archived { continue; }
+            if repo.archived {
+                continue;
+            }
             let pushed = repo.pushed_at.unwrap_or(Utc::now());
-            if pushed < cutoff { continue; }
+            if pushed < cutoff {
+                continue;
+            }
             let (version, recent_commits, readme) = tokio::join!(
                 self.latest_release(&self.user, &repo.name),
                 self.recent_commits(&self.user, &repo.name),
@@ -147,7 +160,11 @@ impl SourceFetcher for GitHubFetcher {
                 language: repo.language,
                 pushed_at: repo.pushed_at,
                 version,
-                stars: if repo.stargazers_count > 0 { Some(repo.stargazers_count) } else { None },
+                stars: if repo.stargazers_count > 0 {
+                    Some(repo.stargazers_count)
+                } else {
+                    None
+                },
                 downloads: None,
                 recent_commits,
                 tags: vec![],

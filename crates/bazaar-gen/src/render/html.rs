@@ -1,4 +1,4 @@
-use crate::model::{Kind, Project};
+use crate::model::{Kind, Profile, Project, UsageSnapshot};
 use anyhow::Result;
 use askama::Template;
 use chrono::Utc;
@@ -10,7 +10,6 @@ struct CommitDisplay {
 
 #[derive(Clone)]
 struct ProjectDisplay {
-    slug: String,
     name: String,
     description: Option<String>,
     url: String,
@@ -39,20 +38,27 @@ fn project_display(p: &Project, max_commits: usize) -> ProjectDisplay {
     let kinds_str = p.kinds.iter().map(kind_token).collect::<Vec<_>>().join(" ");
     let tags_str = p.tags.join(" ");
     ProjectDisplay {
-        slug: p.slug(),
         name: p.name.clone(),
         description: p.description.clone(),
         url: p.url.clone(),
         kinds: p.kinds.clone(),
         kinds_str,
         language: p.language.clone(),
-        pushed_at: p.pushed_at.as_ref().map(|dt| dt.format("%Y-%m-%d").to_string()),
+        pushed_at: p
+            .pushed_at
+            .as_ref()
+            .map(|dt| dt.format("%Y-%m-%d").to_string()),
         version: p.version.clone(),
         stars: p.stars,
         downloads: p.downloads,
-        recent_commits: p.recent_commits.iter().take(max_commits).map(|c| CommitDisplay {
-            message: c.message.clone(),
-        }).collect(),
+        recent_commits: p
+            .recent_commits
+            .iter()
+            .take(max_commits)
+            .map(|c| CommitDisplay {
+                message: c.message.clone(),
+            })
+            .collect(),
         tags: p.tags.clone(),
         tags_str,
     }
@@ -68,13 +74,33 @@ struct IndexTemplate<'a> {
     projects: Vec<ProjectDisplay>,
     projects_count: usize,
     generated_at: String,
-    data_json: String,
+    data_yaml: String,
+    profile: Profile,
+}
+
+struct UsageDisplay {
+    total_tokens: String,
+    total_cost: String,
+    peak_day: String,
+}
+
+fn usage_display(u: &UsageSnapshot) -> UsageDisplay {
+    let peak = u
+        .peak_day()
+        .map(|d| format!("{} — ${:.2}", d.date, d.total_cost))
+        .unwrap_or_default();
+    UsageDisplay {
+        total_tokens: format!("{}", u.totals.total_tokens),
+        total_cost: format!("{:.2}", u.totals.total_cost),
+        peak_day: peak,
+    }
 }
 
 #[derive(Template)]
-#[template(path = "project.html")]
-struct ProjectTemplate {
-    project: ProjectDisplay,
+#[template(path = "profile.html")]
+struct ProfileTemplate {
+    profile: Profile,
+    usage_display: Option<UsageDisplay>,
     generated_at: String,
 }
 
@@ -84,10 +110,14 @@ pub fn render_html(
     title: &str,
     subtitle: &str,
     projects: &[Project],
-    data_json: &str,
+    profile: &Profile,
+    data_yaml: &str,
     max_commits: usize,
 ) -> Result<String> {
-    let display_projects = projects.iter().map(|p| project_display(p, max_commits)).collect::<Vec<_>>();
+    let display_projects = projects
+        .iter()
+        .map(|p| project_display(p, max_commits))
+        .collect::<Vec<_>>();
     let projects_count = display_projects.len();
     let tmpl = IndexTemplate {
         username,
@@ -97,15 +127,19 @@ pub fn render_html(
         projects: display_projects,
         projects_count,
         generated_at: Utc::now().format("%Y-%m-%d %H:%M UTC").to_string(),
-        data_json: data_json.to_string(),
+        data_yaml: data_yaml.to_string(),
+        profile: profile.clone(),
     };
-    tmpl.render().map_err(|e| anyhow::anyhow!("template render failed: {e}"))
+    tmpl.render()
+        .map_err(|e| anyhow::anyhow!("template render failed: {e}"))
 }
 
-pub fn render_project_html(_username: &str, project: &Project, max_commits: usize) -> Result<String> {
-    let tmpl = ProjectTemplate {
-        project: project_display(project, max_commits),
+pub fn render_profile_html(profile: &Profile, usage: Option<&UsageSnapshot>) -> Result<String> {
+    let tmpl = ProfileTemplate {
+        profile: profile.clone(),
+        usage_display: usage.map(usage_display),
         generated_at: Utc::now().format("%Y-%m-%d %H:%M UTC").to_string(),
     };
-    tmpl.render().map_err(|e| anyhow::anyhow!("project template render failed: {e}"))
+    tmpl.render()
+        .map_err(|e| anyhow::anyhow!("profile template render failed: {e}"))
 }

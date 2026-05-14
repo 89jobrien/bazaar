@@ -35,11 +35,16 @@ impl SourceFetcher for PypiFetcher {
                 continue;
             }
             if !resp.status().is_success() {
-                eprintln!("warning: PyPI fetch for '{pkg}' failed ({}) — skipping", resp.status());
+                eprintln!(
+                    "warning: PyPI fetch for '{pkg}' failed ({}) — skipping",
+                    resp.status()
+                );
                 continue;
             }
             let body: PypiResp = resp.json().await?;
-            let url = body.info.project_url
+            let url = body
+                .info
+                .project_url
                 .or(body.info.home_page)
                 .unwrap_or_else(|| format!("https://pypi.org/project/{}", body.info.name));
             projects.push(Project {

@@ -1,4 +1,4 @@
-pipeline: enrich-classify
+pipeline: enrich_classify
 # Input: { function: "ClassifyProject", input: { name, description, language, topics, commits } }
 # Output: { category: "...", confidence: 0.0 }
 budget: { calls: 2 }

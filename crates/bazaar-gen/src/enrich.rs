@@ -47,15 +47,16 @@ fn crux_run(pipeline: &Path, input_json: &str) -> Result<serde_json::Value> {
     let input_file = tempfile::NamedTempFile::new()?;
     std::fs::write(input_file.path(), input_json)?;
 
-    let output = Command::new("crux-run")
+    let output = Command::new("cruxx")
+        .arg("run")
         .arg(pipeline)
         .arg(input_file.path())
         .output()
-        .context("crux-run not found — is crux-agentic installed?")?;
+        .context("cruxx not found — is cruxx-agentic installed? (`cargo install --path crates/cruxx-agentic`)")?;
 
     if !output.status.success() {
         let stderr = String::from_utf8_lossy(&output.stderr);
-        anyhow::bail!("crux-run failed: {stderr}");
+        anyhow::bail!("cruxx run failed: {stderr}");
     }
 
     // crux-run emits structured output after "Output:" line
@@ -67,12 +68,11 @@ fn crux_run(pipeline: &Path, input_json: &str) -> Result<serde_json::Value> {
         .collect::<Vec<_>>()
         .join("\n");
 
-    serde_json::from_str(output_section.trim())
-        .context("failed to parse crux-run output as JSON")
+    serde_json::from_str(output_section.trim()).context("failed to parse crux-run output as JSON")
 }
 
 pub fn enrich(
-    projects: &mut Vec<Project>,
+    projects: &mut [Project],
     pipeline_dir: &Path,
     cache_path: &Path,
     force: bool,
@@ -90,7 +90,11 @@ pub fn enrich(
 
         // Set programmatic status from pushed_at
         if project.health.is_none() {
-            project.health = Some(ProjectStatus::from_pushed_at(project.pushed_at).as_str().to_string());
+            project.health = Some(
+                ProjectStatus::from_pushed_at(project.pushed_at)
+                    .as_str()
+                    .to_string(),
+            );
         }
 
         let needs_enrich = force
@@ -114,38 +118,38 @@ pub fn enrich(
         });
 
         // DescribeProject
-        if project.description.is_none() || force {
-            if let Ok(out) = run_describe(project, pipeline_dir) {
-                entry.description = Some(out);
-            }
+        if (project.description.is_none() || force)
+            && let Ok(out) = run_describe(project, pipeline_dir)
+        {
+            entry.description = Some(out);
         }
 
         // ClassifyProject
-        if project.category.is_none() || force {
-            if let Ok(out) = run_classify(project, pipeline_dir) {
-                entry.category = Some(out);
-            }
+        if (project.category.is_none() || force)
+            && let Ok(out) = run_classify(project, pipeline_dir)
+        {
+            entry.category = Some(out);
         }
 
         // GenerateChangelog
-        if project.changelog.is_none() || force {
-            if let Ok(out) = run_changelog(project, pipeline_dir) {
-                entry.changelog = Some(out);
-            }
+        if (project.changelog.is_none() || force)
+            && let Ok(out) = run_changelog(project, pipeline_dir)
+        {
+            entry.changelog = Some(out);
         }
 
         // AssessHealth
-        if project.health.is_none() || force {
-            if let Ok(out) = run_health(project, pipeline_dir) {
-                entry.health = Some(out);
-            }
+        if (project.health.is_none() || force)
+            && let Ok(out) = run_health(project, pipeline_dir)
+        {
+            entry.health = Some(out);
         }
 
         // SuggestRelated
-        if project.related.is_empty() || force {
-            if let Ok(out) = run_related(project, &all_names, pipeline_dir) {
-                entry.related = out;
-            }
+        if (project.related.is_empty() || force)
+            && let Ok(out) = run_related(project, &all_names, pipeline_dir)
+        {
+            entry.related = out;
         }
 
         apply_entry(project, entry.clone());
@@ -175,7 +179,9 @@ fn apply_entry(project: &mut Project, entry: EnrichEntry) {
 }
 
 fn run_describe(project: &Project, pipeline_dir: &Path) -> Result<String> {
-    let commits: Vec<&str> = project.recent_commits.iter()
+    let commits: Vec<&str> = project
+        .recent_commits
+        .iter()
         .map(|c| c.message.as_str())
         .collect();
     let input = serde_json::json!({
@@ -187,12 +193,17 @@ fn run_describe(project: &Project, pipeline_dir: &Path) -> Result<String> {
             "commits": commits,
         }
     });
-    let out = crux_run(&pipeline_dir.join("enrich-describe.yaml"), &input.to_string())?;
+    let out = crux_run(
+        &pipeline_dir.join("enrich_describe.crux"),
+        &input.to_string(),
+    )?;
     Ok(out["description"].as_str().unwrap_or("").to_string())
 }
 
 fn run_classify(project: &Project, pipeline_dir: &Path) -> Result<String> {
-    let commits: Vec<&str> = project.recent_commits.iter()
+    let commits: Vec<&str> = project
+        .recent_commits
+        .iter()
         .map(|c| c.message.as_str())
         .collect();
     let input = serde_json::json!({
@@ -205,12 +216,17 @@ fn run_classify(project: &Project, pipeline_dir: &Path) -> Result<String> {
             "commits": commits,
         }
     });
-    let out = crux_run(&pipeline_dir.join("enrich-classify.yaml"), &input.to_string())?;
+    let out = crux_run(
+        &pipeline_dir.join("enrich_classify.crux"),
+        &input.to_string(),
+    )?;
     Ok(out["category"].as_str().unwrap_or("").to_string())
 }
 
 fn run_changelog(project: &Project, pipeline_dir: &Path) -> Result<String> {
-    let commits: Vec<&str> = project.recent_commits.iter()
+    let commits: Vec<&str> = project
+        .recent_commits
+        .iter()
         .map(|c| c.message.as_str())
         .collect();
     if commits.is_empty() {
@@ -223,12 +239,17 @@ fn run_changelog(project: &Project, pipeline_dir: &Path) -> Result<String> {
             "commits": commits,
         }
     });
-    let out = crux_run(&pipeline_dir.join("enrich-changelog.yaml"), &input.to_string())?;
+    let out = crux_run(
+        &pipeline_dir.join("enrich_changelog.crux"),
+        &input.to_string(),
+    )?;
     Ok(out["summary"].as_str().unwrap_or("").to_string())
 }
 
 fn run_health(project: &Project, pipeline_dir: &Path) -> Result<String> {
-    let commit_dates: Vec<String> = project.recent_commits.iter()
+    let commit_dates: Vec<String> = project
+        .recent_commits
+        .iter()
         .map(|c| c.date.format("%Y-%m-%d").to_string())
         .collect();
     let input = serde_json::json!({
@@ -240,11 +261,15 @@ fn run_health(project: &Project, pipeline_dir: &Path) -> Result<String> {
             "open_issues": null,
         }
     });
-    let out = crux_run(&pipeline_dir.join("enrich-health.yaml"), &input.to_string())?;
+    let out = crux_run(&pipeline_dir.join("enrich_health.crux"), &input.to_string())?;
     Ok(out["status"].as_str().unwrap_or("").to_string())
 }
 
-fn run_related(project: &Project, all_names: &[String], pipeline_dir: &Path) -> Result<Vec<String>> {
+fn run_related(
+    project: &Project,
+    all_names: &[String],
+    pipeline_dir: &Path,
+) -> Result<Vec<String>> {
     let input = serde_json::json!({
         "function": "SuggestRelated",
         "input": {
@@ -254,10 +279,17 @@ fn run_related(project: &Project, all_names: &[String], pipeline_dir: &Path) -> 
             "all_projects": all_names,
         }
     });
-    let out = crux_run(&pipeline_dir.join("enrich-related.yaml"), &input.to_string())?;
+    let out = crux_run(
+        &pipeline_dir.join("enrich_related.crux"),
+        &input.to_string(),
+    )?;
     let related = out["related"]
         .as_array()
-        .map(|arr| arr.iter().filter_map(|v| v.as_str().map(String::from)).collect())
+        .map(|arr| {
+            arr.iter()
+                .filter_map(|v| v.as_str().map(String::from))
+                .collect()
+        })
         .unwrap_or_default();
     Ok(related)
 }

@@ -1,4 +1,4 @@
-pipeline: enrich-related
+pipeline: enrich_related
 # Input: { function: "SuggestRelated", input: { name, description, category, all_projects } }
 # Output: { related: ["...", "...", "..."] }
 budget: { calls: 2 }

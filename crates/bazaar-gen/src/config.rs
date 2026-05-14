@@ -24,7 +24,9 @@ impl Config {
         let github_token = std::env::var("GITHUB_TOKEN").ok();
 
         if github_token.is_none() {
-            eprintln!("warning: GITHUB_TOKEN not set — using unauthenticated GitHub API (60 req/hr)");
+            eprintln!(
+                "warning: GITHUB_TOKEN not set — using unauthenticated GitHub API (60 req/hr)"
+            );
         }
 
         let pypi_packages = if pypi_toml_path.exists() {
@@ -59,7 +61,12 @@ mod tests {
         }
         let result = Config::from_env(Path::new("nonexistent.toml"));
         assert!(result.is_err());
-        assert!(result.unwrap_err().to_string().contains("BAZAAR_GITHUB_USER"));
+        assert!(
+            result
+                .unwrap_err()
+                .to_string()
+                .contains("BAZAAR_GITHUB_USER")
+        );
     }
 
     #[test]
@@ -72,8 +79,15 @@ mod tests {
         }
         let result = Config::from_env(Path::new("nonexistent.toml"));
         assert!(result.is_err());
-        assert!(result.unwrap_err().to_string().contains("BAZAAR_CRATES_IO_USER"));
-        unsafe { std::env::remove_var("BAZAAR_GITHUB_USER"); }
+        assert!(
+            result
+                .unwrap_err()
+                .to_string()
+                .contains("BAZAAR_CRATES_IO_USER")
+        );
+        unsafe {
+            std::env::remove_var("BAZAAR_GITHUB_USER");
+        }
     }
 
     #[test]
@@ -97,4 +111,3 @@ mod tests {
         }
     }
 }
-

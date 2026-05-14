@@ -41,7 +41,10 @@ pub fn deploy(site_dir: &Path, repo: &str, token: Option<&str>) -> Result<()> {
     }
 
     git(&clone_dir, &["config", "user.name", "bz"])?;
-    git(&clone_dir, &["config", "user.email", "bz@users.noreply.github.com"])?;
+    git(
+        &clone_dir,
+        &["config", "user.email", "bz@users.noreply.github.com"],
+    )?;
     git(&clone_dir, &["add", "-A"])?;
 
     // Check if there's anything to commit
@@ -54,7 +57,10 @@ pub fn deploy(site_dir: &Path, repo: &str, token: Option<&str>) -> Result<()> {
         return Ok(());
     }
 
-    git(&clone_dir, &["commit", "-m", "chore: sync showcase from bazaar"])?;
+    git(
+        &clone_dir,
+        &["commit", "-m", "chore: sync showcase from bazaar"],
+    )?;
     git(&clone_dir, &["push"])?;
     eprintln!("deployed to {repo}");
     Ok(())

@@ -1,0 +1,1472 @@
+{
+  "daily": [
+    {
+      "date": "2026-03-11",
+      "inputTokens": 542,
+      "outputTokens": 8359,
+      "cacheCreationTokens": 172304,
+      "cacheReadTokens": 944885,
+      "totalTokens": 1126090,
+      "totalCost": 0.9463671,
+      "modelsUsed": [
+        "claude-haiku-4-5-20251001",
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 80,
+          "outputTokens": 4975,
+          "cacheCreationTokens": 62384,
+          "cacheReadTokens": 456054,
+          "cost": 0.742702
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 462,
+          "outputTokens": 3384,
+          "cacheCreationTokens": 109920,
+          "cacheReadTokens": 488831,
+          "cost": 0.20366510000000004
+        }
+      ]
+    },
+    {
+      "date": "2026-03-12",
+      "inputTokens": 19180,
+      "outputTokens": 77076,
+      "cacheCreationTokens": 1645067,
+      "cacheReadTokens": 19322943,
+      "totalTokens": 21064266,
+      "totalCost": 15.933794649999989,
+      "modelsUsed": [
+        "claude-haiku-4-5-20251001",
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 628,
+          "outputTokens": 40310,
+          "cacheCreationTokens": 968935,
+          "cacheReadTokens": 14718049,
+          "cost": 14.42575824999999
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 18552,
+          "outputTokens": 36766,
+          "cacheCreationTokens": 676132,
+          "cacheReadTokens": 4604894,
+          "cost": 1.5080364000000002
+        }
+      ]
+    },
+    {
+      "date": "2026-03-13",
+      "inputTokens": 31664,
+      "outputTokens": 156984,
+      "cacheCreationTokens": 3898476,
+      "cacheReadTokens": 55232459,
+      "totalTokens": 59319583,
+      "totalCost": 34.778651099999955,
+      "modelsUsed": [
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001",
+        "claude-sonnet-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 20427,
+          "outputTokens": 87028,
+          "cacheCreationTokens": 1698865,
+          "cacheReadTokens": 31404236,
+          "cost": 28.597859249999967
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 11183,
+          "outputTokens": 64611,
+          "cacheCreationTokens": 2005917,
+          "cacheReadTokens": 23079994,
+          "cost": 5.149633650000003
+        },
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 54,
+          "outputTokens": 5345,
+          "cacheCreationTokens": 193694,
+          "cacheReadTokens": 748229,
+          "cost": 1.0311582
+        }
+      ]
+    },
+    {
+      "date": "2026-03-14",
+      "inputTokens": 46493,
+      "outputTokens": 253496,
+      "cacheCreationTokens": 4553621,
+      "cacheReadTokens": 61598199,
+      "totalTokens": 66451809,
+      "totalCost": 50.36479554999997,
+      "modelsUsed": [
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001",
+        "claude-sonnet-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 30268,
+          "outputTokens": 146124,
+          "cacheCreationTokens": 2957135,
+          "cacheReadTokens": 48074394,
+          "cost": 46.32373075000001
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 16202,
+          "outputTokens": 104980,
+          "cacheCreationTokens": 1565550,
+          "cacheReadTokens": 13330376,
+          "cost": 3.8310771000000003
+        },
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 23,
+          "outputTokens": 2392,
+          "cacheCreationTokens": 30936,
+          "cacheReadTokens": 193429,
+          "cost": 0.2099877
+        }
+      ]
+    },
+    {
+      "date": "2026-03-15",
+      "inputTokens": 47868,
+      "outputTokens": 218352,
+      "cacheCreationTokens": 3673908,
+      "cacheReadTokens": 82275778,
+      "totalTokens": 86215906,
+      "totalCost": 54.17976960000002,
+      "modelsUsed": [
+        "claude-opus-4-6",
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 19816,
+          "outputTokens": 98733,
+          "cacheCreationTokens": 1425744,
+          "cacheReadTokens": 54535051,
+          "cost": 38.74583049999997
+        },
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 23933,
+          "outputTokens": 89667,
+          "cacheCreationTokens": 1447106,
+          "cacheReadTokens": 23306067,
+          "cost": 13.835271599999995
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 4119,
+          "outputTokens": 29952,
+          "cacheCreationTokens": 801058,
+          "cacheReadTokens": 4434660,
+          "cost": 1.5986675000000001
+        }
+      ]
+    },
+    {
+      "date": "2026-03-16",
+      "inputTokens": 19039,
+      "outputTokens": 114553,
+      "cacheCreationTokens": 2258005,
+      "cacheReadTokens": 37869411,
+      "totalTokens": 40261008,
+      "totalCost": 26.60110544999999,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 13639,
+          "outputTokens": 66782,
+          "cacheCreationTokens": 1020920,
+          "cacheReadTokens": 21940721,
+          "cost": 19.088855499999998
+        },
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 307,
+          "outputTokens": 40209,
+          "cacheCreationTokens": 560591,
+          "cacheReadTokens": 11622941,
+          "cost": 6.1931545499999965
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 5093,
+          "outputTokens": 7562,
+          "cacheCreationTokens": 676494,
+          "cacheReadTokens": 4305749,
+          "cost": 1.3190954000000006
+        }
+      ]
+    },
+    {
+      "date": "2026-03-17",
+      "inputTokens": 24808,
+      "outputTokens": 173962,
+      "cacheCreationTokens": 3784488,
+      "cacheReadTokens": 109872742,
+      "totalTokens": 113856000,
+      "totalCost": 36.84180670000002,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 13658,
+          "outputTokens": 117109,
+          "cacheCreationTokens": 2069057,
+          "cacheReadTokens": 69291280,
+          "cost": 30.343956749999982
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 11150,
+          "outputTokens": 56853,
+          "cacheCreationTokens": 1715431,
+          "cacheReadTokens": 40581462,
+          "cost": 6.497849949999993
+        }
+      ]
+    },
+    {
+      "date": "2026-03-18",
+      "inputTokens": 30835,
+      "outputTokens": 145594,
+      "cacheCreationTokens": 3034780,
+      "cacheReadTokens": 48581105,
+      "totalTokens": 51792314,
+      "totalCost": 22.44162280000003,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 29589,
+          "outputTokens": 109876,
+          "cacheCreationTokens": 1876457,
+          "cacheReadTokens": 35910759,
+          "cost": 19.546848450000038
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 1246,
+          "outputTokens": 35718,
+          "cacheCreationTokens": 1158323,
+          "cacheReadTokens": 12670346,
+          "cost": 2.89477435
+        }
+      ]
+    },
+    {
+      "date": "2026-03-19",
+      "inputTokens": 91035,
+      "outputTokens": 358638,
+      "cacheCreationTokens": 8214661,
+      "cacheReadTokens": 147630152,
+      "totalTokens": 156294486,
+      "totalCost": 70.19292664999999,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 84035,
+          "outputTokens": 308695,
+          "cacheCreationTokens": 5970088,
+          "cacheReadTokens": 125485601,
+          "cost": 64.91604030000003
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 7000,
+          "outputTokens": 49943,
+          "cacheCreationTokens": 2244573,
+          "cacheReadTokens": 22144551,
+          "cost": 5.276886349999994
+        }
+      ]
+    },
+    {
+      "date": "2026-03-20",
+      "inputTokens": 18997,
+      "outputTokens": 56965,
+      "cacheCreationTokens": 1359566,
+      "cacheReadTokens": 12818623,
+      "totalTokens": 14254151,
+      "totalCost": 8.163752600000002,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 18712,
+          "outputTokens": 51243,
+          "cacheCreationTokens": 874056,
+          "cacheReadTokens": 10718084,
+          "cost": 7.317916200000001
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 285,
+          "outputTokens": 5722,
+          "cacheCreationTokens": 485510,
+          "cacheReadTokens": 2100539,
+          "cost": 0.8458364
+        }
+      ]
+    },
+    {
+      "date": "2026-03-21",
+      "inputTokens": 163161,
+      "outputTokens": 549753,
+      "cacheCreationTokens": 10950570,
+      "cacheReadTokens": 272989798,
+      "totalTokens": 284653282,
+      "totalCost": 121.18350920000029,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001",
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 141698,
+          "outputTokens": 341540,
+          "cacheCreationTokens": 5422683,
+          "cacheReadTokens": 156092761,
+          "cost": 72.71108355000007
+        },
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 6387,
+          "outputTokens": 118074,
+          "cacheCreationTokens": 1710060,
+          "cacheReadTokens": 44682518,
+          "cost": 36.01291899999995
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 15076,
+          "outputTokens": 90139,
+          "cacheCreationTokens": 3817827,
+          "cacheReadTokens": 72214519,
+          "cost": 12.459506650000002
+        }
+      ]
+    },
+    {
+      "date": "2026-03-22",
+      "inputTokens": 490757,
+      "outputTokens": 192055,
+      "cacheCreationTokens": 4031026,
+      "cacheReadTokens": 73259297,
+      "totalTokens": 77973135,
+      "totalCost": 38.49197284999997,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "gpt-oss",
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 22543,
+          "outputTokens": 170410,
+          "cacheCreationTokens": 3094777,
+          "cacheReadTokens": 66903710,
+          "cost": 34.30030575
+        },
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 78,
+          "outputTokens": 6229,
+          "cacheCreationTokens": 261916,
+          "cacheReadTokens": 1880406,
+          "cost": 2.733293
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 27755,
+          "outputTokens": 14745,
+          "cacheCreationTokens": 674333,
+          "cacheReadTokens": 4475181,
+          "cost": 1.3919143499999997
+        },
+        {
+          "modelName": "gpt-oss",
+          "inputTokens": 440381,
+          "outputTokens": 671,
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 0,
+          "cost": 0.06645975000000001
+        }
+      ]
+    },
+    {
+      "date": "2026-03-23",
+      "inputTokens": 113940,
+      "outputTokens": 309695,
+      "cacheCreationTokens": 6867725,
+      "cacheReadTokens": 152108144,
+      "totalTokens": 159399504,
+      "totalCost": 94.76846549999983,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001",
+        "gpt-oss"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 7102,
+          "outputTokens": 79230,
+          "cacheCreationTokens": 3031142,
+          "cacheReadTokens": 62510651,
+          "cost": 52.21622300000003
+        },
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 19099,
+          "outputTokens": 217172,
+          "cacheCreationTokens": 3386459,
+          "cacheReadTokens": 84670447,
+          "cost": 41.4152323500001
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 3614,
+          "outputTokens": 13055,
+          "cacheCreationTokens": 450124,
+          "cacheReadTokens": 4927046,
+          "cost": 1.1242486000000005
+        },
+        {
+          "modelName": "gpt-oss",
+          "inputTokens": 84125,
+          "outputTokens": 238,
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 0,
+          "cost": 0.01276155
+        }
+      ]
+    },
+    {
+      "date": "2026-03-24",
+      "inputTokens": 404859,
+      "outputTokens": 571253,
+      "cacheCreationTokens": 15294806,
+      "cacheReadTokens": 309851053,
+      "totalTokens": 326121971,
+      "totalCost": 157.4916274999998,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001",
+        "nemotron-cascade-2"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 25940,
+          "outputTokens": 357807,
+          "cacheCreationTokens": 7940117,
+          "cacheReadTokens": 202289102,
+          "cost": 95.9070943499998
+        },
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 10384,
+          "outputTokens": 114988,
+          "cacheCreationTokens": 3476114,
+          "cacheReadTokens": 52092867,
+          "cost": 50.69876599999998
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 30425,
+          "outputTokens": 92043,
+          "cacheCreationTokens": 3878575,
+          "cacheReadTokens": 55469084,
+          "cost": 10.885767150000008
+        },
+        {
+          "modelName": "nemotron-cascade-2",
+          "inputTokens": 338110,
+          "outputTokens": 6415,
+          "cacheCreationTokens": 0,
+          "cacheReadTokens": 0,
+          "cost": 0
+        }
+      ]
+    },
+    {
+      "date": "2026-03-25",
+      "inputTokens": 40963,
+      "outputTokens": 406583,
+      "cacheCreationTokens": 10261354,
+      "cacheReadTokens": 193136742,
+      "totalTokens": 203845642,
+      "totalCost": 98.59265680000007,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 24036,
+          "outputTokens": 331501,
+          "cacheCreationTokens": 8371921,
+          "cacheReadTokens": 175086668,
+          "cost": 88.96532714999998
+        },
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 3157,
+          "outputTokens": 29156,
+          "cacheCreationTokens": 509470,
+          "cacheReadTokens": 4812740,
+          "cost": 6.3352425
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 13770,
+          "outputTokens": 45926,
+          "cacheCreationTokens": 1379963,
+          "cacheReadTokens": 13237334,
+          "cost": 3.2920871499999973
+        }
+      ]
+    },
+    {
+      "date": "2026-03-26",
+      "inputTokens": 30123,
+      "outputTokens": 197361,
+      "cacheCreationTokens": 5465758,
+      "cacheReadTokens": 90267288,
+      "totalTokens": 95960530,
+      "totalCost": 54.97021029999995,
+      "modelsUsed": [
+        "claude-haiku-4-5-20251001",
+        "claude-sonnet-4-6",
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 6163,
+          "outputTokens": 87543,
+          "cacheCreationTokens": 1993395,
+          "cacheReadTokens": 35761132,
+          "cost": 32.55867474999996
+        },
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 6892,
+          "outputTokens": 65673,
+          "cacheCreationTokens": 1659574,
+          "cacheReadTokens": 36139836,
+          "cost": 18.071124299999997
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 17068,
+          "outputTokens": 44145,
+          "cacheCreationTokens": 1812789,
+          "cacheReadTokens": 18366320,
+          "cost": 4.340411249999999
+        }
+      ]
+    },
+    {
+      "date": "2026-03-27",
+      "inputTokens": 36213,
+      "outputTokens": 269844,
+      "cacheCreationTokens": 7733654,
+      "cacheReadTokens": 168115418,
+      "totalTokens": 176155129,
+      "totalCost": 74.77545180000006,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001",
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 27365,
+          "outputTokens": 215097,
+          "cacheCreationTokens": 4873951,
+          "cacheReadTokens": 125269697,
+          "cost": 59.16677535000005
+        },
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 448,
+          "outputTokens": 14657,
+          "cacheCreationTokens": 434337,
+          "cacheReadTokens": 12500689,
+          "cost": 9.333615749999998
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 8400,
+          "outputTokens": 40090,
+          "cacheCreationTokens": 2425366,
+          "cacheReadTokens": 30345032,
+          "cost": 6.275060699999999
+        }
+      ]
+    },
+    {
+      "date": "2026-03-28",
+      "inputTokens": 19567,
+      "outputTokens": 223310,
+      "cacheCreationTokens": 4746654,
+      "cacheReadTokens": 139401101,
+      "totalTokens": 144390632,
+      "totalCost": 61.19708899999996,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 18701,
+          "outputTokens": 200292,
+          "cacheCreationTokens": 3652026,
+          "cacheReadTokens": 126178291,
+          "cost": 54.60906779999997
+        },
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 98,
+          "outputTokens": 12039,
+          "cacheCreationTokens": 350766,
+          "cacheReadTokens": 4466243,
+          "cost": 4.726874
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 768,
+          "outputTokens": 10979,
+          "cacheCreationTokens": 743862,
+          "cacheReadTokens": 8756567,
+          "cost": 1.8611472
+        }
+      ]
+    },
+    {
+      "date": "2026-03-29",
+      "inputTokens": 61101,
+      "outputTokens": 494957,
+      "cacheCreationTokens": 14606249,
+      "cacheReadTokens": 226477353,
+      "totalTokens": 241639660,
+      "totalCost": 121.54934254999989,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 19646,
+          "outputTokens": 302099,
+          "cacheCreationTokens": 7837558,
+          "cacheReadTokens": 135183586,
+          "cost": 74.53634129999998
+        },
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 16933,
+          "outputTokens": 60707,
+          "cacheCreationTokens": 1986477,
+          "cacheReadTokens": 43006897,
+          "cost": 35.52126975000005
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 24522,
+          "outputTokens": 132151,
+          "cacheCreationTokens": 4782214,
+          "cacheReadTokens": 48286870,
+          "cost": 11.491731499999986
+        }
+      ]
+    },
+    {
+      "date": "2026-03-30",
+      "inputTokens": 4639,
+      "outputTokens": 250466,
+      "cacheCreationTokens": 6282112,
+      "cacheReadTokens": 109264684,
+      "totalTokens": 115801901,
+      "totalCost": 51.506099399999954,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 3522,
+          "outputTokens": 214355,
+          "cacheCreationTokens": 4661906,
+          "cacheReadTokens": 87603600,
+          "cost": 46.9891185
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 1115,
+          "outputTokens": 36098,
+          "cacheCreationTokens": 1591471,
+          "cacheReadTokens": 21661084,
+          "cost": 4.3370521500000025
+        },
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 2,
+          "outputTokens": 13,
+          "cacheCreationTokens": 28735,
+          "cacheReadTokens": 0,
+          "cost": 0.17992875
+        }
+      ]
+    },
+    {
+      "date": "2026-03-31",
+      "inputTokens": 29924,
+      "outputTokens": 287353,
+      "cacheCreationTokens": 4289586,
+      "cacheReadTokens": 135372948,
+      "totalTokens": 139979811,
+      "totalCost": 57.64761690000001,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 18348,
+          "outputTokens": 236664,
+          "cacheCreationTokens": 3555322,
+          "cacheReadTokens": 129950048,
+          "cost": 55.92247590000001
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 11576,
+          "outputTokens": 50689,
+          "cacheCreationTokens": 734264,
+          "cacheReadTokens": 5422900,
+          "cost": 1.7251410000000003
+        }
+      ]
+    },
+    {
+      "date": "2026-04-01",
+      "inputTokens": 30113,
+      "outputTokens": 754817,
+      "cacheCreationTokens": 15704921,
+      "cacheReadTokens": 495413976,
+      "totalTokens": 511903827,
+      "totalCost": 203.35306045000056,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 27938,
+          "outputTokens": 702629,
+          "cacheCreationTokens": 12769674,
+          "cacheReadTokens": 456849813,
+          "cost": 195.56447040000072
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 2175,
+          "outputTokens": 52188,
+          "cacheCreationTokens": 2935247,
+          "cacheReadTokens": 38564163,
+          "cost": 7.788590050000008
+        }
+      ]
+    },
+    {
+      "date": "2026-04-02",
+      "inputTokens": 84939,
+      "outputTokens": 422397,
+      "cacheCreationTokens": 9852677,
+      "cacheReadTokens": 262327915,
+      "totalTokens": 272687928,
+      "totalCost": 106.84643604999988,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 31634,
+          "outputTokens": 368859,
+          "cacheCreationTokens": 7141561,
+          "cacheReadTokens": 222475569,
+          "cost": 99.15131144999997
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 53305,
+          "outputTokens": 53538,
+          "cacheCreationTokens": 2711116,
+          "cacheReadTokens": 39852346,
+          "cost": 7.695124599999998
+        }
+      ]
+    },
+    {
+      "date": "2026-04-03",
+      "inputTokens": 21971,
+      "outputTokens": 395618,
+      "cacheCreationTokens": 7988259,
+      "cacheReadTokens": 199726250,
+      "totalTokens": 208132098,
+      "totalCost": 91.8566384499999,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001",
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 14184,
+          "outputTokens": 375975,
+          "cacheCreationTokens": 7020831,
+          "cacheReadTokens": 191483663,
+          "cost": 89.45539214999992
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 7783,
+          "outputTokens": 18964,
+          "cacheCreationTokens": 921725,
+          "cacheReadTokens": 8193613,
+          "cost": 2.0741205500000013
+        },
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 4,
+          "outputTokens": 679,
+          "cacheCreationTokens": 45703,
+          "cacheReadTokens": 48974,
+          "cost": 0.32712575
+        }
+      ]
+    },
+    {
+      "date": "2026-04-04",
+      "inputTokens": 33599,
+      "outputTokens": 471799,
+      "cacheCreationTokens": 9659181,
+      "cacheReadTokens": 205821914,
+      "totalTokens": 215986493,
+      "totalCost": 103.74814595,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001",
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 30892,
+          "outputTokens": 427576,
+          "cacheCreationTokens": 8208725,
+          "cacheReadTokens": 182270749,
+          "cost": 91.97025944999994
+        },
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 290,
+          "outputTokens": 11487,
+          "cacheCreationTokens": 679124,
+          "cacheReadTokens": 9398395,
+          "cost": 9.232347499999994
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 2417,
+          "outputTokens": 32736,
+          "cacheCreationTokens": 771332,
+          "cacheReadTokens": 14152770,
+          "cost": 2.5455390000000016
+        }
+      ]
+    },
+    {
+      "date": "2026-04-05",
+      "inputTokens": 15226,
+      "outputTokens": 194508,
+      "cacheCreationTokens": 5331822,
+      "cacheReadTokens": 130317491,
+      "totalTokens": 135859047,
+      "totalCost": 61.15329110000009,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-opus-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 14639,
+          "outputTokens": 179689,
+          "cacheCreationTokens": 4061341,
+          "cacheReadTokens": 122591728,
+          "cost": 54.746799150000086
+        },
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 100,
+          "outputTokens": 4937,
+          "cacheCreationTokens": 434872,
+          "cacheReadTokens": 4244081,
+          "cost": 4.9639155
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 487,
+          "outputTokens": 9882,
+          "cacheCreationTokens": 835609,
+          "cacheReadTokens": 3481682,
+          "cost": 1.442576450000001
+        }
+      ]
+    },
+    {
+      "date": "2026-04-06",
+      "inputTokens": 15489,
+      "outputTokens": 394189,
+      "cacheCreationTokens": 7591099,
+      "cacheReadTokens": 197613971,
+      "totalTokens": 205614748,
+      "totalCost": 90.81952135000002,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 14424,
+          "outputTokens": 380396,
+          "cacheCreationTokens": 6921027,
+          "cacheReadTokens": 192237205,
+          "cost": 89.37422475000001
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 1065,
+          "outputTokens": 13793,
+          "cacheCreationTokens": 670072,
+          "cacheReadTokens": 5376766,
+          "cost": 1.4452966000000003
+        }
+      ]
+    },
+    {
+      "date": "2026-04-07",
+      "inputTokens": 9932,
+      "outputTokens": 138467,
+      "cacheCreationTokens": 3209750,
+      "cacheReadTokens": 47262479,
+      "totalTokens": 50620628,
+      "totalCost": 24.89625049999999,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 7099,
+          "outputTokens": 134195,
+          "cacheCreationTokens": 2555723,
+          "cacheReadTokens": 38550463,
+          "cost": 23.183322150000006
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 2833,
+          "outputTokens": 4272,
+          "cacheCreationTokens": 654027,
+          "cacheReadTokens": 8712016,
+          "cost": 1.7129283500000008
+        }
+      ]
+    },
+    {
+      "date": "2026-04-08",
+      "inputTokens": 31,
+      "outputTokens": 1471,
+      "cacheCreationTokens": 111763,
+      "cacheReadTokens": 546031,
+      "totalTokens": 659296,
+      "totalCost": 0.60507855,
+      "modelsUsed": [
+        "claude-sonnet-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 31,
+          "outputTokens": 1471,
+          "cacheCreationTokens": 111763,
+          "cacheReadTokens": 546031,
+          "cost": 0.60507855
+        }
+      ]
+    },
+    {
+      "date": "2026-04-09",
+      "inputTokens": 11831,
+      "outputTokens": 226983,
+      "cacheCreationTokens": 4832398,
+      "cacheReadTokens": 144853885,
+      "totalTokens": 149925097,
+      "totalCost": 62.3975408999999,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 7749,
+          "outputTokens": 220096,
+          "cacheCreationTokens": 4372391,
+          "cacheReadTokens": 137887367,
+          "cost": 61.08736334999992
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 4082,
+          "outputTokens": 6887,
+          "cacheCreationTokens": 460007,
+          "cacheReadTokens": 6966518,
+          "cost": 1.3101775500000004
+        }
+      ]
+    },
+    {
+      "date": "2026-04-10",
+      "inputTokens": 35504,
+      "outputTokens": 277514,
+      "cacheCreationTokens": 5531746,
+      "cacheReadTokens": 140817708,
+      "totalTokens": 146662472,
+      "totalCost": 59.15580149999993,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 32027,
+          "outputTokens": 245748,
+          "cacheCreationTokens": 4257514,
+          "cacheReadTokens": 117854776,
+          "cost": 55.104411299999946
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 3477,
+          "outputTokens": 31766,
+          "cacheCreationTokens": 1274232,
+          "cacheReadTokens": 22962932,
+          "cost": 4.051390200000001
+        }
+      ]
+    },
+    {
+      "date": "2026-04-11",
+      "inputTokens": 9565,
+      "outputTokens": 164535,
+      "cacheCreationTokens": 5085681,
+      "cacheReadTokens": 98838401,
+      "totalTokens": 104098182,
+      "totalCost": 46.824037850000046,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 8799,
+          "outputTokens": 158267,
+          "cacheCreationTokens": 4311861,
+          "cacheReadTokens": 86854680,
+          "cost": 44.626284749999996
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 766,
+          "outputTokens": 6268,
+          "cacheCreationTokens": 773820,
+          "cacheReadTokens": 11983721,
+          "cost": 2.1977530999999995
+        }
+      ]
+    },
+    {
+      "date": "2026-04-12",
+      "inputTokens": 37892,
+      "outputTokens": 299505,
+      "cacheCreationTokens": 8604437,
+      "cacheReadTokens": 195344633,
+      "totalTokens": 204286467,
+      "totalCost": 64.74664605000025,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 21706,
+          "outputTokens": 195686,
+          "cacheCreationTokens": 4079959,
+          "cacheReadTokens": 103605250,
+          "cost": 49.38182925000002
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 16186,
+          "outputTokens": 103819,
+          "cacheCreationTokens": 4524478,
+          "cacheReadTokens": 91739383,
+          "cost": 15.364816799999977
+        }
+      ]
+    },
+    {
+      "date": "2026-04-13",
+      "inputTokens": 5460,
+      "outputTokens": 51258,
+      "cacheCreationTokens": 1557600,
+      "cacheReadTokens": 35583169,
+      "totalTokens": 37197487,
+      "totalCost": 14.439076999999989,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 3704,
+          "outputTokens": 44221,
+          "cacheCreationTokens": 901437,
+          "cacheReadTokens": 29843998,
+          "cost": 13.008015149999993
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 1756,
+          "outputTokens": 7037,
+          "cacheCreationTokens": 656163,
+          "cacheReadTokens": 5739171,
+          "cost": 1.4310618500000003
+        }
+      ]
+    },
+    {
+      "date": "2026-04-14",
+      "inputTokens": 2599,
+      "outputTokens": 55137,
+      "cacheCreationTokens": 1576171,
+      "cacheReadTokens": 27042841,
+      "totalTokens": 28676748,
+      "totalCost": 14.127115349999993,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 1867,
+          "outputTokens": 54528,
+          "cacheCreationTokens": 1414515,
+          "cacheReadTokens": 25445160,
+          "cost": 13.761500249999996
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 732,
+          "outputTokens": 609,
+          "cacheCreationTokens": 161656,
+          "cacheReadTokens": 1597681,
+          "cost": 0.3656150999999999
+        }
+      ]
+    },
+    {
+      "date": "2026-04-15",
+      "inputTokens": 22,
+      "outputTokens": 3540,
+      "cacheCreationTokens": 118682,
+      "cacheReadTokens": 402034,
+      "totalTokens": 524278,
+      "totalCost": 0.6188336999999999,
+      "modelsUsed": [
+        "claude-sonnet-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 22,
+          "outputTokens": 3540,
+          "cacheCreationTokens": 118682,
+          "cacheReadTokens": 402034,
+          "cost": 0.6188336999999999
+        }
+      ]
+    },
+    {
+      "date": "2026-04-16",
+      "inputTokens": 24561,
+      "outputTokens": 299501,
+      "cacheCreationTokens": 10576057,
+      "cacheReadTokens": 201198611,
+      "totalTokens": 212098730,
+      "totalCost": 91.54550005000009,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 21897,
+          "outputTokens": 260010,
+          "cacheCreationTokens": 7471565,
+          "cacheReadTokens": 176803476,
+          "cost": 85.0252525500001
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 2664,
+          "outputTokens": 39491,
+          "cacheCreationTokens": 3104492,
+          "cacheReadTokens": 24395135,
+          "cost": 6.5202475000000035
+        }
+      ]
+    },
+    {
+      "date": "2026-04-17",
+      "inputTokens": 19945,
+      "outputTokens": 434144,
+      "cacheCreationTokens": 11307920,
+      "cacheReadTokens": 248980526,
+      "totalTokens": 260742535,
+      "totalCost": 108.6836338999998,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001",
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 16734,
+          "outputTokens": 388759,
+          "cacheCreationTokens": 8228835,
+          "cacheReadTokens": 213167604,
+          "cost": 100.68999944999989
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 3206,
+          "outputTokens": 43927,
+          "cacheCreationTokens": 3028633,
+          "cacheReadTokens": 35683147,
+          "cost": 7.576946950000005
+        },
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 5,
+          "outputTokens": 1458,
+          "cacheCreationTokens": 50452,
+          "cacheReadTokens": 129775,
+          "cost": 0.4166875
+        }
+      ]
+    },
+    {
+      "date": "2026-04-18",
+      "inputTokens": 48826,
+      "outputTokens": 436278,
+      "cacheCreationTokens": 15016355,
+      "cacheReadTokens": 315113502,
+      "totalTokens": 330614961,
+      "totalCost": 146.41331674999958,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 42133,
+          "outputTokens": 409722,
+          "cacheCreationTokens": 12149870,
+          "cacheReadTokens": 296725729,
+          "cost": 140.8519601999998
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 6693,
+          "outputTokens": 26556,
+          "cacheCreationTokens": 2866485,
+          "cacheReadTokens": 18387773,
+          "cost": 5.561356549999998
+        }
+      ]
+    },
+    {
+      "date": "2026-04-19",
+      "inputTokens": 26329,
+      "outputTokens": 306763,
+      "cacheCreationTokens": 9446927,
+      "cacheReadTokens": 174716017,
+      "totalTokens": 184496036,
+      "totalCost": 99.74930024999995,
+      "modelsUsed": [
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001",
+        "claude-opus-4-6"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 16721,
+          "outputTokens": 198585,
+          "cacheCreationTokens": 4709014,
+          "cacheReadTokens": 103245259,
+          "cost": 51.66131819999998
+        },
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 5112,
+          "outputTokens": 80237,
+          "cacheCreationTokens": 2230731,
+          "cacheReadTokens": 54222935,
+          "cost": 43.085021249999976
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 4496,
+          "outputTokens": 27941,
+          "cacheCreationTokens": 2507182,
+          "cacheReadTokens": 17247823,
+          "cost": 5.002960800000002
+        }
+      ]
+    },
+    {
+      "date": "2026-04-20",
+      "inputTokens": 40154,
+      "outputTokens": 530182,
+      "cacheCreationTokens": 14000963,
+      "cacheReadTokens": 344637533,
+      "totalTokens": 359208832,
+      "totalCost": 197.27632864999953,
+      "modelsUsed": [
+        "claude-opus-4-6",
+        "claude-sonnet-4-6",
+        "claude-haiku-4-5-20251001"
+      ],
+      "modelBreakdowns": [
+        {
+          "modelName": "claude-opus-4-6",
+          "inputTokens": 9243,
+          "outputTokens": 230747,
+          "cacheCreationTokens": 4141818,
+          "cacheReadTokens": 166992004,
+          "cost": 115.19725449999993
+        },
+        {
+          "modelName": "claude-sonnet-4-6",
+          "inputTokens": 24419,
+          "outputTokens": 263205,
+          "cacheCreationTokens": 6903216,
+          "cacheReadTokens": 152617880,
+          "cost": 75.6937559999998
+        },
+        {
+          "modelName": "claude-haiku-4-5-20251001",
+          "inputTokens": 6492,
+          "outputTokens": 36230,
+          "cacheCreationTokens": 2955929,
+          "cacheReadTokens": 25027649,
+          "cost": 6.385318150000003
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "inputTokens": 2199696,
+    "outputTokens": 11175215,
+    "cacheCreationTokens": 270228779,
+    "cacheReadTokens": 5912949010,
+    "totalCost": 2841.8741883499997,
+    "totalTokens": 6196552700
+  }
+}

@@ -157,6 +157,7 @@ dependencies = [
  "askama",
  "async-trait",
  "base64",
+ "bazaar-types",
  "chrono",
  "clap",
  "indexmap",
@@ -169,6 +170,17 @@ dependencies = [
  "thiserror 1.0.69",
  "tokio",
  "toml",
+]
+
+[[package]]
+name = "bazaar-types"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "indexmap",
+ "serde",
+ "serde_json",
+ "serde_yaml",
 ]
 
 [[package]]
@@ -650,6 +662,8 @@ checksum = "d466e9454f08e4a911e14806c24e16fba1b4c121d1ea474396f396069cf949d9"
 dependencies = [
  "equivalent",
  "hashbrown",
+ "serde",
+ "serde_core",
 ]
 
 [[package]]

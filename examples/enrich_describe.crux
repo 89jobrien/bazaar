@@ -1,4 +1,4 @@
-pipeline: enrich-describe
+pipeline: enrich_describe
 # Input: { function: "DescribeProject", input: { name, language, readme, commits } }
 # Output: { description: "..." }
 budget: { calls: 2 }
