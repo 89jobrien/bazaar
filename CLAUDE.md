@@ -22,10 +22,11 @@ The repo contains:
 
 ## Workspace Crates
 
-| Crate          | Role                                                               |
-| -------------- | ------------------------------------------------------------------ |
-| `bazaar-gen`   | Binary (`bz`); fetches, merges, enriches, and renders the showcase |
-| `bazaar-types` | Library; shared domain types re-exported via `bazaar-gen::model`   |
+| Crate          | Role                                                                          |
+| -------------- | ----------------------------------------------------------------------------- |
+| `bazaar-gen`   | Binary (`bz`); fetches, merges, enriches, and renders the showcase            |
+| `bazaar-types` | Library; shared domain types re-exported via `bazaar-gen::model`              |
+| `xtask`        | Binary (`cargo xtask`); maintenance tasks — lives at repo root, not `crates/` |
 
 `bazaar-gen::model` is a thin re-export layer — all struct definitions live in `bazaar-types`.
 

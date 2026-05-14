@@ -41,7 +41,7 @@ fn main() -> Result<()> {
 /// Workspace root — two levels above crates/xtask.
 fn workspace_root() -> PathBuf {
     PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("../..")
+        .join("..")
         .canonicalize()
         .expect("workspace root must exist")
 }
