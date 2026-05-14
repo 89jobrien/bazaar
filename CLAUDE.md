@@ -14,19 +14,98 @@ The repo contains:
 - `.claude-plugin/marketplace.json` — the marketplace manifest listing all plugins
 - `repos.json` — a snapshot of active public Rust repos under `89jobrien`, refreshed periodically
 - `scripts/` — maintenance scripts (fetch-repos, archive-project)
-- `crates/bazaar-gen/` — Rust crate; builds the `bz` showcase generator binary
+- `crates/bazaar-gen/` — Rust binary crate; the `bz` showcase generator
+- `crates/bazaar-types/` — shared types (Project, Profile, Insights, Usage) imported by bazaar-gen
+- `examples/` — default input files (header.yaml, showcase.yaml, profile.yaml, ccusage.json,
+  insights.yaml)
+- `pypi.toml` — list of PyPI packages to include in the showcase
+
+## Workspace Crates
+
+| Crate          | Role                                                               |
+| -------------- | ------------------------------------------------------------------ |
+| `bazaar-gen`   | Binary (`bz`); fetches, merges, enriches, and renders the showcase |
+| `bazaar-types` | Library; shared domain types re-exported via `bazaar-gen::model`   |
+
+`bazaar-gen::model` is a thin re-export layer — all struct definitions live in `bazaar-types`.
+
+## Data Flow
+
+`bz` fetches projects from four parallel sources (GitHub API, crates.io, PyPI, plugin manifest),
+merges them by name, applies header overrides from `examples/header.yaml`, optionally enriches
+via LLM pipelines, then renders to `index.html`, `profile/index.html`, `data.yaml`, and
+`README.md`.
+
+Insights (`examples/insights.yaml`) override profile fields (summary, tagline, role, focus_areas,
+active_projects, workflow_style, stats) when present.
+
+## Required Environment Variables
+
+```
+BAZAAR_GITHUB_USER=<github-username>    # required
+BAZAAR_CRATES_IO_USER=<crates-username> # required
+GITHUB_TOKEN=<token>                    # optional; unauthenticated = 60 req/hr
+```
+
+`mise run bz` / `mise run deploy` / etc. inject these automatically via `gh auth token`.
+
+## Build & Run
+
+```bash
+# Build
+mise run build          # cargo build --release -p bazaar-gen
+
+# Generate locally (into ~/dev/89jobrien.github.io)
+mise run bz             # generate once
+mise run local          # same, explicit --output-dir
+mise run watch          # re-generate every 5 minutes
+
+# Enrich project descriptions via LLM
+mise run enrich         # runs --enrich flag (uses .ctx/enrich-cache.json for caching)
+
+# Deploy to GitHub Pages
+mise run deploy         # generate + push to 89jobrien/89jobrien.github.io
+
+# Trigger CI
+mise run generate       # gh workflow run generate.yml
+mise run sync           # gh workflow run sync.yml (on 89jobrien.github.io repo)
+```
+
+The companion repo `89jobrien.github.io` must be cloned at `~/dev/89jobrien.github.io`.
+
+## bz CLI Flags (key defaults)
+
+| Flag                | Default                           |
+| ------------------- | --------------------------------- |
+| `--readme`          | `README.md`                       |
+| `--pypi-toml`       | `pypi.toml`                       |
+| `--plugin-manifest` | `.claude-plugin/marketplace.json` |
+| `--header-config`   | `examples/header.yaml`            |
+| `--showcase-yaml`   | `examples/showcase.yaml`          |
+| `--profile`         | `examples/profile.yaml`           |
+| `--usage`           | `examples/ccusage.json`           |
+| `--insights`        | `examples/insights.yaml`          |
+| `--output-dir`      | `$HOME/dev/89jobrien.github.io`   |
+| `--max-commits`     | `3`                               |
+
+## Tests
+
+```bash
+cargo test -p bazaar-gen
+cargo test -p bazaar-types
+```
+
+Config tests use `serial_test::serial` because they mutate env vars.
 
 ## Registered Plugins
 
-| Plugin | Source | Purpose |
-|---|---|---|
-| `atelier` | `89jobrien/atelier` | Personal dev workflow — Rust gates, code review, CI, git safety |
-| `sanctum` | `89jobrien/sanctum` | 1Password auth and `.envrc` chain tracing |
-| `orca-strait` | `89jobrien/orca-strait` | Parallel TDD orchestrator for Rust workspaces |
-| `valerie` | `89jobrien/valerie` | Task/todo management, doob CLI integration |
+| Plugin         | Source                   | Purpose                                                                 |
+| -------------- | ------------------------ | ----------------------------------------------------------------------- |
+| `atelier`      | `89jobrien/atelier`      | Personal dev workflow — Rust gates, code review, CI, git safety         |
+| `sanctum`      | `89jobrien/sanctum`      | 1Password auth and `.envrc` chain tracing                               |
+| `orca-strait`  | `89jobrien/orca-strait`  | Parallel TDD orchestrator for Rust workspaces                           |
+| `valerie`      | `89jobrien/valerie`      | Task/todo management, doob CLI integration                              |
 | `cannibalizer` | `89jobrien/cannibalizer` | Absorb foreign repos — extract, classify, generate hexagonal components |
-
-## Common Tasks
 
 ### Add a new plugin
 
@@ -40,37 +119,24 @@ Edit `.claude-plugin/marketplace.json` and add an entry to the `plugins` array:
 }
 ```
 
-### Refresh repos.json
+## Maintenance Tasks (xtask)
+
+Maintenance logic lives in `crates/xtask/` and is invoked via `cargo xtask <cmd>` (aliased in
+`.cargo/config.toml`). The `scripts/` directory has been removed.
 
 ```bash
-bash scripts/fetch-repos.sh
+# Refresh repos.json snapshot
+cargo xtask fetch-repos        # or: mise run fetch-repos
+
+# Update examples/ccusage.json (requires ccusage on PATH)
+cargo xtask update-usage       # or: mise run update-usage
+
+# Archive a local project to SSD (/Volumes/Extreme SSD must be mounted)
+cargo xtask archive <project>  # or: mise run archive -- <project>
 ```
 
-Fetches Rust repos under `89jobrien` updated in the last 3 months via `gh` CLI, writes to
-`repos.json` sorted by push date descending.
-
-### Archive a local project to SSD
-
-```bash
-bash scripts/archive-project.sh <project-name>
-```
-
-Copies `~/dev/<project-name>` to `/Volumes/Extreme SSD/vault/<project-name>`, verifies checksum,
-indexes in Obsidian (`archived-projects.md`), then removes the local copy. Requires the Extreme
-SSD to be mounted and `gh` CLI available.
-
-## bz Binary
-
-Build: `mise run build` (`cargo build --release -p bazaar-gen`)
-
-Key defaults (don't repeat in mise tasks):
-- `--readme` → `examples/showcase.md`
-- `--header-config` → `examples/header.yaml`
-- `--showcase-yaml` → `examples/showcase.yaml`
-- `--output-dir` → `$HOME/dev/89jobrien.github.io`
-
-Companion repo `89jobrien.github.io` must be cloned locally at `~/dev/89jobrien.github.io`.
-`mise run local` generates into it without pushing; `mise run deploy` pushes via git.
+`update-usage` writes atomically (tempfile + rename) — a failed `ccusage` run will never
+corrupt the existing snapshot.
 
 ## Marketplace Registration
 

@@ -29,3 +29,15 @@ run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_
 [tasks.watch]
 description = "Watch mode: re-generate showcase every 5 minutes"
 run = "GITHUB_TOKEN=$(gh auth token) BAZAAR_GITHUB_USER=89jobrien BAZAAR_CRATES_IO_USER=89jobrien ./target/release/bz --watch"
+
+[tasks.fetch-repos]
+description = "Fetch public Rust repos from GitHub and update repos.json"
+run = "cargo xtask fetch-repos"
+
+[tasks.update-usage]
+description = "Update examples/ccusage.json with fresh ccusage data"
+run = "cargo xtask update-usage"
+
+[tasks.archive]
+description = "Archive a ~/dev project to the Extreme SSD (usage: mise run archive -- <project>)"
+run = "cargo xtask archive"

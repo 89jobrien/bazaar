@@ -104,6 +104,7 @@ struct ProfileTemplate {
     generated_at: String,
 }
 
+#[allow(clippy::too_many_arguments)]
 pub fn render_html(
     username: &str,
     crates_user: &str,
