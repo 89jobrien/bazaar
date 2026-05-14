@@ -4,11 +4,15 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-14T09:04:31Z
+  pushed_at: 2026-05-14T09:23:36Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore(showcase): regenerate README for 2026-05-14'
+    date: 2026-05-14T09:23:20Z
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-14T09:05:35Z
   - message: 'refactor(xtask): move to repo root'
     date: 2026-05-14T09:04:24Z
   - message: 'fix(ci): add --export-json so validate step finds data.json'
@@ -25,11 +29,7 @@
     date: 2026-04-21T06:56:18Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-04-20T23:22:22Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-04-20T11:36:55Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-04-20T00:27:49Z
-  readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-04-21_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                 | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ----------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                       | 2026-04-20 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse        | 2026-04-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                     | 2026-04-18 |\n| [crux](https://github.com/89jobrien/crux)                               | Repo          | `agents`      | —                                                                                                           | 2026-04-20 |\n| [cruxx](https://crates.io/crates/cruxx)                                 | Crate         | —             | An agentic DSL for Rust — inspectable, serializable, replayable agent execution                             | 2026-04-20 |\n| [cruxx-planner](https://crates.io/crates/cruxx-planner)                 | Crate         | —             | Goal-to-pipeline planner for cruxx-script                                                                   | 2026-04-20 |\n| [cruxx-agentic](https://crates.io/crates/cruxx-agentic)     "
+  readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
   url: https://github.com/89jobrien/atelier
