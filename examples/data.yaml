@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-14T23:26:26Z
+  pushed_at: 2026-05-15T11:44:17Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-15T11:44:16Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-14T23:26:25Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-14T07:30:02Z
   - message: 'feat: add godmode to marketplace'
     date: 2026-05-02T04:06:44Z
-  - message: Merge remote-tracking branch 'origin/main'
-    date: 2026-04-21T06:59:29Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,37 +213,174 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: agentlint
+  description: Linter for AI coding agent harness files (Claude Code, Codex, Cursor, Gemini, OpenCode, Pi)
+  url: https://github.com/89jobrien/agentlint
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-15T23:24:54Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(frontmatter): remove dead _path param, document NoFence skip, narrow re-exports'
+    date: 2026-05-15T23:24:42Z
+  - message: 'refactor(claude): migrate to FrontmatterValidator builder, delete macro'
+    date: 2026-05-15T23:21:18Z
+  - message: 'feat(frontmatter): add FrontmatterValidator builder with property tests'
+    date: 2026-05-15T23:20:11Z
+  - message: 'refactor(xtask): extract rustqual into its own module'
+    date: 2026-05-15T23:06:44Z
+  - message: 'feat(xtask): add pre-push gate for rustqual regression check'
+    date: 2026-05-15T23:06:14Z
+  - message: 'fix(xtask): add tempfile dev-dep; ci: remove rustqual job, gate audit/deny/machete on lint'
+    date: 2026-05-15T23:05:09Z
+  - message: 'fix(claude): collapse nested if to satisfy clippy::collapsible_if'
+    date: 2026-05-15T23:01:07Z
+  - message: 'refactor(xtask): extract shared utils module for parse_workspace_version and parse_semver'
+    date: 2026-05-15T22:57:59Z
+  - message: 'refactor(xtask): deduplicate parse_workspace_version, name magic numbers'
+    date: 2026-05-15T22:56:53Z
+  - message: 'ci: add rustqual regression check to PR and merge workflows'
+    date: 2026-05-15T22:54:53Z
+  readme: |
+    # agentlint
+
+    Linter for AI coding agent harness files. Validates agents, skills, commands, hooks, and
+    settings across the major coding agent platforms.
+
+    ```
+    $ agentlint
+    .claude/agents/debugger.md:1:1: error: missing required field 'name'
+    .claude/commands/deploy.md:3:1: error: missing required field 'description'
+    .claude/settings.json:1:1: error: unknown top-level key 'theme'
+    3 errors
+    ```
+
+    ## Supported agents
+
+    | Agent       | Files validated                                                                                                            |
+    | ----------- | -------------------------------------------------------------------------------------------------------------------------- |
+    | Claude Code | `.claude/agents/**/*.md`, `.claude/skills/**/*.md`, `.claude/commands/**/*.md`, `.claude/hooks/*`, `.claude/settings.json` |
+    | Cursor      | `.cursor/rules/**/*.mdc`, `.cursor/rules/**/*.md`, `.cursorrules`                                                          |
+    | Codex       | `AGENTS.md`                                                                                                                |
+    | OpenCode    | `AGENTS.md`, `opencode.json`                                                                                               |
+    | Gemini      | `GEMINI.md`                                                                                                                |
+    | Pi          | `AGENTS.md`, `SYSTEM.md`                                                                                                   |
+
+    ## Install
+
+    ```
+    cargo install agentlint
+    ```
+
+    ## Usage
+
+    ```
+    # Validate all agent harness files in the current directory
+    agentlint
+
+    # Validate specific files or directories
+    agentlint .claude/agents/ AGENTS.md
+
+    # JSON output for CI tooling
+    agentlint --format json
+
+    # Audit mode — report issues but always exit 0
+    agentlint --exit-zero
+    ```
+
+    ### Exit codes
+
+    | Code | Meaning                                  |
+    | ---- | ---------------------------------------- |
+- name: agentlint-gemini
+  description: agentlint validator for Google Gemini GEMINI.md files
+  url: https://crates.io/crates/agentlint-gemini
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-15T22:27:29.734030Z
+  version: 0.1.0
+  stars: null
+  downloads: 0
+  recent_commits: []
+- name: agentlint-codex
+  description: agentlint validator for OpenAI Codex AGENTS.md files
+  url: https://crates.io/crates/agentlint-codex
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-15T22:27:27.908335Z
+  version: 0.1.0
+  stars: null
+  downloads: 0
+  recent_commits: []
+- name: agentlint-cursor
+  description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
+  url: https://crates.io/crates/agentlint-cursor
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-15T22:27:24.800664Z
+  version: 0.1.0
+  stars: null
+  downloads: 0
+  recent_commits: []
+- name: agentlint-frontmatter
+  description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
+  url: https://crates.io/crates/agentlint-frontmatter
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-15T22:27:13.975758Z
+  version: 0.1.0
+  stars: null
+  downloads: 0
+  recent_commits: []
+- name: agentlint-core
+  description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
+  url: https://crates.io/crates/agentlint-core
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-15T22:27:05.754434Z
+  version: 0.1.0
+  stars: null
+  downloads: 0
+  recent_commits: []
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-15T09:58:50Z
+  pushed_at: 2026-05-15T20:56:00Z
   version: v0.24.0
   stars: null
   downloads: null
   recent_commits:
-  - message: 'feat(xtask): re-wire cas overlay and test_linux adapters for smolvm'
-    date: 2026-05-14T06:52:20Z
-  - message: 'merge: fix/issue-353-unimplemented — replace unimplemented! panics in registry_router'
-    date: 2026-05-14T03:58:55Z
-  - message: 'fix(core): replace unimplemented! panics in registry_router with proper errors (fixes #353)'
-    date: 2026-05-14T03:57:23Z
-  - message: 'ci: upgrade actions/checkout from v4 to v5 across all workflows'
-    date: 2026-05-14T03:54:38Z
-  - message: 'docs: update all .md refs to .mbx.md after docs rename'
-    date: 2026-05-14T03:30:36Z
-  - message: 'chore: rename docs to .mbx.md, add CODE_STYLE, update test files and gitignore'
-    date: 2026-05-14T03:27:21Z
-  - message: 'docs: update ROADMAP — reflect 2026-05-13 shipped items and P0 coverage progress'
-    date: 2026-05-13T22:34:29Z
-  - message: 'fix: unwrap -> expect in minibox-core and xtask test code; update TODO issue refs'
-    date: 2026-05-13T09:29:29Z
-  - message: 'fix: unwrap -> expect across minibox-core, minibox, miniboxd test code'
-    date: 2026-05-13T08:51:49Z
-  - message: 'fix(miniboxd): unwrap -> expect in tests; context? in production listener'
-    date: 2026-05-13T08:49:46Z
+  - message: 'ci(merge): gate build-test-archive on lint'
+    date: 2026-05-15T20:55:49Z
+  - message: 'ci(merge): scope lint and unit tests to develop+next only'
+    date: 2026-05-15T20:53:40Z
+  - message: 'ci(merge): move build-test-archive to develop+next, drop from staging'
+    date: 2026-05-15T20:51:00Z
+  - message: 'chore(deps): remove unused serde_json, anyhow, thiserror deps flagged by cargo-machete'
+    date: 2026-05-15T20:30:36Z
+  - message: 'feat(commands): decouple commands from nu scripts'
+    date: 2026-05-15T19:25:27Z
+  - message: 'feat(commands): add slash commands for all 17 scripts'
+    date: 2026-05-15T19:07:47Z
+  - message: 'fix(scripts): fix FILE_PWD path doubling in 9 nu script wrappers'
+    date: 2026-05-15T19:02:33Z
+  - message: 'fix(scripts): fix bench-agent.nu multi-line external command parse error'
+    date: 2026-05-15T18:59:59Z
+  - message: 'docs: add ci-watch to CLAUDE.md and full scripts inventory to DEVELOPMENT.md'
+    date: 2026-05-15T18:58:50Z
+  - message: 'feat(scripts): add ci-watch.nu wrapper for cargo xtask ci-watch'
+    date: 2026-05-15T18:54:21Z
   tags:
   - infra
   topics:
@@ -258,6 +395,9 @@
     # minibox
 
     [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
 
     A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
     isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
@@ -291,62 +431,16 @@
 
     ### Experimental-ish
 
-    - **Container exec** — `setns`-based exec with PTY support (`-it`)
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`)
-    - **macOS adapters** — run/stop/ps via Colima, smolvm, or krun; exec/logs limited
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
+    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
+      Colima available as an alternative via Lima VM
 
     ---
 
     ## Quick Start
 
-    Requires Linux, root, kernel 5.0+, cgroups v2, overlay FS.
-
-    ```bash
-    # Build
-    cargo build --release
-
-    # Start daemon
-    sudo ./target/release/miniboxd
-
-    # Pull and run
-    sudo ./target/release/mbx pull alpine
-    sudo ./target/release/mbx run alpine -- /bin/echo "hello from minibox"
-
-    # Manage contain
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-14T16:32:48Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: update handoff'
-    date: 2026-05-10T08:11:33Z
-  - message: 'feat(cruxx-improve): add bridge crate with shared vocabulary types'
-    date: 2026-05-09T17:31:30Z
-  - message: 'docs: handjobs triage 20260504'
-    date: 2026-05-05T02:41:18Z
-  - message: fix handoff commit sha quoting
-    date: 2026-05-04T23:06:03Z
-  - message: Update comment to indicate progress on implementation
-    date: 2026-04-27T15:16:31Z
-  - message: 'docs: update handoff (session 34)'
-    date: 2026-04-25T01:27:46Z
-  - message: 'docs: update handoff — EOD 2026-04-24'
-    date: 2026-04-24T21:25:03Z
-  - message: 'docs: update handoff and mark all plans status: done'
-    date: 2026-04-24T14:40:54Z
-  - message: 'feat(cruxx-agentic): wire --plugins flag via PluginDiscovery port (#18)'
-    date: 2026-04-24T05:12:45Z
-  - message: 'feat(cruxx-agentic): add cruxx plan subcommand with RulePlanner default (#17)'
-    date: 2026-04-24T05:11:21Z
-  tags:
-  - agents
-  readme: "# crux\n\nAn agentic DSL for Rust -- inspectable, serializable, replayable agent orchestration.\n\n`cruxx` is not a standalone language. It's a set of macros, traits, and types that make agentic\ncontrol flow explicit in the Rust type system. \n\n## Quick example\n\n```rust\nuse cruxx::prelude::*;\n\n#[cruxx::agent]\nasync fn plan_trip(goal: String) -> Crux<Itinerary> {\n    let research = x.step(\"research\", || async {\n        Ok(search_web(&goal).await?)\n    }).await?;\n\n    let draft = x.delegate::<DraftAgent>(\"draft\", research)\n        .with_budget(Budget::tokens(4000))\n        .run().await?;\n\n    x.speculate(\"finalize\", vec![\n        (\"cheap\", Box::pin(async { finalize_cheap(&draft).await })),\n        (\"fast\",  Box::pin(async { finalize_fast(&draft).await })),\n        (\"safe\",  Box::pin(async { finalize_safe(&draft).await })),\n    ]).pick_best_by(|r| r.confidence).await\n}\n```\n\n## Example\n\n```rust\nuse cruxx::prelude::*;\n\n#[cruxx::agent]\nasync fn review_pr(pr: PullRequest) -> Crux<ReviewReport> {\n    // Fan out: fetch diff and CI results in parallel\n    let (diff, ci) = x.join_all([\n        x.step(\"fetch_diff\", || git::diff(&pr.base, &pr.head)),\n        x.step(\"fetch_ci\",   || ci::latest_run(&pr.repo, &pr.head)),\n    ]).await?;\n\n    // Delegate deep analysis to a specialist; escalate if confidence is low\n    let analysis = x.delegate::<SecurityAnalysisAgent>(\"security\", &diff)\n        .with_budget(Budget::tokens(8000))\n        .on_low_confidence(0.75, escalate_to_human)\n        .on_step_failure(Recovery::Retry(2))\n        .await?;\n\n    // Race three review styles; keep whichever scores highest\n    let review = x.speculate(\"style\", [\n        (\"strict\",  || apply_strict_style(&analysis, &ci)),\n        (\"lenient\", || apply_lenient_style(&analysis, &ci)),\n        (\"summary\", || apply_summary_style(&analysis, &ci)),\n    ]).pick_best_by(|r| r.confidence).await?;\n\n    x.step(\"emit\", || build_report(pr, analysis, review)).await\n}\n```\n\nEvery `x.step`, `x.delegate`, `x.speculate` call is "
+    Requires Linux, root, kernel 5.0+
 - name: godmode
   description: Self-contained Rust-native development methodology plugin for Claude Code.
   url: https://github.com/89jobrien/godmode
@@ -354,11 +448,13 @@
   - GitHubRepo
   - ClaudePlugin
   language: Rust
-  pushed_at: 2026-05-14T02:20:04Z
+  pushed_at: 2026-05-15T17:01:16Z
   version: v0.5.0
   stars: 1
   downloads: null
   recent_commits:
+  - message: 'fix(skills): introspection corrections — invalid CLI subcommands and tool hygiene'
+    date: 2026-05-15T16:41:24Z
   - message: 'fix(gitignore): re-ignore HANDOFF.godmode.*.yaml state files'
     date: 2026-05-14T02:20:02Z
   - message: 'docs(CLAUDE.md): add config, context, cache, agent, testing module entries'
@@ -377,8 +473,6 @@
     date: 2026-05-12T04:35:56Z
   - message: 'fix: add missing completed_at field to test constructor after merge'
     date: 2026-05-12T04:17:43Z
-  - message: 'merge: issue #58 — crash-safe flush'
-    date: 2026-05-12T04:17:04Z
   readme: |
     # godmode
 
@@ -429,6 +523,40 @@
     | Skill                                     | When                                                   |
     | ----------------------------------------- | ------------------------------------------------------ |
     | `godmode:using-godmode`                   | Session orientation, available skills, rules           |
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-14T16:32:48Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs: update handoff'
+    date: 2026-05-10T08:11:33Z
+  - message: 'feat(cruxx-improve): add bridge crate with shared vocabulary types'
+    date: 2026-05-09T17:31:30Z
+  - message: 'docs: handjobs triage 20260504'
+    date: 2026-05-05T02:41:18Z
+  - message: fix handoff commit sha quoting
+    date: 2026-05-04T23:06:03Z
+  - message: Update comment to indicate progress on implementation
+    date: 2026-04-27T15:16:31Z
+  - message: 'docs: update handoff (session 34)'
+    date: 2026-04-25T01:27:46Z
+  - message: 'docs: update handoff — EOD 2026-04-24'
+    date: 2026-04-24T21:25:03Z
+  - message: 'docs: update handoff and mark all plans status: done'
+    date: 2026-04-24T14:40:54Z
+  - message: 'feat(cruxx-agentic): wire --plugins flag via PluginDiscovery port (#18)'
+    date: 2026-04-24T05:12:45Z
+  - message: 'feat(cruxx-agentic): add cruxx plan subcommand with RulePlanner default (#17)'
+    date: 2026-04-24T05:11:21Z
+  tags:
+  - agents
+  readme: "# crux\n\nAn agentic DSL for Rust -- inspectable, serializable, replayable agent orchestration.\n\n`cruxx` is not a standalone language. It's a set of macros, traits, and types that make agentic\ncontrol flow explicit in the Rust type system. \n\n## Quick example\n\n```rust\nuse cruxx::prelude::*;\n\n#[cruxx::agent]\nasync fn plan_trip(goal: String) -> Crux<Itinerary> {\n    let research = x.step(\"research\", || async {\n        Ok(search_web(&goal).await?)\n    }).await?;\n\n    let draft = x.delegate::<DraftAgent>(\"draft\", research)\n        .with_budget(Budget::tokens(4000))\n        .run().await?;\n\n    x.speculate(\"finalize\", vec![\n        (\"cheap\", Box::pin(async { finalize_cheap(&draft).await })),\n        (\"fast\",  Box::pin(async { finalize_fast(&draft).await })),\n        (\"safe\",  Box::pin(async { finalize_safe(&draft).await })),\n    ]).pick_best_by(|r| r.confidence).await\n}\n```\n\n## Example\n\n```rust\nuse cruxx::prelude::*;\n\n#[cruxx::agent]\nasync fn review_pr(pr: PullRequest) -> Crux<ReviewReport> {\n    // Fan out: fetch diff and CI results in parallel\n    let (diff, ci) = x.join_all([\n        x.step(\"fetch_diff\", || git::diff(&pr.base, &pr.head)),\n        x.step(\"fetch_ci\",   || ci::latest_run(&pr.repo, &pr.head)),\n    ]).await?;\n\n    // Delegate deep analysis to a specialist; escalate if confidence is low\n    let analysis = x.delegate::<SecurityAnalysisAgent>(\"security\", &diff)\n        .with_budget(Budget::tokens(8000))\n        .on_low_confidence(0.75, escalate_to_human)\n        .on_step_failure(Recovery::Retry(2))\n        .await?;\n\n    // Race three review styles; keep whichever scores highest\n    let review = x.speculate(\"style\", [\n        (\"strict\",  || apply_strict_style(&analysis, &ci)),\n        (\"lenient\", || apply_lenient_style(&analysis, &ci)),\n        (\"summary\", || apply_summary_style(&analysis, &ci)),\n    ]).pick_best_by(|r| r.confidence).await?;\n\n    x.step(\"emit\", || build_report(pr, analysis, review)).await\n}\n```\n\nEvery `x.step`, `x.delegate`, `x.speculate` call is "
 - name: hj
   description: Handoff state, reconciliation, rendering, and handup surveys
   url: https://github.com/89jobrien/hj
@@ -1119,7 +1247,7 @@
   pushed_at: 2026-05-08T11:27:24Z
   version: 0.3.0
   stars: null
-  downloads: 35
+  downloads: 36
   recent_commits:
   - message: 'docs: add CLAUDE.md with project conventions and agent dispatch notes'
     date: 2026-05-08T11:27:21Z
@@ -1395,7 +1523,7 @@
   pushed_at: 2026-05-05T07:28:45.320652Z
   version: 0.24.0
   stars: null
-  downloads: 135
+  downloads: 136
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -1406,7 +1534,7 @@
   pushed_at: 2026-05-05T07:28:25.424883Z
   version: 0.24.0
   stars: null
-  downloads: 161
+  downloads: 164
   recent_commits: []
 - name: devkit
   description: AI-powered dev workflow toolkit
@@ -1634,7 +1762,7 @@
   pushed_at: 2026-04-25T20:50:58Z
   version: v0.1.0
   stars: null
-  downloads: 36
+  downloads: 37
   recent_commits:
   - message: 'perf(test): combine 3 slow gitleaks tests into 1 ignored integration test'
     date: 2026-04-25T20:49:57Z
@@ -1701,7 +1829,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 22
+  downloads: 23
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -1712,7 +1840,7 @@
   pushed_at: 2026-04-23T23:07:16.604202Z
   version: 0.1.0
   stars: null
-  downloads: 17
+  downloads: 18
   recent_commits: []
 - name: slashcrux
   description: Shared vocabulary types for the Slash and Crux agentic Rust ecosystem
@@ -1724,7 +1852,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 452
+  downloads: 489
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -1903,7 +2031,7 @@
   pushed_at: 2026-04-20T07:03:49.856865Z
   version: 0.2.5
   stars: null
-  downloads: 82
+  downloads: 83
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -2789,7 +2917,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 35
+  downloads: 36
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -2800,7 +2928,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 53
+  downloads: 55
   recent_commits: []
 - name: dotfiles
   description: null
