@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-15T11:44:17Z
+  pushed_at: 2026-05-15T23:25:42Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-15T23:25:41Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-15T11:44:16Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-14T08:33:16Z
   - message: quick
     date: 2026-05-14T07:30:02Z
-  - message: 'feat: add godmode to marketplace'
-    date: 2026-05-02T04:06:44Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,150 +213,13 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
-- name: agentlint
-  description: Linter for AI coding agent harness files (Claude Code, Codex, Cursor, Gemini, OpenCode, Pi)
-  url: https://github.com/89jobrien/agentlint
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-15T23:24:54Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'fix(frontmatter): remove dead _path param, document NoFence skip, narrow re-exports'
-    date: 2026-05-15T23:24:42Z
-  - message: 'refactor(claude): migrate to FrontmatterValidator builder, delete macro'
-    date: 2026-05-15T23:21:18Z
-  - message: 'feat(frontmatter): add FrontmatterValidator builder with property tests'
-    date: 2026-05-15T23:20:11Z
-  - message: 'refactor(xtask): extract rustqual into its own module'
-    date: 2026-05-15T23:06:44Z
-  - message: 'feat(xtask): add pre-push gate for rustqual regression check'
-    date: 2026-05-15T23:06:14Z
-  - message: 'fix(xtask): add tempfile dev-dep; ci: remove rustqual job, gate audit/deny/machete on lint'
-    date: 2026-05-15T23:05:09Z
-  - message: 'fix(claude): collapse nested if to satisfy clippy::collapsible_if'
-    date: 2026-05-15T23:01:07Z
-  - message: 'refactor(xtask): extract shared utils module for parse_workspace_version and parse_semver'
-    date: 2026-05-15T22:57:59Z
-  - message: 'refactor(xtask): deduplicate parse_workspace_version, name magic numbers'
-    date: 2026-05-15T22:56:53Z
-  - message: 'ci: add rustqual regression check to PR and merge workflows'
-    date: 2026-05-15T22:54:53Z
-  readme: |
-    # agentlint
-
-    Linter for AI coding agent harness files. Validates agents, skills, commands, hooks, and
-    settings across the major coding agent platforms.
-
-    ```
-    $ agentlint
-    .claude/agents/debugger.md:1:1: error: missing required field 'name'
-    .claude/commands/deploy.md:3:1: error: missing required field 'description'
-    .claude/settings.json:1:1: error: unknown top-level key 'theme'
-    3 errors
-    ```
-
-    ## Supported agents
-
-    | Agent       | Files validated                                                                                                            |
-    | ----------- | -------------------------------------------------------------------------------------------------------------------------- |
-    | Claude Code | `.claude/agents/**/*.md`, `.claude/skills/**/*.md`, `.claude/commands/**/*.md`, `.claude/hooks/*`, `.claude/settings.json` |
-    | Cursor      | `.cursor/rules/**/*.mdc`, `.cursor/rules/**/*.md`, `.cursorrules`                                                          |
-    | Codex       | `AGENTS.md`                                                                                                                |
-    | OpenCode    | `AGENTS.md`, `opencode.json`                                                                                               |
-    | Gemini      | `GEMINI.md`                                                                                                                |
-    | Pi          | `AGENTS.md`, `SYSTEM.md`                                                                                                   |
-
-    ## Install
-
-    ```
-    cargo install agentlint
-    ```
-
-    ## Usage
-
-    ```
-    # Validate all agent harness files in the current directory
-    agentlint
-
-    # Validate specific files or directories
-    agentlint .claude/agents/ AGENTS.md
-
-    # JSON output for CI tooling
-    agentlint --format json
-
-    # Audit mode — report issues but always exit 0
-    agentlint --exit-zero
-    ```
-
-    ### Exit codes
-
-    | Code | Meaning                                  |
-    | ---- | ---------------------------------------- |
-- name: agentlint-gemini
-  description: agentlint validator for Google Gemini GEMINI.md files
-  url: https://crates.io/crates/agentlint-gemini
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-05-15T22:27:29.734030Z
-  version: 0.1.0
-  stars: null
-  downloads: 0
-  recent_commits: []
-- name: agentlint-codex
-  description: agentlint validator for OpenAI Codex AGENTS.md files
-  url: https://crates.io/crates/agentlint-codex
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-05-15T22:27:27.908335Z
-  version: 0.1.0
-  stars: null
-  downloads: 0
-  recent_commits: []
-- name: agentlint-cursor
-  description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
-  url: https://crates.io/crates/agentlint-cursor
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-05-15T22:27:24.800664Z
-  version: 0.1.0
-  stars: null
-  downloads: 0
-  recent_commits: []
-- name: agentlint-frontmatter
-  description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
-  url: https://crates.io/crates/agentlint-frontmatter
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-05-15T22:27:13.975758Z
-  version: 0.1.0
-  stars: null
-  downloads: 0
-  recent_commits: []
-- name: agentlint-core
-  description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
-  url: https://crates.io/crates/agentlint-core
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-05-15T22:27:05.754434Z
-  version: 0.1.0
-  stars: null
-  downloads: 0
-  recent_commits: []
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-15T20:56:00Z
+  pushed_at: 2026-05-16T09:12:09Z
   version: v0.24.0
   stars: null
   downloads: null
@@ -441,6 +304,252 @@
     ## Quick Start
 
     Requires Linux, root, kernel 5.0+
+- name: agentlint
+  description: Linter for AI coding agent harness files (Claude Code, Codex, Cursor, Gemini, OpenCode, Pi)
+  url: https://github.com/89jobrien/agentlint
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-16T08:00:09Z
+  version: v0.3.0
+  stars: null
+  downloads: 20
+  recent_commits:
+  - message: 'docs(example): document [docs] schema config section in agentlint.example.toml'
+    date: 2026-05-16T08:00:04Z
+  - message: 'refactor(agentlint-docs): remove dead strip_ref function'
+    date: 2026-05-16T07:43:05Z
+  - message: 'feat(agentlint-docs): configurable schema and filename conventions via .agentlint.toml'
+    date: 2026-05-16T07:41:01Z
+  - message: 'feat: add agentlint-docs crate — validates docs/**/*.md frontmatter schema'
+    date: 2026-05-16T06:45:37Z
+  - message: 'docs: expand filename conventions — docs/specs/, docs/plans/, docs/ideas/ with path inference'
+    date: 2026-05-16T06:39:14Z
+  - message: 'docs: update agentlint-docs spec — add idea doctype, clarify spec vs plan distinction'
+    date: 2026-05-16T06:37:32Z
+  - message: 'docs: agentlint-docs design doc — docs frontmatter validator'
+    date: 2026-05-16T06:22:11Z
+  - message: 'docs: fix roadmap link in README to match kebab-case rename'
+    date: 2026-05-16T05:52:31Z
+  - message: 'docs: rename roadmap to kebab-case'
+    date: 2026-05-16T05:52:25Z
+  - message: 'docs: expand quality metrics table and fix frontmatter style'
+    date: 2026-05-16T05:52:21Z
+  readme: "# agentlint\n\nLinter for AI coding agent harness files. Validates agents, skills, commands, hooks, settings,\nMCP config, and docs frontmatter across the major coding agent platforms.\n\n```\n$ agentlint\n.claude/agents/debugger.md:1:1: error: missing required field 'name'\n.claude/commands/deploy.md:3:1: error: missing required field 'description'\n.claude/settings.json:1:1: error: unknown top-level key 'theme'\n.mcp.json:1:1: error: mcpServers.my-server: server entry must have 'command' or 'url' transport\n3 errors, 1 warning\n```\n\n## Supported platforms\n\n| Platform    | Files validated                                                                                                                                       |\n| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |\n| Claude Code | `.claude/agents/**/*.md`, `.claude/skills/**/*.md`, `.claude/commands/**/*.md`, `.claude/hooks/**`, `.claude/settings.json`, `.mcp.json`, `CLAUDE.md` |\n| Cursor      | `.cursor/rules/**/*.mdc`, `.cursor/rules/**/*.md`, `.cursorrules`                                                                                     |\n| Codex       | `AGENTS.md`                                                                                                                                           |\n| OpenCode    | `AGENTS.md`, `opencode.json`                                                                                                                          |\n| Gemini      | `GEMINI.md`                                                                                                                                           |\n| Pi          | `AGENTS.md`, `SYSTEM.md`                                                                                                                              |\n| Docs        | `docs/**/*.md` (frontmatter schema)                                                    "
+- name: prefixe
+  description: Prepend validated prefixes to shell commands — reads rx prefix config
+  url: https://github.com/89jobrien/prefixe
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-16T07:22:26Z
+  version: 0.3.0
+  stars: null
+  downloads: 36
+  recent_commits:
+  - message: 'feat(prefixe-cli): post-hook Probing resolution — confirm, cycle, exhaust with stats'
+    date: 2026-05-16T07:16:20Z
+  - message: 'feat(prefixe-cli): pre-hook detects Pending probe match, transitions to Probing'
+    date: 2026-05-16T07:12:19Z
+  - message: 'feat(prefixe-cli): add post-hook failure path with Pending probe and systemMessage'
+    date: 2026-05-16T07:11:27Z
+  - message: 'feat(prefixe-cli): add payload types, evaluate_predicate, serde_json/regex deps'
+    date: 2026-05-16T07:10:01Z
+  - message: 'feat(prefixe): add FileStatsStore TOML adapter; add TOML round-trip tests for CandidatePrefix/ProbeEntry/Stats'
+    date: 2026-05-16T07:07:55Z
+  - message: 'feat(prefixe): add PrefixStats, GlobalStats, PrefixCounters, CommandStats, StatsStore trait'
+    date: 2026-05-16T07:06:30Z
+  - message: 'refactor(prefixe): remove probes from RewriteResult; simplify rewrite_command and AuditState'
+    date: 2026-05-16T07:05:28Z
+  - message: 'feat(prefixe): remove PrefixMatch::Candidate; lookup_prefix returns None for unknown commands'
+    date: 2026-05-16T07:02:40Z
+  - message: 'feat(prefixe): add ProbeState enum, extend ProbeEntry with state/candidate_index/success_when'
+    date: 2026-05-16T07:01:49Z
+  - message: 'feat(prefixe): add CandidatePrefix, SuccessPredicate; update PrefixConfig'
+    date: 2026-05-16T07:00:05Z
+  readme: |
+    # prefixe
+
+    Prepend validated prefixes to shell commands, with support for confirmed mappings and
+    speculative candidate learning.
+
+    Designed as the core library for [`coursers`](https://github.com/89jobrien/coursers) /
+    `rx` prefix config integration.
+
+    ## What it does
+
+    - Reads a TOML prefix config (`~/.config/rx/prefixes.toml` by default)
+    - Rewrites shell command strings by prepending a known prefix to each segment
+    - Supports compound commands split on `&&`, `||`, `;`, `|`
+    - Tracks speculative "candidate" probes for learning new mappings on success
+    - Exposes `PrefixStore` and `ProbeStore` traits for easy testing and substitution
+
+    ## Usage
+
+    ```rust
+    use prefixe::{FilePrefixStore, PrefixStore, rewrite_command};
+
+    let store = FilePrefixStore { path: FilePrefixStore::default_path() };
+    let config = store.load();
+    let result = rewrite_command("gh issue list && gh pr list", &config);
+    println!("{}", result.rewritten);
+    // → "op plugin run -- gh issue list && op plugin run -- gh pr list"
+    ```
+
+    ## Config format
+
+    `~/.config/rx/prefixes.toml`:
+
+    ```toml
+    [mappings]
+    gh = ["op", "plugin", "run", "--"]
+    "cargo test" = ["dotenvx", "run", "--"]
+
+    [[candidate_prefixes]]
+    candidate_prefixes = [["op", "run", "--"]]
+
+    learn_on_successful_fallback = true
+    ```
+
+    ## Environment variables
+
+    | Variable          | Default                             | Purpose                     |
+    | ----------------- | ----------------------------------- | --------------------------- |
+    | `CRS_RX_PREFIXES` | `$XDG_CONFIG_HOME/rx/prefixes.toml` | Override prefix config path |
+    | `CRS_CTX_DIR`     | `.ctx`                              | Directory for probe state   |
+
+    ## Documentation
+
+    - [API docs (docs.rs)](https://docs.rs/prefixe)
+    - [Book](docs/book/src/introduction.md) — mdBook scaffold in `docs/book/`
+
+    ## License
+
+    MIT OR Apache-2.0
+- name: coursers
+  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
+  url: https://github.com/89jobrien/coursers
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-16T05:22:26Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(date): correct Rata Die yoe formula — use DAYS_PER_4Y-1 (1460) not DAYS_PER_4Y (1461)'
+    date: 2026-05-16T05:13:10Z
+  - message: 'merge: issues #16 #14 SuggestionStore IOSP split and date math consolidation'
+    date: 2026-05-16T05:12:04Z
+  - message: 'feat(testing): add MockWorkspace builder for templated and dynamic test fixtures'
+    date: 2026-05-16T05:11:56Z
+  - message: 'refactor(date): consolidate duplicate date math into crs-core with named constants fixes #14'
+    date: 2026-05-16T05:11:30Z
+  - message: 'refactor(capture): extract IOSP predicates from SuggestionStore; reduce SuggestionRecord params fixes #16'
+    date: 2026-05-16T05:09:30Z
+  - message: 'merge: issue #19 extract predicate logic from coursers hook handlers'
+    date: 2026-05-16T05:07:00Z
+  - message: 'refactor(iosp): extract predicate logic from coursers hook handlers fixes #19'
+    date: 2026-05-16T05:06:14Z
+  - message: 'merge: issue #17 extract predicate logic from ProcessRtkClient and ProcessObfsckMcpClient'
+    date: 2026-05-16T05:05:48Z
+  - message: 'merge: issues #18 #15 decompose expand_inline and fix test assertions'
+    date: 2026-05-16T05:05:48Z
+  - message: 'merge: issue #20 remove dead code DedupeKey::from_parts and InMemoryCaptureStore::get_records'
+    date: 2026-05-16T05:05:48Z
+  tags:
+  - cli
+  readme: "# coursers\n\nClaude Code hook pipeline for course-correcting AI-generated Bash commands.\n\nTwo tools:\n\n- **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures\n- **`crs`** — output filter and command rewriter\n\n---\n\n## How It Works\n\n### Rule-based blocking (`coursers pre`)\n\nReads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command\nmatches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`\nresponse with a human-readable message.\n\nRules support:\n\n- Regex pattern matching (with optional `i` flag)\n- Exception patterns — allow a command through even if the main pattern matches\n- Per-rule messages\n\n### Learned failure tracking (`coursers post`)\n\nReads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and\nintentional failures), it records the command in a rolling failure log. If the same command\nfails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.\n\nThis catches commands that aren't covered by static rules but are clearly not working.\n\n---\n\n## Installation\n\n```sh\ncargo install --path crates/coursers\ncargo install --path crates/crs\n```\n\nWire into `~/.claude/settings.json`:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers pre\" },\n          { \"type\": \"command\", \"command\": \"crs rewrite\" }\n        ]\n      }\n    ],\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers post\" },\n          { \"type\": \"command\", \"command\": \"crs filter\" }\n        ]\n      }\n    ]\n  }\n}\n```\n\n`crs rewrite` and `crs filter` are optional — run `coursers` alone if you only want blocking\nand failure learning.\n\n---\n\n## Configuration\n\nRules file: `~/.config/coursers/course-correct-rules.json`\n(override with `COURSERS_RULES` env var)\n\n```json\n{\n  \"rules\": [\n    {\n    "
+- name: agentlint-opencode
+  description: agentlint validator for OpenCode AGENTS.md and opencode.json files
+  url: https://crates.io/crates/agentlint-opencode
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-16T04:04:45.475950Z
+  version: 0.3.0
+  stars: null
+  downloads: 27
+  recent_commits: []
+- name: agentlint-pi
+  description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
+  url: https://crates.io/crates/agentlint-pi
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-16T04:04:23.718026Z
+  version: 0.3.0
+  stars: null
+  downloads: 30
+  recent_commits: []
+- name: agentlint-gemini
+  description: agentlint validator for Google Gemini GEMINI.md files
+  url: https://crates.io/crates/agentlint-gemini
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-16T04:04:00.508658Z
+  version: 0.3.0
+  stars: null
+  downloads: 38
+  recent_commits: []
+- name: agentlint-codex
+  description: agentlint validator for OpenAI Codex AGENTS.md files
+  url: https://crates.io/crates/agentlint-codex
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-16T04:03:38.113837Z
+  version: 0.3.0
+  stars: null
+  downloads: 39
+  recent_commits: []
+- name: agentlint-cursor
+  description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
+  url: https://crates.io/crates/agentlint-cursor
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-16T04:03:15.391246Z
+  version: 0.3.0
+  stars: null
+  downloads: 38
+  recent_commits: []
+- name: agentlint-claude
+  description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
+  url: https://crates.io/crates/agentlint-claude
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-16T04:02:52.382445Z
+  version: 0.3.0
+  stars: null
+  downloads: 26
+  recent_commits: []
+- name: agentlint-frontmatter
+  description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
+  url: https://crates.io/crates/agentlint-frontmatter
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-16T04:02:28.958456Z
+  version: 0.3.0
+  stars: null
+  downloads: 54
+  recent_commits: []
+- name: agentlint-core
+  description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
+  url: https://crates.io/crates/agentlint-core
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-16T04:02:06.365522Z
+  version: 0.3.0
+  stars: null
+  downloads: 82
+  recent_commits: []
 - name: godmode
   description: Self-contained Rust-native development methodology plugin for Claude Code.
   url: https://github.com/89jobrien/godmode
@@ -448,11 +557,19 @@
   - GitHubRepo
   - ClaudePlugin
   language: Rust
-  pushed_at: 2026-05-15T17:01:16Z
+  pushed_at: 2026-05-16T01:26:13Z
   version: v0.5.0
   stars: 1
   downloads: null
   recent_commits:
+  - message: 'chore: update HANDOFF — pre-commit-gate pipeline fix'
+    date: 2026-05-16T01:26:10Z
+  - message: 'fix(pre-commit-gate): parse command pipeline before checking for git commit'
+    date: 2026-05-16T01:21:34Z
+  - message: 'docs(CLAUDE): add subagent guardrails, git ops, CI watch, output style, and Nushell conventions'
+    date: 2026-05-15T18:53:06Z
+  - message: 'fix: session quality improvements from session analysis'
+    date: 2026-05-14T03:27:11Z
   - message: 'fix(skills): introspection corrections — invalid CLI subcommands and tool hygiene'
     date: 2026-05-15T16:41:24Z
   - message: 'fix(gitignore): re-ignore HANDOFF.godmode.*.yaml state files'
@@ -465,14 +582,6 @@
     date: 2026-05-12T04:43:47Z
   - message: 'merge: issue #63 — bats hook-test helpers for verification skill'
     date: 2026-05-12T04:37:37Z
-  - message: 'merge: issue #56 — async dispatch loop for parallel execution'
-    date: 2026-05-12T04:37:31Z
-  - message: 'feat(dispatch): async dispatch loop for parallel execution fixes #56'
-    date: 2026-05-12T04:36:50Z
-  - message: 'feat: add bats hook-test helpers to verification skill'
-    date: 2026-05-12T04:35:56Z
-  - message: 'fix: add missing completed_at field to test constructor after merge'
-    date: 2026-05-12T04:17:43Z
   readme: |
     # godmode
 
@@ -1237,215 +1346,6 @@
     ├── skills/                # Skills with progressive disclosure ($)
     ├── agents/                # Agent role definitions (YAML)
     └── rules/                 # Constraints
-- name: prefixe
-  description: Prepend validated prefixes to shell commands — reads rx prefix config
-  url: https://github.com/89jobrien/prefixe
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-05-08T11:27:24Z
-  version: 0.3.0
-  stars: null
-  downloads: 36
-  recent_commits:
-  - message: 'docs: add CLAUDE.md with project conventions and agent dispatch notes'
-    date: 2026-05-08T11:27:21Z
-  - message: 'chore(prefixe): bump version to 0.4.0'
-    date: 2026-05-08T10:58:17Z
-  - message: 'merge: proptest property tests and mdBook docs scaffold fixes #22 #23'
-    date: 2026-05-08T07:46:23Z
-  - message: 'test(proptest): property tests; docs: examples and mdBook scaffold fixes #22 #23'
-    date: 2026-05-08T07:45:53Z
-  - message: 'merge: prefixe-cli binary with XDG config discovery fixes #18 #19'
-    date: 2026-05-08T07:43:37Z
-  - message: 'merge: conditional rules and priority ordering fixes #20 #21'
-    date: 2026-05-08T07:43:03Z
-  - message: 'fix(cli): import PrefixStore trait in test scope for .load() method resolution'
-    date: 2026-05-08T07:42:56Z
-  - message: 'feat(prefixe): conditional rules and priority ordering fixes #20 #21'
-    date: 2026-05-08T07:42:35Z
-  - message: 'feat(cli): add prefixe-cli binary with XDG config discovery fixes #18 #19'
-    date: 2026-05-08T07:42:28Z
-  - message: 'chore(prefixe): bump version to 0.3.0'
-    date: 2026-05-07T19:34:49Z
-  readme: |
-    # prefixe
-
-    Prepend validated prefixes to shell commands, with support for confirmed mappings and
-    speculative candidate learning.
-
-    Designed as the core library for [`coursers`](https://github.com/89jobrien/coursers) /
-    `rx` prefix config integration.
-
-    ## What it does
-
-    - Reads a TOML prefix config (`~/.config/rx/prefixes.toml` by default)
-    - Rewrites shell command strings by prepending a known prefix to each segment
-    - Supports compound commands split on `&&`, `||`, `;`, `|`
-    - Tracks speculative "candidate" probes for learning new mappings on success
-    - Exposes `PrefixStore` and `ProbeStore` traits for easy testing and substitution
-
-    ## Usage
-
-    ```rust
-    use prefixe::{FilePrefixStore, PrefixStore, rewrite_command};
-
-    let store = FilePrefixStore { path: FilePrefixStore::default_path() };
-    let config = store.load();
-    let result = rewrite_command("gh issue list && gh pr list", &config);
-    println!("{}", result.rewritten);
-    // → "op plugin run -- gh issue list && op plugin run -- gh pr list"
-    ```
-
-    ## Config format
-
-    `~/.config/rx/prefixes.toml`:
-
-    ```toml
-    [mappings]
-    gh = ["op", "plugin", "run", "--"]
-    "cargo test" = ["dotenvx", "run", "--"]
-
-    [[candidate_prefixes]]
-    candidate_prefixes = [["op", "run", "--"]]
-
-    learn_on_successful_fallback = true
-    ```
-
-    ## Environment variables
-
-    | Variable          | Default                             | Purpose                     |
-    | ----------------- | ----------------------------------- | --------------------------- |
-    | `CRS_RX_PREFIXES` | `$XDG_CONFIG_HOME/rx/prefixes.toml` | Override prefix config path |
-    | `CRS_CTX_DIR`     | `.ctx`                              | Directory for probe state   |
-
-    ## Documentation
-
-    - [API docs (docs.rs)](https://docs.rs/prefixe)
-    - [Book](docs/book/src/introduction.md) — mdBook scaffold in `docs/book/`
-
-    ## License
-
-    MIT OR Apache-2.0
-- name: coursers
-  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
-  url: https://github.com/89jobrien/coursers
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-07T19:16:56Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'refactor(core): extract prefix logic to prefixe crate (crates.io)'
-    date: 2026-05-07T19:14:33Z
-  - message: 'merge: issue #11 — CaptureStore conformance tests'
-    date: 2026-05-07T18:47:00Z
-  - message: 'test(capture): conformance test suite for CaptureStore trait fixes #11'
-    date: 2026-05-07T18:46:16Z
-  - message: 'merge: issue #12 — extract CaptureStore trait + InMemoryCaptureStore'
-    date: 2026-05-07T18:42:44Z
-  - message: 'merge: issue #12 — extract CaptureStore trait + InMemoryCaptureStore'
-    date: 2026-05-07T18:42:20Z
-  - message: 'refactor(capture): extract CaptureStore trait + InMemoryCaptureStore test double fixes #12'
-    date: 2026-05-07T18:41:54Z
-  - message: 'feat(capture): log blocked commands as (original, suggestion) pairs for fine-tuning'
-    date: 2026-05-07T18:30:11Z
-  - message: 'fix(rx-prefix): guard op plugin run -- learning to known 1Password plugins'
-    date: 2026-05-07T17:53:20Z
-  - message: 'docs: mark handoff enrichment plan as superseded — hand plugin gone, tasks 3-6 dropped'
-    date: 2026-05-06T16:55:47Z
-  - message: 'docs: mark 4 landed plans as done (closes #6, #7, #8, #9)'
-    date: 2026-05-06T16:53:17Z
-  tags:
-  - cli
-  readme: |-
-    # coursers
-
-    Claude Code hook pipeline for course-correcting AI-generated Bash commands.
-
-    Two tools:
-
-    - **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures
-    - **`crs`** — output filter and command rewriter
-
-    ---
-
-    ## How It Works
-
-    ### Rule-based blocking (`coursers pre`)
-
-    Reads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command
-    matches a rule in `~/.claude/hooks/course-correct-rules.json`, the hook returns a `deny`
-    response with a human-readable message.
-
-    Rules support:
-
-    - Regex pattern matching (with optional `i` flag)
-    - Exception patterns — allow a command through even if the main pattern matches
-    - Per-rule messages
-
-    ### Learned failure tracking (`coursers post`)
-
-    Reads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and
-    intentional failures), it records the command in a rolling failure log. If the same command
-    fails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.
-
-    This catches commands that aren't covered by static rules but are clearly not working.
-
-    ---
-
-    ## Installation
-
-    ```sh
-    cargo install --path crates/coursers
-    cargo install --path crates/crs
-    ```
-
-    Wire into `~/.claude/settings.json`:
-
-    ```json
-    {
-      "hooks": {
-        "PreToolUse": [
-          {
-            "matcher": "Bash",
-            "hooks": [
-              { "type": "command", "command": "coursers pre" },
-              { "type": "command", "command": "crs rewrite" }
-            ]
-          }
-        ],
-        "PostToolUse": [
-          {
-            "matcher": "Bash",
-            "hooks": [
-              { "type": "command", "command": "coursers post" },
-              { "type": "command", "command": "crs filter" }
-            ]
-          }
-        ]
-      }
-    }
-    ```
-
-    `crs rewrite` and `crs filter` are optional — run `coursers` alone if you only want blocking
-    and failure learning.
-
-    ---
-
-    ## Configuration
-
-    Rules file: `~/.claude/hooks/course-correct-rules.json`
-    (override with `COURSERS_RULES` env var)
-
-    ```json
-    {
-      "rules": [
-        {
-          "id"
 - name: langchainx
   description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
   url: https://github.com/89jobrien/langchainx
@@ -1852,7 +1752,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 489
+  downloads: 519
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -2031,7 +1931,7 @@
   pushed_at: 2026-04-20T07:03:49.856865Z
   version: 0.2.5
   stars: null
-  downloads: 83
+  downloads: 85
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
