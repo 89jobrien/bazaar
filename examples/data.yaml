@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-18T00:03:16Z
+  pushed_at: 2026-05-18T14:36:25Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-18T14:36:23Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-18T00:03:15Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-14T11:40:57Z
   - message: 'chore(showcase): regenerate README for 2026-05-14'
     date: 2026-05-14T09:23:20Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-05-14T09:05:35Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,13 +213,96 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: praxis
+  description: Self-improving agent runtime for the cruxx agentic DSL
+  url: https://github.com/89jobrien/praxis
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-18T17:35:57Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: update ignore rules and rust metadata'
+    date: 2026-05-12T10:50:30Z
+  - message: 'docs: update handoff'
+    date: 2026-05-10T08:21:09Z
+  - message: Delete target directory
+    date: 2026-05-10T09:30:48Z
+  - message: 'chore: rename handoff to hj convention, reformat README'
+    date: 2026-05-09T20:04:19Z
+  - message: 'docs: update README with concurrent batch API and xtask commands'
+    date: 2026-05-09T18:11:21Z
+  - message: 'refactor: remove praxis-task, add concurrent batch to ImprovementLoop'
+    date: 2026-05-09T18:07:08Z
+  - message: 'feat: add xtask for workspace build tasks'
+    date: 2026-05-09T18:02:31Z
+  - message: 'feat(praxis-task): add concurrent task queue with status tracking'
+    date: 2026-05-09T18:00:24Z
+  - message: 'feat: add MetricsEvaluator, demo binary, and README'
+    date: 2026-05-09T17:50:37Z
+  - message: 'feat: scaffold praxis workspace'
+    date: 2026-05-09T17:36:43Z
+  readme: |-
+    # praxis
+
+    Self-improving agent runtime for the [cruxx](https://github.com/89jobrien/cruxx) agentic DSL.
+    Closes the loop between execution traces, evaluation, and strategy evolution so agents get better at their job across sessions.
+
+    ```text
+    RUN -> TRACE -> EVALUATE -> PROPOSE -> VALIDATE -> APPLY
+     ^                                                   |
+     +---------------------------------------------------+
+    ```
+
+    ## What it does
+
+    Every time an agent runs, cruxx captures a `Crux<T>` trace — a full causal record of every step, delegation, and speculation. Praxis takes that trace and:
+
+    1. **Evaluates** it — extracts metrics (success rate, confidence, error distribution, delegation depth, speculation hit rate) and generates findings
+    2. **Records** the reward score and computes trend direction over time
+    3. **Proposes** strategy improvements backed by evidence
+    4. **Validates** each proposal against a safety policy (auto-approve low-risk, defer high-risk for human approval)
+    5. **Applies** accepted changes to the agent's strategy
+    6. **Compares** the new trace against the previous one and detects regressions
+
+    If a strategy change causes a regression, it can be rolled back.
+
+    ## Demo
+
+    ```
+    $ cargo xtask demo
+
+    praxis -- self-improving agent runtime demo
+
+    === Sequential improvement loop ===
+
+    --- session-1: struggling agent ---
+      score: 0.28  |  success_rate: 33%  |  avg_confidence: 0.20
+      [applied] ConfidenceThreshold -> demo-agent (confidence: 0.70)
+      strategy v1: 0 tool prefs, 1 thresholds
+
+    --- session-2: partial recovery ---
+      score: 0.56  |  success_rate: 67%  |  avg_confidence: 0.40
+      [applied] ConfidenceThreshold -> demo-agent (confidence: 0.70)
+      ^^ IMPROVED (delta: +0.280)
+      strategy v2: 0 tool prefs, 1 thresholds
+
+    --- session-3: getting better ---
+      score: 0.84  |  success_rate: 100%  |  avg_confidence: 0.60
+      ^^ IMPROVED (delta: +0.280)
+      strategy v2: 0 tool prefs, 1 thresholds
+
+    --- session-4: confident execution ---
+      score: 0.93  |  success_rate: 100%  |  avg_confiden
 - name: crux
   description: Inspectable, serializable, replayable agent execution.
   url: https://github.com/89jobrien/crux
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-18T09:55:02Z
+  pushed_at: 2026-05-18T17:24:08Z
   version: null
   stars: null
   downloads: null
@@ -247,24 +330,13 @@
   tags:
   - agents
   readme: "# crux\n\nAn agentic DSL for Rust -- inspectable, serializable, replayable agent orchestration.\n\n`cruxx` is not a standalone language. It's a set of macros, traits, and types that make agentic\ncontrol flow explicit in the Rust type system. \n\n## Quick example\n\n```rust\nuse cruxx::prelude::*;\n\n#[cruxx::agent]\nasync fn plan_trip(goal: String) -> Crux<Itinerary> {\n    let research = x.step(\"research\", || async {\n        Ok(search_web(&goal).await?)\n    }).await?;\n\n    let draft = x.delegate::<DraftAgent>(\"draft\", research)\n        .with_budget(Budget::tokens(4000))\n        .run().await?;\n\n    x.speculate(\"finalize\", vec![\n        (\"cheap\", Box::pin(async { finalize_cheap(&draft).await })),\n        (\"fast\",  Box::pin(async { finalize_fast(&draft).await })),\n        (\"safe\",  Box::pin(async { finalize_safe(&draft).await })),\n    ]).pick_best_by(|r| r.confidence).await\n}\n```\n\n## Example\n\n```rust\nuse cruxx::prelude::*;\n\n#[cruxx::agent]\nasync fn review_pr(pr: PullRequest) -> Crux<ReviewReport> {\n    // Fan out: fetch diff and CI results in parallel\n    let (diff, ci) = x.join_all([\n        x.step(\"fetch_diff\", || git::diff(&pr.base, &pr.head)),\n        x.step(\"fetch_ci\",   || ci::latest_run(&pr.repo, &pr.head)),\n    ]).await?;\n\n    // Delegate deep analysis to a specialist; escalate if confidence is low\n    let analysis = x.delegate::<SecurityAnalysisAgent>(\"security\", &diff)\n        .with_budget(Budget::tokens(8000))\n        .on_low_confidence(0.75, escalate_to_human)\n        .on_step_failure(Recovery::Retry(2))\n        .await?;\n\n    // Race three review styles; keep whichever scores highest\n    let review = x.speculate(\"style\", [\n        (\"strict\",  || apply_strict_style(&analysis, &ci)),\n        (\"lenient\", || apply_lenient_style(&analysis, &ci)),\n        (\"summary\", || apply_summary_style(&analysis, &ci)),\n    ]).pick_best_by(|r| r.confidence).await?;\n\n    x.step(\"emit\", || build_report(pr, analysis, review)).await\n}\n```\n\nEvery `x.step`, `x.delegate`, `x.speculate` call is "
-- name: cruxx
-  description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
-  url: https://crates.io/crates/cruxx
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-05-18T09:52:28.834986Z
-  version: 0.2.6
-  stars: null
-  downloads: 22
-  recent_commits: []
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-18T06:29:30Z
+  pushed_at: 2026-05-18T15:14:07Z
   version: v0.24.0
   stars: null
   downloads: null
@@ -349,6 +421,17 @@
     ## Quick Start
 
     Requires Linux, root, kernel 5.0+
+- name: cruxx
+  description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
+  url: https://crates.io/crates/cruxx
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-18T09:52:28.834986Z
+  version: 0.2.6
+  stars: null
+  downloads: 24
+  recent_commits: []
 - name: cruxx-improve
   description: Shared vocabulary and bridge types for crux self-improvement
   url: https://crates.io/crates/cruxx-improve
@@ -358,7 +441,7 @@
   pushed_at: 2026-05-18T05:22:51.574320Z
   version: 0.2.6
   stars: null
-  downloads: 8
+  downloads: 10
   recent_commits: []
 - name: cruxx-planner
   description: Goal-to-pipeline planner for cruxx-script
@@ -369,7 +452,7 @@
   pushed_at: 2026-05-18T05:22:46.040541Z
   version: 0.2.6
   stars: null
-  downloads: 27
+  downloads: 29
   recent_commits: []
 - name: cruxx-agentic
   description: Built-in step handlers for cruxx-script pipelines
@@ -380,7 +463,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 29
+  downloads: 32
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -391,7 +474,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 40
+  downloads: 44
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -402,7 +485,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 64
+  downloads: 70
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -413,7 +496,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 122
+  downloads: 127
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -424,7 +507,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 32
+  downloads: 34
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -435,7 +518,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 39
+  downloads: 43
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -446,7 +529,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 34
+  downloads: 37
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -457,7 +540,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 190
+  downloads: 245
   recent_commits: []
 - name: godmode
   description: Self-contained Rust-native development methodology plugin for Claude Code.
@@ -1104,85 +1187,6 @@
     ## License
 
     MIT OR Apache-2.0
-- name: praxis
-  description: Self-improving agent runtime for the cruxx agentic DSL
-  url: https://github.com/89jobrien/praxis
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-10T09:30:49Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Delete target directory
-    date: 2026-05-10T09:30:48Z
-  - message: 'chore: rename handoff to hj convention, reformat README'
-    date: 2026-05-09T20:04:19Z
-  - message: 'docs: update README with concurrent batch API and xtask commands'
-    date: 2026-05-09T18:11:21Z
-  - message: 'refactor: remove praxis-task, add concurrent batch to ImprovementLoop'
-    date: 2026-05-09T18:07:08Z
-  - message: 'feat: add xtask for workspace build tasks'
-    date: 2026-05-09T18:02:31Z
-  - message: 'feat(praxis-task): add concurrent task queue with status tracking'
-    date: 2026-05-09T18:00:24Z
-  - message: 'feat: add MetricsEvaluator, demo binary, and README'
-    date: 2026-05-09T17:50:37Z
-  - message: 'feat: scaffold praxis workspace'
-    date: 2026-05-09T17:36:43Z
-  readme: |-
-    # praxis
-
-    Self-improving agent runtime for the [cruxx](https://github.com/89jobrien/cruxx) agentic DSL.
-    Closes the loop between execution traces, evaluation, and strategy evolution so agents get better at their job across sessions.
-
-    ```text
-    RUN -> TRACE -> EVALUATE -> PROPOSE -> VALIDATE -> APPLY
-     ^                                                   |
-     +---------------------------------------------------+
-    ```
-
-    ## What it does
-
-    Every time an agent runs, cruxx captures a `Crux<T>` trace — a full causal record of every step, delegation, and speculation. Praxis takes that trace and:
-
-    1. **Evaluates** it — extracts metrics (success rate, confidence, error distribution, delegation depth, speculation hit rate) and generates findings
-    2. **Records** the reward score and computes trend direction over time
-    3. **Proposes** strategy improvements backed by evidence
-    4. **Validates** each proposal against a safety policy (auto-approve low-risk, defer high-risk for human approval)
-    5. **Applies** accepted changes to the agent's strategy
-    6. **Compares** the new trace against the previous one and detects regressions
-
-    If a strategy change causes a regression, it can be rolled back.
-
-    ## Demo
-
-    ```
-    $ cargo xtask demo
-
-    praxis -- self-improving agent runtime demo
-
-    === Sequential improvement loop ===
-
-    --- session-1: struggling agent ---
-      score: 0.28  |  success_rate: 33%  |  avg_confidence: 0.20
-      [applied] ConfidenceThreshold -> demo-agent (confidence: 0.70)
-      strategy v1: 0 tool prefs, 1 thresholds
-
-    --- session-2: partial recovery ---
-      score: 0.56  |  success_rate: 67%  |  avg_confidence: 0.40
-      [applied] ConfidenceThreshold -> demo-agent (confidence: 0.70)
-      ^^ IMPROVED (delta: +0.280)
-      strategy v2: 0 tool prefs, 1 thresholds
-
-    --- session-3: getting better ---
-      score: 0.84  |  success_rate: 100%  |  avg_confidence: 0.60
-      ^^ IMPROVED (delta: +0.280)
-      strategy v2: 0 tool prefs, 1 thresholds
-
-    --- session-4: confident execution ---
-      score: 0.93  |  success_rate: 100%  |  avg_confiden
 - name: bamlish
   description: Standalone BAML schema library and generated Rust client for structured LLM output
   url: https://github.com/89jobrien/bamlish
@@ -1873,7 +1877,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 582
+  downloads: 584
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -2246,7 +2250,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 110
+  downloads: 112
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -2257,7 +2261,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 57
+  downloads: 58
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -2268,7 +2272,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 129
+  downloads: 132
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
