@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-19T00:15:23Z
+  pushed_at: 2026-05-19T13:57:19Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-19T13:57:18Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-19T00:15:22Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-15T11:44:16Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-14T23:26:25Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-05-14T11:40:57Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,31 +219,31 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-19T06:23:51Z
+  pushed_at: 2026-05-19T22:47:43Z
   version: v0.24.0
   stars: null
   downloads: null
   recent_commits:
-  - message: 'ci(merge): gate build-test-archive on lint'
-    date: 2026-05-15T20:55:49Z
-  - message: 'ci(merge): scope lint and unit tests to develop+next only'
-    date: 2026-05-15T20:53:40Z
-  - message: 'ci(merge): move build-test-archive to develop+next, drop from staging'
-    date: 2026-05-15T20:51:00Z
-  - message: 'chore(deps): remove unused serde_json, anyhow, thiserror deps flagged by cargo-machete'
-    date: 2026-05-15T20:30:36Z
-  - message: 'feat(commands): decouple commands from nu scripts'
-    date: 2026-05-15T19:25:27Z
-  - message: 'feat(commands): add slash commands for all 17 scripts'
-    date: 2026-05-15T19:07:47Z
-  - message: 'fix(scripts): fix FILE_PWD path doubling in 9 nu script wrappers'
-    date: 2026-05-15T19:02:33Z
-  - message: 'fix(scripts): fix bench-agent.nu multi-line external command parse error'
-    date: 2026-05-15T18:59:59Z
-  - message: 'docs: add ci-watch to CLAUDE.md and full scripts inventory to DEVELOPMENT.md'
-    date: 2026-05-15T18:58:50Z
-  - message: 'feat(scripts): add ci-watch.nu wrapper for cargo xtask ci-watch'
-    date: 2026-05-15T18:54:21Z
+  - message: Merge remote-tracking branch 'origin/develop' into next
+    date: 2026-05-19T20:05:45Z
+  - message: 'fix: update protocol drift hashes and fix unsigned comparison warning'
+    date: 2026-05-19T20:05:02Z
+  - message: 'chore(promote): develop -> next'
+    date: 2026-05-19T19:36:32Z
+  - message: 'fix(ci): also exclude protocol_e2e_tests from archive run'
+    date: 2026-05-19T19:36:25Z
+  - message: 'chore(promote): develop -> next'
+    date: 2026-05-19T19:16:04Z
+  - message: 'fix(ci): exclude cli_e2e and smolvm_e2e from archive test run'
+    date: 2026-05-19T19:14:01Z
+  - message: 'fix(ci): remove duplicate DockerHubRegistry import in miniboxd main'
+    date: 2026-05-19T19:04:11Z
+  - message: 'fix(test): smolvm helpers use positional args, add missing CommandExt import'
+    date: 2026-05-19T19:01:39Z
+  - message: 'docs(claude): reference .claude.local.md at top of CLAUDE.md'
+    date: 2026-05-19T18:58:36Z
+  - message: 'docs(claude): move local-only notes out of CLAUDE.md'
+    date: 2026-05-19T18:57:12Z
   tags:
   - infra
   topics:
@@ -304,6 +304,39 @@
     ## Quick Start
 
     Requires Linux, root, kernel 5.0+
+- name: agentlint
+  description: Linter for AI coding agent harness files (Claude Code, Codex, Cursor, Gemini, OpenCode, Pi)
+  url: https://github.com/89jobrien/agentlint
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-19T22:21:20Z
+  version: v0.3.0
+  stars: null
+  downloads: 28
+  recent_commits:
+  - message: 'fix(agentlint-docs): handle YAML block scalar indicators in meta field'
+    date: 2026-05-19T22:21:12Z
+  - message: 'feat(agentlint-docs): add --infer-schema/--emit-schema CLI flags and SchemaRegistry config'
+    date: 2026-05-19T17:59:15Z
+  - message: 'feat(agentlint-docs): wire infer_mode into DocsValidator::validate_batch'
+    date: 2026-05-16T09:22:18Z
+  - message: 'feat(agentlint-docs): add infer_schema() corpus inference'
+    date: 2026-05-16T09:20:22Z
+  - message: 'feat(agentlint-docs): add SchemaRegistry with builtin and discover()'
+    date: 2026-05-16T09:18:54Z
+  - message: 'feat(agentlint-docs): add DocsSchemaPlugin trait and builtin/file impls'
+    date: 2026-05-16T09:18:17Z
+  - message: 'feat(agentlint-docs): add Serialize, expand agentlint-default.json schema'
+    date: 2026-05-16T09:17:39Z
+  - message: 'refactor(agentlint-docs): extract default conventions to JSON file'
+    date: 2026-05-16T08:05:59Z
+  - message: 'docs(example): document [docs] schema config section in agentlint.example.toml'
+    date: 2026-05-16T08:00:04Z
+  - message: 'refactor(agentlint-docs): remove dead strip_ref function'
+    date: 2026-05-16T07:43:05Z
+  readme: "# agentlint\n\nLinter for AI coding agent harness files. Validates agents, skills, commands, hooks, settings,\nMCP config, and docs frontmatter across the major coding agent platforms.\n\n```\n$ agentlint\n.claude/agents/debugger.md:1:1: error: missing required field 'name'\n.claude/commands/deploy.md:3:1: error: missing required field 'description'\n.claude/settings.json:1:1: error: unknown top-level key 'theme'\n.mcp.json:1:1: error: mcpServers.my-server: server entry must have 'command' or 'url' transport\n3 errors, 1 warning\n```\n\n## Supported platforms\n\n| Platform    | Files validated                                                                                                                                       |\n| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |\n| Claude Code | `.claude/agents/**/*.md`, `.claude/skills/**/*.md`, `.claude/commands/**/*.md`, `.claude/hooks/**`, `.claude/settings.json`, `.mcp.json`, `CLAUDE.md` |\n| Cursor      | `.cursor/rules/**/*.mdc`, `.cursor/rules/**/*.md`, `.cursorrules`                                                                                     |\n| Codex       | `AGENTS.md`                                                                                                                                           |\n| OpenCode    | `AGENTS.md`, `opencode.json`                                                                                                                          |\n| Gemini      | `GEMINI.md`                                                                                                                                           |\n| Pi          | `AGENTS.md`, `SYSTEM.md`                                                                                                                              |\n| Docs        | `docs/**/*.md` (frontmatter schema)                                                    "
 - name: praxis
   description: Self-improving agent runtime for the cruxx agentic DSL
   url: https://github.com/89jobrien/praxis
@@ -624,39 +657,6 @@
     | Skill                                     | When                                                   |
     | ----------------------------------------- | ------------------------------------------------------ |
     | `godmode:using-godmode`                   | Session orientation, available skills, rules           |
-- name: agentlint
-  description: Linter for AI coding agent harness files (Claude Code, Codex, Cursor, Gemini, OpenCode, Pi)
-  url: https://github.com/89jobrien/agentlint
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-05-16T08:00:09Z
-  version: v0.3.0
-  stars: null
-  downloads: 26
-  recent_commits:
-  - message: 'docs(example): document [docs] schema config section in agentlint.example.toml'
-    date: 2026-05-16T08:00:04Z
-  - message: 'refactor(agentlint-docs): remove dead strip_ref function'
-    date: 2026-05-16T07:43:05Z
-  - message: 'feat(agentlint-docs): configurable schema and filename conventions via .agentlint.toml'
-    date: 2026-05-16T07:41:01Z
-  - message: 'feat: add agentlint-docs crate — validates docs/**/*.md frontmatter schema'
-    date: 2026-05-16T06:45:37Z
-  - message: 'docs: expand filename conventions — docs/specs/, docs/plans/, docs/ideas/ with path inference'
-    date: 2026-05-16T06:39:14Z
-  - message: 'docs: update agentlint-docs spec — add idea doctype, clarify spec vs plan distinction'
-    date: 2026-05-16T06:37:32Z
-  - message: 'docs: agentlint-docs design doc — docs frontmatter validator'
-    date: 2026-05-16T06:22:11Z
-  - message: 'docs: fix roadmap link in README to match kebab-case rename'
-    date: 2026-05-16T05:52:31Z
-  - message: 'docs: rename roadmap to kebab-case'
-    date: 2026-05-16T05:52:25Z
-  - message: 'docs: expand quality metrics table and fix frontmatter style'
-    date: 2026-05-16T05:52:21Z
-  readme: "# agentlint\n\nLinter for AI coding agent harness files. Validates agents, skills, commands, hooks, settings,\nMCP config, and docs frontmatter across the major coding agent platforms.\n\n```\n$ agentlint\n.claude/agents/debugger.md:1:1: error: missing required field 'name'\n.claude/commands/deploy.md:3:1: error: missing required field 'description'\n.claude/settings.json:1:1: error: unknown top-level key 'theme'\n.mcp.json:1:1: error: mcpServers.my-server: server entry must have 'command' or 'url' transport\n3 errors, 1 warning\n```\n\n## Supported platforms\n\n| Platform    | Files validated                                                                                                                                       |\n| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |\n| Claude Code | `.claude/agents/**/*.md`, `.claude/skills/**/*.md`, `.claude/commands/**/*.md`, `.claude/hooks/**`, `.claude/settings.json`, `.mcp.json`, `CLAUDE.md` |\n| Cursor      | `.cursor/rules/**/*.mdc`, `.cursor/rules/**/*.md`, `.cursorrules`                                                                                     |\n| Codex       | `AGENTS.md`                                                                                                                                           |\n| OpenCode    | `AGENTS.md`, `opencode.json`                                                                                                                          |\n| Gemini      | `GEMINI.md`                                                                                                                                           |\n| Pi          | `AGENTS.md`, `SYSTEM.md`                                                                                                                              |\n| Docs        | `docs/**/*.md` (frontmatter schema)                                                    "
 - name: prefixe
   description: Prepend validated prefixes to shell commands — reads rx prefix config
   url: https://github.com/89jobrien/prefixe
@@ -791,7 +791,7 @@
   pushed_at: 2026-05-16T04:04:45.475950Z
   version: 0.3.0
   stars: null
-  downloads: 33
+  downloads: 35
   recent_commits: []
 - name: agentlint-pi
   description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
@@ -802,7 +802,7 @@
   pushed_at: 2026-05-16T04:04:23.718026Z
   version: 0.3.0
   stars: null
-  downloads: 36
+  downloads: 38
   recent_commits: []
 - name: agentlint-gemini
   description: agentlint validator for Google Gemini GEMINI.md files
@@ -813,7 +813,7 @@
   pushed_at: 2026-05-16T04:04:00.508658Z
   version: 0.3.0
   stars: null
-  downloads: 49
+  downloads: 52
   recent_commits: []
 - name: agentlint-codex
   description: agentlint validator for OpenAI Codex AGENTS.md files
@@ -824,7 +824,7 @@
   pushed_at: 2026-05-16T04:03:38.113837Z
   version: 0.3.0
   stars: null
-  downloads: 48
+  downloads: 51
   recent_commits: []
 - name: agentlint-cursor
   description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
@@ -835,7 +835,7 @@
   pushed_at: 2026-05-16T04:03:15.391246Z
   version: 0.3.0
   stars: null
-  downloads: 48
+  downloads: 51
   recent_commits: []
 - name: agentlint-claude
   description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
@@ -846,7 +846,7 @@
   pushed_at: 2026-05-16T04:02:52.382445Z
   version: 0.3.0
   stars: null
-  downloads: 33
+  downloads: 35
   recent_commits: []
 - name: agentlint-frontmatter
   description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
@@ -857,7 +857,7 @@
   pushed_at: 2026-05-16T04:02:28.958456Z
   version: 0.3.0
   stars: null
-  downloads: 64
+  downloads: 67
   recent_commits: []
 - name: agentlint-core
   description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
@@ -868,7 +868,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 93
+  downloads: 96
   recent_commits: []
 - name: hj
   description: Handoff state, reconciliation, rendering, and handup surveys
@@ -1877,7 +1877,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 594
+  downloads: 626
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
