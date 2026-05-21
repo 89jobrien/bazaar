@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-20T13:44:34Z
+  pushed_at: 2026-05-21T00:14:04Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-21T00:14:03Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-20T13:44:33Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-16T23:24:16Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-16T11:28:31Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-05-15T23:25:41Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,46 +213,109 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
-- name: agentlint
-  description: Linter for AI coding agent harness files (Claude Code, Codex, Cursor, Gemini, OpenCode, Pi)
-  url: https://github.com/89jobrien/agentlint
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
   kinds:
   - GitHubRepo
-  - CratesIo
   language: Rust
-  pushed_at: 2026-05-20T16:43:10Z
-  version: v0.5.0
+  pushed_at: 2026-05-21T10:42:19Z
+  version: null
   stars: null
-  downloads: 28
+  downloads: null
   recent_commits:
-  - message: 'test(frontmatter): extend builder proptests for all constraint paths'
-    date: 2026-05-20T16:43:07Z
-  - message: 'fix(test): correct integration test for cursor frontmatter and rule field type'
-    date: 2026-05-20T16:41:45Z
-  - message: 'feat(agentlint-frontmatter): add proptests for parse() fuzz and round-trip'
-    date: 2026-05-20T16:40:13Z
-  - message: 'refactor: centralize conformance tests and add smart directory walking'
-    date: 2026-05-20T16:34:08Z
-  - message: 'feat: add summary stats table with --quiet flag'
-    date: 2026-05-20T12:04:53Z
-  - message: 'refactor(core): extract validator.rs from declarative eval.rs'
-    date: 2026-05-20T11:55:14Z
-  - message: 'docs: add README.md for every crate'
-    date: 2026-05-20T11:41:48Z
-  - message: 'docs: add testing strategy TODOs and declarative module README'
-    date: 2026-05-20T11:33:14Z
-  - message: 'refactor(core): split declarative.rs into module directory'
-    date: 2026-05-20T11:27:26Z
-  - message: 'feat(core): add declarative feature, looprs crate, and inherit model variant'
-    date: 2026-05-20T11:07:26Z
-  readme: "# agentlint\n\nLinter for AI coding agent harness files. Validates agents, skills, commands, hooks, settings,\nMCP config, and docs frontmatter across the major coding agent platforms.\n\n```\n$ agentlint\n.claude/agents/debugger.md:1:1: error: missing required field 'name'\n.claude/commands/deploy.md:3:1: error: missing required field 'description'\n.claude/settings.json:1:1: error: unknown top-level key 'theme'\n.mcp.json:1:1: error: mcpServers.my-server: server entry must have 'command' or 'url' transport\n\n  Files checked : 14\n    agents        : 3\n    claude-md     : 1\n    commands      : 2\n    docs          : 4\n    mcp           : 1\n    settings      : 1\n    skills        : 2\n  Validators    : 55\n  Errors        : 4\n  Warnings      : 0\n```\n\n## Supported platforms\n\n| Platform    | Files validated                                                                                                                                       |\n| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |\n| Claude Code | `.claude/agents/**/*.md`, `.claude/skills/**/*.md`, `.claude/commands/**/*.md`, `.claude/hooks/**`, `.claude/settings.json`, `.mcp.json`, `CLAUDE.md` |\n| Cursor      | `.cursor/rules/**/*.mdc`, `.cursor/rules/**/*.md`, `.cursorrules`                                                                                     |\n| Codex       | `AGENTS.md`                                                                                                                                           |\n| OpenCode    | `AGENTS.md`, `opencode.json`                                                                                                                          |\n| Gemini      | `GEMINI.md`                                                                                                                                           |\n| Pi          | `AGENTS.md`, `SYSTEM.md`              "
+  - message: 'fix: add language tags to fenced code blocks in plan doc'
+    date: 2026-05-21T10:14:24Z
+  - message: 'feat: reliability + DX improvement cohort (#64, #67, #68, #76, #79, #82, #83)'
+    date: 2026-05-21T10:08:37Z
+  - message: 'feat: namespace-aware handler validation, Cruxfile runner output, review fixes'
+    date: 2026-05-21T09:21:24Z
+  - message: 'feat(cli): add --dry-run / -n flag to crux run'
+    date: 2026-05-21T08:26:42Z
+  - message: 'feat(script): add Cruxfile multi-target format with DAG resolution'
+    date: 2026-05-21T08:20:03Z
+  - message: 'fix: move categories.workspace under [package] not [lib]'
+    date: 2026-05-21T05:18:17Z
+  - message: 'refactor: rename crux facade crate to cruxx for crates.io'
+    date: 2026-05-21T05:16:41Z
+  - message: 'refactor: rename crux-core to crux-runtime for crates.io publishing'
+    date: 2026-05-21T04:52:45Z
+  - message: 'fix(agentic): post-extraction fixes and dep_audit pipeline'
+    date: 2026-05-21T04:26:02Z
+  - message: 'style: fix markdownlint errors across docs'
+    date: 2026-05-21T04:15:11Z
+  tags:
+  - agents
+  readme: |-
+    # crux
+
+    An agentic DSL for Rust -- inspectable, serializable, replayable agent orchestration.
+
+    `crux` is not a standalone language. It's a set of macros, traits, and types that make agentic
+    control flow explicit in the Rust type system.
+
+    ## Quick example
+
+    ```rust
+    use crux::prelude::*;
+
+    #[crux::agent]
+    async fn plan_trip(goal: String) -> Crux<Itinerary> {
+        let research = x.step("research", || async {
+            Ok(search_web(&goal).await?)
+        }).await?;
+
+        let draft = x.delegate::<DraftAgent>("draft", research)
+            .with_budget(Budget::tokens(4000))
+            .run().await?;
+
+        x.speculate("finalize", vec![
+            ("cheap", Box::pin(async { finalize_cheap(&draft).await })),
+            ("fast",  Box::pin(async { finalize_fast(&draft).await })),
+            ("safe",  Box::pin(async { finalize_safe(&draft).await })),
+        ]).pick_best_by(|r| r.confidence).await
+    }
+    ```
+
+    ## Example
+
+    ```rust
+    use crux::prelude::*;
+
+    #[crux::agent]
+    async fn review_pr(pr: PullRequest) -> Crux<ReviewReport> {
+        // Fan out: fetch diff and CI results in parallel
+        let (diff, ci) = x.join_all([
+            x.step("fetch_diff", || git::diff(&pr.base, &pr.head)),
+            x.step("fetch_ci",   || ci::latest_run(&pr.repo, &pr.head)),
+        ]).await?;
+
+        // Delegate deep analysis to a specialist; escalate if confidence is low
+        let analysis = x.delegate::<SecurityAnalysisAgent>("security", &diff)
+            .with_budget(Budget::tokens(8000))
+            .on_low_confidence(0.75, escalate_to_human)
+            .on_step_failure(Recovery::Retry(2))
+            .await?;
+
+        // Race three review styles; keep whichever scores highest
+        let review = x.speculate("style", [
+            ("strict",  || apply_strict_style(&analysis, &ci)),
+            ("lenient", || apply_lenient_style(&analysis, &ci)),
+            ("summary", || apply_summary_style(&analysis, &ci)),
+        ]).pick_best_by(|r| r.confidence).await?;
+
+        x.step("emit", || build_report(pr, analysis, review)).await
+    }
+    ```
+
+    Every `x.step`, `x.delegate`, `x.speculate` call is record
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-20T14:12:52Z
+  pushed_at: 2026-05-21T06:26:55Z
   version: v0.24.0
   stars: null
   downloads: null
@@ -337,6 +400,39 @@
     ## Quick Start
 
     Requires Linux, root, kernel 5.0+
+- name: agentlint
+  description: Linter for AI coding agent harness files (Claude Code, Codex, Cursor, Gemini, OpenCode, Pi)
+  url: https://github.com/89jobrien/agentlint
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-20T16:43:10Z
+  version: v0.5.0
+  stars: null
+  downloads: 28
+  recent_commits:
+  - message: 'test(frontmatter): extend builder proptests for all constraint paths'
+    date: 2026-05-20T16:43:07Z
+  - message: 'fix(test): correct integration test for cursor frontmatter and rule field type'
+    date: 2026-05-20T16:41:45Z
+  - message: 'feat(agentlint-frontmatter): add proptests for parse() fuzz and round-trip'
+    date: 2026-05-20T16:40:13Z
+  - message: 'refactor: centralize conformance tests and add smart directory walking'
+    date: 2026-05-20T16:34:08Z
+  - message: 'feat: add summary stats table with --quiet flag'
+    date: 2026-05-20T12:04:53Z
+  - message: 'refactor(core): extract validator.rs from declarative eval.rs'
+    date: 2026-05-20T11:55:14Z
+  - message: 'docs: add README.md for every crate'
+    date: 2026-05-20T11:41:48Z
+  - message: 'docs: add testing strategy TODOs and declarative module README'
+    date: 2026-05-20T11:33:14Z
+  - message: 'refactor(core): split declarative.rs into module directory'
+    date: 2026-05-20T11:27:26Z
+  - message: 'feat(core): add declarative feature, looprs crate, and inherit model variant'
+    date: 2026-05-20T11:07:26Z
+  readme: "# agentlint\n\nLinter for AI coding agent harness files. Validates agents, skills, commands, hooks, settings,\nMCP config, and docs frontmatter across the major coding agent platforms.\n\n```\n$ agentlint\n.claude/agents/debugger.md:1:1: error: missing required field 'name'\n.claude/commands/deploy.md:3:1: error: missing required field 'description'\n.claude/settings.json:1:1: error: unknown top-level key 'theme'\n.mcp.json:1:1: error: mcpServers.my-server: server entry must have 'command' or 'url' transport\n\n  Files checked : 14\n    agents        : 3\n    claude-md     : 1\n    commands      : 2\n    docs          : 4\n    mcp           : 1\n    settings      : 1\n    skills        : 2\n  Validators    : 55\n  Errors        : 4\n  Warnings      : 0\n```\n\n## Supported platforms\n\n| Platform    | Files validated                                                                                                                                       |\n| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |\n| Claude Code | `.claude/agents/**/*.md`, `.claude/skills/**/*.md`, `.claude/commands/**/*.md`, `.claude/hooks/**`, `.claude/settings.json`, `.mcp.json`, `CLAUDE.md` |\n| Cursor      | `.cursor/rules/**/*.mdc`, `.cursor/rules/**/*.md`, `.cursorrules`                                                                                     |\n| Codex       | `AGENTS.md`                                                                                                                                           |\n| OpenCode    | `AGENTS.md`, `opencode.json`                                                                                                                          |\n| Gemini      | `GEMINI.md`                                                                                                                                           |\n| Pi          | `AGENTS.md`, `SYSTEM.md`              "
 - name: praxis
   description: Self-improving agent runtime for the cruxx agentic DSL
   url: https://github.com/89jobrien/praxis
@@ -502,40 +598,6 @@
     | Skill                                     | When                                                   |
     | ----------------------------------------- | ------------------------------------------------------ |
     | `godmode:using-godmode`                   | Session orientation, available skills, rules           |
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-18T17:24:08Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Merge release v0.2.6 into main
-    date: 2026-05-18T09:54:53Z
-  - message: 'fix(release): add cruxx-core dependency versions'
-    date: 2026-05-18T05:15:54Z
-  - message: 'chore(release): prepare 0.2.6'
-    date: 2026-05-18T05:10:53Z
-  - message: 'feat(registry): add handler_value_with_metadata and fix clippy/fmt issues'
-    date: 2026-05-14T16:32:44Z
-  - message: 'integrate(cruxx-core): merge feat/determine-final-phase'
-    date: 2026-05-14T16:01:38Z
-  - message: 'fix(cruxx-script): add metadata storage and get_metadata to HandlerRegistry'
-    date: 2026-05-14T16:01:35Z
-  - message: 'integrate(cruxx-core): merge feat/if-guard-expressions'
-    date: 2026-05-14T16:00:06Z
-  - message: 'feat(cruxx-core): add FinalPhase, StepRecord, and determine_final_phase (#61)'
-    date: 2026-05-14T15:53:14Z
-  - message: 'feat(cruxx-core): add StepOpts, eval_expr, and step_with_opts for if-guard evaluation (#59)'
-    date: 2026-05-14T15:49:55Z
-  - message: 'chore(integration): wave integration — crux develop'
-    date: 2026-05-14T15:41:32Z
-  tags:
-  - agents
-  readme: "# crux\n\nAn agentic DSL for Rust -- inspectable, serializable, replayable agent orchestration.\n\n`cruxx` is not a standalone language. It's a set of macros, traits, and types that make agentic\ncontrol flow explicit in the Rust type system. \n\n## Quick example\n\n```rust\nuse cruxx::prelude::*;\n\n#[cruxx::agent]\nasync fn plan_trip(goal: String) -> Crux<Itinerary> {\n    let research = x.step(\"research\", || async {\n        Ok(search_web(&goal).await?)\n    }).await?;\n\n    let draft = x.delegate::<DraftAgent>(\"draft\", research)\n        .with_budget(Budget::tokens(4000))\n        .run().await?;\n\n    x.speculate(\"finalize\", vec![\n        (\"cheap\", Box::pin(async { finalize_cheap(&draft).await })),\n        (\"fast\",  Box::pin(async { finalize_fast(&draft).await })),\n        (\"safe\",  Box::pin(async { finalize_safe(&draft).await })),\n    ]).pick_best_by(|r| r.confidence).await\n}\n```\n\n## Example\n\n```rust\nuse cruxx::prelude::*;\n\n#[cruxx::agent]\nasync fn review_pr(pr: PullRequest) -> Crux<ReviewReport> {\n    // Fan out: fetch diff and CI results in parallel\n    let (diff, ci) = x.join_all([\n        x.step(\"fetch_diff\", || git::diff(&pr.base, &pr.head)),\n        x.step(\"fetch_ci\",   || ci::latest_run(&pr.repo, &pr.head)),\n    ]).await?;\n\n    // Delegate deep analysis to a specialist; escalate if confidence is low\n    let analysis = x.delegate::<SecurityAnalysisAgent>(\"security\", &diff)\n        .with_budget(Budget::tokens(8000))\n        .on_low_confidence(0.75, escalate_to_human)\n        .on_step_failure(Recovery::Retry(2))\n        .await?;\n\n    // Race three review styles; keep whichever scores highest\n    let review = x.speculate(\"style\", [\n        (\"strict\",  || apply_strict_style(&analysis, &ci)),\n        (\"lenient\", || apply_lenient_style(&analysis, &ci)),\n        (\"summary\", || apply_summary_style(&analysis, &ci)),\n    ]).pick_best_by(|r| r.confidence).await?;\n\n    x.step(\"emit\", || build_report(pr, analysis, review)).await\n}\n```\n\nEvery `x.step`, `x.delegate`, `x.speculate` call is "
 - name: cruxx
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
   url: https://crates.io/crates/cruxx
@@ -1548,7 +1610,7 @@
   pushed_at: 2026-05-05T07:28:45.320652Z
   version: 0.24.0
   stars: null
-  downloads: 144
+  downloads: 145
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -1559,7 +1621,7 @@
   pushed_at: 2026-05-05T07:28:25.424883Z
   version: 0.24.0
   stars: null
-  downloads: 178
+  downloads: 179
   recent_commits: []
 - name: devkit
   description: AI-powered dev workflow toolkit
@@ -1787,7 +1849,7 @@
   pushed_at: 2026-04-25T20:50:58Z
   version: v0.1.0
   stars: null
-  downloads: 41
+  downloads: 43
   recent_commits:
   - message: 'perf(test): combine 3 slow gitleaks tests into 1 ignored integration test'
     date: 2026-04-25T20:49:57Z
@@ -1832,7 +1894,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 19
+  downloads: 20
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -1854,7 +1916,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 30
+  downloads: 31
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -1877,7 +1939,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 650
+  downloads: 651
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -2228,7 +2290,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 33
+  downloads: 35
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -2843,7 +2905,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 19
+  downloads: 20
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -2854,7 +2916,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 40
+  downloads: 42
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -2865,7 +2927,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 65
+  downloads: 69
   recent_commits: []
 - name: dotfiles
   description: null
