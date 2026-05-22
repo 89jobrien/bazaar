@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-21T00:14:04Z
+  pushed_at: 2026-05-21T14:16:32Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-21T14:16:30Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-21T00:14:03Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-17T12:02:30Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-16T23:24:16Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-05-16T11:28:31Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,31 +219,31 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-21T10:42:19Z
+  pushed_at: 2026-05-21T23:41:59Z
   version: null
   stars: null
   downloads: null
   recent_commits:
-  - message: 'fix: add language tags to fenced code blocks in plan doc'
-    date: 2026-05-21T10:14:24Z
-  - message: 'feat: reliability + DX improvement cohort (#64, #67, #68, #76, #79, #82, #83)'
-    date: 2026-05-21T10:08:37Z
-  - message: 'feat: namespace-aware handler validation, Cruxfile runner output, review fixes'
-    date: 2026-05-21T09:21:24Z
-  - message: 'feat(cli): add --dry-run / -n flag to crux run'
-    date: 2026-05-21T08:26:42Z
-  - message: 'feat(script): add Cruxfile multi-target format with DAG resolution'
-    date: 2026-05-21T08:20:03Z
-  - message: 'fix: move categories.workspace under [package] not [lib]'
-    date: 2026-05-21T05:18:17Z
-  - message: 'refactor: rename crux facade crate to cruxx for crates.io'
-    date: 2026-05-21T05:16:41Z
-  - message: 'refactor: rename crux-core to crux-runtime for crates.io publishing'
-    date: 2026-05-21T04:52:45Z
-  - message: 'fix(agentic): post-extraction fixes and dep_audit pipeline'
-    date: 2026-05-21T04:26:02Z
-  - message: 'style: fix markdownlint errors across docs'
-    date: 2026-05-21T04:15:11Z
+  - message: 'feat: implement hardening cohort B (#71, #73, #74, #77)'
+    date: 2026-05-21T23:33:00Z
+  - message: 'chore: update plan statuses after ideate audit'
+    date: 2026-05-21T21:57:23Z
+  - message: 'chore: commit accumulated worktree state'
+    date: 2026-05-21T21:44:17Z
+  - message: 'merge: issue #62 — recursive .crux pipeline discovery'
+    date: 2026-05-21T10:38:54Z
+  - message: 'merge: issue #66 — implement rx::install handler'
+    date: 2026-05-21T10:38:51Z
+  - message: 'merge: issue #64 — strict mode for unregistered pipeline handlers'
+    date: 2026-05-21T10:38:49Z
+  - message: 'merge: issue #74 — branch_cleanup.crux dynamic base branch'
+    date: 2026-05-21T10:38:46Z
+  - message: 'feat(crux-agentic): --strict flag errors on unregistered pipeline handlers'
+    date: 2026-05-21T10:37:17Z
+  - message: 'feat(crux-agentic): implement rx::install handler fixes #66'
+    date: 2026-05-21T10:36:15Z
+  - message: 'feat(crux-agentic): recursive .crux pipeline discovery with list subcommand'
+    date: 2026-05-21T10:34:54Z
   tags:
   - agents
   readme: |-
@@ -315,7 +315,7 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-21T06:26:55Z
+  pushed_at: 2026-05-21T21:13:25Z
   version: v0.24.0
   stars: null
   downloads: null
@@ -400,6 +400,119 @@
     ## Quick Start
 
     Requires Linux, root, kernel 5.0+
+- name: rx
+  description: null
+  url: https://github.com/89jobrien/rx
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-21T18:24:07Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs: update CLAUDE.md for rx-core crate structure'
+    date: 2026-05-21T18:24:01Z
+  - message: 'merge: issue #9 fuzz targets'
+    date: 2026-05-21T18:13:07Z
+  - message: 'merge: issue #8 CLI integration tests'
+    date: 2026-05-21T18:12:28Z
+  - message: 'merge: issue #7 conformance tests'
+    date: 2026-05-21T18:11:20Z
+  - message: 'merge: issue #6 property tests'
+    date: 2026-05-21T18:10:30Z
+  - message: 'refactor: merge rx-script-core into rx-core, add status/graph/fan stubs'
+    date: 2026-05-21T18:09:59Z
+  - message: 'test: add conformance test suites for port traits (fixes #7)'
+    date: 2026-05-21T18:08:57Z
+  - message: 'test(rx-install, rx-rxx): add CLI integration tests for rx and rxx (fixes #8)'
+    date: 2026-05-21T18:08:56Z
+  - message: 'test(rx-script-core): add fuzz target for shebang parser (fixes #9)'
+    date: 2026-05-21T18:08:47Z
+  - message: 'test(rx-script-core): add property tests for shebang, URL, and name derivation (fixes #6)'
+    date: 2026-05-21T18:07:59Z
+  readme: |-
+    # rx
+
+    `rx` installs compatible scripts from local paths or remote URLs into a local command
+    directory and records what it installed in a JSON registry.
+
+    ## What It Does
+
+    `rx` accepts three source types:
+
+    - a single local file
+    - a local directory, scanned recursively
+    - a remote HTTP or HTTPS URL for a single script
+
+    Installed scripts are copied into the target install directory, marked executable on Unix, and
+    written to a registry so the installed command set can be discovered later.
+
+    ## Default Locations
+
+    Unless you override the install directory on the command line, `rx` uses XDG-style config paths:
+
+    - install directory: `~/.config/rx/bin`
+    - registry file: `~/.config/rx/registry.json`
+    - prefix config: `~/.config/rx/prefixes.toml`
+
+    If `XDG_CONFIG_HOME` is set, `rx` uses `$XDG_CONFIG_HOME/rx` instead of `~/.config/rx`.
+
+    ## Installation
+
+    Install the CLIs from this repo:
+
+    ```bash
+    cargo install --path crates/rx-install
+    cargo install --path crates/rxx
+    ```
+
+    If the crates are published on crates.io and release artifacts are available, `cargo-binstall`
+    installs by package name:
+
+    ```bash
+    cargo binstall rx-install
+    cargo binstall rxx
+    ```
+
+    `cargo-binstall` resolves crate metadata from crates.io and then looks at the linked repository
+    releases for matching binary artifacts. It does not use the GitHub repo URL as the primary install
+    argument.
+
+    Or from crates.io when published:
+
+    ```bash
+    cargo install rx-install
+    cargo install rxx
+    ```
+
+    For local development, bootstrap the pinned toolchain with:
+
+    ```bash
+    mise install
+    ```
+
+    ## Usage
+
+    ```bash
+    rx install <source>
+    rx install <source> --install-dir <dir>
+    rx list
+    rx run <name> [-- <args...>]
+    rx <command> [args...]
+    rxx <script> [-- <args...>]
+    ```
+
+    For local development from the workspace root:
+
+    ```bash
+    cargo run --quiet -p rx-install --bin rx -- list
+    cargo run --quiet -p rx-install --bin rx -- run preflight
+    cargo run --quiet -p rxx --bin rxx -- ./scripts/preflight.sh
+    cargo run --quiet -p rxx --bin rxx -- ./.ctx/scripts/preflight.rs
+    ```
+
+    Exam
 - name: agentlint
   description: Linter for AI coding agent harness files (Claude Code, Codex, Cursor, Gemini, OpenCode, Pi)
   url: https://github.com/89jobrien/agentlint
@@ -673,7 +786,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 138
+  downloads: 139
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -729,7 +842,7 @@
   pushed_at: 2026-05-16T07:22:26Z
   version: 0.3.0
   stars: null
-  downloads: 41
+  downloads: 42
   recent_commits:
   - message: 'feat(prefixe-cli): post-hook Probing resolution — confirm, cycle, exhaust with stats'
     date: 2026-05-16T07:16:20Z
@@ -1927,7 +2040,7 @@
   pushed_at: 2026-04-23T23:07:16.604202Z
   version: 0.1.0
   stars: null
-  downloads: 20
+  downloads: 21
   recent_commits: []
 - name: slashcrux
   description: Shared vocabulary types for the Slash and Crux agentic Rust ecosystem
@@ -1939,7 +2052,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 651
+  downloads: 652
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -2043,119 +2156,6 @@
     ## atelier Integration
 
     atelier's SessionStart hook calls `hooklings preflight --emit both` when hooklings is on PATH.
-- name: rx
-  description: null
-  url: https://github.com/89jobrien/rx
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-04-20T03:12:27Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: close rx-1 handoff item, add crate READMEs'
-    date: 2026-04-20T03:12:22Z
-  - message: 'chore: move rx skills to global ~/.claude/skills'
-    date: 2026-04-20T03:09:14Z
-  - message: 'refactor: introduce hexagonal ports/adapters across workspace'
-    date: 2026-04-20T02:58:10Z
-  - message: 'chore: add version constraints to path deps for crates.io publishing'
-    date: 2026-04-18T07:04:34Z
-  - message: 'chore: rename crates for crates.io publishing'
-    date: 2026-04-18T07:04:04Z
-  - message: 'feat(rx-1): wire changed-path args into shell preflight'
-    date: 2026-04-18T06:30:50Z
-  - message: 'feat: move preflight.rs to .ctx/scripts, add plugin scaffolding and skills'
-    date: 2026-04-18T06:28:03Z
-  - message: 'docs: update handoff'
-    date: 2026-04-17T22:56:17Z
-  - message: 'docs: update handoff'
-    date: 2026-04-17T02:35:44Z
-  - message: 'feat: add command expansion and CI workflows'
-    date: 2026-04-17T02:32:48Z
-  readme: |-
-    # rx
-
-    `rx` installs compatible scripts from local paths or remote URLs into a local command
-    directory and records what it installed in a JSON registry.
-
-    ## What It Does
-
-    `rx` accepts three source types:
-
-    - a single local file
-    - a local directory, scanned recursively
-    - a remote HTTP or HTTPS URL for a single script
-
-    Installed scripts are copied into the target install directory, marked executable on Unix, and
-    written to a registry so the installed command set can be discovered later.
-
-    ## Default Locations
-
-    Unless you override the install directory on the command line, `rx` uses XDG-style config paths:
-
-    - install directory: `~/.config/rx/bin`
-    - registry file: `~/.config/rx/registry.json`
-    - prefix config: `~/.config/rx/prefixes.toml`
-
-    If `XDG_CONFIG_HOME` is set, `rx` uses `$XDG_CONFIG_HOME/rx` instead of `~/.config/rx`.
-
-    ## Installation
-
-    Install the CLIs from this repo:
-
-    ```bash
-    cargo install --path crates/rx-install
-    cargo install --path crates/rxx
-    ```
-
-    If the crates are published on crates.io and release artifacts are available, `cargo-binstall`
-    installs by package name:
-
-    ```bash
-    cargo binstall rx-install
-    cargo binstall rxx
-    ```
-
-    `cargo-binstall` resolves crate metadata from crates.io and then looks at the linked repository
-    releases for matching binary artifacts. It does not use the GitHub repo URL as the primary install
-    argument.
-
-    Or from crates.io when published:
-
-    ```bash
-    cargo install rx-install
-    cargo install rxx
-    ```
-
-    For local development, bootstrap the pinned toolchain with:
-
-    ```bash
-    mise install
-    ```
-
-    ## Usage
-
-    ```bash
-    rx install <source>
-    rx install <source> --install-dir <dir>
-    rx list
-    rx run <name> [-- <args...>]
-    rx <command> [args...]
-    rxx <script> [-- <args...>]
-    ```
-
-    For local development from the workspace root:
-
-    ```bash
-    cargo run --quiet -p rx-install --bin rx -- list
-    cargo run --quiet -p rx-install --bin rx -- run preflight
-    cargo run --quiet -p rxx --bin rxx -- ./scripts/preflight.sh
-    cargo run --quiet -p rxx --bin rxx -- ./.ctx/scripts/preflight.rs
-    ```
-
-    Exam
 - name: harvestrs
   description: Polyglot data harvester — syncs Claude memory, git, Obsidian, Pieces to JSONL
   url: https://github.com/89jobrien/harvestrs
@@ -2927,7 +2927,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 69
+  downloads: 70
   recent_commits: []
 - name: dotfiles
   description: null
