@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-22T13:34:34Z
+  pushed_at: 2026-05-23T00:12:50Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-23T00:12:49Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-22T13:34:33Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-19T00:15:22Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-18T14:36:23Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-05-18T00:03:15Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,13 +213,81 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: langchainx
+  description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
+  url: https://github.com/89jobrien/langchainx
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-23T11:12:24Z
+  version: v0.4.6
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Clarify changes in forked crate description
+    date: 2026-05-23T11:12:23Z
+  - message: 'Merge pull request #71 from 89jobrien/develop'
+    date: 2026-05-04T13:13:24Z
+  - message: 'fix(clippy): unnecessary_unwrap in text2speech and openai stream'
+    date: 2026-05-04T13:11:31Z
+  - message: 'Merge pull request #70 from 89jobrien/develop'
+    date: 2026-05-04T13:04:06Z
+  - message: 'fix(fmt): apply cargo fmt to fix CI fmt-check failures'
+    date: 2026-05-04T13:02:12Z
+  - message: 'fix(ci): add .cargo/config.toml with xtask alias'
+    date: 2026-05-04T13:00:52Z
+  - message: 'fix(ci): add .cargo/config.toml with xtask alias for CI runners'
+    date: 2026-05-04T12:59:43Z
+  - message: 'merge: harden loaders tools and vectorstores fixes #41'
+    date: 2026-05-04T12:54:46Z
+  - message: 'feat(loaders): add MarkdownDocument serializer with nested section parsing'
+    date: 2026-05-04T11:46:12Z
+  - message: 'fix: remove absolute symlink .claude/skills, add to .gitignore'
+    date: 2026-05-04T11:26:03Z
+  readme: |-
+    # langchainx
+
+    Building applications with LLMs through composability, with Rust!
+
+    > **Upstream credit:** This crate is a fork of
+    > [langchain-rust](https://github.com/Abraxas-365/langchain-rust) by
+    > [Ryo Kanazawa (Abraxas-365)](https://github.com/Abraxas-365), used under the MIT License.
+    > Changes in this fork include custom error types, a three-tier e2e test suite, smolvm-based
+    > container tests, a Cargo workspace split into focused sub-crates, and ongoing architectural
+    > improvements tracked in [GitHub Issues](https://github.com/89jobrien/langchainx/issues).
+
+    ## What is this?
+
+    This is the Rust language implementation of [LangChain](https://github.com/langchain-ai/langchain).
+
+    ## Workspace Crates
+
+    The library is organized as a Cargo workspace. The root `langchainx` crate re-exports everything
+    for convenience; individual crates can be used directly for smaller dependency footprints.
+
+    | Crate                      | Contents                                              |
+    | -------------------------- | ----------------------------------------------------- |
+    | `langchainx-core`          | Shared schemas, document types, error primitives      |
+    | `langchainx-llm`           | LLM backends (OpenAI, Claude, DeepSeek, Qwen, Ollama) |
+    | `langchainx-prompt`        | Prompt templates and formatting macros                |
+    | `langchainx-memory`        | Conversation memory backends                          |
+    | `langchainx-embedding`     | Embedding backends (OpenAI, Ollama, FastEmbed, etc.)  |
+    | `langchainx-output-parsers`| Output parsers and structured extraction              |
+    | `langchainx-chain`         | Chain types (LLMChain, ConversationalChain, etc.)     |
+
+    ## Current Features
+
+    - LLMs
+        - [x] [OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_openai.rs)
+        - [x] [Azure OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_azure_open_ai.rs)
+        - [x] [Ollama](https://github.com/89jobrien/langchainx/blob/main/examples/llm_ollama.rs)
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-22T23:59:51Z
+  pushed_at: 2026-05-23T08:40:07Z
   version: v0.24.0
   stars: null
   downloads: null
@@ -304,6 +372,41 @@
     ## Quick Start
 
     Requires Linux, root, kernel 5.0+
+- name: obfsck
+  description: Secret-detection and redaction CLI for pre-commit hooks
+  url: https://github.com/89jobrien/obfsck
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-23T08:08:18Z
+  version: v0.1.0
+  stars: null
+  downloads: 45
+  recent_commits:
+  - message: 'test: add property tests, fuzz targets, and inline unit tests'
+    date: 2026-05-23T08:06:46Z
+  - message: 'refactor: rustqual 53->81%, remove lazy-regex and walkdir deps'
+    date: 2026-05-22T23:49:17Z
+  - message: 'perf(test): combine 3 slow gitleaks tests into 1 ignored integration test'
+    date: 2026-04-25T20:49:57Z
+  - message: 'ci(lint): deny bare unwrap/expect in runtime code (#23)'
+    date: 2026-04-25T20:06:36Z
+  - message: 'test(mcp): add double-count guard for audit pass (#22)'
+    date: 2026-04-25T20:11:43Z
+  - message: 'fix(ip): add RFC 3927 link-local range; add IPv4 classification tests (#21)'
+    date: 2026-04-25T20:04:59Z
+  - message: 'test(secrets): add base64 token coverage for vault patterns (#20)'
+    date: 2026-04-25T20:05:55Z
+  - message: 'feat(secrets): align patterns with gitleaks v8.25+; add 55 new detectors'
+    date: 2026-04-25T19:34:18Z
+  - message: 'docs: sync handoff tracking files'
+    date: 2026-04-23T02:09:31Z
+  - message: 'docs: update handoff — session 8, v0.1.0 release'
+    date: 2026-04-23T01:57:52Z
+  tags:
+  - cli
+  readme: "# obfsck\n\nRedacts secrets and PII from log lines and structured text.\n\n## Install\n\n```bash\ncargo install --path .\n```\n\n## What it does\n\n## What it does\n\n- Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)\n- Obfuscates identifiers with stable mappings (same input => same token)\n- Supports privacy levels based on how aggressive redaction should be\n\n## Obfuscation levels\n\n- `Minimal`: secret pattern redaction only\n- `Standard`: adds IP, email, container ID, and user obfuscation\n- `Paranoid`: adds path, hostname, and high-entropy token redaction\n\nPath obfuscation supports Unix, Windows drive paths, and UNC paths. Sensitive system paths are preserved.\n\nPreserved path segments include common roots like `home`, `usr`, `etc`, `windows`, `users`, and `programdata`.\n\n## Run locally with `cargo` or use the `mise.toml`:\n\n```bash\n# check / build / test\nmise run check\nmise run build\nmise run test\n\n# formatting\nmise run format\nmise run format-check\n\n# linting\nmise run lint\n\n# auto-fix clippy suggestions\nmise run fix\n\n# local CI bundle\nmise run ci\n```\n\n\n## Examples\n\n### Obfuscation alert\n\n- Processed 250 records\n- Max tokens in a single record: ips=2 users=1 emails=1\n\n```text\nSample before: event_id=evt-0000 user=user0 src=10.1.1.1 dst=198.51.100.10 email=user0@corp.example host=service0.corp.example path=/var/lib/app0/env0.json\n\nSample after : event_id=evt-0000 user=[USER-1] src=[IP-INTERNAL-1] dst=[IP-EXTERNAL-1] email=[EMAIL-1] host=[HOST-1] path=/var/lib/app0/[FILE].json\n\n```\n\n```text\nObfuscated output: Some(\"incident=AUTH-48291 severity=high | actor=bob src=[IP-EXTERNAL-1] dst=[IP-INTERNAL-1] | email=[EMAIL-1] host=[HOST-1] | path=/home/bob/.aws/credentials | token=[REDACTED-GITHUB-TOKEN]\")\nObfuscated fields keys: [\"file_path\", \"workstation\", \"dst_ip\", \"notes\", \"jump_host\", \"src_ip\", \"contact\", \"host\", \"actor\", \"command\"]\nToken counts => ips: 3, users: 0, emails: 1, hosts: 4, containers: 0, secrets: 1\n```\n\n### Larger payloads\n\n- Token totals => ips: 500, "
 - name: crux
   description: Inspectable, serializable, replayable agent execution.
   url: https://github.com/89jobrien/crux
@@ -584,7 +687,7 @@
   - ClaudePlugin
   language: Rust
   pushed_at: 2026-05-22T15:11:17Z
-  version: v0.5.0
+  version: null
   stars: 1
   downloads: null
   recent_commits:
@@ -658,74 +761,6 @@
     | Skill                                     | When                                                   |
     | ----------------------------------------- | ------------------------------------------------------ |
     | `godmode:using-godmode`                   | Session orientation, available skills, rules           |
-- name: langchainx
-  description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
-  url: https://github.com/89jobrien/langchainx
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-22T13:28:56Z
-  version: v0.4.6
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #71 from 89jobrien/develop'
-    date: 2026-05-04T13:13:24Z
-  - message: 'fix(clippy): unnecessary_unwrap in text2speech and openai stream'
-    date: 2026-05-04T13:11:31Z
-  - message: 'Merge pull request #70 from 89jobrien/develop'
-    date: 2026-05-04T13:04:06Z
-  - message: 'fix(fmt): apply cargo fmt to fix CI fmt-check failures'
-    date: 2026-05-04T13:02:12Z
-  - message: 'fix(ci): add .cargo/config.toml with xtask alias'
-    date: 2026-05-04T13:00:52Z
-  - message: 'fix(ci): add .cargo/config.toml with xtask alias for CI runners'
-    date: 2026-05-04T12:59:43Z
-  - message: 'merge: harden loaders tools and vectorstores fixes #41'
-    date: 2026-05-04T12:54:46Z
-  - message: 'feat(loaders): add MarkdownDocument serializer with nested section parsing'
-    date: 2026-05-04T11:46:12Z
-  - message: 'fix: remove absolute symlink .claude/skills, add to .gitignore'
-    date: 2026-05-04T11:26:03Z
-  - message: 'fix(clippy): resolve all -D warnings across workspace crates'
-    date: 2026-05-04T11:24:44Z
-  readme: |
-    # langchainx
-
-    Building applications with LLMs through composability, with Rust!
-
-    > **Upstream credit:** This crate is a fork of
-    > [langchain-rust](https://github.com/Abraxas-365/langchain-rust) by
-    > [Ryo Kanazawa (Abraxas-365)](https://github.com/Abraxas-365), used under the MIT License.
-    > Changes in this fork include typed error types, a three-tier e2e test suite, smolvm-based
-    > container tests, a Cargo workspace split into focused sub-crates, and ongoing architectural
-    > improvements tracked in [GitHub Issues](https://github.com/89jobrien/langchainx/issues).
-
-    ## What is this?
-
-    This is the Rust language implementation of [LangChain](https://github.com/langchain-ai/langchain).
-
-    ## Workspace Crates
-
-    The library is organized as a Cargo workspace. The root `langchainx` crate re-exports everything
-    for convenience; individual crates can be used directly for smaller dependency footprints.
-
-    | Crate                      | Contents                                              |
-    | -------------------------- | ----------------------------------------------------- |
-    | `langchainx-core`          | Shared schemas, document types, error primitives      |
-    | `langchainx-llm`           | LLM backends (OpenAI, Claude, DeepSeek, Qwen, Ollama) |
-    | `langchainx-prompt`        | Prompt templates and formatting macros                |
-    | `langchainx-memory`        | Conversation memory backends                          |
-    | `langchainx-embedding`     | Embedding backends (OpenAI, Ollama, FastEmbed, etc.)  |
-    | `langchainx-output-parsers`| Output parsers and structured extraction              |
-    | `langchainx-chain`         | Chain types (LLMChain, ConversationalChain, etc.)     |
-
-    ## Current Features
-
-    - LLMs
-        - [x] [OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_openai.rs)
-        - [x] [Azure OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_azure_open_ai.rs)
-        - [x] [Ollama](https://github.com/89jobrien/langchainx/blob/main/examples/llm_ollama.rs)
 - name: rx
   description: null
   url: https://github.com/89jobrien/rx
@@ -1818,7 +1853,7 @@
   pushed_at: 2026-05-05T07:28:45.320652Z
   version: 0.24.0
   stars: null
-  downloads: 145
+  downloads: 147
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -1829,7 +1864,7 @@
   pushed_at: 2026-05-05T07:28:25.424883Z
   version: 0.24.0
   stars: null
-  downloads: 179
+  downloads: 183
   recent_commits: []
 - name: devkit
   description: AI-powered dev workflow toolkit
@@ -1901,7 +1936,7 @@
   - GitHubRepo
   language: Rust
   pushed_at: 2026-05-02T02:54:50Z
-  version: v0.1.1
+  version: null
   stars: null
   downloads: null
   recent_commits:
@@ -1979,7 +2014,7 @@
   pushed_at: 2026-04-30T21:51:42.719327Z
   version: 0.1.3
   stars: null
-  downloads: 15
+  downloads: 16
   recent_commits: []
 - name: 89jobrien.github.io
   description: Personal site
@@ -2047,41 +2082,6 @@
   tags:
   - plugins
   readme: "# cannibalizer\n\nAbsorbs foreign repos into the Rust ecosystem.\n\nScans a source repo, classifies every file by kind (domain logic, port, adapter,\nscript, spec, config), then routes each item to the right destination: ported to\na hexagonal Rust component, absorbed into an existing repo, converted to a skill,\nor archived to the SSD vault.\n\n## Install\n\n```bash\ncargo install --path .\n```\n\nOr build from source:\n\n```bash\ncargo build --release\n# binary at target/release/cnbl\n```\n\n## CLI Pipeline\n\n`cnbl` has a 4-stage pipeline. Each stage reads JSONL from the previous stage\n(stdin or `--input FILE`):\n\n```\nscan  -->  plan  -->  gen  -->  eat\n```\n\n| Command | Input          | Output          | Side effects             |\n| ------- | -------------- | --------------- | ------------------------ |\n| `scan`  | directory path | JSONL to stdout | none                     |\n| `plan`  | scan JSONL     | JSONL to stdout | none                     |\n| `gen`   | plan JSONL     | stub files      | writes to `cnbl-output/` |\n| `eat`   | plan JSONL     | nothing         | copies stubs, archives   |\n\n### Examples\n\n```bash\n# Scan a repo and save classified output\ncnbl scan ~/some-repo --output scan.jsonl\n\n# Generate a routing plan (dry-run shows decisions without writing)\ncnbl plan --input scan.jsonl --repo-map repos.json --dry-run\n\n# Generate hexagonal Rust stubs from the plan\ncnbl gen --input plan.jsonl --out-dir cnbl-output\n\n# Apply: copy stubs into destination repos, archive originals\ncnbl eat --input plan.jsonl --source-repo some-repo --dry-run\n```\n\n## Claude Code Plugin\n\ncannibalizer is also packaged as a Claude Code plugin with skills that wrap the\nCLI stages. Install via bazaar:\n\n```json\n{\n  \"name\": \"cannibalizer\",\n  \"source\": { \"source\": \"github\", \"repo\": \"89jobrien/cannibalizer\" }\n}\n```\n\nSkills in `skills/` invoke the `cnbl` binary and present results interactively.\nThe `cannibalizer` skill in `skills/cnbl/SKILL.md` orchestrates the full\nscan-plan-gen-eat pipeline with approval gates "
-- name: obfsck
-  description: Secret-detection and redaction CLI for pre-commit hooks
-  url: https://github.com/89jobrien/obfsck
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-04-25T20:50:58Z
-  version: v0.1.0
-  stars: null
-  downloads: 43
-  recent_commits:
-  - message: 'perf(test): combine 3 slow gitleaks tests into 1 ignored integration test'
-    date: 2026-04-25T20:49:57Z
-  - message: 'ci(lint): deny bare unwrap/expect in runtime code (#23)'
-    date: 2026-04-25T20:06:36Z
-  - message: 'test(mcp): add double-count guard for audit pass (#22)'
-    date: 2026-04-25T20:11:43Z
-  - message: 'fix(ip): add RFC 3927 link-local range; add IPv4 classification tests (#21)'
-    date: 2026-04-25T20:04:59Z
-  - message: 'test(secrets): add base64 token coverage for vault patterns (#20)'
-    date: 2026-04-25T20:05:55Z
-  - message: 'feat(secrets): align patterns with gitleaks v8.25+; add 55 new detectors'
-    date: 2026-04-25T19:34:18Z
-  - message: 'docs: sync handoff tracking files'
-    date: 2026-04-23T02:09:31Z
-  - message: 'docs: update handoff — session 8, v0.1.0 release'
-    date: 2026-04-23T01:57:52Z
-  - message: 'style: apply cargo fmt across workspace'
-    date: 2026-04-23T00:55:03Z
-  - message: 'feat: wire scan-diff into pre-commit hook; add error message tests'
-    date: 2026-04-23T00:39:55Z
-  tags:
-  - cli
-  readme: "# obfsck\n\nRedacts secrets and PII from log lines and structured text.\n\n## Install\n\n```bash\ncargo install --path .\n```\n\n## What it does\n\n## What it does\n\n- Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)\n- Obfuscates identifiers with stable mappings (same input => same token)\n- Supports privacy levels based on how aggressive redaction should be\n\n## Obfuscation levels\n\n- `Minimal`: secret pattern redaction only\n- `Standard`: adds IP, email, container ID, and user obfuscation\n- `Paranoid`: adds path, hostname, and high-entropy token redaction\n\nPath obfuscation supports Unix, Windows drive paths, and UNC paths. Sensitive system paths are preserved.\n\nPreserved path segments include common roots like `home`, `usr`, `etc`, `windows`, `users`, and `programdata`.\n\n## Run locally with `cargo` or use the `mise.toml`:\n\n```bash\n# check / build / test\nmise run check\nmise run build\nmise run test\n\n# formatting\nmise run format\nmise run format-check\n\n# linting\nmise run lint\n\n# auto-fix clippy suggestions\nmise run fix\n\n# local CI bundle\nmise run ci\n```\n\n\n## Examples\n\n### Obfuscation alert\n\n- Processed 250 records\n- Max tokens in a single record: ips=2 users=1 emails=1\n\n```text\nSample before: event_id=evt-0000 user=user0 src=10.1.1.1 dst=198.51.100.10 email=user0@corp.example host=service0.corp.example path=/var/lib/app0/env0.json\n\nSample after : event_id=evt-0000 user=[USER-1] src=[IP-INTERNAL-1] dst=[IP-EXTERNAL-1] email=[EMAIL-1] host=[HOST-1] path=/var/lib/app0/[FILE].json\n\n```\n\n```text\nObfuscated output: Some(\"incident=AUTH-48291 severity=high | actor=bob src=[IP-EXTERNAL-1] dst=[IP-INTERNAL-1] | email=[EMAIL-1] host=[HOST-1] | path=/home/bob/.aws/credentials | token=[REDACTED-GITHUB-TOKEN]\")\nObfuscated fields keys: [\"file_path\", \"workstation\", \"dst_ip\", \"notes\", \"jump_host\", \"src_ip\", \"contact\", \"host\", \"actor\", \"command\"]\nToken counts => ips: 3, users: 0, emails: 1, hosts: 4, containers: 0, secrets: 1\n```\n\n### Larger payloads\n\n- Token totals => ips: 500, "
 - name: tailbox
   description: Tailscale-rs network adapter for minibox containers
   url: https://crates.io/crates/tailbox
@@ -2102,7 +2102,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 20
+  downloads: 21
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -2124,7 +2124,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 31
+  downloads: 33
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -2147,7 +2147,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 671
+  downloads: 674
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -2385,7 +2385,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 35
+  downloads: 37
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -2507,7 +2507,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 38
+  downloads: 39
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -2518,7 +2518,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 40
+  downloads: 41
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -2529,7 +2529,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 36
+  downloads: 37
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -2540,7 +2540,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 36
+  downloads: 37
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -2551,7 +2551,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 93
+  downloads: 98
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
@@ -3000,7 +3000,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 20
+  downloads: 21
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -3011,7 +3011,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 42
+  downloads: 44
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -3022,7 +3022,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 70
+  downloads: 74
   recent_commits: []
 - name: dotfiles
   description: null
