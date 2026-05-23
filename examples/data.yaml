@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-22T00:11:32Z
+  pushed_at: 2026-05-22T13:34:34Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-22T13:34:33Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-22T00:11:31Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-18T14:36:23Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-18T00:03:15Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-05-17T12:02:30Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,451 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-22T23:59:51Z
+  version: v0.24.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Merge remote-tracking branch 'origin/develop' into next
+    date: 2026-05-19T20:05:45Z
+  - message: 'fix: update protocol drift hashes and fix unsigned comparison warning'
+    date: 2026-05-19T20:05:02Z
+  - message: 'chore(promote): develop -> next'
+    date: 2026-05-19T19:36:32Z
+  - message: 'fix(ci): also exclude protocol_e2e_tests from archive run'
+    date: 2026-05-19T19:36:25Z
+  - message: 'chore(promote): develop -> next'
+    date: 2026-05-19T19:16:04Z
+  - message: 'fix(ci): exclude cli_e2e and smolvm_e2e from archive test run'
+    date: 2026-05-19T19:14:01Z
+  - message: 'fix(ci): remove duplicate DockerHubRegistry import in miniboxd main'
+    date: 2026-05-19T19:04:11Z
+  - message: 'fix(test): smolvm helpers use positional args, add missing CommandExt import'
+    date: 2026-05-19T19:01:39Z
+  - message: 'docs(claude): reference .claude.local.md at top of CLAUDE.md'
+    date: 2026-05-19T18:58:36Z
+  - message: 'docs(claude): move local-only notes out of CLAUDE.md'
+    date: 2026-05-19T18:57:12Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
+
+    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
+    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
+    keeps adapter suites swappable at startup with no recompile.
+
+    **Status:** Active development — `v0.24.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `minibox logs <id>` for stored stdout/stderr
+    - Container events — `minibox events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
+    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
+      Colima available as an alternative via Lima VM
+
+    ---
+
+    ## Quick Start
+
+    Requires Linux, root, kernel 5.0+
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-22T18:00:17Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'refactor(crux-stdlib): move shell handlers from crux-agentic (#78)'
+    date: 2026-05-22T17:47:40Z
+  - message: 'fix(crux-script): make BudgetDef a struct to support compound budgets (#77)'
+    date: 2026-05-22T17:45:53Z
+  - message: 'refactor(crux-agentic): extract per-handler fns from review::register()'
+    date: 2026-05-22T17:11:41Z
+  - message: Merge branch 'refactor/triage-split'
+    date: 2026-05-22T17:08:48Z
+  - message: Merge branch 'refactor/ci-split'
+    date: 2026-05-22T17:08:46Z
+  - message: Merge branch 'refactor/analysis-split'
+    date: 2026-05-22T17:08:42Z
+  - message: 'chore: update handoff state and add quality sweep plan'
+    date: 2026-05-22T17:08:30Z
+  - message: 'refactor(crux-agentic): split triage.rs register() into per-handler fns'
+    date: 2026-05-22T17:07:52Z
+  - message: 'refactor(crux-agentic): split ci.rs register() into per-handler fns'
+    date: 2026-05-22T17:07:12Z
+  - message: 'refactor(crux-agentic): split analysis.rs register() into per-handler fns'
+    date: 2026-05-22T17:06:40Z
+  tags:
+  - agents
+  readme: |-
+    # crux
+
+    An agentic DSL for Rust -- inspectable, serializable, replayable agent orchestration.
+
+    `crux` is not a standalone language. It's a set of macros, traits, and types that make agentic
+    control flow explicit in the Rust type system.
+
+    ## Quick example
+
+    ```rust
+    use crux::prelude::*;
+
+    #[crux::agent]
+    async fn plan_trip(goal: String) -> Crux<Itinerary> {
+        let research = x.step("research", || async {
+            Ok(search_web(&goal).await?)
+        }).await?;
+
+        let draft = x.delegate::<DraftAgent>("draft", research)
+            .with_budget(Budget::tokens(4000))
+            .run().await?;
+
+        x.speculate("finalize", vec![
+            ("cheap", Box::pin(async { finalize_cheap(&draft).await })),
+            ("fast",  Box::pin(async { finalize_fast(&draft).await })),
+            ("safe",  Box::pin(async { finalize_safe(&draft).await })),
+        ]).pick_best_by(|r| r.confidence).await
+    }
+    ```
+
+    ## Example
+
+    ```rust
+    use crux::prelude::*;
+
+    #[crux::agent]
+    async fn review_pr(pr: PullRequest) -> Crux<ReviewReport> {
+        // Fan out: fetch diff and CI results in parallel
+        let (diff, ci) = x.join_all([
+            x.step("fetch_diff", || git::diff(&pr.base, &pr.head)),
+            x.step("fetch_ci",   || ci::latest_run(&pr.repo, &pr.head)),
+        ]).await?;
+
+        // Delegate deep analysis to a specialist; escalate if confidence is low
+        let analysis = x.delegate::<SecurityAnalysisAgent>("security", &diff)
+            .with_budget(Budget::tokens(8000))
+            .on_low_confidence(0.75, escalate_to_human)
+            .on_step_failure(Recovery::Retry(2))
+            .await?;
+
+        // Race three review styles; keep whichever scores highest
+        let review = x.speculate("style", [
+            ("strict",  || apply_strict_style(&analysis, &ci)),
+            ("lenient", || apply_lenient_style(&analysis, &ci)),
+            ("summary", || apply_summary_style(&analysis, &ci)),
+        ]).pick_best_by(|r| r.confidence).await?;
+
+        x.step("emit", || build_report(pr, analysis, review)).await
+    }
+    ```
+
+    Every `x.step`, `x.delegate`, `x.speculate` call is record
+- name: kgx
+  description: Three-layer knowledge graph toolkit in Rust
+  url: https://github.com/89jobrien/kgx
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-22T17:50:34Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'refactor: improve code quality to 100% rustqual score'
+    date: 2026-05-22T17:42:36Z
+  - message: 'feat: add kgx-cli binary crate'
+    date: 2026-05-22T15:09:45Z
+  - message: 'docs: add README'
+    date: 2026-05-22T15:05:24Z
+  - message: 'feat: initial kgx knowledge graph toolkit'
+    date: 2026-05-22T15:04:15Z
+  readme: |-
+    # kgx
+
+    Three-layer knowledge graph toolkit in Rust.
+
+    ## Layers
+
+    | Layer           | Storage               | Purpose                                                           |
+    | --------------- | --------------------- | ----------------------------------------------------------------- |
+    | **Raw Sources** | `data/documents.json` | Immutable document store with chunking and provenance             |
+    | **Graph**       | `data/graph.json`     | Entity-relation graph with BFS traversal and confidence filtering |
+    | **Wiki**        | `wiki/`               | Markdown pages with `[[wikilinks]]`, search, and lint             |
+
+    ## Usage
+
+    ```rust
+    use kgx::{GraphStore, DocumentStore, WikiStore, WikiCategory};
+
+    // Open stores (creates files if they don't exist)
+    let mut graph = GraphStore::open("data/graph.json")?;
+    let mut docs = DocumentStore::open("data/documents.json")?;
+    let wiki = WikiStore::open("wiki/")?;
+
+    // Ingest a document
+    docs.ingest("doc_001", "Incident Report", "report.md",
+        "System crashes due to memory leaks.");
+
+    // Build the graph
+    let leak = graph.add_node("memory leak", "issue",
+        Some("memory leaks cause crashes"), Some("doc_001"));
+    let crash = graph.add_node("system crash", "issue",
+        Some("system crashes due to memory leaks"), Some("doc_001"));
+    graph.add_edge(leak, crash, "causes", 1.0, Some("crashes due to memory leaks"), Some("doc_001"));
+
+    // Query via BFS
+    let (nodes, edges) = graph.bfs_subgraph(leak);
+
+    // Write a wiki page
+    wiki.write_page(WikiCategory::Summary, "Incident Report",
+        "# Incident Report\n\n[[memory-leak]] causes [[system-crash]].",
+        "Memory leaks cause system crashes.")?;
+
+    // Search the wiki
+    let hits = wiki.search("memory")?;
+
+    // Lint for broken links and orphan pages
+    let report = wiki.lint()?;
+
+    // Persist
+    graph.save()?;
+    docs.save()?;
+    ```
+
+    ## Retrieval Constraints
+
+    - **MAX_GRAPH_DEPTH** = 2 — BFS traversal limit
+    - **MIN_CONFIDENCE** = 0.6 — edges below this threshold are rejected
+    - **MAX_NODES** = 50 — maximum nodes returned p
+- name: sandbox
+  description: Standalone virtual bash interpreter with sandboxed filesystem
+  url: https://github.com/89jobrien/sandbox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-22T15:54:23Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'refactor: remove duplicate builtins from file.rs, keep canonical text.rs implementations'
+    date: 2026-05-22T15:54:16Z
+  - message: 'fix: remove duplicate test functions after parallel merge'
+    date: 2026-05-22T15:31:24Z
+  - message: 'merge: issue #2 — register missing builtins'
+    date: 2026-05-22T15:30:45Z
+  - message: 'merge: issue #4 — snapshot/restore shell state'
+    date: 2026-05-22T15:30:42Z
+  - message: 'feat(sandbox): register missing text builtins (wc, basename, dirname, sort, uniq, tee, pattern-match) fixes #2'
+    date: 2026-05-22T15:30:35Z
+  - message: 'feat(sandbox): implement and register remaining file builtins'
+    date: 2026-05-22T15:29:59Z
+  - message: 'feat(sandbox): implement snapshot/restore for shell state'
+    date: 2026-05-22T15:29:11Z
+  - message: 'merge: issue #1 — pipeline stdin piping'
+    date: 2026-05-22T15:26:33Z
+  - message: 'feat(sandbox): implement pipeline stdin piping between stages'
+    date: 2026-05-22T15:25:14Z
+  - message: 'test: add integration tests, property tests, and fuzz targets'
+    date: 2026-05-22T15:17:40Z
+  readme: |-
+    # sandbox
+
+    A virtual bash interpreter with a sandboxed in-memory filesystem. No real OS
+    commands are executed — everything runs inside a `vfs::MemoryFS`. Designed for
+    embedding in applications that need to evaluate shell-like scripts safely.
+
+    ## Usage
+
+    ### As a library
+
+    ```rust
+    use sandbox::{Shell, ShellOutput};
+
+    #[tokio::main]
+    async fn main() {
+        let mut shell = Shell::builder()
+            .env("HOME", "/home/user")
+            .cwd("/home/user")
+            .build();
+
+        let output = shell.exec("echo hello world").await.unwrap();
+        assert_eq!(output.stdout, "hello world\n");
+        assert_eq!(output.exit_code, 0);
+    }
+    ```
+
+    ### CLI
+
+    ```bash
+    cargo run -p sandbox-cli -- -c 'for i in a b c; do echo $i; done'
+    ```
+
+    ## Supported Shell Features
+
+    **Control flow:** `if/elif/else/fi`, `for/do/done`, `while/do/done`,
+    `until/do/done`, `case/esac`, `&&`, `||`, `!`, `;` sequences
+
+    **Functions:** `function name { ... }` and `name() { ... }`
+
+    **Pipelines:** `cmd1 | cmd2 | cmd3`
+
+    **Redirections:** `>`, `>>`, `<`, `2>`, `2>>`, `&>`, heredocs (`<<`),
+    herestrings (`<<<`)
+
+    **Expansion:** `$VAR`, `${VAR}`, `${VAR:-default}`, `${VAR:+alt}`,
+    `${#VAR}`, `$?`, `$0`..`$9`, `$@`, `$#`, command substitution (`$(...)`,
+    `` `...` ``), double-quoted interpolation
+
+    **Assignments:** `VAR=value`, `export VAR=value`, prefix assignments
+
+    **Grouping:** `{ ...; }`, `(...)`
+
+    ## Built-in Commands
+
+    | Category   | Commands                                     |
+    | ---------- | -------------------------------------------- |
+    | Core       | echo, printf, cat, read, head, tail, test, [ |
+    | Navigation | cd, pwd, ls                                  |
+    | File       | mkdir, rm, cp, mv, touch                     |
+    | Flow       | true, false, exit                            |
+    | Variables  | export, set, unset                           |
+
+    Unknown commands return exit code 127. Implement the `ExecHandler` trait to
+    intercept and handle external commands, or register custom builtins via
+    `shell.register_builtin(impl Builtin)`.
+
+    ## Ca
+- name: godmode
+  description: Self-contained Rust-native development methodology plugin for Claude Code.
+  url: https://github.com/89jobrien/godmode
+  kinds:
+  - GitHubRepo
+  - ClaudePlugin
+  language: Rust
+  pushed_at: 2026-05-22T15:11:17Z
+  version: v0.5.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'refactor: rewrite mini-context-graph skill to use kgx CLI'
+    date: 2026-05-22T15:09:59Z
+  - message: 'fix(skills): add 7 missing skills to index, remove nonexistent godmode worktree subcommand'
+    date: 2026-05-20T04:51:53Z
+  - message: 'feat(skills): add godmode:merge and godmode:decompose skills'
+    date: 2026-05-17T23:45:13Z
+  - message: 'feat(testing-philosophy): add fuzz as sixth testing dimension'
+    date: 2026-05-17T20:02:58Z
+  - message: 'feat: route specs to docs/specs/ and plans to docs/plans/ with path inference'
+    date: 2026-05-16T06:39:10Z
+  - message: 'feat: differentiate idea/spec/plan doc types; brainstorm writes idea+spec, writing-plans writes plan'
+    date: 2026-05-16T06:37:28Z
+  - message: 'feat(writing-plans): recognise new doc filename conventions and infer plan doctype from path'
+    date: 2026-05-16T06:33:48Z
+  - message: 'chore: update HANDOFF — pre-commit-gate pipeline fix'
+    date: 2026-05-16T01:26:10Z
+  - message: 'fix(pre-commit-gate): parse command pipeline before checking for git commit'
+    date: 2026-05-16T01:21:34Z
+  - message: 'docs(CLAUDE): add subagent guardrails, git ops, CI watch, output style, and Nushell conventions'
+    date: 2026-05-15T18:53:06Z
+  readme: |
+    # godmode
+
+    Self-contained Rust-native development methodology plugin for Claude Code.
+
+    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
+
+    ## Overview
+
+    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
+    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
+    Tasks persist in `.ctx/GODMODE.tasks.yaml` (gitignored) across sessions via causal
+    `depends_on` chains.
+
+    ## Install
+
+    ```bash
+    cargo install --path crates/godmode-cli --root ~/.local
+    claude plugin install godmode@bazaar
+    ```
+
+    ### Pre-commit hook
+
+    Install the godmode pre-commit hook into any git repo to block commits when tasks are
+    still running and to run cargo gates (fmt-check, clippy, nextest):
+
+    ```bash
+    # From the repo root where you want the hook installed:
+    nu /path/to/godmode/hooks/install.nu
+
+    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
+    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
+    ```
+
+    The hook:
+
+    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
+       printing the offending task IDs.
+    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
+       `cargo nextest run --workspace`.
+    3. Blocks the commit on any failure with a clear message.
+
+    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
+    cargo gates run.
+
+    ## Skills
+
+    | Skill                                     | When                                                   |
+    | ----------------------------------------- | ------------------------------------------------------ |
+    | `godmode:using-godmode`                   | Session orientation, available skills, rules           |
 - name: langchainx
   description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
   url: https://github.com/89jobrien/langchainx
@@ -313,110 +758,6 @@
   - message: 'refactor: merge rx-script-core into rx-core, add status/graph/fan stubs'
     date: 2026-05-21T18:09:59Z
   readme: "# rx\n\n`rx` installs compatible scripts from local paths or remote URLs into a local command\ndirectory and records what it installed in a JSON registry.\n\n## What It Does\n\n`rx` accepts three source types:\n\n- a single local file\n- a local directory, scanned recursively\n- a remote HTTP or HTTPS URL for a single script\n\nInstalled scripts are copied into the target install directory, marked executable on Unix, and\nwritten to a registry so the installed command set can be discovered later.\n\n## Default Locations\n\nUnless you override the install directory on the command line, `rx` uses XDG-style config paths:\n\n- install directory: `~/.config/rx/bin`\n- registry file: `~/.config/rx/registry.json`\n- prefix config: `~/.config/rx/prefixes.toml`\n\nIf `XDG_CONFIG_HOME` is set, `rx` uses `$XDG_CONFIG_HOME/rx` instead of `~/.config/rx`.\n\n## Installation\n\nInstall the CLIs from this repo:\n\n```bash\ncargo install --path crates/rx-install\ncargo install --path crates/rxx\n```\n\nIf the crates are published on crates.io and release artifacts are available, `cargo-binstall`\ninstalls by package name:\n\n```bash\ncargo binstall rx-install\ncargo binstall rxx\n```\n\n`cargo-binstall` resolves crate metadata from crates.io and then looks at the linked repository\nreleases for matching binary artifacts. It does not use the GitHub repo URL as the primary install\nargument.\n\nOr from crates.io when published:\n\n```bash\ncargo install rx-install\ncargo install rxx\n```\n\nFor local development, bootstrap the pinned toolchain with:\n\n```bash\nmise install\n```\n\n## Usage\n\n```bash\nrx install <source>\nrx install <source> --install-dir <dir>\nrx list\nrx run <name> [-- <args...>]\nrx status [--scan <dir>] [--filter <expr>] [--json]\nrx graph [--scan <dir>] [--who-uses <pkg>] [--deps <pkg>] [--format tree|json|mermaid]\nrx fan [--scan <dir>] [-c <N>] [--timeout <secs>] -- <command...>\nrx <command> [args...]\nrxx <script> [-- <args...>]\n```\n\nFor local development from the workspace root:\n\n```bash\ncargo run --quiet -p rx-install --bin "
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-22T06:23:08Z
-  version: v0.24.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Merge remote-tracking branch 'origin/develop' into next
-    date: 2026-05-19T20:05:45Z
-  - message: 'fix: update protocol drift hashes and fix unsigned comparison warning'
-    date: 2026-05-19T20:05:02Z
-  - message: 'chore(promote): develop -> next'
-    date: 2026-05-19T19:36:32Z
-  - message: 'fix(ci): also exclude protocol_e2e_tests from archive run'
-    date: 2026-05-19T19:36:25Z
-  - message: 'chore(promote): develop -> next'
-    date: 2026-05-19T19:16:04Z
-  - message: 'fix(ci): exclude cli_e2e and smolvm_e2e from archive test run'
-    date: 2026-05-19T19:14:01Z
-  - message: 'fix(ci): remove duplicate DockerHubRegistry import in miniboxd main'
-    date: 2026-05-19T19:04:11Z
-  - message: 'fix(test): smolvm helpers use positional args, add missing CommandExt import'
-    date: 2026-05-19T19:01:39Z
-  - message: 'docs(claude): reference .claude.local.md at top of CLAUDE.md'
-    date: 2026-05-19T18:58:36Z
-  - message: 'docs(claude): move local-only notes out of CLAUDE.md'
-    date: 2026-05-19T18:57:12Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
-
-    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
-    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
-    keeps adapter suites swappable at startup with no recompile.
-
-    **Status:** Active development — `v0.24.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `minibox logs <id>` for stored stdout/stderr
-    - Container events — `minibox events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
-    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
-      Colima available as an alternative via Lima VM
-
-    ---
-
-    ## Quick Start
-
-    Requires Linux, root, kernel 5.0+
-- name: sandbox
-  description: Standalone virtual bash interpreter with sandboxed filesystem
-  url: https://github.com/89jobrien/sandbox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-22T01:51:04Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat: Phase 1 — sandbox virtual bash interpreter'
-    date: 2026-05-22T01:33:51Z
 - name: agentlint
   description: Linter for AI coding agent harness files (Claude Code, Codex, Cursor, Gemini, OpenCode, Pi)
   url: https://github.com/89jobrien/agentlint
@@ -450,102 +791,6 @@
   - message: 'docs: add testing strategy TODOs and declarative module README'
     date: 2026-05-20T11:33:14Z
   readme: "# agentlint\n\nLinter for AI coding agent harness files. Validates agents, skills, commands, hooks, settings,\nMCP config, and docs frontmatter across the major coding agent platforms.\n\n```\n$ agentlint\n.claude/agents/debugger.md:1:1: error: missing required field 'name'\n.claude/commands/deploy.md:3:1: error: missing required field 'description'\n.claude/settings.json:1:1: error: unknown top-level key 'theme'\n.mcp.json:1:1: error: mcpServers.my-server: server entry must have 'command' or 'url' transport\n\n  Files checked : 14\n    agents        : 3\n    claude-md     : 1\n    commands      : 2\n    docs          : 4\n    mcp           : 1\n    settings      : 1\n    skills        : 2\n  Validators    : 55\n  Errors        : 4\n  Warnings      : 0\n```\n\n## Supported platforms\n\n| Platform    | Files validated                                                                                                                                       |\n| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |\n| Claude Code | `.claude/agents/**/*.md`, `.claude/skills/**/*.md`, `.claude/commands/**/*.md`, `.claude/hooks/**`, `.claude/settings.json`, `.mcp.json`, `CLAUDE.md` |\n| Cursor      | `.cursor/rules/**/*.mdc`, `.cursor/rules/**/*.md`, `.cursorrules`                                                                                     |\n| Codex       | `AGENTS.md`                                                                                                                                           |\n| OpenCode    | `AGENTS.md`, `opencode.json`                                                                                                                          |\n| Gemini      | `GEMINI.md`                                                                                                                                           |\n| Pi          | `AGENTS.md`, `SYSTEM.md`              "
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-21T23:41:59Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat: implement hardening cohort B (#71, #73, #74, #77)'
-    date: 2026-05-21T23:33:00Z
-  - message: 'chore: update plan statuses after ideate audit'
-    date: 2026-05-21T21:57:23Z
-  - message: 'chore: commit accumulated worktree state'
-    date: 2026-05-21T21:44:17Z
-  - message: 'merge: issue #62 — recursive .crux pipeline discovery'
-    date: 2026-05-21T10:38:54Z
-  - message: 'merge: issue #66 — implement rx::install handler'
-    date: 2026-05-21T10:38:51Z
-  - message: 'merge: issue #64 — strict mode for unregistered pipeline handlers'
-    date: 2026-05-21T10:38:49Z
-  - message: 'merge: issue #74 — branch_cleanup.crux dynamic base branch'
-    date: 2026-05-21T10:38:46Z
-  - message: 'feat(crux-agentic): --strict flag errors on unregistered pipeline handlers'
-    date: 2026-05-21T10:37:17Z
-  - message: 'feat(crux-agentic): implement rx::install handler fixes #66'
-    date: 2026-05-21T10:36:15Z
-  - message: 'feat(crux-agentic): recursive .crux pipeline discovery with list subcommand'
-    date: 2026-05-21T10:34:54Z
-  tags:
-  - agents
-  readme: |-
-    # crux
-
-    An agentic DSL for Rust -- inspectable, serializable, replayable agent orchestration.
-
-    `crux` is not a standalone language. It's a set of macros, traits, and types that make agentic
-    control flow explicit in the Rust type system.
-
-    ## Quick example
-
-    ```rust
-    use crux::prelude::*;
-
-    #[crux::agent]
-    async fn plan_trip(goal: String) -> Crux<Itinerary> {
-        let research = x.step("research", || async {
-            Ok(search_web(&goal).await?)
-        }).await?;
-
-        let draft = x.delegate::<DraftAgent>("draft", research)
-            .with_budget(Budget::tokens(4000))
-            .run().await?;
-
-        x.speculate("finalize", vec![
-            ("cheap", Box::pin(async { finalize_cheap(&draft).await })),
-            ("fast",  Box::pin(async { finalize_fast(&draft).await })),
-            ("safe",  Box::pin(async { finalize_safe(&draft).await })),
-        ]).pick_best_by(|r| r.confidence).await
-    }
-    ```
-
-    ## Example
-
-    ```rust
-    use crux::prelude::*;
-
-    #[crux::agent]
-    async fn review_pr(pr: PullRequest) -> Crux<ReviewReport> {
-        // Fan out: fetch diff and CI results in parallel
-        let (diff, ci) = x.join_all([
-            x.step("fetch_diff", || git::diff(&pr.base, &pr.head)),
-            x.step("fetch_ci",   || ci::latest_run(&pr.repo, &pr.head)),
-        ]).await?;
-
-        // Delegate deep analysis to a specialist; escalate if confidence is low
-        let analysis = x.delegate::<SecurityAnalysisAgent>("security", &diff)
-            .with_budget(Budget::tokens(8000))
-            .on_low_confidence(0.75, escalate_to_human)
-            .on_step_failure(Recovery::Retry(2))
-            .await?;
-
-        // Race three review styles; keep whichever scores highest
-        let review = x.speculate("style", [
-            ("strict",  || apply_strict_style(&analysis, &ci)),
-            ("lenient", || apply_lenient_style(&analysis, &ci)),
-            ("summary", || apply_summary_style(&analysis, &ci)),
-        ]).pick_best_by(|r| r.confidence).await?;
-
-        x.step("emit", || build_report(pr, analysis, review)).await
-    }
-    ```
-
-    Every `x.step`, `x.delegate`, `x.speculate` call is record
 - name: praxis
   description: Self-improving agent runtime for the cruxx agentic DSL
   url: https://github.com/89jobrien/praxis
@@ -629,88 +874,6 @@
 
     --- session-4: confident execution ---
       score: 0.93  |  success_rate: 100%  |  avg_confiden
-- name: godmode
-  description: Self-contained Rust-native development methodology plugin for Claude Code.
-  url: https://github.com/89jobrien/godmode
-  kinds:
-  - GitHubRepo
-  - ClaudePlugin
-  language: Rust
-  pushed_at: 2026-05-20T04:55:59Z
-  version: v0.5.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'fix(skills): add 7 missing skills to index, remove nonexistent godmode worktree subcommand'
-    date: 2026-05-20T04:51:53Z
-  - message: 'feat(skills): add godmode:merge and godmode:decompose skills'
-    date: 2026-05-17T23:45:13Z
-  - message: 'feat(testing-philosophy): add fuzz as sixth testing dimension'
-    date: 2026-05-17T20:02:58Z
-  - message: 'feat: route specs to docs/specs/ and plans to docs/plans/ with path inference'
-    date: 2026-05-16T06:39:10Z
-  - message: 'feat: differentiate idea/spec/plan doc types; brainstorm writes idea+spec, writing-plans writes plan'
-    date: 2026-05-16T06:37:28Z
-  - message: 'feat(writing-plans): recognise new doc filename conventions and infer plan doctype from path'
-    date: 2026-05-16T06:33:48Z
-  - message: 'chore: update HANDOFF — pre-commit-gate pipeline fix'
-    date: 2026-05-16T01:26:10Z
-  - message: 'fix(pre-commit-gate): parse command pipeline before checking for git commit'
-    date: 2026-05-16T01:21:34Z
-  - message: 'docs(CLAUDE): add subagent guardrails, git ops, CI watch, output style, and Nushell conventions'
-    date: 2026-05-15T18:53:06Z
-  - message: 'fix: session quality improvements from session analysis'
-    date: 2026-05-14T03:27:11Z
-  readme: |
-    # godmode
-
-    Self-contained Rust-native development methodology plugin for Claude Code.
-
-    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
-
-    ## Overview
-
-    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
-    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
-    Tasks persist in `.ctx/GODMODE.tasks.yaml` (gitignored) across sessions via causal
-    `depends_on` chains.
-
-    ## Install
-
-    ```bash
-    cargo install --path crates/godmode-cli --root ~/.local
-    claude plugin install godmode@bazaar
-    ```
-
-    ### Pre-commit hook
-
-    Install the godmode pre-commit hook into any git repo to block commits when tasks are
-    still running and to run cargo gates (fmt-check, clippy, nextest):
-
-    ```bash
-    # From the repo root where you want the hook installed:
-    nu /path/to/godmode/hooks/install.nu
-
-    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
-    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
-    ```
-
-    The hook:
-
-    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
-       printing the offending task IDs.
-    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
-       `cargo nextest run --workspace`.
-    3. Blocks the commit on any failure with a clear message.
-
-    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
-    cargo gates run.
-
-    ## Skills
-
-    | Skill                                     | When                                                   |
-    | ----------------------------------------- | ------------------------------------------------------ |
-    | `godmode:using-godmode`                   | Session orientation, available skills, rules           |
 - name: cruxx
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
   url: https://crates.io/crates/cruxx
@@ -753,7 +916,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 36
+  downloads: 37
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -764,7 +927,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 49
+  downloads: 51
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -775,7 +938,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 77
+  downloads: 81
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -786,7 +949,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 139
+  downloads: 145
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -808,7 +971,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 48
+  downloads: 50
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -819,7 +982,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 41
+  downloads: 42
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -1984,7 +2147,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 654
+  downloads: 671
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -2244,7 +2407,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 114
+  downloads: 116
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -2255,7 +2418,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 59
+  downloads: 60
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -2266,7 +2429,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 135
+  downloads: 138
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
