@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-23T12:03:20Z
+  pushed_at: 2026-05-24T00:03:41Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-24T00:03:40Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-23T12:03:19Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-20T00:14:11Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-19T13:57:18Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-05-19T00:15:22Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,13 +213,85 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: devobs
+  description: Public Obsidian vault for open-source project tracking
+  url: https://github.com/89jobrien/devobs
+  kinds:
+  - GitHubRepo
+  language: null
+  pushed_at: 2026-05-24T11:25:39Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Add vault directory structure with READMEs
+    date: 2026-05-24T11:25:34Z
+  - message: 'feat: bootstrap devobs vault with crux pipelines and kgx integration'
+    date: 2026-05-24T11:22:34Z
+  - message: 'Initial commit: public devobs vault'
+    date: 2026-05-24T06:03:35Z
+  readme: |
+    # devobs
+
+    Public Obsidian vault for tracking open-source projects under
+    [89jobrien](https://github.com/89jobrien). Automated with
+    [crux](https://github.com/89jobrien/crux) pipelines and
+    [kgx](https://github.com/89jobrien/kgx) knowledge graphs.
+
+    ## Structure
+
+    | Folder              | Purpose                                       |
+    | ------------------- | --------------------------------------------- |
+    | `00_Inbox`          | Unsorted captures                             |
+    | `01_Daily`          | Daily notes                                   |
+    | `02_Projects`       | One PROJECT note per public repo              |
+    | `03_Area-Systems`   | Ongoing systems context                       |
+    | `04_Research`       | Analysis and design docs                      |
+    | `05_Knowledge`      | Generated graphs, maps, reports               |
+    | `06_Experiments`    | Experiment logs                               |
+    | `07_Infrastructure` | Machine and toolchain docs                    |
+    | `08_Templates`      | Note templates                                |
+    | `09_Archive`        | Inactive content                              |
+    | `schemas`           | JSON schemas for frontmatter and kgx payloads |
+    | `pipelines`         | Crux pipeline definitions                     |
+
+    ## Pipelines
+
+    ```bash
+    # Ingest all PROJECT notes into the kgx knowledge graph
+    crux run pipelines/devobs_ingest.crux
+
+    # Run quality gates (obfsck, agentlint, schema validation)
+    crux run pipelines/devobs_lint.crux
+
+    # LLM-assisted relationship discovery
+    crux run pipelines/devobs_enrich.crux
+
+    # Full CI: lint + ingest
+    crux run Cruxfile
+    ```
+
+    ## Schemas
+
+    - `schemas/project.schema.json` — PROJECT note frontmatter contract
+    - `schemas/kgx-ingest.schema.json` — kgx ingest payload format
+
+    ## Scope
+
+    Only public repos with local clones in `~/dev/` are tracked.
+    Private repos, employer projects, and repos without local clones
+    are excluded.
+
+    ## License
+
+    MIT
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-23T22:18:39Z
+  pushed_at: 2026-05-24T06:16:24Z
   version: v0.24.0
   stars: null
   downloads: null
@@ -1054,7 +1126,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 146
+  downloads: 147
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -2217,7 +2289,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 679
+  downloads: 681
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
