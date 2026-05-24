@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-24T00:03:41Z
+  pushed_at: 2026-05-24T11:34:28Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-24T11:34:27Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-24T00:03:40Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-20T13:44:33Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-20T00:14:11Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-05-19T13:57:18Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,23 +213,119 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: godmode
+  description: Self-contained Rust-native development methodology plugin for Claude Code.
+  url: https://github.com/89jobrien/godmode
+  kinds:
+  - GitHubRepo
+  - ClaudePlugin
+  language: Rust
+  pushed_at: 2026-05-24T22:03:22Z
+  version: v0.5.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'docs(mini-context-graph): add kgx export commands to CLI reference'
+    date: 2026-05-24T22:03:12Z
+  - message: 'refactor: rewrite mini-context-graph skill to use kgx CLI'
+    date: 2026-05-22T15:09:59Z
+  - message: 'fix(skills): add 7 missing skills to index, remove nonexistent godmode worktree subcommand'
+    date: 2026-05-20T04:51:53Z
+  - message: 'feat(skills): add godmode:merge and godmode:decompose skills'
+    date: 2026-05-17T23:45:13Z
+  - message: 'feat(testing-philosophy): add fuzz as sixth testing dimension'
+    date: 2026-05-17T20:02:58Z
+  - message: 'feat: route specs to docs/specs/ and plans to docs/plans/ with path inference'
+    date: 2026-05-16T06:39:10Z
+  - message: 'feat: differentiate idea/spec/plan doc types; brainstorm writes idea+spec, writing-plans writes plan'
+    date: 2026-05-16T06:37:28Z
+  - message: 'feat(writing-plans): recognise new doc filename conventions and infer plan doctype from path'
+    date: 2026-05-16T06:33:48Z
+  - message: 'chore: update HANDOFF — pre-commit-gate pipeline fix'
+    date: 2026-05-16T01:26:10Z
+  - message: 'fix(pre-commit-gate): parse command pipeline before checking for git commit'
+    date: 2026-05-16T01:21:34Z
+  readme: |
+    # godmode
+
+    Self-contained Rust-native development methodology plugin for Claude Code.
+
+    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
+
+    ## Overview
+
+    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
+    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
+    Tasks persist in `.ctx/GODMODE.tasks.yaml` (gitignored) across sessions via causal
+    `depends_on` chains.
+
+    ## Install
+
+    ```bash
+    cargo install --path crates/godmode-cli --root ~/.local
+    claude plugin install godmode@bazaar
+    ```
+
+    ### Pre-commit hook
+
+    Install the godmode pre-commit hook into any git repo to block commits when tasks are
+    still running and to run cargo gates (fmt-check, clippy, nextest):
+
+    ```bash
+    # From the repo root where you want the hook installed:
+    nu /path/to/godmode/hooks/install.nu
+
+    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
+    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
+    ```
+
+    The hook:
+
+    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
+       printing the offending task IDs.
+    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
+       `cargo nextest run --workspace`.
+    3. Blocks the commit on any failure with a clear message.
+
+    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
+    cargo gates run.
+
+    ## Skills
+
+    | Skill                                     | When                                                   |
+    | ----------------------------------------- | ------------------------------------------------------ |
+    | `godmode:using-godmode`                   | Session orientation, available skills, rules           |
 - name: devobs
   description: Public Obsidian vault for open-source project tracking
   url: https://github.com/89jobrien/devobs
   kinds:
   - GitHubRepo
-  language: null
-  pushed_at: 2026-05-24T11:25:39Z
+  language: Python
+  pushed_at: 2026-05-24T21:29:40Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: Replace machine notes with agentic infrastructure docs
+    date: 2026-05-24T21:29:35Z
+  - message: Populate vault directories with initial content
+    date: 2026-05-24T21:22:51Z
+  - message: 'chore: update plan status to complete, fix enrich pipeline to use dotenvx'
+    date: 2026-05-24T19:54:14Z
+  - message: 'feat: Phase 3+4 — lint pipeline + LLM-enriched relationships'
+    date: 2026-05-24T19:48:05Z
+  - message: 'feat: working lint pipeline — frontmatter validation + obfsck scan'
+    date: 2026-05-24T19:40:47Z
+  - message: 'feat: populate kgx wiki — 36 summaries + 35 topic pages'
+    date: 2026-05-24T14:00:51Z
+  - message: 'feat: add cross-project relationships and build plan'
+    date: 2026-05-24T13:52:02Z
+  - message: 'feat: replace shell/jq ingest with Python script + populate kgx graph'
+    date: 2026-05-24T13:12:56Z
   - message: Add vault directory structure with READMEs
     date: 2026-05-24T11:25:34Z
   - message: 'feat: bootstrap devobs vault with crux pipelines and kgx integration'
     date: 2026-05-24T11:22:34Z
-  - message: 'Initial commit: public devobs vault'
-    date: 2026-05-24T06:03:35Z
   readme: |
     # devobs
 
@@ -285,6 +381,109 @@
     ## License
 
     MIT
+- name: obfsck
+  description: Secret-detection and redaction CLI for pre-commit hooks
+  url: https://github.com/89jobrien/obfsck
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-24T13:08:05Z
+  version: v0.1.0
+  stars: null
+  downloads: 45
+  recent_commits:
+  - message: 'feat: glob pattern support in allowlist + repo-local .obfsck.toml'
+    date: 2026-05-24T11:22:49Z
+  - message: 'docs(readme): rewrite with scan, MCP, audit, and public API updates'
+    date: 2026-05-23T18:36:16Z
+  - message: 'chore: add knowledge graph, session artifacts, and handoff state'
+    date: 2026-05-23T14:34:41Z
+  - message: 'test: add property tests, fuzz targets, and inline unit tests'
+    date: 2026-05-23T08:06:46Z
+  - message: 'refactor: rustqual 53->81%, remove lazy-regex and walkdir deps'
+    date: 2026-05-22T23:49:17Z
+  - message: 'perf(test): combine 3 slow gitleaks tests into 1 ignored integration test'
+    date: 2026-04-25T20:49:57Z
+  - message: 'ci(lint): deny bare unwrap/expect in runtime code (#23)'
+    date: 2026-04-25T20:06:36Z
+  - message: 'test(mcp): add double-count guard for audit pass (#22)'
+    date: 2026-04-25T20:11:43Z
+  - message: 'fix(ip): add RFC 3927 link-local range; add IPv4 classification tests (#21)'
+    date: 2026-04-25T20:04:59Z
+  - message: 'test(secrets): add base64 token coverage for vault patterns (#20)'
+    date: 2026-04-25T20:05:55Z
+  tags:
+  - cli
+  readme: |+
+    # obfsck
+
+    Redacts secrets and PII from log lines and structured text.
+
+    ## Install
+
+    ```bash
+    cargo install --path .
+    ```
+
+    ## What it does
+
+    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
+    - Obfuscates identifiers with stable mappings (same input => same token)
+    - Supports privacy levels based on how aggressive redaction should be
+
+    ## Obfuscation levels
+
+    - `Minimal`: secret pattern redaction only
+    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
+    - `Paranoid`: adds path, hostname, and high-entropy token redaction
+
+    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
+    Sensitive system paths are preserved.
+
+    Preserved path segments include common roots like `home`, `usr`, `etc`,
+    `windows`, `users`, and `programdata`.
+
+    ### What each level redacts
+
+    | Pattern category | minimal | standard | paranoid |
+    |-----------------|---------|----------|----------|
+    | API keys, tokens, passwords | yes | yes | yes |
+    | IPs, emails, container IDs, usernames | — | yes | yes |
+    | PII (names, SSN, phone, credit card) | — | yes | yes |
+    | Paths, hostnames, high-entropy strings | — | — | yes |
+    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
+
+    `standard` is the privacy-forward default for sharing logs externally.
+    `minimal` is safe for internal tooling where structural identifiers are useful.
+
+    ## redact CLI
+
+    Redact secrets and PII from a file or stdin.
+
+    ```bash
+    # Stdin -> stdout (default level: minimal — secrets only)
+    echo "key=sk-ant-api03-ABCDEF..." | redact
+
+    # File input
+    redact path/to/logfile.txt
+
+    # Write to output file
+    redact input.txt --output redacted.txt
+
+    # Increase level
+    redact input.txt --level standard   # + IPs, emails, usernames, PII
+    redact input.txt --level paranoid   # + paths, hostnames, high-entropy
+
+    # Audit mode — report findings to stderr without redacting
+    redact input.txt --audit
+
+    # Custom secrets config (overrides bundled config)
+    redact input.txt --config ~/.config/obfsck/secrets.yaml
+    ```
+
+    ### Flags
+
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
@@ -376,109 +575,6 @@
     ## Quick Start
 
     Requires Linux, root, kernel 5.0+
-- name: obfsck
-  description: Secret-detection and redaction CLI for pre-commit hooks
-  url: https://github.com/89jobrien/obfsck
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-05-23T18:37:34Z
-  version: v0.1.0
-  stars: null
-  downloads: 45
-  recent_commits:
-  - message: 'docs(readme): rewrite with scan, MCP, audit, and public API updates'
-    date: 2026-05-23T18:36:16Z
-  - message: 'chore: add knowledge graph, session artifacts, and handoff state'
-    date: 2026-05-23T14:34:41Z
-  - message: 'test: add property tests, fuzz targets, and inline unit tests'
-    date: 2026-05-23T08:06:46Z
-  - message: 'refactor: rustqual 53->81%, remove lazy-regex and walkdir deps'
-    date: 2026-05-22T23:49:17Z
-  - message: 'perf(test): combine 3 slow gitleaks tests into 1 ignored integration test'
-    date: 2026-04-25T20:49:57Z
-  - message: 'ci(lint): deny bare unwrap/expect in runtime code (#23)'
-    date: 2026-04-25T20:06:36Z
-  - message: 'test(mcp): add double-count guard for audit pass (#22)'
-    date: 2026-04-25T20:11:43Z
-  - message: 'fix(ip): add RFC 3927 link-local range; add IPv4 classification tests (#21)'
-    date: 2026-04-25T20:04:59Z
-  - message: 'test(secrets): add base64 token coverage for vault patterns (#20)'
-    date: 2026-04-25T20:05:55Z
-  - message: 'feat(secrets): align patterns with gitleaks v8.25+; add 55 new detectors'
-    date: 2026-04-25T19:34:18Z
-  tags:
-  - cli
-  readme: |+
-    # obfsck
-
-    Redacts secrets and PII from log lines and structured text.
-
-    ## Install
-
-    ```bash
-    cargo install --path .
-    ```
-
-    ## What it does
-
-    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
-    - Obfuscates identifiers with stable mappings (same input => same token)
-    - Supports privacy levels based on how aggressive redaction should be
-
-    ## Obfuscation levels
-
-    - `Minimal`: secret pattern redaction only
-    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
-    - `Paranoid`: adds path, hostname, and high-entropy token redaction
-
-    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
-    Sensitive system paths are preserved.
-
-    Preserved path segments include common roots like `home`, `usr`, `etc`,
-    `windows`, `users`, and `programdata`.
-
-    ### What each level redacts
-
-    | Pattern category | minimal | standard | paranoid |
-    |-----------------|---------|----------|----------|
-    | API keys, tokens, passwords | yes | yes | yes |
-    | IPs, emails, container IDs, usernames | — | yes | yes |
-    | PII (names, SSN, phone, credit card) | — | yes | yes |
-    | Paths, hostnames, high-entropy strings | — | — | yes |
-    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
-
-    `standard` is the privacy-forward default for sharing logs externally.
-    `minimal` is safe for internal tooling where structural identifiers are useful.
-
-    ## redact CLI
-
-    Redact secrets and PII from a file or stdin.
-
-    ```bash
-    # Stdin -> stdout (default level: minimal — secrets only)
-    echo "key=sk-ant-api03-ABCDEF..." | redact
-
-    # File input
-    redact path/to/logfile.txt
-
-    # Write to output file
-    redact input.txt --output redacted.txt
-
-    # Increase level
-    redact input.txt --level standard   # + IPs, emails, usernames, PII
-    redact input.txt --level paranoid   # + paths, hostnames, high-entropy
-
-    # Audit mode — report findings to stderr without redacting
-    redact input.txt --audit
-
-    # Custom secrets config (overrides bundled config)
-    redact input.txt --config ~/.config/obfsck/secrets.yaml
-    ```
-
-    ### Flags
-
 - name: sandbox
   description: Standalone virtual bash interpreter with sandboxed filesystem
   url: https://github.com/89jobrien/sandbox
@@ -821,88 +917,6 @@
     ```
 
     Every `x.step`, `x.delegate`, `x.speculate` call is record
-- name: godmode
-  description: Self-contained Rust-native development methodology plugin for Claude Code.
-  url: https://github.com/89jobrien/godmode
-  kinds:
-  - GitHubRepo
-  - ClaudePlugin
-  language: Rust
-  pushed_at: 2026-05-22T15:11:17Z
-  version: v0.5.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'refactor: rewrite mini-context-graph skill to use kgx CLI'
-    date: 2026-05-22T15:09:59Z
-  - message: 'fix(skills): add 7 missing skills to index, remove nonexistent godmode worktree subcommand'
-    date: 2026-05-20T04:51:53Z
-  - message: 'feat(skills): add godmode:merge and godmode:decompose skills'
-    date: 2026-05-17T23:45:13Z
-  - message: 'feat(testing-philosophy): add fuzz as sixth testing dimension'
-    date: 2026-05-17T20:02:58Z
-  - message: 'feat: route specs to docs/specs/ and plans to docs/plans/ with path inference'
-    date: 2026-05-16T06:39:10Z
-  - message: 'feat: differentiate idea/spec/plan doc types; brainstorm writes idea+spec, writing-plans writes plan'
-    date: 2026-05-16T06:37:28Z
-  - message: 'feat(writing-plans): recognise new doc filename conventions and infer plan doctype from path'
-    date: 2026-05-16T06:33:48Z
-  - message: 'chore: update HANDOFF — pre-commit-gate pipeline fix'
-    date: 2026-05-16T01:26:10Z
-  - message: 'fix(pre-commit-gate): parse command pipeline before checking for git commit'
-    date: 2026-05-16T01:21:34Z
-  - message: 'docs(CLAUDE): add subagent guardrails, git ops, CI watch, output style, and Nushell conventions'
-    date: 2026-05-15T18:53:06Z
-  readme: |
-    # godmode
-
-    Self-contained Rust-native development methodology plugin for Claude Code.
-
-    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
-
-    ## Overview
-
-    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
-    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
-    Tasks persist in `.ctx/GODMODE.tasks.yaml` (gitignored) across sessions via causal
-    `depends_on` chains.
-
-    ## Install
-
-    ```bash
-    cargo install --path crates/godmode-cli --root ~/.local
-    claude plugin install godmode@bazaar
-    ```
-
-    ### Pre-commit hook
-
-    Install the godmode pre-commit hook into any git repo to block commits when tasks are
-    still running and to run cargo gates (fmt-check, clippy, nextest):
-
-    ```bash
-    # From the repo root where you want the hook installed:
-    nu /path/to/godmode/hooks/install.nu
-
-    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
-    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
-    ```
-
-    The hook:
-
-    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
-       printing the offending task IDs.
-    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
-       `cargo nextest run --workspace`.
-    3. Blocks the commit on any failure with a clear message.
-
-    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
-    cargo gates run.
-
-    ## Skills
-
-    | Skill                                     | When                                                   |
-    | ----------------------------------------- | ------------------------------------------------------ |
-    | `godmode:using-godmode`                   | Session orientation, available skills, rules           |
 - name: rx
   description: null
   url: https://github.com/89jobrien/rx
@@ -2289,7 +2303,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 681
+  downloads: 684
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
