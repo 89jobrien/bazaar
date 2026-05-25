@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-24T23:28:59Z
+  pushed_at: 2026-05-25T12:12:20Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-25T12:12:18Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-24T23:28:58Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-21T14:16:30Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-21T00:14:03Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-05-20T13:44:33Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,31 +219,31 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-25T03:29:36Z
+  pushed_at: 2026-05-25T23:22:33Z
   version: v0.24.0
   stars: null
   downloads: null
   recent_commits:
-  - message: Merge remote-tracking branch 'origin/develop' into next
-    date: 2026-05-19T20:05:45Z
-  - message: 'fix: update protocol drift hashes and fix unsigned comparison warning'
-    date: 2026-05-19T20:05:02Z
-  - message: 'chore(promote): develop -> next'
-    date: 2026-05-19T19:36:32Z
-  - message: 'fix(ci): also exclude protocol_e2e_tests from archive run'
-    date: 2026-05-19T19:36:25Z
-  - message: 'chore(promote): develop -> next'
-    date: 2026-05-19T19:16:04Z
-  - message: 'fix(ci): exclude cli_e2e and smolvm_e2e from archive test run'
-    date: 2026-05-19T19:14:01Z
-  - message: 'fix(ci): remove duplicate DockerHubRegistry import in miniboxd main'
-    date: 2026-05-19T19:04:11Z
-  - message: 'fix(test): smolvm helpers use positional args, add missing CommandExt import'
-    date: 2026-05-19T19:01:39Z
-  - message: 'docs(claude): reference .claude.local.md at top of CLAUDE.md'
-    date: 2026-05-19T18:58:36Z
-  - message: 'docs(claude): move local-only notes out of CLAUDE.md'
-    date: 2026-05-19T18:57:12Z
+  - message: Merge branch 'develop' into next
+    date: 2026-05-24T05:59:09Z
+  - message: 'docs: populate memory-bank files and update AGENTS.md refs'
+    date: 2026-05-23T22:18:01Z
+  - message: 'fix(security): resolve P0 issues — env key validation, actual-bytes size counter, ValidatedPath TOCTOU'
+    date: 2026-05-23T21:36:47Z
+  - message: 'chore: add TODO markers with GitHub issue refs from code review'
+    date: 2026-05-23T18:01:38Z
+  - message: 'docs: update handoff — session 4, test-in-vm xtask + smolvm output_reader fix'
+    date: 2026-05-23T14:29:09Z
+  - message: 'fix(test): update close_range regression test for named constant'
+    date: 2026-05-23T08:39:32Z
+  - message: 'fix(test): update close_range regression test for named constant'
+    date: 2026-05-23T08:39:32Z
+  - message: 'merge: develop into next — RunParams integration test fix'
+    date: 2026-05-23T08:27:07Z
+  - message: 'fix(test): update miniboxd integration tests for RunParams refactor'
+    date: 2026-05-23T08:26:45Z
+  - message: 'merge: fix(ci) InternalPath From<&str>'
+    date: 2026-05-22T23:59:11Z
   tags:
   - infra
   topics:
@@ -304,17 +304,128 @@
     ## Quick Start
 
     Requires Linux, root, kernel 5.0+
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-25T22:05:33Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs: add YAML pipeline walkthrough (6 chapters)'
+    date: 2026-05-25T21:49:44Z
+  - message: 'docs: update walkthrough intro with YAML pipeline framing'
+    date: 2026-05-25T21:36:01Z
+  - message: 'docs: add mdbook setup for project documentation'
+    date: 2026-05-25T21:27:48Z
+  - message: 'docs: rewrite README with YAML-first framing'
+    date: 2026-05-25T18:25:36Z
+  - message: 'refactor(crux-stdlib): move shell handlers from crux-agentic (#78)'
+    date: 2026-05-22T17:47:40Z
+  - message: 'fix(crux-script): make BudgetDef a struct to support compound budgets (#77)'
+    date: 2026-05-22T17:45:53Z
+  - message: 'refactor(crux-agentic): extract per-handler fns from review::register()'
+    date: 2026-05-22T17:11:41Z
+  - message: Merge branch 'refactor/triage-split'
+    date: 2026-05-22T17:08:48Z
+  - message: Merge branch 'refactor/ci-split'
+    date: 2026-05-22T17:08:46Z
+  - message: Merge branch 'refactor/analysis-split'
+    date: 2026-05-22T17:08:42Z
+  tags:
+  - agents
+  readme: |-
+    # crux
+
+    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
+
+    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
+      budgets in `.crux` files. The runtime handles execution, tracing,
+      and error recovery.
+    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
+      you can inspect, serialize, or replay after a crash.
+    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
+      logic, typed delegation, and confidence-based routing -- same trace,
+      same runtime.
+
+    ## Quick example
+
+    A pipeline as a `.crux` file:
+
+    ```yaml
+    pipeline: summarize
+    budget: { calls: 2 }
+
+    steps:
+        - step: count_words
+          handler: shell::capture
+          args:
+              cmd: "wc -w < input.txt"
+
+        - step: log_result
+          handler: ctrl::log
+    ```
+
+    The same thing in Rust:
+
+    ```rust
+    use crux::prelude::*;
+
+    #[crux::agent]
+    async fn summarize(input: String) -> Crux<String> {
+        let count: usize = x.step("count_words", || async {
+            Ok(input.split_whitespace().count())
+        }).await?;
+
+        x.step("format", || async move {
+            Ok(format!("{count} words"))
+        }).await
+    }
+    ```
+
+    Either way, the returned `Crux<T>` is:
+
+    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
+    - **Serializable** -- `serde_json::to_string(&crux)`
+    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
+
+    ## Installation
+
+    ```toml
+    [dependencies]
+    crux = "0.2"
+    ```
+
+    Requires Rust 1.88+ (edition 2024).
+
+    ## Crates
+
+    | Crate                                 | Description                                             |
+    | ------------------------------------- | ------------------------------------------------------- |
+    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
+    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
+    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
+    | [`crux-macros`](crates/crux-macros)   | `#[crux::ag
 - name: kgx
   description: Three-layer knowledge graph toolkit in Rust
   url: https://github.com/89jobrien/kgx
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-25T02:20:43Z
+  pushed_at: 2026-05-25T18:24:32Z
   version: v0.1.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'feat(kgx): add CSV, YAML, DOT parsers and Diff, Subgraph, Stats ops'
+    date: 2026-05-25T18:24:24Z
+  - message: 'feat(kgx): add Parser trait, MarkdownParser, GraphOp trait, and MergeOp'
+    date: 2026-05-25T18:19:06Z
+  - message: 'feat(export): add GFM exporter, conformance tests, and mise release task'
+    date: 2026-05-25T17:52:14Z
   - message: 'feat: add export module, wiki pages method, and self-ingest kgx knowledge graph'
     date: 2026-05-25T02:18:55Z
   - message: Update README with new command structure and sections
@@ -329,10 +440,6 @@
     date: 2026-05-22T17:42:36Z
   - message: 'feat: add kgx-cli binary crate'
     date: 2026-05-22T15:09:45Z
-  - message: 'docs: add README'
-    date: 2026-05-22T15:05:24Z
-  - message: 'feat: initial kgx knowledge graph toolkit'
-    date: 2026-05-22T15:04:15Z
   readme: |-
     # kgx
 
@@ -392,6 +499,92 @@
     ### Write and search wiki pages
     ```
     kgx --root ./my-kb wiki write --category en
+- name: devobs
+  description: Public Obsidian vault for open-source project tracking
+  url: https://github.com/89jobrien/devobs
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-25T17:07:47Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'feat: consolidate 6 Python scripts into single rust-script with ASCII graphs'
+    date: 2026-05-25T17:05:49Z
+  - message: Replace machine notes with agentic infrastructure docs
+    date: 2026-05-24T21:29:35Z
+  - message: Populate vault directories with initial content
+    date: 2026-05-24T21:22:51Z
+  - message: 'chore: update plan status to complete, fix enrich pipeline to use dotenvx'
+    date: 2026-05-24T19:54:14Z
+  - message: 'feat: Phase 3+4 — lint pipeline + LLM-enriched relationships'
+    date: 2026-05-24T19:48:05Z
+  - message: 'feat: working lint pipeline — frontmatter validation + obfsck scan'
+    date: 2026-05-24T19:40:47Z
+  - message: 'feat: populate kgx wiki — 36 summaries + 35 topic pages'
+    date: 2026-05-24T14:00:51Z
+  - message: 'feat: add cross-project relationships and build plan'
+    date: 2026-05-24T13:52:02Z
+  - message: 'feat: replace shell/jq ingest with Python script + populate kgx graph'
+    date: 2026-05-24T13:12:56Z
+  - message: Add vault directory structure with READMEs
+    date: 2026-05-24T11:25:34Z
+  readme: |
+    # devobs
+
+    Public Obsidian vault for tracking open-source projects under
+    [89jobrien](https://github.com/89jobrien). Automated with
+    [crux](https://github.com/89jobrien/crux) pipelines and
+    [kgx](https://github.com/89jobrien/kgx) knowledge graphs.
+
+    ## Structure
+
+    | Folder              | Purpose                                       |
+    | ------------------- | --------------------------------------------- |
+    | `00_Inbox`          | Unsorted captures                             |
+    | `01_Daily`          | Daily notes                                   |
+    | `02_Projects`       | One PROJECT note per public repo              |
+    | `03_Area-Systems`   | Ongoing systems context                       |
+    | `04_Research`       | Analysis and design docs                      |
+    | `05_Knowledge`      | Generated graphs, maps, reports               |
+    | `06_Experiments`    | Experiment logs                               |
+    | `07_Infrastructure` | Machine and toolchain docs                    |
+    | `08_Templates`      | Note templates                                |
+    | `09_Archive`        | Inactive content                              |
+    | `schemas`           | JSON schemas for frontmatter and kgx payloads |
+    | `pipelines`         | Crux pipeline definitions                     |
+
+    ## Pipelines
+
+    ```bash
+    # Ingest all PROJECT notes into the kgx knowledge graph
+    crux run pipelines/devobs_ingest.crux
+
+    # Run quality gates (obfsck, agentlint, schema validation)
+    crux run pipelines/devobs_lint.crux
+
+    # LLM-assisted relationship discovery
+    crux run pipelines/devobs_enrich.crux
+
+    # Full CI: lint + ingest
+    crux run Cruxfile
+    ```
+
+    ## Schemas
+
+    - `schemas/project.schema.json` — PROJECT note frontmatter contract
+    - `schemas/kgx-ingest.schema.json` — kgx ingest payload format
+
+    ## Scope
+
+    Only public repos with local clones in `~/dev/` are tracked.
+    Private repos, employer projects, and repos without local clones
+    are excluded.
+
+    ## License
+
+    MIT
 - name: godmode
   description: Self-contained Rust-native development methodology plugin for Claude Code.
   url: https://github.com/89jobrien/godmode
@@ -474,92 +667,6 @@
     | Skill                                     | When                                                   |
     | ----------------------------------------- | ------------------------------------------------------ |
     | `godmode:using-godmode`                   | Session orientation, available skills, rules           |
-- name: devobs
-  description: Public Obsidian vault for open-source project tracking
-  url: https://github.com/89jobrien/devobs
-  kinds:
-  - GitHubRepo
-  language: Python
-  pushed_at: 2026-05-24T21:29:40Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Replace machine notes with agentic infrastructure docs
-    date: 2026-05-24T21:29:35Z
-  - message: Populate vault directories with initial content
-    date: 2026-05-24T21:22:51Z
-  - message: 'chore: update plan status to complete, fix enrich pipeline to use dotenvx'
-    date: 2026-05-24T19:54:14Z
-  - message: 'feat: Phase 3+4 — lint pipeline + LLM-enriched relationships'
-    date: 2026-05-24T19:48:05Z
-  - message: 'feat: working lint pipeline — frontmatter validation + obfsck scan'
-    date: 2026-05-24T19:40:47Z
-  - message: 'feat: populate kgx wiki — 36 summaries + 35 topic pages'
-    date: 2026-05-24T14:00:51Z
-  - message: 'feat: add cross-project relationships and build plan'
-    date: 2026-05-24T13:52:02Z
-  - message: 'feat: replace shell/jq ingest with Python script + populate kgx graph'
-    date: 2026-05-24T13:12:56Z
-  - message: Add vault directory structure with READMEs
-    date: 2026-05-24T11:25:34Z
-  - message: 'feat: bootstrap devobs vault with crux pipelines and kgx integration'
-    date: 2026-05-24T11:22:34Z
-  readme: |
-    # devobs
-
-    Public Obsidian vault for tracking open-source projects under
-    [89jobrien](https://github.com/89jobrien). Automated with
-    [crux](https://github.com/89jobrien/crux) pipelines and
-    [kgx](https://github.com/89jobrien/kgx) knowledge graphs.
-
-    ## Structure
-
-    | Folder              | Purpose                                       |
-    | ------------------- | --------------------------------------------- |
-    | `00_Inbox`          | Unsorted captures                             |
-    | `01_Daily`          | Daily notes                                   |
-    | `02_Projects`       | One PROJECT note per public repo              |
-    | `03_Area-Systems`   | Ongoing systems context                       |
-    | `04_Research`       | Analysis and design docs                      |
-    | `05_Knowledge`      | Generated graphs, maps, reports               |
-    | `06_Experiments`    | Experiment logs                               |
-    | `07_Infrastructure` | Machine and toolchain docs                    |
-    | `08_Templates`      | Note templates                                |
-    | `09_Archive`        | Inactive content                              |
-    | `schemas`           | JSON schemas for frontmatter and kgx payloads |
-    | `pipelines`         | Crux pipeline definitions                     |
-
-    ## Pipelines
-
-    ```bash
-    # Ingest all PROJECT notes into the kgx knowledge graph
-    crux run pipelines/devobs_ingest.crux
-
-    # Run quality gates (obfsck, agentlint, schema validation)
-    crux run pipelines/devobs_lint.crux
-
-    # LLM-assisted relationship discovery
-    crux run pipelines/devobs_enrich.crux
-
-    # Full CI: lint + ingest
-    crux run Cruxfile
-    ```
-
-    ## Schemas
-
-    - `schemas/project.schema.json` — PROJECT note frontmatter contract
-    - `schemas/kgx-ingest.schema.json` — kgx ingest payload format
-
-    ## Scope
-
-    Only public repos with local clones in `~/dev/` are tracked.
-    Private repos, employer projects, and repos without local clones
-    are excluded.
-
-    ## License
-
-    MIT
 - name: obfsck
   description: Secret-detection and redaction CLI for pre-commit hooks
   url: https://github.com/89jobrien/obfsck
@@ -570,7 +677,7 @@
   pushed_at: 2026-05-24T13:08:05Z
   version: v0.1.0
   stars: null
-  downloads: 45
+  downloads: 48
   recent_commits:
   - message: 'feat: glob pattern support in allowlist + repo-local .obfsck.toml'
     date: 2026-05-24T11:22:49Z
@@ -830,102 +937,6 @@
         - [x] [OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_openai.rs)
         - [x] [Azure OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_azure_open_ai.rs)
         - [x] [Ollama](https://github.com/89jobrien/langchainx/blob/main/examples/llm_ollama.rs)
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-22T18:00:17Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'refactor(crux-stdlib): move shell handlers from crux-agentic (#78)'
-    date: 2026-05-22T17:47:40Z
-  - message: 'fix(crux-script): make BudgetDef a struct to support compound budgets (#77)'
-    date: 2026-05-22T17:45:53Z
-  - message: 'refactor(crux-agentic): extract per-handler fns from review::register()'
-    date: 2026-05-22T17:11:41Z
-  - message: Merge branch 'refactor/triage-split'
-    date: 2026-05-22T17:08:48Z
-  - message: Merge branch 'refactor/ci-split'
-    date: 2026-05-22T17:08:46Z
-  - message: Merge branch 'refactor/analysis-split'
-    date: 2026-05-22T17:08:42Z
-  - message: 'chore: update handoff state and add quality sweep plan'
-    date: 2026-05-22T17:08:30Z
-  - message: 'refactor(crux-agentic): split triage.rs register() into per-handler fns'
-    date: 2026-05-22T17:07:52Z
-  - message: 'refactor(crux-agentic): split ci.rs register() into per-handler fns'
-    date: 2026-05-22T17:07:12Z
-  - message: 'refactor(crux-agentic): split analysis.rs register() into per-handler fns'
-    date: 2026-05-22T17:06:40Z
-  tags:
-  - agents
-  readme: |-
-    # crux
-
-    An agentic DSL for Rust -- inspectable, serializable, replayable agent orchestration.
-
-    `crux` is not a standalone language. It's a set of macros, traits, and types that make agentic
-    control flow explicit in the Rust type system.
-
-    ## Quick example
-
-    ```rust
-    use crux::prelude::*;
-
-    #[crux::agent]
-    async fn plan_trip(goal: String) -> Crux<Itinerary> {
-        let research = x.step("research", || async {
-            Ok(search_web(&goal).await?)
-        }).await?;
-
-        let draft = x.delegate::<DraftAgent>("draft", research)
-            .with_budget(Budget::tokens(4000))
-            .run().await?;
-
-        x.speculate("finalize", vec![
-            ("cheap", Box::pin(async { finalize_cheap(&draft).await })),
-            ("fast",  Box::pin(async { finalize_fast(&draft).await })),
-            ("safe",  Box::pin(async { finalize_safe(&draft).await })),
-        ]).pick_best_by(|r| r.confidence).await
-    }
-    ```
-
-    ## Example
-
-    ```rust
-    use crux::prelude::*;
-
-    #[crux::agent]
-    async fn review_pr(pr: PullRequest) -> Crux<ReviewReport> {
-        // Fan out: fetch diff and CI results in parallel
-        let (diff, ci) = x.join_all([
-            x.step("fetch_diff", || git::diff(&pr.base, &pr.head)),
-            x.step("fetch_ci",   || ci::latest_run(&pr.repo, &pr.head)),
-        ]).await?;
-
-        // Delegate deep analysis to a specialist; escalate if confidence is low
-        let analysis = x.delegate::<SecurityAnalysisAgent>("security", &diff)
-            .with_budget(Budget::tokens(8000))
-            .on_low_confidence(0.75, escalate_to_human)
-            .on_step_failure(Recovery::Retry(2))
-            .await?;
-
-        // Race three review styles; keep whichever scores highest
-        let review = x.speculate("style", [
-            ("strict",  || apply_strict_style(&analysis, &ci)),
-            ("lenient", || apply_lenient_style(&analysis, &ci)),
-            ("summary", || apply_summary_style(&analysis, &ci)),
-        ]).pick_best_by(|r| r.confidence).await?;
-
-        x.step("emit", || build_report(pr, analysis, review)).await
-    }
-    ```
-
-    Every `x.step`, `x.delegate`, `x.speculate` call is record
 - name: rx
   description: null
   url: https://github.com/89jobrien/rx
@@ -1083,7 +1094,7 @@
   pushed_at: 2026-05-18T09:52:28.834986Z
   version: 0.2.6
   stars: null
-  downloads: 27
+  downloads: 28
   recent_commits: []
 - name: cruxx-improve
   description: Shared vocabulary and bridge types for crux self-improvement
@@ -1105,7 +1116,7 @@
   pushed_at: 2026-05-18T05:22:46.040541Z
   version: 0.2.6
   stars: null
-  downloads: 32
+  downloads: 33
   recent_commits: []
 - name: cruxx-agentic
   description: Built-in step handlers for cruxx-script pipelines
@@ -1116,7 +1127,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 38
+  downloads: 39
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -1127,7 +1138,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 53
+  downloads: 54
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -1138,7 +1149,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 85
+  downloads: 86
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -1149,7 +1160,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 153
+  downloads: 154
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -1171,7 +1182,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 52
+  downloads: 53
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -1182,7 +1193,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 43
+  downloads: 44
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -1594,7 +1605,7 @@
   pushed_at: 2026-05-11T16:45:14Z
   version: 0.1.0
   stars: null
-  downloads: 14
+  downloads: 15
   recent_commits:
   - message: 'docs: update handoff — session 3 crate split + Thing deser fix'
     date: 2026-05-11T15:02:55Z
@@ -1905,7 +1916,7 @@
   pushed_at: 2026-05-08T11:58:57Z
   version: v0.3.0
   stars: 1
-  downloads: 13
+  downloads: 14
   recent_commits:
   - message: 'chore: bump to 0.3.1'
     date: 2026-05-08T11:58:22Z
@@ -2018,7 +2029,7 @@
   pushed_at: 2026-05-05T07:28:45.320652Z
   version: 0.24.0
   stars: null
-  downloads: 148
+  downloads: 150
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -2029,7 +2040,7 @@
   pushed_at: 2026-05-05T07:28:25.424883Z
   version: 0.24.0
   stars: null
-  downloads: 186
+  downloads: 188
   recent_commits: []
 - name: devkit
   description: AI-powered dev workflow toolkit
@@ -2256,7 +2267,7 @@
   pushed_at: 2026-04-24T19:56:38.098231Z
   version: 0.19.0
   stars: null
-  downloads: 13
+  downloads: 14
   recent_commits: []
 - name: minibox-secrets
   description: Local credential validation and passthrough (1Password, Bitwarden, keyring, env)
@@ -2267,7 +2278,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 21
+  downloads: 23
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -2278,7 +2289,7 @@
   pushed_at: 2026-04-24T19:52:04.917297Z
   version: 0.19.0
   stars: null
-  downloads: 15
+  downloads: 16
   recent_commits: []
 - name: minibox-oci
   description: Standalone OCI image-pulling library for Minibox
@@ -2289,7 +2300,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 34
+  downloads: 36
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -2300,7 +2311,7 @@
   pushed_at: 2026-04-23T23:07:16.604202Z
   version: 0.1.0
   stars: null
-  downloads: 22
+  downloads: 23
   recent_commits: []
 - name: slashcrux
   description: Shared vocabulary types for the Slash and Crux agentic Rust ecosystem
@@ -2312,7 +2323,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 697
+  downloads: 698
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -2331,7 +2342,7 @@
   pushed_at: 2026-04-23T22:43:46.259352Z
   version: 0.1.0
   stars: null
-  downloads: 15
+  downloads: 16
   recent_commits: []
 - name: hooklings
   description: YAML-driven developer preflight checks via crux pipelines
@@ -2517,7 +2528,7 @@
   pushed_at: 2026-04-18T23:42:19.260031Z
   version: 0.2.3
   stars: null
-  downloads: 89
+  downloads: 90
   recent_commits: []
 - name: rx-rxx
   description: Execute compatible scripts directly
@@ -2528,7 +2539,7 @@
   pushed_at: 2026-04-18T07:05:01.068084Z
   version: 0.1.0
   stars: null
-  downloads: 12
+  downloads: 13
   recent_commits: []
 - name: rx-registry-json
   description: JSON registry and HTTP fetcher adapters for rx
@@ -2539,7 +2550,7 @@
   pushed_at: 2026-04-18T07:04:46.194699Z
   version: 0.1.0
   stars: null
-  downloads: 12
+  downloads: 13
   recent_commits: []
 - name: rx-script-core
   description: Core runtime detection and execution planning for rx
@@ -2550,7 +2561,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 37
+  downloads: 40
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -2561,7 +2572,7 @@
   pushed_at: 2026-04-17T20:22:28.979321Z
   version: 0.2.1
   stars: null
-  downloads: 39
+  downloads: 40
   recent_commits: []
 - name: cruxai-script
   description: YAML-driven pipeline scripting for the cruxai agentic DSL
@@ -2572,7 +2583,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 118
+  downloads: 119
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -2583,7 +2594,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 61
+  downloads: 62
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -2594,7 +2605,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 141
+  downloads: 142
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
@@ -2661,7 +2672,7 @@
   pushed_at: 2026-04-16T10:49:00.113250Z
   version: 0.1.2
   stars: null
-  downloads: 13
+  downloads: 14
   recent_commits: []
 - name: hj-render
   description: Markdown rendering for hj handoff workflows
@@ -2672,7 +2683,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 40
+  downloads: 41
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -2683,7 +2694,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 42
+  downloads: 43
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -2694,7 +2705,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 38
+  downloads: 39
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -2705,7 +2716,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 38
+  downloads: 39
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -2716,7 +2727,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 103
+  downloads: 104
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
@@ -2727,7 +2738,7 @@
   pushed_at: 2026-04-15T17:48:33.647352Z
   version: 0.1.0
   stars: null
-  downloads: 12
+  downloads: 13
   recent_commits: []
 - name: peeprs
   description: Claude Code session logs dashboard
@@ -3143,7 +3154,7 @@
   pushed_at: 2026-04-12T22:31:24.579183Z
   version: 0.1.0
   stars: null
-  downloads: 13
+  downloads: 14
   recent_commits: []
 - name: slash-cmd
   description: CLI for the slash-command language
@@ -3154,7 +3165,7 @@
   pushed_at: 2026-04-12T22:21:14.454502Z
   version: 0.1.0
   stars: null
-  downloads: 14
+  downloads: 15
   recent_commits: []
 - name: slash-testing
   description: Proptest strategies and harness configuration for testing slash-command language parsers
@@ -3165,7 +3176,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 21
+  downloads: 23
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -3176,7 +3187,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 44
+  downloads: 47
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -3187,7 +3198,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 75
+  downloads: 80
   recent_commits: []
 - name: dotfiles
   description: null
