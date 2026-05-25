@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-24T11:34:28Z
+  pushed_at: 2026-05-24T23:28:59Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-24T23:28:58Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-24T11:34:27Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-21T00:14:03Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-20T13:44:33Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-05-20T00:14:11Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,185 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-25T03:29:36Z
+  version: v0.24.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Merge remote-tracking branch 'origin/develop' into next
+    date: 2026-05-19T20:05:45Z
+  - message: 'fix: update protocol drift hashes and fix unsigned comparison warning'
+    date: 2026-05-19T20:05:02Z
+  - message: 'chore(promote): develop -> next'
+    date: 2026-05-19T19:36:32Z
+  - message: 'fix(ci): also exclude protocol_e2e_tests from archive run'
+    date: 2026-05-19T19:36:25Z
+  - message: 'chore(promote): develop -> next'
+    date: 2026-05-19T19:16:04Z
+  - message: 'fix(ci): exclude cli_e2e and smolvm_e2e from archive test run'
+    date: 2026-05-19T19:14:01Z
+  - message: 'fix(ci): remove duplicate DockerHubRegistry import in miniboxd main'
+    date: 2026-05-19T19:04:11Z
+  - message: 'fix(test): smolvm helpers use positional args, add missing CommandExt import'
+    date: 2026-05-19T19:01:39Z
+  - message: 'docs(claude): reference .claude.local.md at top of CLAUDE.md'
+    date: 2026-05-19T18:58:36Z
+  - message: 'docs(claude): move local-only notes out of CLAUDE.md'
+    date: 2026-05-19T18:57:12Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
+
+    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
+    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
+    keeps adapter suites swappable at startup with no recompile.
+
+    **Status:** Active development — `v0.24.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `minibox logs <id>` for stored stdout/stderr
+    - Container events — `minibox events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
+    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
+      Colima available as an alternative via Lima VM
+
+    ---
+
+    ## Quick Start
+
+    Requires Linux, root, kernel 5.0+
+- name: kgx
+  description: Three-layer knowledge graph toolkit in Rust
+  url: https://github.com/89jobrien/kgx
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-25T02:20:43Z
+  version: v0.1.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'feat: add export module, wiki pages method, and self-ingest kgx knowledge graph'
+    date: 2026-05-25T02:18:55Z
+  - message: Update README with new command structure and sections
+    date: 2026-05-25T01:41:53Z
+  - message: Update README.md
+    date: 2026-05-25T01:39:50Z
+  - message: 'docs: expand README with architecture, CLI usage, and quality score'
+    date: 2026-05-23T18:03:47Z
+  - message: 'docs: update handoff'
+    date: 2026-05-23T00:03:36Z
+  - message: 'refactor: improve code quality to 100% rustqual score'
+    date: 2026-05-22T17:42:36Z
+  - message: 'feat: add kgx-cli binary crate'
+    date: 2026-05-22T15:09:45Z
+  - message: 'docs: add README'
+    date: 2026-05-22T15:05:24Z
+  - message: 'feat: initial kgx knowledge graph toolkit'
+    date: 2026-05-22T15:04:15Z
+  readme: |-
+    # kgx
+
+    Three-layer knowledge graph toolkit in Rust.
+
+    JSON-backed, zero-dependency storage. No external database required --
+    entities, relations, documents, and wiki pages all persist as plain files.
+
+    ## Architecture
+
+    ```
+                        +-----------------+
+                        |    kgx-cli      |  CLI binary
+                        +--------+--------+
+                                 |
+              +------------------+------------------+
+              |                  |                  |
+      +-------+------+  +-------+-------+  +-------+------+
+      | GraphStore   |  | DocumentStore |  | WikiStore    |
+      | graph.json   |  | documents.json|  | wiki/        |
+      +--------------+  +---------------+  +--------------+
+       BFS traversal       Chunking &       Markdown pages
+       Confidence filter    Provenance       [[wikilinks]]
+    ```
+
+    | Layer         | Storage               | Purpose                                             |
+    | ------------- | --------------------- | --------------------------------------------------- |
+    | **Graph**     | `data/graph.json`     | Entity-relation graph, BFS traversal, confidence    |
+    | **Documents** | `data/documents.json` | Immutable document store with chunking & provenance |
+    | **Wiki**      | `wiki/`               | Markdown pages with `[[wikilinks]]`, search, lint   |
+    | **Export**    | (output dir)          | JSON or Markdown export of the full context graph   |
+
+    ## Quick Start
+
+
+    ### Initialize a workspace
+    ```bash
+    kgx --root ./my-kb init
+    ```
+    ### Add entities and relations
+
+    ```bash
+    kgx --root ./my-kb graph add-node "Rust" --type language
+    kgx --root ./my-kb graph add-node "Memory Safety" --type concept
+    kgx --root ./my-kb graph add-edge "Rust" "Memory Safety" \
+        --type enables --confidence 0.95
+    ```
+    ### Ingest a document with entities and relations
+    ```bash
+    kgx --root ./my-kb ingest --file notes.json
+    ```
+    ### Search the graph
+    ```bash
+    kgx --root ./my-kb graph search "Rust"
+    ```
+
+    ### Write and search wiki pages
+    ```
+    kgx --root ./my-kb wiki write --category en
 - name: godmode
   description: Self-contained Rust-native development methodology plugin for Claude Code.
   url: https://github.com/89jobrien/godmode
@@ -484,97 +663,6 @@
 
     ### Flags
 
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-24T06:16:24Z
-  version: v0.24.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Merge remote-tracking branch 'origin/develop' into next
-    date: 2026-05-19T20:05:45Z
-  - message: 'fix: update protocol drift hashes and fix unsigned comparison warning'
-    date: 2026-05-19T20:05:02Z
-  - message: 'chore(promote): develop -> next'
-    date: 2026-05-19T19:36:32Z
-  - message: 'fix(ci): also exclude protocol_e2e_tests from archive run'
-    date: 2026-05-19T19:36:25Z
-  - message: 'chore(promote): develop -> next'
-    date: 2026-05-19T19:16:04Z
-  - message: 'fix(ci): exclude cli_e2e and smolvm_e2e from archive test run'
-    date: 2026-05-19T19:14:01Z
-  - message: 'fix(ci): remove duplicate DockerHubRegistry import in miniboxd main'
-    date: 2026-05-19T19:04:11Z
-  - message: 'fix(test): smolvm helpers use positional args, add missing CommandExt import'
-    date: 2026-05-19T19:01:39Z
-  - message: 'docs(claude): reference .claude.local.md at top of CLAUDE.md'
-    date: 2026-05-19T18:58:36Z
-  - message: 'docs(claude): move local-only notes out of CLAUDE.md'
-    date: 2026-05-19T18:57:12Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
-
-    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
-    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
-    keeps adapter suites swappable at startup with no recompile.
-
-    **Status:** Active development — `v0.24.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `minibox logs <id>` for stored stdout/stderr
-    - Container events — `minibox events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
-    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
-      Colima available as an alternative via Lima VM
-
-    ---
-
-    ## Quick Start
-
-    Requires Linux, root, kernel 5.0+
 - name: sandbox
   description: Standalone virtual bash interpreter with sandboxed filesystem
   url: https://github.com/89jobrien/sandbox
@@ -674,85 +762,6 @@
     `shell.register_builtin(impl Builtin)`.
 
     ## Ca
-- name: kgx
-  description: Three-layer knowledge graph toolkit in Rust
-  url: https://github.com/89jobrien/kgx
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-23T18:04:29Z
-  version: v0.1.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: expand README with architecture, CLI usage, and quality score'
-    date: 2026-05-23T18:03:47Z
-  - message: 'docs: update handoff'
-    date: 2026-05-23T00:03:36Z
-  - message: 'refactor: improve code quality to 100% rustqual score'
-    date: 2026-05-22T17:42:36Z
-  - message: 'feat: add kgx-cli binary crate'
-    date: 2026-05-22T15:09:45Z
-  - message: 'docs: add README'
-    date: 2026-05-22T15:05:24Z
-  - message: 'feat: initial kgx knowledge graph toolkit'
-    date: 2026-05-22T15:04:15Z
-  readme: |-
-    # kgx
-
-    Three-layer knowledge graph toolkit in Rust.
-
-    JSON-backed, zero-dependency storage. No external database required --
-    entities, relations, documents, and wiki pages all persist as plain files.
-
-    ## Architecture
-
-    ```
-                        +-----------------+
-                        |    kgx-cli      |  CLI binary
-                        +--------+--------+
-                                 |
-              +------------------+------------------+
-              |                  |                  |
-      +-------+------+  +-------+-------+  +-------+------+
-      | GraphStore   |  | DocumentStore |  | WikiStore    |
-      | graph.json   |  | documents.json|  | wiki/        |
-      +--------------+  +---------------+  +--------------+
-      BFS traversal     Chunking &         Markdown pages
-      Confidence filter Provenance         [[wikilinks]]
-    ```
-
-    | Layer         | Storage               | Purpose                                             |
-    | ------------- | --------------------- | --------------------------------------------------- |
-    | **Graph**     | `data/graph.json`     | Entity-relation graph, BFS traversal, confidence    |
-    | **Documents** | `data/documents.json` | Immutable document store with chunking & provenance |
-    | **Wiki**      | `wiki/`               | Markdown pages with `[[wikilinks]]`, search, lint   |
-
-    ## Quick Start
-
-    ```bash
-    # Initialize a workspace
-    kgx --root ./my-kb init
-
-    # Add entities and relations
-    kgx --root ./my-kb graph add-node "Rust" --type language
-    kgx --root ./my-kb graph add-node "Memory Safety" --type concept
-    kgx --root ./my-kb graph add-edge "Rust" "Memory Safety" \
-        --type enables --confidence 0.95
-
-    # Ingest a document with entities and relations
-    kgx --root ./my-kb ingest --file notes.json
-
-    # Search the graph
-    kgx --root ./my-kb graph search "Rust"
-
-    # Write and search wiki pages
-    kgx --root ./my-kb wiki write --category entity --title "Rust" \
-        --summary "A systems language" < rust.md
-    kgx --root ./my-kb wiki search "memory"
-
-    # Lint for broken wikilinks
-    kgx --root ./my-
 - name: langchainx
   description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
   url: https://github.com/89jobrien/langchainx
@@ -1107,7 +1116,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 37
+  downloads: 38
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -1118,7 +1127,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 51
+  downloads: 53
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -1129,7 +1138,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 81
+  downloads: 85
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -1140,7 +1149,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 147
+  downloads: 153
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -1162,7 +1171,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 50
+  downloads: 52
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -1173,7 +1182,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 42
+  downloads: 43
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -1320,7 +1329,7 @@
   pushed_at: 2026-05-16T04:04:45.475950Z
   version: 0.3.0
   stars: null
-  downloads: 35
+  downloads: 36
   recent_commits: []
 - name: agentlint-pi
   description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
@@ -1331,7 +1340,7 @@
   pushed_at: 2026-05-16T04:04:23.718026Z
   version: 0.3.0
   stars: null
-  downloads: 38
+  downloads: 39
   recent_commits: []
 - name: agentlint-gemini
   description: agentlint validator for Google Gemini GEMINI.md files
@@ -1342,7 +1351,7 @@
   pushed_at: 2026-05-16T04:04:00.508658Z
   version: 0.3.0
   stars: null
-  downloads: 52
+  downloads: 53
   recent_commits: []
 - name: agentlint-codex
   description: agentlint validator for OpenAI Codex AGENTS.md files
@@ -1353,7 +1362,7 @@
   pushed_at: 2026-05-16T04:03:38.113837Z
   version: 0.3.0
   stars: null
-  downloads: 51
+  downloads: 52
   recent_commits: []
 - name: agentlint-cursor
   description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
@@ -1364,7 +1373,7 @@
   pushed_at: 2026-05-16T04:03:15.391246Z
   version: 0.3.0
   stars: null
-  downloads: 51
+  downloads: 52
   recent_commits: []
 - name: agentlint-claude
   description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
@@ -1375,7 +1384,7 @@
   pushed_at: 2026-05-16T04:02:52.382445Z
   version: 0.3.0
   stars: null
-  downloads: 35
+  downloads: 36
   recent_commits: []
 - name: agentlint-frontmatter
   description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
@@ -1386,7 +1395,7 @@
   pushed_at: 2026-05-16T04:02:28.958456Z
   version: 0.3.0
   stars: null
-  downloads: 67
+  downloads: 70
   recent_commits: []
 - name: agentlint-core
   description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
@@ -1397,7 +1406,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 96
+  downloads: 103
   recent_commits: []
 - name: hj
   description: Handoff state, reconciliation, rendering, and handup surveys
@@ -2009,7 +2018,7 @@
   pushed_at: 2026-05-05T07:28:45.320652Z
   version: 0.24.0
   stars: null
-  downloads: 147
+  downloads: 148
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -2020,7 +2029,7 @@
   pushed_at: 2026-05-05T07:28:25.424883Z
   version: 0.24.0
   stars: null
-  downloads: 183
+  downloads: 186
   recent_commits: []
 - name: devkit
   description: AI-powered dev workflow toolkit
@@ -2170,7 +2179,7 @@
   pushed_at: 2026-04-30T21:51:42.719327Z
   version: 0.1.3
   stars: null
-  downloads: 16
+  downloads: 17
   recent_commits: []
 - name: 89jobrien.github.io
   description: Personal site
@@ -2280,7 +2289,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 33
+  downloads: 34
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -2303,7 +2312,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 684
+  downloads: 697
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -2563,7 +2572,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 116
+  downloads: 118
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -2574,7 +2583,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 60
+  downloads: 61
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -2585,7 +2594,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 138
+  downloads: 141
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
@@ -2663,7 +2672,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 39
+  downloads: 40
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -2674,7 +2683,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 41
+  downloads: 42
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -2685,7 +2694,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 37
+  downloads: 38
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -2696,7 +2705,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 37
+  downloads: 38
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -2707,7 +2716,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 98
+  downloads: 103
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
