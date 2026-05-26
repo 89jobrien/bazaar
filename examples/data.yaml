@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-25T12:12:20Z
+  pushed_at: 2026-05-25T23:31:30Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-25T23:31:28Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-25T12:12:18Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-22T00:11:31Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-21T14:16:30Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-05-21T00:14:03Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,31 +219,31 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-25T23:22:33Z
-  version: v0.24.0
+  pushed_at: 2026-05-26T21:36:13Z
+  version: v0.30.0
   stars: null
   downloads: null
   recent_commits:
   - message: Merge branch 'develop' into next
+    date: 2026-05-26T14:03:25Z
+  - message: 'chore: bump version to 0.30.0'
+    date: 2026-05-26T14:03:09Z
+  - message: 'feat(cgroup): add --cgroup-parent flag for DinD cgroup delegation'
+    date: 2026-05-26T13:59:19Z
+  - message: 'fix(xtask): skip cgroup_tests on unprivileged VM backends (#445)'
+    date: 2026-05-25T23:57:44Z
+  - message: 'feat(xtask): expand agentlint to cover all file types'
+    date: 2026-05-25T23:19:10Z
+  - message: 'feat(xtask): add cargo xtask agentlint --all for full-directory scanning'
+    date: 2026-05-25T23:14:14Z
+  - message: 'chore: add test-in-vm, council xtask modules, skill references, and rustqual config'
+    date: 2026-05-25T23:10:28Z
+  - message: 'refactor(security): move policy gate before resource creation, fix smolvm output/exit propagation'
+    date: 2026-05-25T23:09:38Z
+  - message: 'docs: update handoff — session 5, P0 security fixes, develop→next→staging promoted'
+    date: 2026-05-25T22:39:09Z
+  - message: Merge branch 'develop' into next
     date: 2026-05-24T05:59:09Z
-  - message: 'docs: populate memory-bank files and update AGENTS.md refs'
-    date: 2026-05-23T22:18:01Z
-  - message: 'fix(security): resolve P0 issues — env key validation, actual-bytes size counter, ValidatedPath TOCTOU'
-    date: 2026-05-23T21:36:47Z
-  - message: 'chore: add TODO markers with GitHub issue refs from code review'
-    date: 2026-05-23T18:01:38Z
-  - message: 'docs: update handoff — session 4, test-in-vm xtask + smolvm output_reader fix'
-    date: 2026-05-23T14:29:09Z
-  - message: 'fix(test): update close_range regression test for named constant'
-    date: 2026-05-23T08:39:32Z
-  - message: 'fix(test): update close_range regression test for named constant'
-    date: 2026-05-23T08:39:32Z
-  - message: 'merge: develop into next — RunParams integration test fix'
-    date: 2026-05-23T08:27:07Z
-  - message: 'fix(test): update miniboxd integration tests for RunParams refactor'
-    date: 2026-05-23T08:26:45Z
-  - message: 'merge: fix(ci) InternalPath From<&str>'
-    date: 2026-05-22T23:59:11Z
   tags:
   - infra
   topics:
@@ -304,6 +304,28 @@
     ## Quick Start
 
     Requires Linux, root, kernel 5.0+
+- name: minibox-core
+  description: Cross-platform shared types, domain traits, and protocol for the minibox container runtime
+  url: https://crates.io/crates/minibox-core
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-26T14:05:49.432486Z
+  version: 0.30.0
+  stars: null
+  downloads: 159
+  recent_commits: []
+- name: minibox-macros
+  description: Procedural macros for the minibox container runtime
+  url: https://crates.io/crates/minibox-macros
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-26T14:04:50.939469Z
+  version: 0.30.0
+  stars: null
+  downloads: 201
+  recent_commits: []
 - name: crux
   description: Inspectable, serializable, replayable agent execution.
   url: https://github.com/89jobrien/crux
@@ -1160,7 +1182,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 154
+  downloads: 155
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -1216,7 +1238,7 @@
   pushed_at: 2026-05-16T07:22:26Z
   version: 0.3.0
   stars: null
-  downloads: 44
+  downloads: 45
   recent_commits:
   - message: 'feat(prefixe-cli): post-hook Probing resolution — confirm, cycle, exhaust with stats'
     date: 2026-05-16T07:16:20Z
@@ -2020,28 +2042,6 @@
     ├── skills/                # Skills with progressive disclosure ($)
     ├── agents/                # Agent role definitions (YAML)
     └── rules/                 # Constraints
-- name: minibox-core
-  description: Cross-platform shared types, domain traits, and protocol for the minibox container runtime
-  url: https://crates.io/crates/minibox-core
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-05-05T07:28:45.320652Z
-  version: 0.24.0
-  stars: null
-  downloads: 150
-  recent_commits: []
-- name: minibox-macros
-  description: Procedural macros for the minibox container runtime
-  url: https://crates.io/crates/minibox-macros
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-05-05T07:28:25.424883Z
-  version: 0.24.0
-  stars: null
-  downloads: 188
-  recent_commits: []
 - name: devkit
   description: AI-powered dev workflow toolkit
   url: https://github.com/89jobrien/devkit
@@ -2311,7 +2311,7 @@
   pushed_at: 2026-04-23T23:07:16.604202Z
   version: 0.1.0
   stars: null
-  downloads: 23
+  downloads: 24
   recent_commits: []
 - name: slashcrux
   description: Shared vocabulary types for the Slash and Crux agentic Rust ecosystem
@@ -2323,7 +2323,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 698
+  downloads: 735
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -3198,7 +3198,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 80
+  downloads: 81
   recent_commits: []
 - name: dotfiles
   description: null
