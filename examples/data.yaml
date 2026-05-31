@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-05-30T23:29:02Z
+  pushed_at: 2026-05-31T11:38:26Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-05-31T11:38:25Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-30T23:29:01Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-05-26T23:31:57Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-05-25T23:31:28Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-05-25T12:12:18Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,509 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: cargo-promote
+  description: Personal cargo registry tooling — publish to minibox, promote to crates.io
+  url: https://github.com/89jobrien/cargo-promote
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-31T23:09:40Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs: update handoff'
+    date: 2026-05-31T23:07:10Z
+  - message: 'docs: update handoff — CP-003 complete (branch pipeline implementation)'
+    date: 2026-05-31T22:59:52Z
+  - message: 'feat: implement branch promotion pipeline'
+    date: 2026-05-31T22:59:35Z
+  - message: 'docs: add README'
+    date: 2026-05-31T22:55:26Z
+  - message: 'docs: update handoff, add branch pipeline design'
+    date: 2026-05-31T22:55:03Z
+  - message: 'docs: update handoff'
+    date: 2026-05-31T21:34:44Z
+  - message: 'feat: add autobump config for automatic version bumping before publish'
+    date: 2026-05-31T21:25:17Z
+  - message: 'refactor: rename default registry from minibox to cratebox'
+    date: 2026-05-31T21:16:38Z
+  - message: 'quality: raise rustqual score from 89.4% to 96.7%'
+    date: 2026-05-31T21:07:39Z
+  - message: 'feat: add publish-all with topological dep ordering'
+    date: 2026-05-31T19:33:41Z
+  readme: |-
+    # cargo-promote
+
+    Crate publishing and branch promotion pipeline for Rust projects.
+    Publishes to private registries (Gitea/cratebox) and optionally crates.io,
+    with a configurable branch-based promotion pipeline for moving code through
+    environments.
+
+    ## Install
+
+    ```bash
+    cargo install --path .
+    ```
+
+    ## Commands
+
+    ```bash
+    # Publish current crate to the first pipeline stage (or cratebox by default)
+    cargo-promote publish
+
+    # Publish a specific workspace member
+    cargo-promote publish -p my-crate
+
+    # Publish to a named registry directly
+    cargo-promote publish --registry cratebox
+
+    # Publish + promote through all pipeline stages
+    cargo-promote ship
+
+    # List crates on a registry
+    cargo-promote list
+    cargo-promote list --registry crates-io
+
+    # Show local crate versions
+    cargo-promote status
+    ```
+
+    ## Configuration
+
+    Place a `promote.toml` in your crate or workspace root:
+
+    ```toml
+    # Automatically bump version before publishing (patch | minor | major)
+    autobump = "patch"
+
+    [registries.cratebox]
+    cargo_name = "cratebox"
+    api_url = "http://100.105.75.7:3000/api/packages/joe/cargo"
+
+    [registries.crates-io]
+    confirm = true                  # prompt before publishing
+
+    [pipelines.default]
+    stages = ["cratebox", "crates-io"]
+    ```
+
+    ### Branch Pipeline (coming soon)
+
+    For environment-based promotion through git branches:
+
+    ```toml
+    autobump = "patch"
+
+    [pipeline]
+    stages = ["develop", "staging", "production"]
+    release_branch = "production"   # default: last stage
+
+    [registries.cratebox]
+    cargo_name = "cratebox"
+    ```
+
+    The pipeline works as a CI chain:
+
+    1. Push to `develop` → CI runs → on green, `cargo-promote bump` writes version
+       and `promote.lock`, then `cargo-promote branch --from develop` merges to `staging`
+    2. CI on `staging` → on green, `cargo-promote branch --from staging` merges to
+       `production`
+    3. `cargo-promote publish` on `production` tags the release — a tag-triggered CI
+       workflow handles registry publishing
+
+    `promote.lock` tracks the version and a SHA-256 hash of publishable source files
+    (`src/
+- name: sparkfile
+  description: YAML-backed project scaffolder
+  url: https://github.com/89jobrien/sparkfile
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-31T21:32:42Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: remove release workflow (registry is Tailscale-only)'
+    date: 2026-05-31T21:32:17Z
+  - message: 'chore: add autobump = "patch" to promote.toml'
+    date: 2026-05-31T21:25:22Z
+  - message: 'ci: add cratebox publish pipeline and release workflow'
+    date: 2026-05-31T21:16:42Z
+  - message: 'feat(sparkfile): add yaml-backed project scaffolder'
+    date: 2026-05-10T23:17:07Z
+  - message: 'chore: initialize repository'
+    date: 2026-05-10T23:17:07Z
+  readme: |
+    # sparkfile
+
+    Project scaffolding CLI for creating new projects with consistent workspace conventions.
+
+    ## Usage
+
+    - `sparkfile new rust-cli <name>`
+    - `sparkfile new rust-cli <name> --description "Short description"`
+    - `sparkfile new rust-cli <name> --root /path/to/workspace`
+
+    The `rust-cli` preset creates a Rust 2024 CLI skeleton with local guidance, validation commands, ignore rules, and handoff context.
+
+    Scaffold definitions are populated from YAML files in `scaffolds/`. The default `rust-cli` preset is defined in `scaffolds/rust-cli.yaml`.
+
+    ## Development
+
+    - `just check`: run `cargo check --all-targets`
+    - `just lint`: run `cargo clippy --all-targets -- -D warnings`
+    - `just test`: run `cargo test`
+    - `just gate`: run the local validation gate
+- name: kgx
+  description: Three-layer knowledge graph toolkit in Rust
+  url: https://github.com/89jobrien/kgx
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-31T20:54:53Z
+  version: v0.1.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'feat(kgx): add GitHub repo ingestion with Source trait and GitHubParser'
+    date: 2026-05-31T20:46:12Z
+  - message: 'feat(kgx): add CSV, YAML, DOT parsers and Diff, Subgraph, Stats ops'
+    date: 2026-05-25T18:24:24Z
+  - message: 'feat(kgx): add Parser trait, MarkdownParser, GraphOp trait, and MergeOp'
+    date: 2026-05-25T18:19:06Z
+  - message: 'feat(export): add GFM exporter, conformance tests, and mise release task'
+    date: 2026-05-25T17:52:14Z
+  - message: 'feat: add export module, wiki pages method, and self-ingest kgx knowledge graph'
+    date: 2026-05-25T02:18:55Z
+  - message: Update README with new command structure and sections
+    date: 2026-05-25T01:41:53Z
+  - message: Update README.md
+    date: 2026-05-25T01:39:50Z
+  - message: 'docs: expand README with architecture, CLI usage, and quality score'
+    date: 2026-05-23T18:03:47Z
+  - message: 'docs: update handoff'
+    date: 2026-05-23T00:03:36Z
+  - message: 'refactor: improve code quality to 100% rustqual score'
+    date: 2026-05-22T17:42:36Z
+  readme: |-
+    # kgx
+
+    Three-layer knowledge graph toolkit in Rust.
+
+    JSON-backed, zero-dependency storage. No external database required --
+    entities, relations, documents, and wiki pages all persist as plain files.
+
+    ## Architecture
+
+    ```
+                        +-----------------+
+                        |    kgx-cli      |  CLI binary
+                        +--------+--------+
+                                 |
+              +------------------+------------------+
+              |                  |                  |
+      +-------+------+  +-------+-------+  +-------+------+
+      | GraphStore   |  | DocumentStore |  | WikiStore    |
+      | graph.json   |  | documents.json|  | wiki/        |
+      +--------------+  +---------------+  +--------------+
+       BFS traversal       Chunking &       Markdown pages
+       Confidence filter    Provenance       [[wikilinks]]
+    ```
+
+    | Layer         | Storage               | Purpose                                             |
+    | ------------- | --------------------- | --------------------------------------------------- |
+    | **Graph**     | `data/graph.json`     | Entity-relation graph, BFS traversal, confidence    |
+    | **Documents** | `data/documents.json` | Immutable document store with chunking & provenance |
+    | **Wiki**      | `wiki/`               | Markdown pages with `[[wikilinks]]`, search, lint   |
+    | **Export**    | (output dir)          | JSON or Markdown export of the full context graph   |
+
+    ## Quick Start
+
+
+    ### Initialize a workspace
+    ```bash
+    kgx --root ./my-kb init
+    ```
+    ### Add entities and relations
+
+    ```bash
+    kgx --root ./my-kb graph add-node "Rust" --type language
+    kgx --root ./my-kb graph add-node "Memory Safety" --type concept
+    kgx --root ./my-kb graph add-edge "Rust" "Memory Safety" \
+        --type enables --confidence 0.95
+    ```
+    ### Ingest a document with entities and relations
+    ```bash
+    kgx --root ./my-kb ingest --file notes.json
+    ```
+    ### Search the graph
+    ```bash
+    kgx --root ./my-kb graph search "Rust"
+    ```
+
+    ### Write and search wiki pages
+    ```
+    kgx --root ./my-kb wiki write --category en
+- name: godmode
+  description: Self-contained Rust-native development methodology plugin for Claude Code.
+  url: https://github.com/89jobrien/godmode
+  kinds:
+  - GitHubRepo
+  - ClaudePlugin
+  language: Rust
+  pushed_at: 2026-05-31T20:48:21Z
+  version: v0.5.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'feat(hooks): port session-start and post-write-plan-ingest to rust-script'
+    date: 2026-05-31T20:48:15Z
+  - message: 'docs: update handoff'
+    date: 2026-05-31T20:37:55Z
+  - message: 'docs: update handoff'
+    date: 2026-05-31T19:21:20Z
+  - message: 'fix(nu): replace deprecated `get -i` with `get -o` in remaining scripts'
+    date: 2026-05-31T18:53:58Z
+  - message: 'fix(hooks): update stop-guard.nu for nu 0.106+ and remove invalid subcommand'
+    date: 2026-05-31T18:53:21Z
+  - message: 'feat(hooks): port 5 core hook scripts from nushell to rust'
+    date: 2026-05-31T17:44:54Z
+  - message: 'chore: update handoff — nu-to-rust port planned'
+    date: 2026-05-31T16:44:05Z
+  - message: 'feat(skills): add references, helpers, and active hooks to 8 incomplete skills'
+    date: 2026-05-31T16:10:14Z
+  - message: 'feat(memory-banking): add skill with Rust CLI, templates, and lifecycle hooks'
+    date: 2026-05-31T15:44:00Z
+  - message: Delete skills/testing-philosophy/SKILL.testing.md
+    date: 2026-05-30T21:50:07Z
+  readme: |
+    # godmode
+
+    Self-contained Rust-native development methodology plugin for Claude Code.
+
+    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
+
+    ## Overview
+
+    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
+    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
+    Tasks persist in `.ctx/GODMODE.tasks.yaml` (gitignored) across sessions via causal
+    `depends_on` chains.
+
+    ## Install
+
+    ```bash
+    cargo install --path crates/godmode-cli --root ~/.local
+    claude plugin install godmode@bazaar
+    ```
+
+    ### Pre-commit hook
+
+    Install the godmode pre-commit hook into any git repo to block commits when tasks are
+    still running and to run cargo gates (fmt-check, clippy, nextest):
+
+    ```bash
+    # From the repo root where you want the hook installed:
+    nu /path/to/godmode/hooks/install.nu
+
+    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
+    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
+    ```
+
+    The hook:
+
+    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
+       printing the offending task IDs.
+    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
+       `cargo nextest run --workspace`.
+    3. Blocks the commit on any failure with a clear message.
+
+    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
+    cargo gates run.
+
+    ## Skills
+
+    | Skill                                     | When                                                   |
+    | ----------------------------------------- | ------------------------------------------------------ |
+    | `godmode:using-godmode`                   | Session orientation, available skills, rules           |
+- name: langchainx
+  description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
+  url: https://github.com/89jobrien/langchainx
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-31T20:43:45Z
+  version: v0.4.6
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Clarify changes in forked crate description
+    date: 2026-05-23T11:12:23Z
+  - message: 'Merge pull request #71 from 89jobrien/develop'
+    date: 2026-05-04T13:13:24Z
+  - message: 'fix(clippy): unnecessary_unwrap in text2speech and openai stream'
+    date: 2026-05-04T13:11:31Z
+  - message: 'Merge pull request #70 from 89jobrien/develop'
+    date: 2026-05-04T13:04:06Z
+  - message: 'fix(fmt): apply cargo fmt to fix CI fmt-check failures'
+    date: 2026-05-04T13:02:12Z
+  - message: 'fix(ci): add .cargo/config.toml with xtask alias'
+    date: 2026-05-04T13:00:52Z
+  - message: 'fix(ci): add .cargo/config.toml with xtask alias for CI runners'
+    date: 2026-05-04T12:59:43Z
+  - message: 'merge: harden loaders tools and vectorstores fixes #41'
+    date: 2026-05-04T12:54:46Z
+  - message: 'feat(loaders): add MarkdownDocument serializer with nested section parsing'
+    date: 2026-05-04T11:46:12Z
+  - message: 'fix: remove absolute symlink .claude/skills, add to .gitignore'
+    date: 2026-05-04T11:26:03Z
+  readme: |-
+    # langchainx
+
+    Building applications with LLMs through composability, with Rust!
+
+    > **Upstream credit:** This crate is a fork of
+    > [langchain-rust](https://github.com/Abraxas-365/langchain-rust) by
+    > [Ryo Kanazawa (Abraxas-365)](https://github.com/Abraxas-365), used under the MIT License.
+    > Changes in this fork include custom error types, a three-tier e2e test suite, smolvm-based
+    > container tests, a Cargo workspace split into focused sub-crates, and ongoing architectural
+    > improvements tracked in [GitHub Issues](https://github.com/89jobrien/langchainx/issues).
+
+    ## What is this?
+
+    This is the Rust language implementation of [LangChain](https://github.com/langchain-ai/langchain).
+
+    ## Workspace Crates
+
+    The library is organized as a Cargo workspace. The root `langchainx` crate re-exports everything
+    for convenience; individual crates can be used directly for smaller dependency footprints.
+
+    | Crate                      | Contents                                              |
+    | -------------------------- | ----------------------------------------------------- |
+    | `langchainx-core`          | Shared schemas, document types, error primitives      |
+    | `langchainx-llm`           | LLM backends (OpenAI, Claude, DeepSeek, Qwen, Ollama) |
+    | `langchainx-prompt`        | Prompt templates and formatting macros                |
+    | `langchainx-memory`        | Conversation memory backends                          |
+    | `langchainx-embedding`     | Embedding backends (OpenAI, Ollama, FastEmbed, etc.)  |
+    | `langchainx-output-parsers`| Output parsers and structured extraction              |
+    | `langchainx-chain`         | Chain types (LLMChain, ConversationalChain, etc.)     |
+
+    ## Current Features
+
+    - LLMs
+        - [x] [OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_openai.rs)
+        - [x] [Azure OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_azure_open_ai.rs)
+        - [x] [Ollama](https://github.com/89jobrien/langchainx/blob/main/examples/llm_ollama.rs)
+- name: memx
+  description: Semantic memory system for AI agents — sqlite-vec backed, Rust
+  url: https://github.com/89jobrien/memx
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-31T20:37:51Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'test(memx-core, memx-embed): edge-case and property tests'
+    date: 2026-05-31T20:37:44Z
+  - message: 'quality: rustqual annotations, expanded test coverage, cleanup'
+    date: 2026-05-31T17:33:45Z
+  - message: 'docs: update handoff'
+    date: 2026-05-31T16:45:49Z
+  - message: 'chore: add .worktrees/ to .gitignore'
+    date: 2026-05-31T16:22:23Z
+  - message: 'chore: remove accidentally staged worktree refs'
+    date: 2026-05-31T16:21:46Z
+  - message: 'merge: slot/2 — fixes #2, #4, #6, #7, #9'
+    date: 2026-05-31T16:21:35Z
+  - message: 'merge: slot/1 — fixes #1, #3, #5, #8, #10, #11'
+    date: 2026-05-31T16:20:57Z
+  - message: 'fix: delete_entry semantics, guard unimplemented filter, require dims, align trait bounds, remove dead Budget'
+    date: 2026-05-31T16:20:36Z
+  - message: 'fix: resolve parse panics, add error variants, implement Section::FromStr, add safety comments'
+    date: 2026-05-31T16:20:36Z
+  - message: 'feat: implement foundational type system with sqlite-vec storage'
+    date: 2026-05-23T13:34:54Z
+- name: repro
+  description: Reproducible container image builder and OCI tarball analyzer (Rust)
+  url: https://github.com/89jobrien/repro
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-05-31T20:17:33Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'quality: raise rustqual score from 83.9% to 98.6%'
+    date: 2026-05-31T20:14:16Z
+  - message: 'fuzz: add raw tarball, multi-manifest, and verify_digest targets'
+    date: 2026-05-31T20:06:15Z
+  - message: 'conform: all port/adapter boundaries verified'
+    date: 2026-05-31T19:18:09Z
+  - message: 'ci: add CI, release workflows, and cargo-deny config'
+    date: 2026-05-31T17:06:46Z
+  - message: 'refactor: SOLID architecture, submodule decomposition, and quality improvements'
+    date: 2026-05-31T15:54:38Z
+  - message: 'feat(builder): resolve runtime to absolute path and add env_prepend_path'
+    date: 2026-05-30T19:18:58Z
+  - message: 'refactor(kani): rewrite proofs to test predicates directly'
+    date: 2026-05-30T17:59:18Z
+  - message: 'chore: add project instructions, introspection report, and knowledge graph'
+    date: 2026-05-30T14:26:26Z
+  - message: 'test: add unit, property, fuzz, and kani tests'
+    date: 2026-05-30T14:20:13Z
+  - message: 'fix(clippy): box BuildArgs to reduce Commands enum size'
+    date: 2026-05-30T14:18:15Z
+- name: surgeon
+  description: Agentic code analysis and improvement tool for Rust
+  url: https://github.com/89jobrien/surgeon
+  kinds:
+  - GitHubRepo
+  language: null
+  pushed_at: 2026-05-31T16:10:40Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits: []
+- name: doob
+  description: Modern, agent-first todo CLI built with Rust and SurrealDB
+  url: https://github.com/89jobrien/doob
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-05-31T15:11:30Z
+  version: 0.1.0
+  stars: null
+  downloads: 15
+  recent_commits:
+  - message: 'quality: raise rustqual score from 34.7% to 95.4%'
+    date: 2026-05-31T15:09:37Z
+  - message: 'feat(sqlite): add doob-sqlite crate and feature-gated backend selection'
+    date: 2026-05-11T16:44:06Z
+  - message: 'docs: update handoff — session 3 crate split + Thing deser fix'
+    date: 2026-05-11T15:02:55Z
+  - message: 'fix: restore Thing deserialization for SurrealDB id fields'
+    date: 2026-05-11T14:59:43Z
+  - message: 'refactor: hexagonal crate split (doob-core, doob-sync, doob-surrealdb, doob-beads, doob-gh)'
+    date: 2026-05-11T13:46:14Z
+  - message: 'refactor: split doob into hexagonal crate architecture'
+    date: 2026-05-11T13:42:59Z
+  - message: 'fix: remove YAML !Object tags from HANDOFF'
+    date: 2026-05-11T03:44:12Z
+  - message: 'docs: update handoff — mark doob-8, doob-9, doob-16, doob-7 done'
+    date: 2026-05-11T03:30:18Z
+  - message: 'fix(sync): use --labels instead of --notes for bd tag sync'
+    date: 2026-05-11T03:16:15Z
+  - message: 'fix(error): add IoError and ParseError exit codes (#9)'
+    date: 2026-05-11T03:16:02Z
+  tags:
+  - cli
+  readme: "# doob\n\nModern, agent-first todo CLI built with Rust and SurrealDB.\n\n## Features\n\n- **Fast** - Rust + SurrealDB embedded\n- **Agent-First** - JSON output, batch operations, context detection\n- **Single Binary** - No dependencies\n- **Context-Aware** - Auto-detects project and file from git\n\n## Installation\n\n```bash\ncargo install --path .\n```\n\n## Commands\n\n```bash\n# Add a todo (auto-detects project/file from git)\ndoob todo add \"Fix auth bug\"\n\n# Add with priority and tags\ndoob todo add \"Refactor code\" --priority 1 --tags refactor,urgent\n\n# Batch add\ndoob todo add \"Task 1\" \"Task 2\" \"Task 3\"\n\n# List todos\ndoob todo list\n\n# Filter by status or project\ndoob todo list --status pending\ndoob todo list --project myproject --limit 10\n\n# Complete todo(s)\ndoob todo complete <id>\ndoob todo complete <id1> <id2> <id3>\n\n# Undo completion (mark as pending)\ndoob todo undo <id>\n\n# Set or clear a due date\ndoob todo due <id> 2026-03-15\ndoob todo due <id> clear\n\n# Remove todo(s)\ndoob todo remove <id>\ndoob todo remove <id1> <id2>\n```\n\n## Sync to External Issue Trackers\n\n**Status:** Foundation Complete (Phase 1 & 2) ✅\n\nSync your doob todos to external issue trackers using a plugin architecture.\n\n### Supported Providers\n\n- ✅ **Beads** (bd CLI) - Complete\n- 🚧 **GitHub Issues** - Planned\n- 🚧 **Jira** - Planned\n- 🚧 **Linear** - Planned\n- 🚧 **kan** - Planned\n\n### Architecture\n\nBuilt with hexagonal architecture:\n- **Domain Layer** - Business logic, validation, error handling\n- **Ports** - `IssueTracker` trait interface\n- **Adapters** - Provider-specific implementations (CLI delegation)\n- **Tests** - 19 unit/integration tests (100% passing)\n\n### Documentation\n\n- [Testing Guide](docs/sync/testing.md)\n- [Beads Provider](docs/sync/providers/beads.md)\n\n### Roadmap\n\n**Phase 3: Metadata & Repository** (Next)\n- SurrealDB repository for sync metadata\n- Track external IDs, sync timestamps, errors\n- Multi-provider support per todo\n\n**Phase 4: CLI Commands**\n- `doob sync to --provider beads` - "
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
@@ -304,115 +807,6 @@
     ## Quick Start
 
     Requires Linux, root, kernel 5.0+
-- name: godmode
-  description: Self-contained Rust-native development methodology plugin for Claude Code.
-  url: https://github.com/89jobrien/godmode
-  kinds:
-  - GitHubRepo
-  - ClaudePlugin
-  language: Rust
-  pushed_at: 2026-05-30T21:50:08Z
-  version: v0.5.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: Delete skills/testing-philosophy/SKILL.testing.md
-    date: 2026-05-30T21:50:07Z
-  - message: 'docs: update all references from five/six to seven testing dimensions'
-    date: 2026-05-30T11:38:53Z
-  - message: 'feat(testing-philosophy): add model checking with kani as 7th dimension'
-    date: 2026-05-30T11:35:00Z
-  - message: 'docs(mini-context-graph): add kgx export commands to CLI reference'
-    date: 2026-05-24T22:03:12Z
-  - message: 'refactor: rewrite mini-context-graph skill to use kgx CLI'
-    date: 2026-05-22T15:09:59Z
-  - message: 'fix(skills): add 7 missing skills to index, remove nonexistent godmode worktree subcommand'
-    date: 2026-05-20T04:51:53Z
-  - message: 'feat(skills): add godmode:merge and godmode:decompose skills'
-    date: 2026-05-17T23:45:13Z
-  - message: 'feat(testing-philosophy): add fuzz as sixth testing dimension'
-    date: 2026-05-17T20:02:58Z
-  - message: 'feat: route specs to docs/specs/ and plans to docs/plans/ with path inference'
-    date: 2026-05-16T06:39:10Z
-  - message: 'feat: differentiate idea/spec/plan doc types; brainstorm writes idea+spec, writing-plans writes plan'
-    date: 2026-05-16T06:37:28Z
-  readme: |
-    # godmode
-
-    Self-contained Rust-native development methodology plugin for Claude Code.
-
-    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
-
-    ## Overview
-
-    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
-    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
-    Tasks persist in `.ctx/GODMODE.tasks.yaml` (gitignored) across sessions via causal
-    `depends_on` chains.
-
-    ## Install
-
-    ```bash
-    cargo install --path crates/godmode-cli --root ~/.local
-    claude plugin install godmode@bazaar
-    ```
-
-    ### Pre-commit hook
-
-    Install the godmode pre-commit hook into any git repo to block commits when tasks are
-    still running and to run cargo gates (fmt-check, clippy, nextest):
-
-    ```bash
-    # From the repo root where you want the hook installed:
-    nu /path/to/godmode/hooks/install.nu
-
-    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
-    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
-    ```
-
-    The hook:
-
-    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
-       printing the offending task IDs.
-    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
-       `cargo nextest run --workspace`.
-    3. Blocks the commit on any failure with a clear message.
-
-    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
-    cargo gates run.
-
-    ## Skills
-
-    | Skill                                     | When                                                   |
-    | ----------------------------------------- | ------------------------------------------------------ |
-    | `godmode:using-godmode`                   | Session orientation, available skills, rules           |
-- name: repro
-  description: Reproducible container image builder and OCI tarball analyzer (Rust)
-  url: https://github.com/89jobrien/repro
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-30T20:48:15Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat(builder): resolve runtime to absolute path and add env_prepend_path'
-    date: 2026-05-30T19:18:58Z
-  - message: 'refactor(kani): rewrite proofs to test predicates directly'
-    date: 2026-05-30T17:59:18Z
-  - message: 'chore: add project instructions, introspection report, and knowledge graph'
-    date: 2026-05-30T14:26:26Z
-  - message: 'test: add unit, property, fuzz, and kani tests'
-    date: 2026-05-30T14:20:13Z
-  - message: 'fix(clippy): box BuildArgs to reduce Commands enum size'
-    date: 2026-05-30T14:18:15Z
-  - message: 'fix: unicode-safe truncation in snip_contents'
-    date: 2026-05-30T14:18:03Z
-  - message: 'refactor: extract lib crate for module reuse'
-    date: 2026-05-30T14:17:44Z
-  - message: 'init: reproducible container image builder (Rust port)'
-    date: 2026-05-28T21:48:34Z
 - name: coursers
   description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
   url: https://github.com/89jobrien/coursers
@@ -574,96 +968,6 @@
   stars: null
   downloads: 208
   recent_commits: []
-- name: kgx
-  description: Three-layer knowledge graph toolkit in Rust
-  url: https://github.com/89jobrien/kgx
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-25T18:24:32Z
-  version: v0.1.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat(kgx): add CSV, YAML, DOT parsers and Diff, Subgraph, Stats ops'
-    date: 2026-05-25T18:24:24Z
-  - message: 'feat(kgx): add Parser trait, MarkdownParser, GraphOp trait, and MergeOp'
-    date: 2026-05-25T18:19:06Z
-  - message: 'feat(export): add GFM exporter, conformance tests, and mise release task'
-    date: 2026-05-25T17:52:14Z
-  - message: 'feat: add export module, wiki pages method, and self-ingest kgx knowledge graph'
-    date: 2026-05-25T02:18:55Z
-  - message: Update README with new command structure and sections
-    date: 2026-05-25T01:41:53Z
-  - message: Update README.md
-    date: 2026-05-25T01:39:50Z
-  - message: 'docs: expand README with architecture, CLI usage, and quality score'
-    date: 2026-05-23T18:03:47Z
-  - message: 'docs: update handoff'
-    date: 2026-05-23T00:03:36Z
-  - message: 'refactor: improve code quality to 100% rustqual score'
-    date: 2026-05-22T17:42:36Z
-  - message: 'feat: add kgx-cli binary crate'
-    date: 2026-05-22T15:09:45Z
-  readme: |-
-    # kgx
-
-    Three-layer knowledge graph toolkit in Rust.
-
-    JSON-backed, zero-dependency storage. No external database required --
-    entities, relations, documents, and wiki pages all persist as plain files.
-
-    ## Architecture
-
-    ```
-                        +-----------------+
-                        |    kgx-cli      |  CLI binary
-                        +--------+--------+
-                                 |
-              +------------------+------------------+
-              |                  |                  |
-      +-------+------+  +-------+-------+  +-------+------+
-      | GraphStore   |  | DocumentStore |  | WikiStore    |
-      | graph.json   |  | documents.json|  | wiki/        |
-      +--------------+  +---------------+  +--------------+
-       BFS traversal       Chunking &       Markdown pages
-       Confidence filter    Provenance       [[wikilinks]]
-    ```
-
-    | Layer         | Storage               | Purpose                                             |
-    | ------------- | --------------------- | --------------------------------------------------- |
-    | **Graph**     | `data/graph.json`     | Entity-relation graph, BFS traversal, confidence    |
-    | **Documents** | `data/documents.json` | Immutable document store with chunking & provenance |
-    | **Wiki**      | `wiki/`               | Markdown pages with `[[wikilinks]]`, search, lint   |
-    | **Export**    | (output dir)          | JSON or Markdown export of the full context graph   |
-
-    ## Quick Start
-
-
-    ### Initialize a workspace
-    ```bash
-    kgx --root ./my-kb init
-    ```
-    ### Add entities and relations
-
-    ```bash
-    kgx --root ./my-kb graph add-node "Rust" --type language
-    kgx --root ./my-kb graph add-node "Memory Safety" --type concept
-    kgx --root ./my-kb graph add-edge "Rust" "Memory Safety" \
-        --type enables --confidence 0.95
-    ```
-    ### Ingest a document with entities and relations
-    ```bash
-    kgx --root ./my-kb ingest --file notes.json
-    ```
-    ### Search the graph
-    ```bash
-    kgx --root ./my-kb graph search "Rust"
-    ```
-
-    ### Write and search wiki pages
-    ```
-    kgx --root ./my-kb wiki write --category en
 - name: devobs
   description: Public Obsidian vault for open-source project tracking
   url: https://github.com/89jobrien/devobs
@@ -952,74 +1256,6 @@
     `shell.register_builtin(impl Builtin)`.
 
     ## Ca
-- name: langchainx
-  description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
-  url: https://github.com/89jobrien/langchainx
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-23T11:12:24Z
-  version: v0.4.6
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Clarify changes in forked crate description
-    date: 2026-05-23T11:12:23Z
-  - message: 'Merge pull request #71 from 89jobrien/develop'
-    date: 2026-05-04T13:13:24Z
-  - message: 'fix(clippy): unnecessary_unwrap in text2speech and openai stream'
-    date: 2026-05-04T13:11:31Z
-  - message: 'Merge pull request #70 from 89jobrien/develop'
-    date: 2026-05-04T13:04:06Z
-  - message: 'fix(fmt): apply cargo fmt to fix CI fmt-check failures'
-    date: 2026-05-04T13:02:12Z
-  - message: 'fix(ci): add .cargo/config.toml with xtask alias'
-    date: 2026-05-04T13:00:52Z
-  - message: 'fix(ci): add .cargo/config.toml with xtask alias for CI runners'
-    date: 2026-05-04T12:59:43Z
-  - message: 'merge: harden loaders tools and vectorstores fixes #41'
-    date: 2026-05-04T12:54:46Z
-  - message: 'feat(loaders): add MarkdownDocument serializer with nested section parsing'
-    date: 2026-05-04T11:46:12Z
-  - message: 'fix: remove absolute symlink .claude/skills, add to .gitignore'
-    date: 2026-05-04T11:26:03Z
-  readme: |-
-    # langchainx
-
-    Building applications with LLMs through composability, with Rust!
-
-    > **Upstream credit:** This crate is a fork of
-    > [langchain-rust](https://github.com/Abraxas-365/langchain-rust) by
-    > [Ryo Kanazawa (Abraxas-365)](https://github.com/Abraxas-365), used under the MIT License.
-    > Changes in this fork include custom error types, a three-tier e2e test suite, smolvm-based
-    > container tests, a Cargo workspace split into focused sub-crates, and ongoing architectural
-    > improvements tracked in [GitHub Issues](https://github.com/89jobrien/langchainx/issues).
-
-    ## What is this?
-
-    This is the Rust language implementation of [LangChain](https://github.com/langchain-ai/langchain).
-
-    ## Workspace Crates
-
-    The library is organized as a Cargo workspace. The root `langchainx` crate re-exports everything
-    for convenience; individual crates can be used directly for smaller dependency footprints.
-
-    | Crate                      | Contents                                              |
-    | -------------------------- | ----------------------------------------------------- |
-    | `langchainx-core`          | Shared schemas, document types, error primitives      |
-    | `langchainx-llm`           | LLM backends (OpenAI, Claude, DeepSeek, Qwen, Ollama) |
-    | `langchainx-prompt`        | Prompt templates and formatting macros                |
-    | `langchainx-memory`        | Conversation memory backends                          |
-    | `langchainx-embedding`     | Embedding backends (OpenAI, Ollama, FastEmbed, etc.)  |
-    | `langchainx-output-parsers`| Output parsers and structured extraction              |
-    | `langchainx-chain`         | Chain types (LLMChain, ConversationalChain, etc.)     |
-
-    ## Current Features
-
-    - LLMs
-        - [x] [OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_openai.rs)
-        - [x] [Azure OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_azure_open_ai.rs)
-        - [x] [Ollama](https://github.com/89jobrien/langchainx/blob/main/examples/llm_ollama.rs)
 - name: rx
   description: null
   url: https://github.com/89jobrien/rx
@@ -1243,7 +1479,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 171
+  downloads: 175
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -1644,41 +1880,6 @@
   - message: 'feat(xtask): add run and install commands'
     date: 2026-05-11T21:39:56Z
   readme: "## About\n\n[Warp](https://www.warp.dev) is an agentic development environment, born out of the terminal. Use Warp's built-in coding agent, or bring your own CLI agent (Claude Code, Codex, Gemini CLI, and others).\n\n## Installation\n\nYou can [download Warp](https://www.warp.dev/download) and [read our docs](https://docs.warp.dev/) for platform-specific instructions.\n\n## Licensing\n\nWarp's UI framework (the `warpui_core` and `warpui` crates) are licensed under the [MIT license](LICENSE-MIT).\n\nThe rest of the code in this repository is licensed under the [AGPL v3](LICENSE-AGPL).\n\n## Open Source & Contributing\n\nWarp's client codebase is open source and lives in this repository. We welcome community contributions and have designed a lightweight workflow to help new contributors get started. For the full contribution flow, read our [CONTRIBUTING.md](CONTRIBUTING.md) guide.\n\n### Issue to PR\n\nBefore filing, [search existing issues](https://github.com/warpdotdev/warp/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc) for your bug or feature request. If nothing exists, [file an issue](https://github.com/warpdotdev/warp/issues/new/choose) using our templates. Security vulnerabilities should be reported privately as described in [CONTRIBUTING.md](CONTRIBUTING.md#reporting-security-issues).\n\nOnce filed, a Warp maintainer reviews the issue and may apply a readiness label: [`ready-to-spec`](https://github.com/warpdotdev/warp/issues?q=is%3Aissue+is%3Aopen+label%3Aready-to-spec) signals the design is open for contributors to spec out, and [`ready-to-implement`](https://github.com/warpdotdev/warp/issues?q=is%3Aissue+is%3Aopen+label%3Aready-to-implement) signals the design is settled and code PRs are welcome. Anyone can pick up a labeled issue — mention **@oss-maintainers** on an issue if you'd like it considered for a readiness label.\n\n### Building the Repo Locally\n\nTo build and run Warp from source:\n\n```bash\n./script/bootstrap   # platform-specific setup\n./script/run         # "
-- name: doob
-  description: Modern, agent-first todo CLI built with Rust and SurrealDB
-  url: https://github.com/89jobrien/doob
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-05-11T16:45:14Z
-  version: 0.1.0
-  stars: null
-  downloads: 15
-  recent_commits:
-  - message: 'docs: update handoff — session 3 crate split + Thing deser fix'
-    date: 2026-05-11T15:02:55Z
-  - message: 'fix: restore Thing deserialization for SurrealDB id fields'
-    date: 2026-05-11T14:59:43Z
-  - message: 'refactor: hexagonal crate split (doob-core, doob-sync, doob-surrealdb, doob-beads, doob-gh)'
-    date: 2026-05-11T13:46:14Z
-  - message: 'refactor: split doob into hexagonal crate architecture'
-    date: 2026-05-11T13:42:59Z
-  - message: 'fix: remove YAML !Object tags from HANDOFF'
-    date: 2026-05-11T03:44:12Z
-  - message: 'docs: update handoff — mark doob-8, doob-9, doob-16, doob-7 done'
-    date: 2026-05-11T03:30:18Z
-  - message: 'fix(sync): use --labels instead of --notes for bd tag sync'
-    date: 2026-05-11T03:16:15Z
-  - message: 'fix(error): add IoError and ParseError exit codes (#9)'
-    date: 2026-05-11T03:16:02Z
-  - message: 'fix(handoff): include entry_type in yaml-side extra dedup key (#10)'
-    date: 2026-05-11T03:15:54Z
-  - message: 'fix(error): add IoError and ParseError exit codes (#9)'
-    date: 2026-05-11T03:15:09Z
-  tags:
-  - cli
-  readme: "# doob\n\nModern, agent-first todo CLI built with Rust and SurrealDB.\n\n## Features\n\n- **Fast** - Rust + SurrealDB embedded\n- **Agent-First** - JSON output, batch operations, context detection\n- **Single Binary** - No dependencies\n- **Context-Aware** - Auto-detects project and file from git\n\n## Installation\n\n```bash\ncargo install --path .\n```\n\n## Commands\n\n```bash\n# Add a todo (auto-detects project/file from git)\ndoob todo add \"Fix auth bug\"\n\n# Add with priority and tags\ndoob todo add \"Refactor code\" --priority 1 --tags refactor,urgent\n\n# Batch add\ndoob todo add \"Task 1\" \"Task 2\" \"Task 3\"\n\n# List todos\ndoob todo list\n\n# Filter by status or project\ndoob todo list --status pending\ndoob todo list --project myproject --limit 10\n\n# Complete todo(s)\ndoob todo complete <id>\ndoob todo complete <id1> <id2> <id3>\n\n# Undo completion (mark as pending)\ndoob todo undo <id>\n\n# Set or clear a due date\ndoob todo due <id> 2026-03-15\ndoob todo due <id> clear\n\n# Remove todo(s)\ndoob todo remove <id>\ndoob todo remove <id1> <id2>\n```\n\n## Sync to External Issue Trackers\n\n**Status:** Foundation Complete (Phase 1 & 2) ✅\n\nSync your doob todos to external issue trackers using a plugin architecture.\n\n### Supported Providers\n\n- ✅ **Beads** (bd CLI) - Complete\n- 🚧 **GitHub Issues** - Planned\n- 🚧 **Jira** - Planned\n- 🚧 **Linear** - Planned\n- 🚧 **kan** - Planned\n\n### Architecture\n\nBuilt with hexagonal architecture:\n- **Domain Layer** - Business logic, validation, error handling\n- **Ports** - `IssueTracker` trait interface\n- **Adapters** - Provider-specific implementations (CLI delegation)\n- **Tests** - 19 unit/integration tests (100% passing)\n\n### Documentation\n\n- [Testing Guide](docs/sync/testing.md)\n- [Beads Provider](docs/sync/providers/beads.md)\n\n### Roadmap\n\n**Phase 3: Metadata & Repository** (Next)\n- SurrealDB repository for sync metadata\n- Track external IDs, sync timestamps, errors\n- Multi-provider support per todo\n\n**Phase 4: CLI Commands**\n- `doob sync to --provider beads` - "
 - name: mcpipe
   description: Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI
   url: https://github.com/89jobrien/mcpipe
@@ -2350,7 +2551,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 829
+  downloads: 833
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
