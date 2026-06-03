@@ -59,6 +59,7 @@ fn atomic_write(path: &Path, content: &[u8]) -> Result<()> {
 // ── fetch-repos ───────────────────────────────────────────────────────────────
 
 const OWNER: &str = "89jobrien";
+const FETCH_REPOS_LOOKBACK_MONTHS: u32 = 3;
 
 /// Raw shape returned by `gh repo list --json`.
 #[derive(Deserialize)]
@@ -175,7 +176,7 @@ fn fetch_repos() -> Result<()> {
 
     // Filter: pushed in the last 3 months, Rust repos only.
     let cutoff = chrono::Utc::now()
-        .checked_sub_months(Months::new(3))
+        .checked_sub_months(Months::new(FETCH_REPOS_LOOKBACK_MONTHS))
         .expect("valid date")
         .format("%Y-%m-%dT%H:%M:%SZ")
         .to_string();

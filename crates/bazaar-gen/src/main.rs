@@ -250,17 +250,38 @@ async fn generate(
     Ok(())
 }
 
+fn resolve_output_dir(args: &Args) -> PathBuf {
+    let home = std::env::var("HOME").unwrap_or_else(|_| ".".to_string());
+    args.output_dir
+        .clone()
+        .unwrap_or_else(|| PathBuf::from(format!("{home}/dev/89jobrien.github.io")))
+}
+
+async fn run_watch_loop(
+    client: &Client,
+    args: &Args,
+    config: &Config,
+    output_dir: &PathBuf,
+    insights: Option<&model::Insights>,
+) {
+    let mut ticker = tokio::time::interval(Duration::from_secs(args.interval));
+    loop {
+        ticker.tick().await;
+        let ts = chrono::Local::now().format("%H:%M:%S");
+        eprintln!("[{ts}] fetching...");
+        match generate(client, args, config, output_dir, insights).await {
+            Ok(()) => eprintln!("[{ts}] done — next in {}s", args.interval),
+            Err(e) => eprintln!("[{ts}] error (continuing): {e:#}"),
+        }
+    }
+}
+
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     let args = Args::parse();
     let config = Config::from_env(&args.pypi_toml)?;
     let client = Client::new();
-
-    let home = std::env::var("HOME").unwrap_or_else(|_| ".".to_string());
-    let output_dir = args
-        .output_dir
-        .clone()
-        .unwrap_or_else(|| PathBuf::from(format!("{home}/dev/89jobrien.github.io")));
+    let output_dir = resolve_output_dir(&args);
 
     let insights = load_insights(&args.insights)?;
     if let Some(ref ins) = insights {
@@ -268,16 +289,8 @@ async fn main() -> anyhow::Result<()> {
     }
 
     if args.watch {
-        let mut ticker = tokio::time::interval(Duration::from_secs(args.interval));
-        loop {
-            ticker.tick().await;
-            let ts = chrono::Local::now().format("%H:%M:%S");
-            eprintln!("[{ts}] fetching...");
-            match generate(&client, &args, &config, &output_dir, insights.as_ref()).await {
-                Ok(()) => eprintln!("[{ts}] done — next in {}s", args.interval),
-                Err(e) => eprintln!("[{ts}] error (continuing): {e:#}"),
-            }
-        }
+        run_watch_loop(&client, &args, &config, &output_dir, insights.as_ref()).await;
+        Ok(())
     } else {
         generate(&client, &args, &config, &output_dir, insights.as_ref()).await
     }

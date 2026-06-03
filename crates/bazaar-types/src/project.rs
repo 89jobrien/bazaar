@@ -1,6 +1,9 @@
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
+const ACTIVE_DAYS: i64 = 30;
+const STALE_DAYS: i64 = 90;
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum Kind {
     GitHubRepo,
@@ -23,9 +26,9 @@ impl ProjectStatus {
             return Self::Dormant;
         };
         let days = (Utc::now() - pushed).num_days();
-        if days <= 30 {
+        if days <= ACTIVE_DAYS {
             Self::Active
-        } else if days <= 90 {
+        } else if days <= STALE_DAYS {
             Self::Stale
         } else {
             Self::Dormant

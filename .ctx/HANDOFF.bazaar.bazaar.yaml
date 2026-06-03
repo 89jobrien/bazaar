@@ -1,42 +1,152 @@
 project: bazaar
-updated: 2026-04-19
-
+id: bazaar
+updated: 2026-05-14
 items:
-  - id: BAZ-P1
+  - id: uncommitted-work
+    name: uncommitted-work
     priority: P1
-    title: Clarify Council health metrics reporting
     status: open
-    notes: >
-      Council health = 67% (P0 pin SHAs + P1 timeout/validation). Need clarity on how health is
-      calculated and whether 67% is actionable baseline or target-bound metric.
-
+    title: Uncommitted changes (1 file)
+    description: |-
+      Working tree has uncommitted changes:
+      .ctx/HANDOFF.bazaar.bazaar.yaml
+    files:
+      - .ctx/HANDOFF.bazaar.bazaar.yaml
 log:
+  - date: "20260514.092341"
+    summary: done=0 running=0 pending=0 blocked=0
+    commits:
+      - d2b6f42fbbab8a70133feefc9f2175278f874318
+      - 0c774ef2fecbcb11fde80eecce8bcb10a15e3367
+      - 1812045fb99c9eee5c06a4bed1d3c758a6cdb766
+      - eb0d6dbe55ca1abf21a17e32a58b548c062e29b2
+      - 6362e7702dae28e39c50dff01a315e34bf39b280
+      - 537b29fac1e7a23a2806de8643898efb271ec39f
+      - 8a4b88119b3a79f84b4ef48a11d3a758299fa662
+      - 65c02d610c88b13da4223695a15266fad88603b1
+      - b99a2b0b7a736dddffd928bf7b6b4241fd39671a
+      - 260324d2639ef1e29af9b90d344344252af53d56
+  - date: "20260514.092224"
+    summary: done=0 running=0 pending=0 blocked=0
+    commits:
+      - 1812045fb99c9eee5c06a4bed1d3c758a6cdb766
+      - eb0d6dbe55ca1abf21a17e32a58b548c062e29b2
+      - 6362e7702dae28e39c50dff01a315e34bf39b280
+      - 537b29fac1e7a23a2806de8643898efb271ec39f
+      - 8a4b88119b3a79f84b4ef48a11d3a758299fa662
+      - 65c02d610c88b13da4223695a15266fad88603b1
+      - b99a2b0b7a736dddffd928bf7b6b4241fd39671a
+      - 260324d2639ef1e29af9b90d344344252af53d56
+      - 9d4da76de77fc00f64ab85be96e61ff529b66e4b
+      - 2747ca7e7f577111b77434de13b3701656e41e28
+  - date: "20260514.092224"
+    summary: done=0 running=0 pending=0 blocked=0
+    commits:
+      - 1812045fb99c9eee5c06a4bed1d3c758a6cdb766
+      - eb0d6dbe55ca1abf21a17e32a58b548c062e29b2
+      - 6362e7702dae28e39c50dff01a315e34bf39b280
+      - 537b29fac1e7a23a2806de8643898efb271ec39f
+      - 8a4b88119b3a79f84b4ef48a11d3a758299fa662
+      - 65c02d610c88b13da4223695a15266fad88603b1
+      - b99a2b0b7a736dddffd928bf7b6b4241fd39671a
+      - 260324d2639ef1e29af9b90d344344252af53d56
+      - 9d4da76de77fc00f64ab85be96e61ff529b66e4b
+      - 2747ca7e7f577111b77434de13b3701656e41e28
+  - date: "20260514.092135"
+    summary: done=0 running=0 pending=0 blocked=0
+    commits:
+      - 1812045fb99c9eee5c06a4bed1d3c758a6cdb766
+      - eb0d6dbe55ca1abf21a17e32a58b548c062e29b2
+      - 6362e7702dae28e39c50dff01a315e34bf39b280
+      - 537b29fac1e7a23a2806de8643898efb271ec39f
+      - 8a4b88119b3a79f84b4ef48a11d3a758299fa662
+      - 65c02d610c88b13da4223695a15266fad88603b1
+      - b99a2b0b7a736dddffd928bf7b6b4241fd39671a
+      - 260324d2639ef1e29af9b90d344344252af53d56
+      - 9d4da76de77fc00f64ab85be96e61ff529b66e4b
+      - 2747ca7e7f577111b77434de13b3701656e41e28
+  - date: "20260514.091259"
+    summary: done=0 running=0 pending=0 blocked=0
+    commits:
+      - 1812045fb99c9eee5c06a4bed1d3c758a6cdb766
+      - eb0d6dbe55ca1abf21a17e32a58b548c062e29b2
+      - 6362e7702dae28e39c50dff01a315e34bf39b280
+      - 537b29fac1e7a23a2806de8643898efb271ec39f
+      - 8a4b88119b3a79f84b4ef48a11d3a758299fa662
+      - 65c02d610c88b13da4223695a15266fad88603b1
+      - b99a2b0b7a736dddffd928bf7b6b4241fd39671a
+      - 260324d2639ef1e29af9b90d344344252af53d56
+      - 9d4da76de77fc00f64ab85be96e61ff529b66e4b
+      - 2747ca7e7f577111b77434de13b3701656e41e28
+  - date: "20260514.090436"
+    summary: done=0 running=0 pending=0 blocked=0
+    commits:
+      - 1812045fb99c9eee5c06a4bed1d3c758a6cdb766
+      - eb0d6dbe55ca1abf21a17e32a58b548c062e29b2
+      - 6362e7702dae28e39c50dff01a315e34bf39b280
+      - 537b29fac1e7a23a2806de8643898efb271ec39f
+      - 8a4b88119b3a79f84b4ef48a11d3a758299fa662
+      - 65c02d610c88b13da4223695a15266fad88603b1
+      - b99a2b0b7a736dddffd928bf7b6b4241fd39671a
+      - 260324d2639ef1e29af9b90d344344252af53d56
+      - 9d4da76de77fc00f64ab85be96e61ff529b66e4b
+      - 2747ca7e7f577111b77434de13b3701656e41e28
+  - date: "20260514.090436"
+    summary: done=0 running=0 pending=0 blocked=0
+    commits:
+      - 1812045fb99c9eee5c06a4bed1d3c758a6cdb766
+      - eb0d6dbe55ca1abf21a17e32a58b548c062e29b2
+      - 6362e7702dae28e39c50dff01a315e34bf39b280
+      - 537b29fac1e7a23a2806de8643898efb271ec39f
+      - 8a4b88119b3a79f84b4ef48a11d3a758299fa662
+      - 65c02d610c88b13da4223695a15266fad88603b1
+      - b99a2b0b7a736dddffd928bf7b6b4241fd39671a
+      - 260324d2639ef1e29af9b90d344344252af53d56
+      - 9d4da76de77fc00f64ab85be96e61ff529b66e4b
+      - 2747ca7e7f577111b77434de13b3701656e41e28
+  - date: "20260514.083912"
+    summary: done=0 running=0 pending=0 blocked=0
+    commits:
+      - eb0d6dbe55ca1abf21a17e32a58b548c062e29b2
+      - 6362e7702dae28e39c50dff01a315e34bf39b280
+      - 537b29fac1e7a23a2806de8643898efb271ec39f
+      - 8a4b88119b3a79f84b4ef48a11d3a758299fa662
+      - 65c02d610c88b13da4223695a15266fad88603b1
+      - b99a2b0b7a736dddffd928bf7b6b4241fd39671a
+      - 260324d2639ef1e29af9b90d344344252af53d56
+      - 9d4da76de77fc00f64ab85be96e61ff529b66e4b
+      - 2747ca7e7f577111b77434de13b3701656e41e28
+      - 8cb66953969a7ef9e2f7c6606954c60181eb6231
+  - date: "20260514.083638"
+    summary: done=0 running=0 pending=0 blocked=0
+  - date: "20260514.083638"
+    summary: done=0 running=0 pending=0 blocked=0
+  - date: "20260514.083535"
+    summary: done=0 running=0 pending=0 blocked=0
+  - date: "20260514.083333"
+    summary: done=0 running=0 pending=0 blocked=0
+  - date: "20260514.080044"
+    summary: done=0 running=0 pending=0 blocked=0
+  - date: "20260514.073423"
+    summary: done=0 running=0 pending=0 blocked=0
+  - date: "20260514.073300"
+    summary: done=0 running=0 pending=0 blocked=0
+  - date: "20260514.073135"
+    summary: done=0 running=0 pending=0 blocked=0
+  - date: "20260514.073135"
+    summary: done=0 running=0 pending=0 blocked=0
   - date: 2026-04-19
-    summary: >
-      Cloned 89jobrien.github.io locally. Stripped redundant default args from all mise tasks;
-      added mise run local (generates into ~/dev/89jobrien.github.io without pushing). Fixed global
-      pre-push hook (~/.config/git/hooks/pre-push) to scope maestro nextest filter to maestro repo
-      only — other Rust repos now run plain cargo nextest run. Migrated coursers rules to canonical
-      ~/.config/coursers/course-correct-rules.json (cci-12). Updated CLAUDE.md with bz binary
-      docs and correct repo description. [058d839..84bda97]
+    summary: |
+      Cloned 89jobrien.github.io locally. Stripped redundant default args from all mise tasks; added mise run local (generates into ~/dev/89jobrien.github.io without pushing). Fixed global pre-push hook (~/.config/git/hooks/pre-push) to scope maestro nextest filter to maestro repo only — other Rust repos now run plain cargo nextest run. Migrated coursers rules to canonical ~/.config/coursers/course-correct-rules.json (cci-12). Updated CLAUDE.md with bz binary docs and correct repo description. [058d839..84bda97]
   - date: 2026-04-18
-    summary: >
-      Added per-project pages (projects/<slug>/index.html), sort/filter/search to index,
-      bz --deploy flag (generates into tempdir, clones and pushes to 89jobrien.github.io),
-      mise deploy task, BAZAAR_GITHUB_USER/CRATES_IO_USER added to ~/dev/.env.
-      BAZ-P0 closed: unsafe{} blocks fixed, all 7 tests pass. [2667d83]
+    summary: |
+      Added per-project pages (projects/<slug>/index.html), sort/filter/search to index, bz --deploy flag (generates into tempdir, clones and pushes to 89jobrien.github.io), mise deploy task, BAZAAR_GITHUB_USER/CRATES_IO_USER added to ~/dev/.env. BAZ-P0 closed: unsafe{} blocks fixed, all 7 tests pass. [2667d83]
   - date: 2026-04-17
-    summary: >
-      Session: Handoff skill workflow run. Identified test suite blockers: set_var/remove_var
-      unsafe{} blocks (Rust 2024), 12 errors. Release build succeeds. Build: passing (dev),
-      Tests: blocked. Council health 67% (P0 + P1 items). [8897508]
+    summary: |
+      Session: Handoff skill workflow run. Identified test suite blockers: set_var/remove_var unsafe{} blocks (Rust 2024), 12 errors. Release build succeeds. Build: passing (dev), Tests: blocked. Council health 67% (P0 + P1 items). [8897508]
   - date: 2026-04-17
-    summary: >
-      BAZ-005 closed: vars set, 89jobrien.github.io recreated, sync workflow deployed; showcase
-      live at https://89jobrien.github.io; bazaar generates daily at 06:00 UTC, pages syncs at
-      06:30 UTC; actions/checkout bumped to v6.0.2 (Node 24). [89a3544]
+    summary: |
+      BAZ-005 closed: vars set, 89jobrien.github.io recreated, sync workflow deployed; showcase live at https://89jobrien.github.io; bazaar generates daily at 06:00 UTC, pages syncs at 06:30 UTC; actions/checkout bumped to v6.0.2 (Node 24). [89a3544]
   - date: 2026-04-17
-    summary: >
-      BAZ-001-004 closed: pinned all GHA actions to immutable SHAs, added timeout-minutes: 15,
-      preflight guard for env vars, output validation gate, scoped GITHUB_TOKEN to generate step
-      only. [e0c0e19]
+    summary: |
+      BAZ-001-004 closed: pinned all GHA actions to immutable SHAs, added timeout-minutes: 15, preflight guard for env vars, output validation gate, scoped GITHUB_TOKEN to generate step only. [e0c0e19]

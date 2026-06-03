@@ -71,6 +71,93 @@ fn crux_run(pipeline: &Path, input_json: &str) -> Result<serde_json::Value> {
     serde_json::from_str(output_section.trim()).context("failed to parse crux-run output as JSON")
 }
 
+fn needs_enrichment(project: &Project, force: bool) -> bool {
+    force
+        || project.description.is_none()
+        || project.category.is_none()
+        || project.changelog.is_none()
+        || project.related.is_empty()
+}
+
+fn apply_status(project: &mut Project) {
+    if project.health.is_none() {
+        project.health = Some(
+            ProjectStatus::from_pushed_at(project.pushed_at)
+                .as_str()
+                .to_string(),
+        );
+    }
+}
+
+fn build_entry(
+    project: &Project,
+    cached: Option<EnrichEntry>,
+    all_names: &[String],
+    pipeline_dir: &Path,
+    force: bool,
+) -> EnrichEntry {
+    let mut entry = cached.unwrap_or(EnrichEntry {
+        description: None,
+        category: None,
+        changelog: None,
+        health: None,
+        related: vec![],
+    });
+
+    if project.description.is_none() || force {
+        if let Ok(out) = run_describe(project, pipeline_dir) {
+            entry.description = Some(out);
+        }
+    }
+    if project.category.is_none() || force {
+        if let Ok(out) = run_classify(project, pipeline_dir) {
+            entry.category = Some(out);
+        }
+    }
+    if project.changelog.is_none() || force {
+        if let Ok(out) = run_changelog(project, pipeline_dir) {
+            entry.changelog = Some(out);
+        }
+    }
+    if project.health.is_none() || force {
+        if let Ok(out) = run_health(project, pipeline_dir) {
+            entry.health = Some(out);
+        }
+    }
+    if project.related.is_empty() || force {
+        if let Ok(out) = run_related(project, all_names, pipeline_dir) {
+            entry.related = out;
+        }
+    }
+
+    entry
+}
+
+fn enrich_project(
+    project: &mut Project,
+    cache: &mut EnrichCache,
+    all_names: &[String],
+    pipeline_dir: &Path,
+    force: bool,
+) {
+    let slug = project.slug();
+
+    if let Some(entry) = cache.get(&slug) {
+        apply_entry(project, entry.clone());
+    }
+    apply_status(project);
+
+    if !needs_enrichment(project, force) {
+        return;
+    }
+
+    eprintln!("enriching {}...", project.name);
+    let cached = cache.get(&slug).cloned();
+    let entry = build_entry(project, cached, all_names, pipeline_dir, force);
+    apply_entry(project, entry.clone());
+    cache.set(slug, entry);
+}
+
 pub fn enrich(
     projects: &mut [Project],
     pipeline_dir: &Path,
@@ -81,79 +168,7 @@ pub fn enrich(
     let all_names: Vec<String> = projects.iter().map(|p| p.name.clone()).collect();
 
     for project in projects.iter_mut() {
-        let slug = project.slug();
-
-        // Apply cached data regardless
-        if let Some(entry) = cache.get(&slug) {
-            apply_entry(project, entry.clone());
-        }
-
-        // Set programmatic status from pushed_at
-        if project.health.is_none() {
-            project.health = Some(
-                ProjectStatus::from_pushed_at(project.pushed_at)
-                    .as_str()
-                    .to_string(),
-            );
-        }
-
-        let needs_enrich = force
-            || project.description.is_none()
-            || project.category.is_none()
-            || project.changelog.is_none()
-            || project.related.is_empty();
-
-        if !needs_enrich {
-            continue;
-        }
-
-        eprintln!("enriching {}...", project.name);
-
-        let mut entry = cache.get(&slug).cloned().unwrap_or(EnrichEntry {
-            description: None,
-            category: None,
-            changelog: None,
-            health: None,
-            related: vec![],
-        });
-
-        // DescribeProject
-        if (project.description.is_none() || force)
-            && let Ok(out) = run_describe(project, pipeline_dir)
-        {
-            entry.description = Some(out);
-        }
-
-        // ClassifyProject
-        if (project.category.is_none() || force)
-            && let Ok(out) = run_classify(project, pipeline_dir)
-        {
-            entry.category = Some(out);
-        }
-
-        // GenerateChangelog
-        if (project.changelog.is_none() || force)
-            && let Ok(out) = run_changelog(project, pipeline_dir)
-        {
-            entry.changelog = Some(out);
-        }
-
-        // AssessHealth
-        if (project.health.is_none() || force)
-            && let Ok(out) = run_health(project, pipeline_dir)
-        {
-            entry.health = Some(out);
-        }
-
-        // SuggestRelated
-        if (project.related.is_empty() || force)
-            && let Ok(out) = run_related(project, &all_names, pipeline_dir)
-        {
-            entry.related = out;
-        }
-
-        apply_entry(project, entry.clone());
-        cache.set(slug, entry);
+        enrich_project(project, &mut cache, &all_names, pipeline_dir, force);
     }
 
     cache.save(cache_path)?;
@@ -178,57 +193,63 @@ fn apply_entry(project: &mut Project, entry: EnrichEntry) {
     }
 }
 
-fn run_describe(project: &Project, pipeline_dir: &Path) -> Result<String> {
-    let commits: Vec<&str> = project
+fn commit_messages(project: &Project) -> Vec<&str> {
+    project
         .recent_commits
         .iter()
         .map(|c| c.message.as_str())
-        .collect();
-    let input = serde_json::json!({
-        "function": "DescribeProject",
-        "input": {
-            "name": project.name,
-            "language": project.language,
-            "readme": project.readme,
-            "commits": commits,
-        }
-    });
-    let out = crux_run(
-        &pipeline_dir.join("enrich_describe.crux"),
-        &input.to_string(),
-    )?;
-    Ok(out["description"].as_str().unwrap_or("").to_string())
+        .collect()
+}
+
+fn run_pipeline(
+    pipeline_dir: &Path,
+    file: &str,
+    payload: serde_json::Value,
+    result_key: &str,
+) -> Result<String> {
+    let out = crux_run(&pipeline_dir.join(file), &payload.to_string())?;
+    Ok(out[result_key].as_str().unwrap_or("").to_string())
+}
+
+fn run_describe(project: &Project, pipeline_dir: &Path) -> Result<String> {
+    let commits = commit_messages(project);
+    run_pipeline(
+        pipeline_dir,
+        "enrich_describe.crux",
+        serde_json::json!({
+            "function": "DescribeProject",
+            "input": {
+                "name": project.name,
+                "language": project.language,
+                "readme": project.readme,
+                "commits": commits,
+            }
+        }),
+        "description",
+    )
 }
 
 fn run_classify(project: &Project, pipeline_dir: &Path) -> Result<String> {
-    let commits: Vec<&str> = project
-        .recent_commits
-        .iter()
-        .map(|c| c.message.as_str())
-        .collect();
-    let input = serde_json::json!({
-        "function": "ClassifyProject",
-        "input": {
-            "name": project.name,
-            "description": project.description,
-            "language": project.language,
-            "topics": project.topics,
-            "commits": commits,
-        }
-    });
-    let out = crux_run(
-        &pipeline_dir.join("enrich_classify.crux"),
-        &input.to_string(),
-    )?;
-    Ok(out["category"].as_str().unwrap_or("").to_string())
+    let commits = commit_messages(project);
+    run_pipeline(
+        pipeline_dir,
+        "enrich_classify.crux",
+        serde_json::json!({
+            "function": "ClassifyProject",
+            "input": {
+                "name": project.name,
+                "description": project.description,
+                "language": project.language,
+                "topics": project.topics,
+                "commits": commits,
+            }
+        }),
+        "category",
+    )
 }
 
 fn run_changelog(project: &Project, pipeline_dir: &Path) -> Result<String> {
-    let commits: Vec<&str> = project
-        .recent_commits
-        .iter()
-        .map(|c| c.message.as_str())
-        .collect();
+    let commits = commit_messages(project);
     if commits.is_empty() {
         return Ok(String::new());
     }

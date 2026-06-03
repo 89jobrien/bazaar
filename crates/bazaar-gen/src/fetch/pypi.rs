@@ -4,6 +4,8 @@ use anyhow::Result;
 use reqwest::Client;
 use serde::Deserialize;
 
+const HTTP_NOT_FOUND: u16 = 404;
+
 pub struct PypiFetcher {
     pub client: Client,
     pub packages: Vec<String>,
@@ -30,7 +32,7 @@ impl SourceFetcher for PypiFetcher {
         for pkg in &self.packages {
             let url = format!("https://pypi.org/pypi/{}/json", pkg);
             let resp = self.client.get(&url).send().await?;
-            if resp.status() == 404 {
+            if resp.status() == HTTP_NOT_FOUND {
                 eprintln!("warning: PyPI package '{pkg}' not found — skipping");
                 continue;
             }

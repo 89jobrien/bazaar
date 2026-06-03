@@ -5,6 +5,12 @@ use chrono::{DateTime, Utc};
 use reqwest::Client;
 use serde::Deserialize;
 
+const README_MAX_CHARS: usize = 2000;
+const HTTP_NOT_FOUND: u16 = 404;
+const HTTP_FORBIDDEN: u16 = 403;
+const HTTP_TOO_MANY_REQUESTS: u16 = 429;
+const GITHUB_ACTIVE_DAYS: i64 = 180;
+
 pub struct GitHubFetcher {
     pub client: Client,
     pub user: String,
@@ -81,9 +87,9 @@ impl GitHubFetcher {
         )
         .ok()?;
         let text = String::from_utf8(decoded).ok()?;
-        // Truncate to ~2000 chars to keep LLM context manageable
-        if text.len() > 2000 {
-            Some(text[..2000].to_string())
+        // Truncate to keep LLM context manageable
+        if text.len() > README_MAX_CHARS {
+            Some(text[..README_MAX_CHARS].to_string())
         } else {
             Some(text)
         }
@@ -112,7 +118,7 @@ impl GitHubFetcher {
     async fn latest_release(&self, owner: &str, repo: &str) -> Option<String> {
         let url = format!("https://api.github.com/repos/{owner}/{repo}/releases/latest");
         let resp = self.request(&url).send().await.ok()?;
-        if resp.status() == 404 {
+        if resp.status() == HTTP_NOT_FOUND {
             return None;
         }
         let release: Release = resp.json().await.ok()?;
@@ -123,14 +129,14 @@ impl GitHubFetcher {
 #[async_trait::async_trait]
 impl SourceFetcher for GitHubFetcher {
     async fn fetch(&self) -> Result<Vec<Project>> {
-        let cutoff = Utc::now() - chrono::Duration::days(180);
+        let cutoff = Utc::now() - chrono::Duration::days(GITHUB_ACTIVE_DAYS);
         let url = format!(
             "https://api.github.com/users/{}/repos?type=public&sort=pushed&per_page=100",
             self.user
         );
         let resp = self.request(&url).send().await?;
         let status = resp.status();
-        if status == 403 || status == 429 {
+        if status == HTTP_FORBIDDEN || status == HTTP_TOO_MANY_REQUESTS {
             anyhow::bail!("GitHub rate limit hit ({})", status);
         }
         if !status.is_success() {

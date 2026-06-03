@@ -5,6 +5,8 @@ use chrono::{DateTime, Utc};
 use reqwest::Client;
 use serde::Deserialize;
 
+const CRATES_IO_PAGE_SIZE: u64 = 100;
+
 pub struct CratesIoFetcher {
     pub client: Client,
     pub user: String,
@@ -61,8 +63,8 @@ impl SourceFetcher for CratesIoFetcher {
         let mut fetched = 0u64;
         loop {
             let url = format!(
-                "https://crates.io/api/v1/crates?user_id={}&per_page=100&page={}",
-                user_id, page
+                "https://crates.io/api/v1/crates?user_id={}&per_page={}&page={}",
+                user_id, CRATES_IO_PAGE_SIZE, page
             );
             let resp = self
                 .client
@@ -98,7 +100,7 @@ impl SourceFetcher for CratesIoFetcher {
                 });
             }
             fetched += count;
-            if fetched >= total || count < 100 {
+            if fetched >= total || count < CRATES_IO_PAGE_SIZE {
                 break;
             }
             page += 1;

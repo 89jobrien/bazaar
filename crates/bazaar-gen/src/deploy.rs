@@ -14,22 +14,15 @@ fn git(dir: &Path, args: &[&str]) -> Result<()> {
     Ok(())
 }
 
-pub fn deploy(site_dir: &Path, repo: &str, token: Option<&str>) -> Result<()> {
-    let tmp = tempfile::tempdir().context("create tempdir")?;
-    let clone_dir = tmp.path().join("site");
-
-    // Build authenticated URL if token provided
-    let url = if let Some(t) = token {
+fn repo_url(repo: &str, token: Option<&str>) -> String {
+    if let Some(t) = token {
         format!("https://x-access-token:{t}@github.com/{repo}.git")
     } else {
         format!("https://github.com/{repo}.git")
-    };
+    }
+}
 
-    eprintln!("cloning {repo}...");
-    git(tmp.path(), &["clone", "--depth=1", &url, "site"])?;
-
-    // Copy generated files into the clone, preserving .git
-    eprintln!("syncing files...");
+fn sync_site_files(site_dir: &Path, clone_dir: &std::path::Path) -> Result<()> {
     for entry in std::fs::read_dir(site_dir).context("read site dir")? {
         let entry = entry?;
         let dest = clone_dir.join(entry.file_name());
@@ -39,6 +32,27 @@ pub fn deploy(site_dir: &Path, repo: &str, token: Option<&str>) -> Result<()> {
             std::fs::copy(entry.path(), &dest)?;
         }
     }
+    Ok(())
+}
+
+fn has_staged_changes(clone_dir: &std::path::Path) -> Result<bool> {
+    let status = Command::new("git")
+        .args(["diff", "--staged", "--quiet"])
+        .current_dir(clone_dir)
+        .status()?;
+    Ok(!status.success())
+}
+
+pub fn deploy(site_dir: &Path, repo: &str, token: Option<&str>) -> Result<()> {
+    let tmp = tempfile::tempdir().context("create tempdir")?;
+    let clone_dir = tmp.path().join("site");
+    let url = repo_url(repo, token);
+
+    eprintln!("cloning {repo}...");
+    git(tmp.path(), &["clone", "--depth=1", &url, "site"])?;
+
+    eprintln!("syncing files...");
+    sync_site_files(site_dir, &clone_dir)?;
 
     git(&clone_dir, &["config", "user.name", "bz"])?;
     git(
@@ -47,12 +61,7 @@ pub fn deploy(site_dir: &Path, repo: &str, token: Option<&str>) -> Result<()> {
     )?;
     git(&clone_dir, &["add", "-A"])?;
 
-    // Check if there's anything to commit
-    let output = Command::new("git")
-        .args(["diff", "--staged", "--quiet"])
-        .current_dir(&clone_dir)
-        .status()?;
-    if output.success() {
+    if !has_staged_changes(&clone_dir)? {
         eprintln!("no changes to deploy");
         return Ok(());
     }
