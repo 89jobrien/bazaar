@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-05T23:34:18Z
+  pushed_at: 2026-06-06T11:36:37Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-06-06T11:36:36Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-05T23:34:17Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-02T12:22:54Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-01T23:37:18Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-01T12:59:21Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,11 +219,21 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-06T09:12:40Z
+  pushed_at: 2026-06-06T19:16:33Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'feat: add JSON Schema for crs-hooks.toml and fix log format'
+    date: 2026-06-06T19:16:31Z
+  - message: 'fix: only log hook events when a rule actually fires'
+    date: 2026-06-06T19:01:06Z
+  - message: 'feat: redb-backed hook execution log'
+    date: 2026-06-06T17:22:50Z
+  - message: 'docs: seed kgx knowledge graph with hook pipeline architecture'
+    date: 2026-06-06T17:15:16Z
+  - message: 'feat: generic hook pipeline with plugin support'
+    date: 2026-06-06T17:13:38Z
   - message: 'feat: property tests, fuzz targets, and enhanced rule suggestions'
     date: 2026-06-06T09:12:33Z
   - message: 'fix: gate rule matching on argv[0] to eliminate false positives'
@@ -234,19 +244,121 @@
     date: 2026-05-30T14:29:55Z
   - message: 'conform: crs-core VarExpander, ObfsckMcp, RtkAnalysis, RtkRewrite boundaries verified'
     date: 2026-05-30T13:45:19Z
-  - message: 'fix: remove fuzz/target from tracking, add to .gitignore'
-    date: 2026-05-30T04:28:18Z
-  - message: 'merge: issue #36 fuzz targets for parser modules'
-    date: 2026-05-30T04:27:57Z
-  - message: 'merge: issue #40 integration tests for crs filter and crs rewrite'
-    date: 2026-05-30T04:27:48Z
-  - message: 'merge: issue #37 conformance suites for StateStore, CommandSource, RulesLoader'
-    date: 2026-05-30T04:27:39Z
-  - message: 'merge: issues #38 #39 unit tests for ast/loader and property tests'
-    date: 2026-05-30T04:27:26Z
   tags:
   - cli
   readme: "# coursers\n\nClaude Code hook pipeline for course-correcting AI-generated Bash commands.\n\nTwo tools:\n\n- **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures\n- **`crs`** — output filter and command rewriter\n\n---\n\n## How It Works\n\n### Rule-based blocking (`coursers pre`)\n\nReads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command\nmatches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`\nresponse with a human-readable message.\n\nRules support:\n\n- Regex pattern matching (with optional `i` flag)\n- Exception patterns — allow a command through even if the main pattern matches\n- Per-rule messages\n\n### Learned failure tracking (`coursers post`)\n\nReads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and\nintentional failures), it records the command in a rolling failure log. If the same command\nfails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.\n\nThis catches commands that aren't covered by static rules but are clearly not working.\n\n---\n\n## Installation\n\n```sh\ncargo install --path crates/coursers\ncargo install --path crates/crs\n```\n\nWire into `~/.claude/settings.json`:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers pre\" },\n          { \"type\": \"command\", \"command\": \"crs rewrite\" }\n        ]\n      }\n    ],\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers post\" },\n          { \"type\": \"command\", \"command\": \"crs filter\" }\n        ]\n      }\n    ]\n  }\n}\n```\n\n`crs rewrite` and `crs filter` are optional — run `coursers` alone if you only want blocking\nand failure learning.\n\n---\n\n## Configuration\n\nRules file: `~/.config/coursers/course-correct-rules.json`\n(override with `COURSERS_RULES` env var)\n\n```json\n{\n  \"rules\": [\n    {\n    "
+- name: cargo-promote
+  description: Opinionated pipelines for opinionated people
+  url: https://github.com/89jobrien/cargo-promote
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-06-06T16:57:00Z
+  version: 0.1.2
+  stars: 1
+  downloads: 13
+  recent_commits:
+  - message: 'fix: always pass --registry to cargo publish'
+    date: 2026-06-01T10:53:52Z
+  - message: 'bump: cargo-promote v0.1.2'
+    date: 2026-06-01T10:44:30Z
+  - message: 'fix: double-Bearer auth header and stale crate_exists URL'
+    date: 2026-06-01T10:42:36Z
+  - message: 'chore: set up promotion pipeline for cargo-promote'
+    date: 2026-06-01T10:31:11Z
+  - message: Simplify installation instructions in README
+    date: 2026-06-01T10:28:15Z
+  - message: 'docs: update README with accurate flags, install, and architecture'
+    date: 2026-06-01T10:25:30Z
+  - message: Update installation command in README
+    date: 2026-06-01T09:52:32Z
+  - message: 'chore: cargo fmt + add plan docs from SOLID refactor session'
+    date: 2026-06-01T06:12:15Z
+  - message: 'docs: update README with per-package config, forge, and deferrals'
+    date: 2026-06-01T05:42:21Z
+  - message: 'chore: bump to 0.1.1, add package metadata'
+    date: 2026-06-01T05:06:53Z
+  readme: |-
+    # cargo-promote
+
+    Crate publishing and promotion pipeline for Rust projects.
+    Publishes to private registries (Gitea, GitHub) and optionally
+    crates.io, with configurable pipelines, per-package overrides,
+    deferred promotions, and forge integration.
+
+    ## Install
+
+    ```bash
+    cargo install --git https://github.com/89jobrien/cargo-promote
+    ```
+
+    ## Commands
+
+    ### Publishing
+
+    ```bash
+    # Publish current crate to the first pipeline stage
+    cargo-promote publish
+
+    # Publish a specific workspace member
+    cargo-promote publish -p my-crate
+
+    # Publish to a named registry directly
+    cargo-promote publish --registry my-registry
+
+    # Select a named pipeline
+    cargo-promote publish --pipeline staging-only
+
+    # Publish even if the version already exists on the registry
+    cargo-promote publish --force
+
+    # Publish + promote through all pipeline stages
+    cargo-promote ship -p my-crate
+
+    # Ship with auto-confirm and force
+    cargo-promote ship -p my-crate -y --force
+
+    # Publish all crates under a directory in dependency order
+    cargo-promote publish-all --path ~/dev --dry-run
+    cargo-promote publish-all --force --skip "sandbox,experiments"
+    cargo-promote publish-all --registry my-registry --allow-dirty
+    ```
+
+    ### Promotion
+
+    ```bash
+    # Promote from one pipeline stage to the next
+    cargo-promote promote -p my-crate --from my-registry
+
+    # Promote with auto-confirm and dry-run
+    cargo-promote promote -p my-crate --from my-registry -y --dry-run
+
+    # Bump version and create promote.lock
+    cargo-promote bump
+
+    # Merge branch stage forward
+    cargo-promote branch --from develop
+    ```
+
+    ### Deferrals
+
+    Defer a promotion for later confirmation (e.g. after manual QA):
+
+    ```bash
+    # Defer a registry promotion
+    cargo-promote defer --from my-registry
+
+    # Defer a branch promotion
+    cargo-promote defer --branch --from develop
+
+    # Defer with a notification command
+    cargo-promote defer --from my-registry --command notify-send "promotion deferred"
+
+    # Confirm or reject a pending deferral
+    cargo-promote confirm <ticket>
+    cargo-promote confirm <ticket> --reason "passed QA"
+    car
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
@@ -488,118 +600,6 @@
     | Skill                                     | When                                                   |
     | ----------------------------------------- | ------------------------------------------------------ |
     | `godmode:using-godmode`                   | Session orientation, avail
-- name: cargo-promote
-  description: Opinionated pipelines for opinionated people
-  url: https://github.com/89jobrien/cargo-promote
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-06-04T23:14:23Z
-  version: 0.1.2
-  stars: 1
-  downloads: 13
-  recent_commits:
-  - message: 'fix: always pass --registry to cargo publish'
-    date: 2026-06-01T10:53:52Z
-  - message: 'bump: cargo-promote v0.1.2'
-    date: 2026-06-01T10:44:30Z
-  - message: 'fix: double-Bearer auth header and stale crate_exists URL'
-    date: 2026-06-01T10:42:36Z
-  - message: 'chore: set up promotion pipeline for cargo-promote'
-    date: 2026-06-01T10:31:11Z
-  - message: Simplify installation instructions in README
-    date: 2026-06-01T10:28:15Z
-  - message: 'docs: update README with accurate flags, install, and architecture'
-    date: 2026-06-01T10:25:30Z
-  - message: Update installation command in README
-    date: 2026-06-01T09:52:32Z
-  - message: 'chore: cargo fmt + add plan docs from SOLID refactor session'
-    date: 2026-06-01T06:12:15Z
-  - message: 'docs: update README with per-package config, forge, and deferrals'
-    date: 2026-06-01T05:42:21Z
-  - message: 'chore: bump to 0.1.1, add package metadata'
-    date: 2026-06-01T05:06:53Z
-  readme: |-
-    # cargo-promote
-
-    Crate publishing and promotion pipeline for Rust projects.
-    Publishes to private registries (Gitea, GitHub) and optionally
-    crates.io, with configurable pipelines, per-package overrides,
-    deferred promotions, and forge integration.
-
-    ## Install
-
-    ```bash
-    cargo install --git https://github.com/89jobrien/cargo-promote
-    ```
-
-    ## Commands
-
-    ### Publishing
-
-    ```bash
-    # Publish current crate to the first pipeline stage
-    cargo-promote publish
-
-    # Publish a specific workspace member
-    cargo-promote publish -p my-crate
-
-    # Publish to a named registry directly
-    cargo-promote publish --registry my-registry
-
-    # Select a named pipeline
-    cargo-promote publish --pipeline staging-only
-
-    # Publish even if the version already exists on the registry
-    cargo-promote publish --force
-
-    # Publish + promote through all pipeline stages
-    cargo-promote ship -p my-crate
-
-    # Ship with auto-confirm and force
-    cargo-promote ship -p my-crate -y --force
-
-    # Publish all crates under a directory in dependency order
-    cargo-promote publish-all --path ~/dev --dry-run
-    cargo-promote publish-all --force --skip "sandbox,experiments"
-    cargo-promote publish-all --registry my-registry --allow-dirty
-    ```
-
-    ### Promotion
-
-    ```bash
-    # Promote from one pipeline stage to the next
-    cargo-promote promote -p my-crate --from my-registry
-
-    # Promote with auto-confirm and dry-run
-    cargo-promote promote -p my-crate --from my-registry -y --dry-run
-
-    # Bump version and create promote.lock
-    cargo-promote bump
-
-    # Merge branch stage forward
-    cargo-promote branch --from develop
-    ```
-
-    ### Deferrals
-
-    Defer a promotion for later confirmation (e.g. after manual QA):
-
-    ```bash
-    # Defer a registry promotion
-    cargo-promote defer --from my-registry
-
-    # Defer a branch promotion
-    cargo-promote defer --branch --from develop
-
-    # Defer with a notification command
-    cargo-promote defer --from my-registry --command notify-send "promotion deferred"
-
-    # Confirm or reject a pending deferral
-    cargo-promote confirm <ticket>
-    cargo-promote confirm <ticket> --reason "passed QA"
-    car
 - name: looprs
   description: Just tools in a loop.
   url: https://github.com/89jobrien/looprs
