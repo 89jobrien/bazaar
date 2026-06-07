@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-06T23:30:15Z
+  pushed_at: 2026-06-07T11:39:52Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-06-07T11:39:51Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-06T23:30:14Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-03T12:36:59Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-02T23:41:10Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-02T12:22:54Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,136 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: langchainx
+  description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
+  url: https://github.com/89jobrien/langchainx
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-07T21:48:15Z
+  version: v0.4.6
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Clarify changes in forked crate description
+    date: 2026-05-23T11:12:23Z
+  - message: 'Merge pull request #71 from 89jobrien/develop'
+    date: 2026-05-04T13:13:24Z
+  - message: 'fix(clippy): unnecessary_unwrap in text2speech and openai stream'
+    date: 2026-05-04T13:11:31Z
+  - message: 'Merge pull request #70 from 89jobrien/develop'
+    date: 2026-05-04T13:04:06Z
+  - message: 'fix(fmt): apply cargo fmt to fix CI fmt-check failures'
+    date: 2026-05-04T13:02:12Z
+  - message: 'fix(ci): add .cargo/config.toml with xtask alias'
+    date: 2026-05-04T13:00:52Z
+  - message: 'fix(ci): add .cargo/config.toml with xtask alias for CI runners'
+    date: 2026-05-04T12:59:43Z
+  - message: 'merge: harden loaders tools and vectorstores fixes #41'
+    date: 2026-05-04T12:54:46Z
+  - message: 'feat(loaders): add MarkdownDocument serializer with nested section parsing'
+    date: 2026-05-04T11:46:12Z
+  - message: 'fix: remove absolute symlink .claude/skills, add to .gitignore'
+    date: 2026-05-04T11:26:03Z
+  readme: |-
+    # langchainx
+
+    Building applications with LLMs through composability, with Rust!
+
+    > **Upstream credit:** This crate is a fork of
+    > [langchain-rust](https://github.com/Abraxas-365/langchain-rust) by
+    > [Ryo Kanazawa (Abraxas-365)](https://github.com/Abraxas-365), used under the MIT License.
+    > Changes in this fork include custom error types, a three-tier e2e test suite, smolvm-based
+    > container tests, a Cargo workspace split into focused sub-crates, and ongoing architectural
+    > improvements tracked in [GitHub Issues](https://github.com/89jobrien/langchainx/issues).
+
+    ## What is this?
+
+    This is the Rust language implementation of [LangChain](https://github.com/langchain-ai/langchain).
+
+    ## Workspace Crates
+
+    The library is organized as a Cargo workspace. The root `langchainx` crate re-exports everything
+    for convenience; individual crates can be used directly for smaller dependency footprints.
+
+    | Crate                      | Contents                                              |
+    | -------------------------- | ----------------------------------------------------- |
+    | `langchainx-core`          | Shared schemas, document types, error primitives      |
+    | `langchainx-llm`           | LLM backends (OpenAI, Claude, DeepSeek, Qwen, Ollama) |
+    | `langchainx-prompt`        | Prompt templates and formatting macros                |
+    | `langchainx-memory`        | Conversation memory backends                          |
+    | `langchainx-embedding`     | Embedding backends (OpenAI, Ollama, FastEmbed, etc.)  |
+    | `langchainx-output-parsers`| Output parsers and structured extraction              |
+    | `langchainx-chain`         | Chain types (LLMChain, ConversationalChain, etc.)     |
+
+    ## Current Features
+
+    - LLMs
+        - [x] [OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_openai.rs)
+        - [x] [Azure OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_azure_open_ai.rs)
+        - [x] [Ollama](https://github.com/89jobrien/langchainx/blob/main/examples/llm_ollama.rs)
+- name: disyn
+  description: Hybrid symbolic+neural agent pipeline
+  url: https://github.com/89jobrien/disyn
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-07T19:35:27Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: initial code commit
+    date: 2026-06-07T19:35:15Z
+  - message: initial commit
+    date: 2026-06-07T17:25:22Z
+  readme: |
+    # disyn
+
+    Hybrid symbolic+neural agent pipeline in Rust. Transforms raw observations
+    into verified, executed actions through a typed 7-stage pipeline where
+    neural proposals are validated and repaired by symbolic logic before
+    execution.
+
+    ## Crates
+
+    | Crate            | Description                               |
+    | ---------------- | ----------------------------------------- |
+    | `disyn-core`     | Domain types, port traits, error types    |
+    | `disyn-symbolic` | Rule engine, verifier, repair engine      |
+    | `disyn-neural`   | LLM adapters (OpenAI, Ollama)             |
+    | `disyn-memory`   | State persistence, in-memory store        |
+    | `disyn-runtime`  | Budget manager, telemetry, shell executor |
+    | `disyn-app`      | Composition root, orchestrator, CLI       |
+    | `disyn-xtask`    | CI automation (`cargo xtask ci`)          |
+
+    ## Pipeline
+
+    ```
+    Observation -> Facts -> MemoryContext -> PlanDraft
+      -> Verify -> [Repair loop] -> ApprovedPlan -> Execute -> ExecutionReport
+    ```
+
+    ## Build
+
+    ```sh
+    cargo xtask ci          # fmt + clippy + test + build
+    cargo build --workspace
+    cargo test --workspace
+    ```
+
+    ## Configuration
+
+    | Env var            | Default  | Description                         |
+    | ------------------ | -------- | ----------------------------------- |
+    | `DISYN_PROVIDER`   | `openai` | LLM provider (`openai` or `ollama`) |
+    | `OPENAI_API_KEY`   | (empty)  | OpenAI API key                      |
+    | `DISYN_MODEL`      | `gpt-4o` | Model name                          |
+    | `DISYN_MAX_TOKENS` | `10000`  | Token budget                        |
+
+    ## License
+
+    MIT OR Apache-2.0
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
@@ -386,74 +516,6 @@
     | Skill                                     | When                                                   |
     | ----------------------------------------- | ------------------------------------------------------ |
     | `godmode:using-godmode`                   | Session orientation, avail
-- name: langchainx
-  description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
-  url: https://github.com/89jobrien/langchainx
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-07T00:49:22Z
-  version: v0.4.6
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Clarify changes in forked crate description
-    date: 2026-05-23T11:12:23Z
-  - message: 'Merge pull request #71 from 89jobrien/develop'
-    date: 2026-05-04T13:13:24Z
-  - message: 'fix(clippy): unnecessary_unwrap in text2speech and openai stream'
-    date: 2026-05-04T13:11:31Z
-  - message: 'Merge pull request #70 from 89jobrien/develop'
-    date: 2026-05-04T13:04:06Z
-  - message: 'fix(fmt): apply cargo fmt to fix CI fmt-check failures'
-    date: 2026-05-04T13:02:12Z
-  - message: 'fix(ci): add .cargo/config.toml with xtask alias'
-    date: 2026-05-04T13:00:52Z
-  - message: 'fix(ci): add .cargo/config.toml with xtask alias for CI runners'
-    date: 2026-05-04T12:59:43Z
-  - message: 'merge: harden loaders tools and vectorstores fixes #41'
-    date: 2026-05-04T12:54:46Z
-  - message: 'feat(loaders): add MarkdownDocument serializer with nested section parsing'
-    date: 2026-05-04T11:46:12Z
-  - message: 'fix: remove absolute symlink .claude/skills, add to .gitignore'
-    date: 2026-05-04T11:26:03Z
-  readme: |-
-    # langchainx
-
-    Building applications with LLMs through composability, with Rust!
-
-    > **Upstream credit:** This crate is a fork of
-    > [langchain-rust](https://github.com/Abraxas-365/langchain-rust) by
-    > [Ryo Kanazawa (Abraxas-365)](https://github.com/Abraxas-365), used under the MIT License.
-    > Changes in this fork include custom error types, a three-tier e2e test suite, smolvm-based
-    > container tests, a Cargo workspace split into focused sub-crates, and ongoing architectural
-    > improvements tracked in [GitHub Issues](https://github.com/89jobrien/langchainx/issues).
-
-    ## What is this?
-
-    This is the Rust language implementation of [LangChain](https://github.com/langchain-ai/langchain).
-
-    ## Workspace Crates
-
-    The library is organized as a Cargo workspace. The root `langchainx` crate re-exports everything
-    for convenience; individual crates can be used directly for smaller dependency footprints.
-
-    | Crate                      | Contents                                              |
-    | -------------------------- | ----------------------------------------------------- |
-    | `langchainx-core`          | Shared schemas, document types, error primitives      |
-    | `langchainx-llm`           | LLM backends (OpenAI, Claude, DeepSeek, Qwen, Ollama) |
-    | `langchainx-prompt`        | Prompt templates and formatting macros                |
-    | `langchainx-memory`        | Conversation memory backends                          |
-    | `langchainx-embedding`     | Embedding backends (OpenAI, Ollama, FastEmbed, etc.)  |
-    | `langchainx-output-parsers`| Output parsers and structured extraction              |
-    | `langchainx-chain`         | Chain types (LLMChain, ConversationalChain, etc.)     |
-
-    ## Current Features
-
-    - LLMs
-        - [x] [OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_openai.rs)
-        - [x] [Azure OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_azure_open_ai.rs)
-        - [x] [Ollama](https://github.com/89jobrien/langchainx/blob/main/examples/llm_ollama.rs)
 - name: coursers
   description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
   url: https://github.com/89jobrien/coursers
@@ -1225,7 +1287,7 @@
   pushed_at: 2026-05-26T14:05:49.432486Z
   version: 0.30.0
   stars: null
-  downloads: 173
+  downloads: 174
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -1236,7 +1298,7 @@
   pushed_at: 2026-05-26T14:04:50.939469Z
   version: 0.30.0
   stars: null
-  downloads: 228
+  downloads: 229
   recent_commits: []
 - name: obfsck
   description: Secret-detection and redaction CLI for pre-commit hooks
@@ -2576,7 +2638,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 28
+  downloads: 29
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -2598,7 +2660,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 48
+  downloads: 49
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -2609,7 +2671,7 @@
   pushed_at: 2026-04-23T23:07:16.604202Z
   version: 0.1.0
   stars: null
-  downloads: 28
+  downloads: 29
   recent_commits: []
 - name: slashcrux
   description: Shared vocabulary types for the Slash and Crux agentic Rust ecosystem
@@ -3496,7 +3558,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 109
+  downloads: 110
   recent_commits: []
 - name: dotfiles
   description: null
