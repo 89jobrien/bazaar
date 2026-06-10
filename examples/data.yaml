@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-09T12:05:18Z
+  pushed_at: 2026-06-09T23:35:39Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-06-09T23:35:38Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-09T12:05:17Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-05T23:34:17Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-05T12:06:18Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-04T23:33:56Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -220,10 +220,10 @@
   - GitHubRepo
   - CratesIo
   language: Rust
-  pushed_at: 2026-06-09T22:59:53Z
+  pushed_at: 2026-06-10T11:47:25Z
   version: xtui-v0.3.0
   stars: 1
-  downloads: 18
+  downloads: 38
   recent_commits:
   - message: 'chore: restructure docs to xbook/ with configurable copies and glob support'
     date: 2026-06-09T22:57:01Z
@@ -290,17 +290,226 @@
     | `o`                 | Focus output pane                             |
     | `g` / `G`           | Scroll output to top / bottom (output focus)  |
     | `Esc`               | Cancel running c
+- name: cargo-promote
+  description: Opinionated pipelines for opinionated people
+  url: https://github.com/89jobrien/cargo-promote
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-06-10T07:22:42Z
+  version: 0.1.2
+  stars: 1
+  downloads: 13
+  recent_commits:
+  - message: 'fix: always pass --registry to cargo publish'
+    date: 2026-06-01T10:53:52Z
+  - message: 'bump: cargo-promote v0.1.2'
+    date: 2026-06-01T10:44:30Z
+  - message: 'fix: double-Bearer auth header and stale crate_exists URL'
+    date: 2026-06-01T10:42:36Z
+  - message: 'chore: set up promotion pipeline for cargo-promote'
+    date: 2026-06-01T10:31:11Z
+  - message: Simplify installation instructions in README
+    date: 2026-06-01T10:28:15Z
+  - message: 'docs: update README with accurate flags, install, and architecture'
+    date: 2026-06-01T10:25:30Z
+  - message: Update installation command in README
+    date: 2026-06-01T09:52:32Z
+  - message: 'chore: cargo fmt + add plan docs from SOLID refactor session'
+    date: 2026-06-01T06:12:15Z
+  - message: 'docs: update README with per-package config, forge, and deferrals'
+    date: 2026-06-01T05:42:21Z
+  - message: 'chore: bump to 0.1.1, add package metadata'
+    date: 2026-06-01T05:06:53Z
+  readme: |-
+    # cargo-promote
+
+    Crate publishing and promotion pipeline for Rust projects.
+    Publishes to private registries (Gitea, GitHub) and optionally
+    crates.io, with configurable pipelines, per-package overrides,
+    deferred promotions, and forge integration.
+
+    ## Install
+
+    ```bash
+    cargo install --git https://github.com/89jobrien/cargo-promote
+    ```
+
+    ## Commands
+
+    ### Publishing
+
+    ```bash
+    # Publish current crate to the first pipeline stage
+    cargo-promote publish
+
+    # Publish a specific workspace member
+    cargo-promote publish -p my-crate
+
+    # Publish to a named registry directly
+    cargo-promote publish --registry my-registry
+
+    # Select a named pipeline
+    cargo-promote publish --pipeline staging-only
+
+    # Publish even if the version already exists on the registry
+    cargo-promote publish --force
+
+    # Publish + promote through all pipeline stages
+    cargo-promote ship -p my-crate
+
+    # Ship with auto-confirm and force
+    cargo-promote ship -p my-crate -y --force
+
+    # Publish all crates under a directory in dependency order
+    cargo-promote publish-all --path ~/dev --dry-run
+    cargo-promote publish-all --force --skip "sandbox,experiments"
+    cargo-promote publish-all --registry my-registry --allow-dirty
+    ```
+
+    ### Promotion
+
+    ```bash
+    # Promote from one pipeline stage to the next
+    cargo-promote promote -p my-crate --from my-registry
+
+    # Promote with auto-confirm and dry-run
+    cargo-promote promote -p my-crate --from my-registry -y --dry-run
+
+    # Bump version and create promote.lock
+    cargo-promote bump
+
+    # Merge branch stage forward
+    cargo-promote branch --from develop
+    ```
+
+    ### Deferrals
+
+    Defer a promotion for later confirmation (e.g. after manual QA):
+
+    ```bash
+    # Defer a registry promotion
+    cargo-promote defer --from my-registry
+
+    # Defer a branch promotion
+    cargo-promote defer --branch --from develop
+
+    # Defer with a notification command
+    cargo-promote defer --from my-registry --command notify-send "promotion deferred"
+
+    # Confirm or reject a pending deferral
+    cargo-promote confirm <ticket>
+    cargo-promote confirm <ticket> --reason "passed QA"
+    car
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-10T03:27:08Z
+  version: v0.30.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: Merge branch 'develop' into next
+    date: 2026-05-27T01:41:13Z
+  - message: 'fix(minibox): address blocking review findings for nesting'
+    date: 2026-05-27T01:37:10Z
+  - message: 'test(miniboxd): add nesting env var integration test'
+    date: 2026-05-26T21:22:56Z
+  - message: 'feat(minibox): overlay tmpfs fallback and cgroup delegation for nesting'
+    date: 2026-05-26T21:21:37Z
+  - message: 'feat(miniboxd): inject MINIBOX_NEST_DEPTH into container env'
+    date: 2026-05-26T21:19:26Z
+  - message: 'feat(minibox): add overlay-on-overlay probe and wire into preflight'
+    date: 2026-05-26T21:18:33Z
+  - message: 'feat(minibox): add nested container support (Tasks 1-5)'
+    date: 2026-05-26T21:15:11Z
+  - message: 'feat(xtask): wire smolfiles into test-in-vm, add --smolfile flag'
+    date: 2026-05-26T20:11:23Z
+  - message: 'test(smolvm): add smoke tests for SmolVmFixture + smolfiles'
+    date: 2026-05-26T20:10:52Z
+  - message: 'docs: add code citations for implementation-status claims (#132)'
+    date: 2026-05-26T20:07:06Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
+
+    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
+    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
+    keeps adapter suites swappable at startup with no recompile.
+
+    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `minibox logs <id>` for stored stdout/stderr
+    - Container events — `minibox events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
+    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
+      Colima available as an alternative via Lima VM
+
+    ---
+
+    ## Quick Start
+
+    Requires Linux, root, kernel 5.0+
 - name: numcp
   description: MCP server that exposes Nushell tool handlers as MCP tools
   url: https://github.com/89jobrien/numcp
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-09T19:41:02Z
+  pushed_at: 2026-06-10T01:30:33Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'docs: update handoff — P2-1 through P6-1 complete, 21 tests green'
+    date: 2026-06-10T01:30:30Z
+  - message: 'fix: remove unused mut in integration test'
+    date: 2026-06-10T01:27:13Z
+  - message: 'feat: implement full MCP server (P2-1 through P6-1)'
+    date: 2026-06-10T01:24:43Z
   - message: 'docs: bootstrap HANDOFF; add .ctx/ gitignore rules'
     date: 2026-06-09T19:41:00Z
   - message: 'feat(p1): config parsing and tool registry with full test coverage'
@@ -517,97 +726,6 @@
   tags:
   - cli
   readme: "# coursers\n\nClaude Code hook pipeline for course-correcting AI-generated Bash commands.\n\nTwo tools:\n\n- **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures\n- **`crs`** — output filter and command rewriter\n\n---\n\n## How It Works\n\n### Rule-based blocking (`coursers pre`)\n\nReads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command\nmatches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`\nresponse with a human-readable message.\n\nRules support:\n\n- Regex pattern matching (with optional `i` flag)\n- Exception patterns — allow a command through even if the main pattern matches\n- Per-rule messages\n\n### Learned failure tracking (`coursers post`)\n\nReads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and\nintentional failures), it records the command in a rolling failure log. If the same command\nfails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.\n\nThis catches commands that aren't covered by static rules but are clearly not working.\n\n---\n\n## Installation\n\n```sh\ncargo install --path crates/coursers\ncargo install --path crates/crs\n```\n\nWire into `~/.claude/settings.json`:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers pre\" },\n          { \"type\": \"command\", \"command\": \"crs rewrite\" }\n        ]\n      }\n    ],\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers post\" },\n          { \"type\": \"command\", \"command\": \"crs filter\" }\n        ]\n      }\n    ]\n  }\n}\n```\n\n`crs rewrite` and `crs filter` are optional — run `coursers` alone if you only want blocking\nand failure learning.\n\n---\n\n## Configuration\n\nRules file: `~/.config/coursers/course-correct-rules.json`\n(override with `COURSERS_RULES` env var)\n\n```json\n{\n  \"rules\": [\n    {\n    "
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-09T03:27:19Z
-  version: v0.30.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: Merge branch 'develop' into next
-    date: 2026-05-27T01:41:13Z
-  - message: 'fix(minibox): address blocking review findings for nesting'
-    date: 2026-05-27T01:37:10Z
-  - message: 'test(miniboxd): add nesting env var integration test'
-    date: 2026-05-26T21:22:56Z
-  - message: 'feat(minibox): overlay tmpfs fallback and cgroup delegation for nesting'
-    date: 2026-05-26T21:21:37Z
-  - message: 'feat(miniboxd): inject MINIBOX_NEST_DEPTH into container env'
-    date: 2026-05-26T21:19:26Z
-  - message: 'feat(minibox): add overlay-on-overlay probe and wire into preflight'
-    date: 2026-05-26T21:18:33Z
-  - message: 'feat(minibox): add nested container support (Tasks 1-5)'
-    date: 2026-05-26T21:15:11Z
-  - message: 'feat(xtask): wire smolfiles into test-in-vm, add --smolfile flag'
-    date: 2026-05-26T20:11:23Z
-  - message: 'test(smolvm): add smoke tests for SmolVmFixture + smolfiles'
-    date: 2026-05-26T20:10:52Z
-  - message: 'docs: add code citations for implementation-status claims (#132)'
-    date: 2026-05-26T20:07:06Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
-
-    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
-    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
-    keeps adapter suites swappable at startup with no recompile.
-
-    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `minibox logs <id>` for stored stdout/stderr
-    - Container events — `minibox events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
-    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
-      Colima available as an alternative via Lima VM
-
-    ---
-
-    ## Quick Start
-
-    Requires Linux, root, kernel 5.0+
 - name: godmode
   description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
   url: https://github.com/89jobrien/godmode
@@ -1247,118 +1365,6 @@
         - [x] [OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_openai.rs)
         - [x] [Azure OpenAI](https://github.com/89jobrien/langchainx/blob/main/examples/llm_azure_open_ai.rs)
         - [x] [Ollama](https://github.com/89jobrien/langchainx/blob/main/examples/llm_ollama.rs)
-- name: cargo-promote
-  description: Opinionated pipelines for opinionated people
-  url: https://github.com/89jobrien/cargo-promote
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-06-06T16:57:00Z
-  version: 0.1.2
-  stars: 1
-  downloads: 13
-  recent_commits:
-  - message: 'fix: always pass --registry to cargo publish'
-    date: 2026-06-01T10:53:52Z
-  - message: 'bump: cargo-promote v0.1.2'
-    date: 2026-06-01T10:44:30Z
-  - message: 'fix: double-Bearer auth header and stale crate_exists URL'
-    date: 2026-06-01T10:42:36Z
-  - message: 'chore: set up promotion pipeline for cargo-promote'
-    date: 2026-06-01T10:31:11Z
-  - message: Simplify installation instructions in README
-    date: 2026-06-01T10:28:15Z
-  - message: 'docs: update README with accurate flags, install, and architecture'
-    date: 2026-06-01T10:25:30Z
-  - message: Update installation command in README
-    date: 2026-06-01T09:52:32Z
-  - message: 'chore: cargo fmt + add plan docs from SOLID refactor session'
-    date: 2026-06-01T06:12:15Z
-  - message: 'docs: update README with per-package config, forge, and deferrals'
-    date: 2026-06-01T05:42:21Z
-  - message: 'chore: bump to 0.1.1, add package metadata'
-    date: 2026-06-01T05:06:53Z
-  readme: |-
-    # cargo-promote
-
-    Crate publishing and promotion pipeline for Rust projects.
-    Publishes to private registries (Gitea, GitHub) and optionally
-    crates.io, with configurable pipelines, per-package overrides,
-    deferred promotions, and forge integration.
-
-    ## Install
-
-    ```bash
-    cargo install --git https://github.com/89jobrien/cargo-promote
-    ```
-
-    ## Commands
-
-    ### Publishing
-
-    ```bash
-    # Publish current crate to the first pipeline stage
-    cargo-promote publish
-
-    # Publish a specific workspace member
-    cargo-promote publish -p my-crate
-
-    # Publish to a named registry directly
-    cargo-promote publish --registry my-registry
-
-    # Select a named pipeline
-    cargo-promote publish --pipeline staging-only
-
-    # Publish even if the version already exists on the registry
-    cargo-promote publish --force
-
-    # Publish + promote through all pipeline stages
-    cargo-promote ship -p my-crate
-
-    # Ship with auto-confirm and force
-    cargo-promote ship -p my-crate -y --force
-
-    # Publish all crates under a directory in dependency order
-    cargo-promote publish-all --path ~/dev --dry-run
-    cargo-promote publish-all --force --skip "sandbox,experiments"
-    cargo-promote publish-all --registry my-registry --allow-dirty
-    ```
-
-    ### Promotion
-
-    ```bash
-    # Promote from one pipeline stage to the next
-    cargo-promote promote -p my-crate --from my-registry
-
-    # Promote with auto-confirm and dry-run
-    cargo-promote promote -p my-crate --from my-registry -y --dry-run
-
-    # Bump version and create promote.lock
-    cargo-promote bump
-
-    # Merge branch stage forward
-    cargo-promote branch --from develop
-    ```
-
-    ### Deferrals
-
-    Defer a promotion for later confirmation (e.g. after manual QA):
-
-    ```bash
-    # Defer a registry promotion
-    cargo-promote defer --from my-registry
-
-    # Defer a branch promotion
-    cargo-promote defer --branch --from develop
-
-    # Defer with a notification command
-    cargo-promote defer --from my-registry --command notify-send "promotion deferred"
-
-    # Confirm or reject a pending deferral
-    cargo-promote confirm <ticket>
-    cargo-promote confirm <ticket> --reason "passed QA"
-    car
 - name: surgeon
   description: Agentic code analysis and improvement tool for Rust
   url: https://github.com/89jobrien/surgeon
@@ -2989,7 +2995,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1062
+  downloads: 1063
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
