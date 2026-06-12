@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-11T23:38:36Z
+  pushed_at: 2026-06-12T12:08:50Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-06-12T12:08:49Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-11T23:38:35Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-08T12:35:01Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-07T23:30:30Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-07T11:39:51Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,126 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: numcp
+  description: MCP server that exposes Nushell tool handlers as MCP tools
+  url: https://github.com/89jobrien/numcp
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-12T22:27:46Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'feat: feature-gate nu-engine deps so fuzz crate builds without heavy transitive deps'
+    date: 2026-06-12T22:27:22Z
+  - message: 'docs: update handoff — P2-1 through P6-1 complete, 21 tests green'
+    date: 2026-06-10T01:30:30Z
+  - message: 'fix: remove unused mut in integration test'
+    date: 2026-06-10T01:27:13Z
+  - message: 'feat: implement full MCP server (P2-1 through P6-1)'
+    date: 2026-06-10T01:24:43Z
+  - message: 'docs: bootstrap HANDOFF; add .ctx/ gitignore rules'
+    date: 2026-06-09T19:41:00Z
+  - message: 'feat(p1): config parsing and tool registry with full test coverage'
+    date: 2026-06-09T19:39:15Z
+  - message: 'docs: add implementation plan; defer nu-mcp to P2-1'
+    date: 2026-06-09T19:35:53Z
+  - message: 'feat: skeleton — MCP server exposing Nushell tool handlers'
+    date: 2026-06-09T19:33:05Z
+  readme: |-
+    # numcp
+
+    An MCP server that exposes Nushell tool handlers as [Model Context Protocol](https://modelcontextprotocol.io/) tools.
+
+    `numcp` is the bridge between Nu-defined tool closures (e.g. `kubectl`, `web_search`,
+    `query_knowledge_base`) and any MCP client — including LLM agent daemons that need to
+    call local tools during a reasoning loop.
+
+    ## Overview
+
+    ```
+    LLM agent daemon
+      │  MCP stdio transport
+      ▼
+    numcp serve
+      │  nu-mcp engine
+      ▼
+    tool handlers (Nu scripts / config-defined tools)
+      │
+      ▼
+    kubectl / ragit / SurrealDB / web / ...
+    ```
+
+    Tools are defined in a config file (`numcp.toml`) and optionally via `.nu` handler scripts.
+    `numcp` registers them as MCP tools and executes them on demand.
+
+    ## Status
+
+    **Pre-alpha skeleton.** Not yet functional. Architecture is defined; implementation is in progress.
+
+    See [`docs/plans/2026-06-09-baml-agent-daemon.md`](https://github.com/89jobrien/nu_libs/blob/main/docs/plans/2026-06-09-baml-agent-daemon.md)
+    in the `nu_libs` repo for the full design.
+
+    ## Installation
+
+    ```sh
+    cargo install numcp
+    ```
+
+    Or build from source:
+
+    ```sh
+    git clone https://github.com/89jobrien/numcp
+    cargo build --release
+    ```
+
+    ## Usage
+
+    ```sh
+    numcp serve --config numcp.toml
+    ```
+
+    ## Config
+
+    ```toml
+    # numcp.toml
+
+    [[tool]]
+    name        = "web_search"
+    description = "Search the web for a query"
+    handler     = "tools/web_search.nu"
+
+    [tool.parameters.query]
+    type        = "string"
+    description = "Search terms"
+    required    = true
+
+    [[tool]]
+    name        = "kubectl"
+    description = "Run a kubectl command"
+    handler     = "tools/kubectl.nu"
+
+    [tool.parameters.args]
+    type        = "array"
+    description = "Arguments to pass to kubectl"
+    required    = true
+    ```
+
+    ## Tool Handler Format
+
+    A handler is a Nu script that receives arguments as `$in` and returns a string result:
+
+    ```nushell
+    #!/usr/bin/env nu
+    # tools/web_search.nu
+    let q = $in.query
+    http get $"https://example.com/search?q=($q | url encode)" | get results | to yaml
+    ```
+
+    ## Design
+
+    - **MCP transport**: stdio (default), TC
 - name: obfsck
   description: Secret-detection and redaction CLI for pre-commit hooks
   url: https://github.com/89jobrien/obfsck
@@ -744,124 +864,6 @@
     cargo-promote confirm <ticket>
     cargo-promote confirm <ticket> --reason "passed QA"
     car
-- name: numcp
-  description: MCP server that exposes Nushell tool handlers as MCP tools
-  url: https://github.com/89jobrien/numcp
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-10T01:30:33Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: update handoff — P2-1 through P6-1 complete, 21 tests green'
-    date: 2026-06-10T01:30:30Z
-  - message: 'fix: remove unused mut in integration test'
-    date: 2026-06-10T01:27:13Z
-  - message: 'feat: implement full MCP server (P2-1 through P6-1)'
-    date: 2026-06-10T01:24:43Z
-  - message: 'docs: bootstrap HANDOFF; add .ctx/ gitignore rules'
-    date: 2026-06-09T19:41:00Z
-  - message: 'feat(p1): config parsing and tool registry with full test coverage'
-    date: 2026-06-09T19:39:15Z
-  - message: 'docs: add implementation plan; defer nu-mcp to P2-1'
-    date: 2026-06-09T19:35:53Z
-  - message: 'feat: skeleton — MCP server exposing Nushell tool handlers'
-    date: 2026-06-09T19:33:05Z
-  readme: |-
-    # numcp
-
-    An MCP server that exposes Nushell tool handlers as [Model Context Protocol](https://modelcontextprotocol.io/) tools.
-
-    `numcp` is the bridge between Nu-defined tool closures (e.g. `kubectl`, `web_search`,
-    `query_knowledge_base`) and any MCP client — including LLM agent daemons that need to
-    call local tools during a reasoning loop.
-
-    ## Overview
-
-    ```
-    LLM agent daemon
-      │  MCP stdio transport
-      ▼
-    numcp serve
-      │  nu-mcp engine
-      ▼
-    tool handlers (Nu scripts / config-defined tools)
-      │
-      ▼
-    kubectl / ragit / SurrealDB / web / ...
-    ```
-
-    Tools are defined in a config file (`numcp.toml`) and optionally via `.nu` handler scripts.
-    `numcp` registers them as MCP tools and executes them on demand.
-
-    ## Status
-
-    **Pre-alpha skeleton.** Not yet functional. Architecture is defined; implementation is in progress.
-
-    See [`docs/plans/2026-06-09-baml-agent-daemon.md`](https://github.com/89jobrien/nu_libs/blob/main/docs/plans/2026-06-09-baml-agent-daemon.md)
-    in the `nu_libs` repo for the full design.
-
-    ## Installation
-
-    ```sh
-    cargo install numcp
-    ```
-
-    Or build from source:
-
-    ```sh
-    git clone https://github.com/89jobrien/numcp
-    cargo build --release
-    ```
-
-    ## Usage
-
-    ```sh
-    numcp serve --config numcp.toml
-    ```
-
-    ## Config
-
-    ```toml
-    # numcp.toml
-
-    [[tool]]
-    name        = "web_search"
-    description = "Search the web for a query"
-    handler     = "tools/web_search.nu"
-
-    [tool.parameters.query]
-    type        = "string"
-    description = "Search terms"
-    required    = true
-
-    [[tool]]
-    name        = "kubectl"
-    description = "Run a kubectl command"
-    handler     = "tools/kubectl.nu"
-
-    [tool.parameters.args]
-    type        = "array"
-    description = "Arguments to pass to kubectl"
-    required    = true
-    ```
-
-    ## Tool Handler Format
-
-    A handler is a Nu script that receives arguments as `$in` and returns a string result:
-
-    ```nushell
-    #!/usr/bin/env nu
-    # tools/web_search.nu
-    let q = $in.query
-    http get $"https://example.com/search?q=($q | url encode)" | get results | to yaml
-    ```
-
-    ## Design
-
-    - **MCP transport**: stdio (default), TC
 - name: nu_libs
   description: A library of Nushell scripts organized by category
   url: https://github.com/89jobrien/nu_libs
