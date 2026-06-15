@@ -193,9 +193,43 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     </td>
   </tr>
 
+  <tr data-name="maid"
+      data-desc="File organiser CLI — sorts, converts, and routes files to Obsidian vaults"
+      data-pushed="2026-06-15"
+      data-tags=""
+      data-kinds="gh">
+    <td class="name"><a href="https://github.com/89jobrien/maid" target="_blank" rel="noopener">maid</a></td>
+    <td>
+      <div class="badges">
+        
+        <span class="badge badge-gh">gh</span>
+        
+        
+        <span class="badge badge-gh">Rust</span>
+        
+      </div>
+    </td>
+    <td class="desc">File organiser CLI — sorts, converts, and routes files to Obsidian vaults</td>
+    <td class="commits">
+      
+      <span class="commit-msg" title="fix: use marker_single for PDF conversion, handle output directory layout">fix: use marker_single for PDF conversion, handle output directory layout</span>
+      
+      <span class="commit-msg" title="feat: note-only action for diagnostics, archive stale files">feat: note-only action for diagnostics, archive stale files</span>
+      
+      <span class="commit-msg" title="feat: initial maid CLI — file organiser with config, conversion, and vault routing">feat: initial maid CLI — file organiser with config, conversion, and vault routing</span>
+      
+    </td>
+    <td class="meta">
+      
+      
+      
+      <div>2026-06-15</div>
+    </td>
+  </tr>
+
   <tr data-name="minibox"
       data-desc="Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning"
-      data-pushed="2026-06-14"
+      data-pushed="2026-06-15"
       data-tags="infra"
       data-kinds="gh">
     <td class="name"><a href="https://github.com/89jobrien/minibox" target="_blank" rel="noopener">minibox</a></td>
@@ -223,7 +257,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
       <div>vv0.30.0</div>
       <div>&#9733; 1</div>
       
-      <div>2026-06-14</div>
+      <div>2026-06-15</div>
     </td>
   </tr>
 
@@ -2429,7 +2463,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     <td class="meta">
       <div>v0.1.2</div>
       
-      <div>1120dl</div>
+      <div>1122dl</div>
       <div>2026-04-23</div>
     </td>
   </tr>
@@ -3563,18 +3597,20 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
 
   </tbody>
 </table>
-<footer>Generated 2026-06-14 23:35 UTC &middot; <span id="total">111</span> projects</footer>
+<footer>Generated 2026-06-15 13:09 UTC &middot; <span id="total">112</span> projects</footer>
 <script type="application/x-yaml" id="data">- name: bazaar
   description: Claude Code plugin marketplace and showcase generator
   url: https://github.com/89jobrien/bazaar
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-14T11:45:11Z
+  pushed_at: 2026-06-14T23:35:03Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: &#x27;chore: regenerate showcase [skip ci]&#x27;
+    date: 2026-06-14T23:35:01Z
   - message: &#x27;chore: regenerate showcase [skip ci]&#x27;
     date: 2026-06-14T11:45:10Z
   - message: &#x27;chore: regenerate showcase [skip ci]&#x27;
@@ -3593,8 +3629,6 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
     date: 2026-06-10T23:38:06Z
   - message: &#x27;chore: regenerate showcase [skip ci]&#x27;
     date: 2026-06-10T12:09:41Z
-  - message: &#x27;chore: regenerate showcase [skip ci]&#x27;
-    date: 2026-06-09T23:35:38Z
   readme: &quot;# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| &quot;
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -3779,13 +3813,127 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: maid
+  description: File organiser CLI — sorts, converts, and routes files to Obsidian vaults
+  url: https://github.com/89jobrien/maid
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-15T12:48:26Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: &#x27;fix: use marker_single for PDF conversion, handle output directory layout&#x27;
+    date: 2026-06-15T12:48:22Z
+  - message: &#x27;feat: note-only action for diagnostics, archive stale files&#x27;
+    date: 2026-06-15T08:38:05Z
+  - message: &#x27;feat: initial maid CLI — file organiser with config, conversion, and vault routing&#x27;
+    date: 2026-06-15T08:32:31Z
+  readme: |-
+    # neatly
+
+    A clean, fast CLI tool that organises files in a directory by sorting them into subfolders based on their file type. Built with Rust.
+
+    ```
+    Downloads/
+    ├── invoice.pdf
+    ├── photo.jpg
+    ├── notes.docx
+    └── script.py
+            ↓  neatly run
+    Downloads/
+    ├── documents/
+    │   ├── invoice.pdf
+    │   └── notes.docx
+    ├── images/
+    │   └── photo.jpg
+    └── code/
+        └── script.py
+    ```
+
+    ---
+
+    ## Features
+
+    - **Preview** — see exactly what would happen before any files are moved
+    - **Organise** — sort files into subfolders by type with a single command
+    - **Undo** — restore everything back to its original location and remove the created folders
+    - **Safe** — hidden files and subfolders are never touched
+
+    ---
+
+    ## File Categories
+
+    | Folder       | Extensions                      |
+    | ------------ | ------------------------------- |
+    | `images/`    | jpg, jpeg, png, gif, svg, webp  |
+    | `documents/` | pdf, docx, doc, txt, xlsx, pptx |
+    | `video/`     | mp4, mov, avi, mkv              |
+    | `audio/`     | mp3, wav, flac, aac             |
+    | `code/`      | rs, py, js, ts, html, css, json |
+    | `archives/`  | zip, tar, gz, rar               |
+    | `unknown/`   | everything else                 |
+
+    ---
+
+    ## Installation
+
+    ### Prerequisites
+
+    - [Rust](https://www.rust-lang.org/tools/install) (1.70 or higher)
+
+    ### Build from source
+
+    ```bash
+    # Clone the repository
+    git clone https://github.com/mercy-dapps/neatly.git
+    cd neatly
+
+    # Build release binary
+    cargo build --release
+
+    # Install globally (macOS/Linux)
+    cp target/release/neatly /usr/local/bin/
+    ```
+
+    After installation, `neatly` is available from anywhere in your terminal.
+
+    ---
+
+    ## Usage
+
+    ### Preview
+
+    See what would happen without moving any files:
+
+    ```bash
+    neatly preview ~/Downloads
+    ```
+
+    Example output:
+
+    ```
+    Preview - no files will be moved:
+
+     invoice.pdf -&gt; documents/
+     photo.jpg -&gt; images/
+     song.mp3 -&gt; audio/
+     script.py -&gt; code/
+
+    4 file(s) would be moved.
+    ```
+
+    ### Organise
+
+    Sort files i
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-14T22:01:22Z
+  pushed_at: 2026-06-15T03:30:35Z
   version: v0.30.0
   stars: 1
   downloads: null
@@ -6565,7 +6713,7 @@ footer{margin-top:2rem;color:#6e7681;font-size:.7rem}
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1120
+  downloads: 1122
   recent_commits:
   - message: &#x27;feat: add to_json() to ExecutionContext&#x27;
     date: 2026-04-23T23:04:40Z
