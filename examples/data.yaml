@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-21T11:57:25Z
+  pushed_at: 2026-06-21T23:36:59Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-06-21T23:36:58Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-21T11:57:24Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-17T23:40:19Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-17T12:29:18Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-16T23:38:03Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,7 +219,7 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-21T03:29:04Z
+  pushed_at: 2026-06-22T03:29:52Z
   version: v0.30.0
   stars: 1
   downloads: null
@@ -715,7 +715,7 @@
   pushed_at: 2026-06-12T06:31:54Z
   version: v0.1.0
   stars: null
-  downloads: 70
+  downloads: 72
   recent_commits:
   - message: Delete demo/examples/16_maestro_session.yaml
     date: 2026-06-12T06:31:54Z
@@ -884,7 +884,7 @@
   pushed_at: 2026-06-10T11:47:25Z
   version: xtui-v0.3.0
   stars: 1
-  downloads: 41
+  downloads: 44
   recent_commits:
   - message: 'chore: restructure docs to xbook/ with configurable copies and glob support'
     date: 2026-06-09T22:57:01Z
@@ -1289,7 +1289,7 @@
   pushed_at: 2026-06-08T05:39:24.236954Z
   version: 0.1.0
   stars: null
-  downloads: 17
+  downloads: 18
   recent_commits: []
 - name: disyn-memory
   description: Memory store implementation for the disyn agent pipeline
@@ -1300,7 +1300,7 @@
   pushed_at: 2026-06-08T05:26:27.409395Z
   version: 0.1.0
   stars: null
-  downloads: 17
+  downloads: 18
   recent_commits: []
 - name: disyn-neural
   description: Neural proposal engine and fact extractor for the disyn agent pipeline
@@ -1311,7 +1311,7 @@
   pushed_at: 2026-06-08T05:26:18.193930Z
   version: 0.1.0
   stars: null
-  downloads: 17
+  downloads: 18
   recent_commits: []
 - name: disyn-symbolic
   description: Symbolic verifier and repair engine for the disyn agent pipeline
@@ -1322,7 +1322,7 @@
   pushed_at: 2026-06-08T05:26:07.254857Z
   version: 0.1.0
   stars: null
-  downloads: 17
+  downloads: 18
   recent_commits: []
 - name: disyn-core
   description: Domain types, port traits, and errors for the disyn agent pipeline
@@ -1333,7 +1333,7 @@
   pushed_at: 2026-06-08T05:25:56.523924Z
   version: 0.1.0
   stars: null
-  downloads: 30
+  downloads: 34
   recent_commits: []
 - name: looprs
   description: Just tools in a loop.
@@ -1923,7 +1923,7 @@
   pushed_at: 2026-05-26T14:05:49.432486Z
   version: 0.30.0
   stars: null
-  downloads: 188
+  downloads: 190
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -1934,7 +1934,7 @@
   pushed_at: 2026-05-26T14:04:50.939469Z
   version: 0.30.0
   stars: null
-  downloads: 254
+  downloads: 258
   recent_commits: []
 - name: sandbox
   description: Standalone virtual bash interpreter with sandboxed filesystem
@@ -2982,7 +2982,7 @@
   pushed_at: 2026-04-30T21:51:42.719327Z
   version: 0.1.3
   stars: null
-  downloads: 29
+  downloads: 30
   recent_commits: []
 - name: 89jobrien.github.io
   description: Personal site
@@ -3059,7 +3059,7 @@
   pushed_at: 2026-04-24T19:56:38.098231Z
   version: 0.19.0
   stars: null
-  downloads: 14
+  downloads: 15
   recent_commits: []
 - name: minibox-secrets
   description: Local credential validation and passthrough (1Password, Bitwarden, keyring, env)
@@ -3070,7 +3070,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 35
+  downloads: 36
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -3092,7 +3092,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 60
+  downloads: 62
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -3103,7 +3103,7 @@
   pushed_at: 2026-04-23T23:07:16.604202Z
   version: 0.1.0
   stars: null
-  downloads: 34
+  downloads: 35
   recent_commits: []
 - name: slashcrux
   description: Shared vocabulary types for the Slash and Crux agentic Rust ecosystem
@@ -3115,7 +3115,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1160
+  downloads: 1165
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -3353,7 +3353,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 63
+  downloads: 65
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -3475,7 +3475,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 54
+  downloads: 55
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -3486,7 +3486,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 56
+  downloads: 57
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -3497,7 +3497,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 52
+  downloads: 53
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -3508,7 +3508,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 52
+  downloads: 53
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -3519,7 +3519,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 156
+  downloads: 161
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
@@ -3957,7 +3957,7 @@
   pushed_at: 2026-04-12T22:21:14.454502Z
   version: 0.1.0
   stars: null
-  downloads: 15
+  downloads: 16
   recent_commits: []
 - name: slash-testing
   description: Proptest strategies and harness configuration for testing slash-command language parsers
@@ -3968,7 +3968,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 34
+  downloads: 36
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -3979,7 +3979,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 69
+  downloads: 72
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -3990,7 +3990,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 135
+  downloads: 140
   recent_commits: []
 - name: dotfiles
   description: null
