@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-23T12:05:33Z
+  pushed_at: 2026-06-23T23:30:22Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-06-23T23:30:21Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-23T12:05:32Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-19T23:30:32Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-19T12:25:35Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-18T23:40:24Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,13 +213,95 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: godmode
+  description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
+  url: https://github.com/89jobrien/godmode
+  kinds:
+  - GitHubRepo
+  - ClaudePlugin
+  language: Rust
+  pushed_at: 2026-06-24T03:50:13Z
+  version: v0.5.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'feat(aichat): add godmode assistant system pack'
+    date: 2026-06-24T03:50:04Z
+  - message: 'feat(rustqual-workspace): add helpers/triage.nu and references/workspace-toml-examples.md'
+    date: 2026-06-24T03:48:17Z
+  - message: 'docs: rebuild agents/INDEX.md and add rustqual-workspace skill'
+    date: 2026-06-24T03:45:03Z
+  - message: "fix(skills): introspection corrections â\x80\x94 remove nonexistent godmode report subcommand, fix audit.nu for nu 0.111+, add branch guard to refactoring, deduplicate issue-triage dispatch, remove phantom skill-index.json ref"
+    date: 2026-06-14T20:02:32Z
+  - message: 'fix(skills): introspect corrections — branch guards, index sync, stale refs'
+    date: 2026-06-14T08:41:29Z
+  - message: 'fix(hooks): use try/catch for built-ins, fix nu --ide-check usage'
+    date: 2026-06-12T02:03:28Z
+  - message: 'feat(hooks): add PostToolUse validators for JSON, TOML, YAML, and Nu syntax'
+    date: 2026-06-12T01:58:06Z
+  - message: remove and gitignore maestro agent
+    date: 2026-06-12T01:47:22Z
+  - message: gitignore cross-issue agents containing Linear API key refs
+    date: 2026-06-12T01:44:26Z
+  - message: consolidate agents and skills from ~/.claude into godmode
+    date: 2026-06-12T01:43:20Z
+  readme: |-
+    # godmode
+
+    Self-contained Rust-native development methodology plugin for Claude Code.
+
+    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
+
+    ## Overview
+
+    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
+    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
+    Tasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal
+    `depends_on` chains.
+
+    ## Install
+
+    ```bash
+    cargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode
+    claude plugin install godmode@bazaar
+    ```
+
+    ### Pre-commit hook
+
+    Install the godmode pre-commit hook into any git repo to block commits when tasks are
+    still running and to run cargo gates (fmt-check, clippy, nextest):
+
+    ```bash
+    # From the repo root where you want the hook installed:
+    nu /path/to/godmode/hooks/install.nu
+
+    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
+    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
+    ```
+
+    The hook:
+
+    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
+       printing the offending task IDs.
+    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
+       `cargo nextest run --workspace`.
+    3. Blocks the commit on any failure with a clear message.
+
+    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
+    cargo gates run.
+
+    ## Skills
+
+    | Skill                                     | When                                                   |
+    | ----------------------------------------- | ------------------------------------------------------ |
+    | `godmode:using-godmode`                   | Session orientation, avail
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-23T03:25:57Z
+  pushed_at: 2026-06-24T03:26:19Z
   version: v0.30.0
   stars: 1
   downloads: null
@@ -420,88 +502,6 @@
     ### Organise
 
     Sort files i
-- name: godmode
-  description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
-  url: https://github.com/89jobrien/godmode
-  kinds:
-  - GitHubRepo
-  - ClaudePlugin
-  language: Rust
-  pushed_at: 2026-06-14T08:42:01Z
-  version: v0.5.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'fix(skills): introspect corrections — branch guards, index sync, stale refs'
-    date: 2026-06-14T08:41:29Z
-  - message: 'fix(hooks): use try/catch for built-ins, fix nu --ide-check usage'
-    date: 2026-06-12T02:03:28Z
-  - message: 'feat(hooks): add PostToolUse validators for JSON, TOML, YAML, and Nu syntax'
-    date: 2026-06-12T01:58:06Z
-  - message: remove and gitignore maestro agent
-    date: 2026-06-12T01:47:22Z
-  - message: gitignore cross-issue agents containing Linear API key refs
-    date: 2026-06-12T01:44:26Z
-  - message: consolidate agents and skills from ~/.claude into godmode
-    date: 2026-06-12T01:43:20Z
-  - message: 'fix(lifecycle): code review fixes — brainstorm hook, lifecycle optional, design helpers'
-    date: 2026-06-09T01:58:41Z
-  - message: 'feat(lifecycle): add design skill, hook, and full lifecycle pipeline'
-    date: 2026-06-09T01:56:11Z
-  - message: 'fix(core): correct lib.doctest key (was doctests)'
-    date: 2026-06-08T12:56:12Z
-  - message: 'feat(agents): add dialectic MoA pipeline + cliff.toml + moa-cas helper'
-    date: 2026-06-08T12:55:14Z
-  readme: |-
-    # godmode
-
-    Self-contained Rust-native development methodology plugin for Claude Code.
-
-    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
-
-    ## Overview
-
-    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
-    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
-    Tasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal
-    `depends_on` chains.
-
-    ## Install
-
-    ```bash
-    cargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode
-    claude plugin install godmode@bazaar
-    ```
-
-    ### Pre-commit hook
-
-    Install the godmode pre-commit hook into any git repo to block commits when tasks are
-    still running and to run cargo gates (fmt-check, clippy, nextest):
-
-    ```bash
-    # From the repo root where you want the hook installed:
-    nu /path/to/godmode/hooks/install.nu
-
-    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
-    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
-    ```
-
-    The hook:
-
-    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
-       printing the offending task IDs.
-    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
-       `cargo nextest run --workspace`.
-    3. Blocks the commit on any failure with a clear message.
-
-    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
-    cargo gates run.
-
-    ## Skills
-
-    | Skill                                     | When                                                   |
-    | ----------------------------------------- | ------------------------------------------------------ |
-    | `godmode:using-godmode`                   | Session orientation, avail
 - name: nu_libs
   description: A library of Nushell scripts organized by category
   url: https://github.com/89jobrien/nu_libs
@@ -3115,7 +3115,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1176
+  downloads: 1177
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
