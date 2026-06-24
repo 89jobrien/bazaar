@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-23T23:30:22Z
+  pushed_at: 2026-06-24T11:59:33Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-06-24T11:59:31Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-23T23:30:21Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-20T11:44:14Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-19T23:30:32Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-19T12:25:35Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,65 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: updog
+  description: Agent Improvement Loop — systematic agent behavior improvement from observed traces
+  url: https://github.com/89jobrien/updog
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-24T23:29:27Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: add xtask crate, .cargo/config.toml alias, update CI to cargo xtask ci'
+    date: 2026-06-24T23:29:21Z
+  - message: 'ci: add Cruxfile, justfile, and GitHub Actions workflow'
+    date: 2026-06-24T23:13:13Z
+  - message: 'test: demo integration test (FakeTraceSource, phases 1/4/5) + HALO unit tests'
+    date: 2026-06-24T22:45:30Z
+  - message: 'fix: align TraceRecord schema to crs discover output (intercepted + unhandled)'
+    date: 2026-06-24T22:41:54Z
+  - message: 'feat: tracing + miette + console — structured output, rich errors, styled UI'
+    date: 2026-06-24T22:33:27Z
+  - message: 'refactor: SOLID — TraceSource port, CourserTraceSource adapter, Phase trait, phase structs'
+    date: 2026-06-24T22:28:25Z
+  - message: 'feat: initial scaffold — agent-loop lib + ail binary (7-phase improvement loop)'
+    date: 2026-06-24T18:36:14Z
+- name: coursers
+  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
+  url: https://github.com/89jobrien/coursers
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-24T22:49:34Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'feat: profile isolation, nu_check, discover integration, fuzz target, scripts, docs'
+    date: 2026-06-24T22:49:28Z
+  - message: 'feat: codex profile isolation — ProfileConfig, ConfigBuilder, ProfileFsRulesLoader, --profile/--rules/--state flags on coursers and crs'
+    date: 2026-06-24T17:44:09Z
+  - message: 'test(crs-core): add unit tests for no-sleep-find-work rule'
+    date: 2026-06-12T22:17:45Z
+  - message: 'docs: add example course-correct-rules.json with no-bash-use-nu rule'
+    date: 2026-06-12T01:38:34Z
+  - message: 'docs: reconcile handoff — link uncommitted-work doob_uuid, prune stale t8/t9 tasks'
+    date: 2026-06-12T01:27:48Z
+  - message: 'test: add e2e test suite (Tier 1/2/3) + cargo-rail CI'
+    date: 2026-06-09T17:02:30Z
+  - message: 'chore: add TODO stub for match-lines flags field'
+    date: 2026-06-09T16:05:20Z
+  - message: 'fix: resolve all clippy warnings (collapsible-if, dead code, ptr_arg)'
+    date: 2026-06-09T16:02:20Z
+  - message: 'docs: update handoff — session 2, issues #42 #44 #45 #46 resolved'
+    date: 2026-06-09T13:51:49Z
+  - message: 'feat: add match-lines filter mode for structured output parsing'
+    date: 2026-06-08T21:38:40Z
+  tags:
+  - cli
+  readme: "# coursers\n\nClaude Code hook pipeline for course-correcting AI-generated Bash commands.\n\nTwo tools:\n\n- **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures\n- **`crs`** — output filter and command rewriter\n\n---\n\n## How It Works\n\n### Rule-based blocking (`coursers pre`)\n\nReads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command\nmatches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`\nresponse with a human-readable message.\n\nRules support:\n\n- Regex pattern matching (with optional `i` flag)\n- Exception patterns — allow a command through even if the main pattern matches\n- Per-rule messages\n\n### Learned failure tracking (`coursers post`)\n\nReads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and\nintentional failures), it records the command in a rolling failure log. If the same command\nfails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.\n\nThis catches commands that aren't covered by static rules but are clearly not working.\n\n---\n\n## Installation\n\n```sh\ncargo install --path crates/coursers\ncargo install --path crates/crs\n```\n\nWire into `~/.claude/settings.json`:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers pre\" },\n          { \"type\": \"command\", \"command\": \"crs rewrite\" }\n        ]\n      }\n    ],\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers post\" },\n          { \"type\": \"command\", \"command\": \"crs filter\" }\n        ]\n      }\n    ]\n  }\n}\n```\n\n`crs rewrite` and `crs filter` are optional — run `coursers` alone if you only want blocking\nand failure learning.\n\n---\n\n## Configuration\n\nRules file: `~/.config/coursers/course-correct-rules.json`\n(override with `COURSERS_RULES` env var)\n\n```json\n{\n  \"rules\": [\n    {\n    "
 - name: godmode
   description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
   url: https://github.com/89jobrien/godmode
@@ -220,11 +279,17 @@
   - GitHubRepo
   - ClaudePlugin
   language: Rust
-  pushed_at: 2026-06-24T03:50:13Z
+  pushed_at: 2026-06-24T18:21:10Z
   version: v0.5.0
   stars: 1
   downloads: null
   recent_commits:
+  - message: 'feat(skill): agent-improvement-loop — seven-phase trace-to-code improvement cycle with coursers adapter'
+    date: 2026-06-24T18:20:23Z
+  - message: 'fix(skills): introspection corrections — add rustqual-workspace to index, fix using-crux handler-catalog ref'
+    date: 2026-06-24T08:45:50Z
+  - message: 'fix(rustqual-workspace): fix triage.nu for real rustqual JSON schema'
+    date: 2026-06-24T03:54:12Z
   - message: 'feat(aichat): add godmode assistant system pack'
     date: 2026-06-24T03:50:04Z
   - message: 'feat(rustqual-workspace): add helpers/triage.nu and references/workspace-toml-examples.md'
@@ -239,12 +304,6 @@
     date: 2026-06-12T02:03:28Z
   - message: 'feat(hooks): add PostToolUse validators for JSON, TOML, YAML, and Nu syntax'
     date: 2026-06-12T01:58:06Z
-  - message: remove and gitignore maestro agent
-    date: 2026-06-12T01:47:22Z
-  - message: gitignore cross-issue agents containing Linear API key refs
-    date: 2026-06-12T01:44:26Z
-  - message: consolidate agents and skills from ~/.claude into godmode
-    date: 2026-06-12T01:43:20Z
   readme: |-
     # godmode
 
@@ -808,40 +867,6 @@
 
     ### Flags
 
-- name: coursers
-  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
-  url: https://github.com/89jobrien/coursers
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-12T01:38:39Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: add example course-correct-rules.json with no-bash-use-nu rule'
-    date: 2026-06-12T01:38:34Z
-  - message: 'docs: reconcile handoff — link uncommitted-work doob_uuid, prune stale t8/t9 tasks'
-    date: 2026-06-12T01:27:48Z
-  - message: 'test: add e2e test suite (Tier 1/2/3) + cargo-rail CI'
-    date: 2026-06-09T17:02:30Z
-  - message: 'chore: add TODO stub for match-lines flags field'
-    date: 2026-06-09T16:05:20Z
-  - message: 'fix: resolve all clippy warnings (collapsible-if, dead code, ptr_arg)'
-    date: 2026-06-09T16:02:20Z
-  - message: 'docs: update handoff — session 2, issues #42 #44 #45 #46 resolved'
-    date: 2026-06-09T13:51:49Z
-  - message: 'feat: add match-lines filter mode for structured output parsing'
-    date: 2026-06-08T21:38:40Z
-  - message: 'feat: hook pipeline validation, matched-rules tracking, and cleanup'
-    date: 2026-06-08T08:07:06Z
-  - message: 'feat: add JSON Schema for crs-hooks.toml and fix log format'
-    date: 2026-06-06T19:16:31Z
-  - message: 'fix: only log hook events when a rule actually fires'
-    date: 2026-06-06T19:01:06Z
-  tags:
-  - cli
-  readme: "# coursers\n\nClaude Code hook pipeline for course-correcting AI-generated Bash commands.\n\nTwo tools:\n\n- **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures\n- **`crs`** — output filter and command rewriter\n\n---\n\n## How It Works\n\n### Rule-based blocking (`coursers pre`)\n\nReads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command\nmatches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`\nresponse with a human-readable message.\n\nRules support:\n\n- Regex pattern matching (with optional `i` flag)\n- Exception patterns — allow a command through even if the main pattern matches\n- Per-rule messages\n\n### Learned failure tracking (`coursers post`)\n\nReads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and\nintentional failures), it records the command in a rolling failure log. If the same command\nfails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.\n\nThis catches commands that aren't covered by static rules but are clearly not working.\n\n---\n\n## Installation\n\n```sh\ncargo install --path crates/coursers\ncargo install --path crates/crs\n```\n\nWire into `~/.claude/settings.json`:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers pre\" },\n          { \"type\": \"command\", \"command\": \"crs rewrite\" }\n        ]\n      }\n    ],\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers post\" },\n          { \"type\": \"command\", \"command\": \"crs filter\" }\n        ]\n      }\n    ]\n  }\n}\n```\n\n`crs rewrite` and `crs filter` are optional — run `coursers` alone if you only want blocking\nand failure learning.\n\n---\n\n## Configuration\n\nRules file: `~/.config/coursers/course-correct-rules.json`\n(override with `COURSERS_RULES` env var)\n\n```json\n{\n  \"rules\": [\n    {\n    "
 - name: devkit
   description: LLM-powered dev workflow toolkit. Extract a self-correcting CI/agent loop into a reusable scaffold for any project.
   url: https://github.com/89jobrien/devkit
@@ -3103,7 +3128,7 @@
   pushed_at: 2026-04-23T23:07:16.604202Z
   version: 0.1.0
   stars: null
-  downloads: 36
+  downloads: 37
   recent_commits: []
 - name: slashcrux
   description: Shared vocabulary types for the Slash and Crux agentic Rust ecosystem
@@ -3990,7 +4015,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 145
+  downloads: 146
   recent_commits: []
 - name: dotfiles
   description: null
