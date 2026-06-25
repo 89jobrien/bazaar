@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-24T23:32:40Z
+  pushed_at: 2026-06-25T11:56:46Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-06-25T11:56:45Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-24T23:32:39Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-21T11:57:24Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-20T23:34:02Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-20T11:44:14Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,31 +219,31 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-25T08:43:10Z
+  pushed_at: 2026-06-25T17:25:28Z
   version: v0.1.0
   stars: null
   downloads: null
   recent_commits:
-  - message: 'merge(fix/phase-registry): phase registry + LOW doc/config fixes [moa-review]'
-    date: 2026-06-25T08:43:03Z
-  - message: 'docs: # Examples on TraceSource/HaloScore/RunConfig, fix justfile comments, Cruxfile fallback note, add README [moa-review]'
-    date: 2026-06-25T03:44:43Z
-  - message: 'refactor(ail): all_phases() registry in phases/mod.rs, run.rs no longer owns phase list [moa-review]'
-    date: 2026-06-25T03:44:43Z
-  - message: 'merge(fix/p4-policy): DiagnosisPolicy extraction, resolve handoff.rs conflict [moa-review]'
-    date: 2026-06-25T03:43:05Z
-  - message: 'merge(fix/med-tests): CourserTraceSource parse tests, Handoff tests, RunConfig cleanup [moa-review]'
-    date: 2026-06-25T03:42:38Z
-  - message: 'refactor(ail): pub(crate) on RunConfig.source, move dir creation to execute() [moa-review]'
-    date: 2026-06-25T03:42:04Z
-  - message: 'test(ail/agent-loop): CourserTraceSource parse tests, Handoff::to_markdown tests [moa-review]'
-    date: 2026-06-25T03:41:57Z
-  - message: 'refactor(ail): extract DiagnosisPolicy from p4, remove hardcoded action+path [moa-review]'
-    date: 2026-06-25T03:40:55Z
-  - message: 'docs: add xtask to CLAUDE.md, TraceSource extension point, update .gitignore'
-    date: 2026-06-25T03:27:01Z
-  - message: 'merge(fix/source-path): remove hardcoded local path from TraceError help [moa-review]'
-    date: 2026-06-25T02:34:28Z
+  - message: 'fix(fuzz): add cargo-fuzz manifest metadata'
+    date: 2026-06-25T17:25:24Z
+  - message: 'handoff: update workflow state for 2026-06-25'
+    date: 2026-06-25T16:55:01Z
+  - message: 'docs: fix crate count, correct phase descriptions, add fuzz crate entries'
+    date: 2026-06-25T14:52:51Z
+  - message: 'chore: add fuzz/target/ to .gitignore, remove cached build artifacts'
+    date: 2026-06-25T13:03:10Z
+  - message: 'merge(test): ail proptest/unit/integration + fuzz crate [moa-review]'
+    date: 2026-06-25T13:02:46Z
+  - message: 'test(agent-loop): unit/property/conformance tests for 5 coverage gaps [moa-review]'
+    date: 2026-06-25T13:02:11Z
+  - message: 'test(fuzz): add fuzz target for parse_discover_output [moa-review]'
+    date: 2026-06-25T12:59:59Z
+  - message: 'test(ail): integration tests for phases 1/3/5/6/7 [moa-review]'
+    date: 2026-06-25T12:59:45Z
+  - message: 'test(ail): proptest for parse_discover_output + RunConfig::new unit test [moa-review]'
+    date: 2026-06-25T12:58:51Z
+  - message: 'test(audit): add TODO markers for 13 coverage gaps across agent-loop and ail'
+    date: 2026-06-25T12:37:12Z
   readme: |-
     # updog
 
@@ -253,13 +253,13 @@
 
     `ail` runs a 7-phase loop that:
 
-    1. Collects shell command traces from Claude Code sessions (`crs discover`)
-    2. Sends them to an LLM for feedback clustering
-    3. Parses the feedback into structured clusters
-    4. Scores each cluster with a HALO score (High-impact, Actionable, Low-effort, Observable)
-    5. Writes a ranked diagnosis
-    6. Generates a rule candidate
-    7. Produces a handoff document for the next session
+    1. **SDK Traces** — collects shell command traces via `crs discover`
+    2. **Human+LLM Feedback** — prompts for human + LLM review; produces `feedback.json`
+    3. **Promptfoo Evals** — generates an eval template (`evals.yaml`) from feedback clusters
+    4. **HALO Diagnosis** — scores each cluster (High-impact, Actionable, Low-effort, Observable); writes ranked `diagnosis.json`
+    5. **Codex Handoff** — converts diagnosis into a `HANDOFF.agent-improvement.<agent>.md`
+    6. **Automation Heartbeat** — optional; auto-triggers low-risk changes when gate conditions pass
+    7. **Harness Update** — runs `crs validate` and walks through the commit + archive checklist
 
     ## Crates
 
@@ -268,6 +268,7 @@
     | `agent-loop` | library      | Domain types: traces, feedback, HALO scoring, diagnosis, handoff. Defines the `TraceSource` port. |
     | `ail`        | binary + lib | CLI (`ail run`), phase implementations, `CourserTraceSource` adapter                              |
     | `xtask`      | binary       | Build task runner (`cargo xtask ci\|fmt\|clippy\|test`)                                           |
+    | `fuzz`       | fuzz (excluded from workspace) | libFuzzer target for `parse_discover_output`; run with `cargo +nightly fuzz` |
 
     ## Quick start
 
@@ -291,29 +292,41 @@
     # Full CI gate (fmt-check + clippy + nextest)
     cargo xtask ci        # or: just ci
 
-    # Individual gates
-    cargo xtask fmt-check
-    cargo xtask clippy
-    cargo xtask test
-
-    # Isolated Linux VM (requires smolvm)
-    just ci-vm
-
-    # Crux pipeline
-    just ci-crux
-    ```
-
-    ## Extending
-
-    Implement `agent_loop::TraceSource` to plug in a custom trace source:
-
-    ```rust
-    use agent_loop::{TraceSource, TraceError, TraceRecord};
-
-    struct MySource;
-
-    impl TraceSource for MySource {
-        fn collect(&self, since_days: u32) -> Result<Vec<TraceRecord>, Trace
+    # Individual gate
+- name: coursers
+  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
+  url: https://github.com/89jobrien/coursers
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-25T17:00:07Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs: update handoff — moa error handling + doc coverage session'
+    date: 2026-06-25T17:00:04Z
+  - message: 'docs(crs-core,coursers,crs): add doc comments to undocumented public API items'
+    date: 2026-06-25T16:47:48Z
+  - message: 'fix(crs-core): suppress unused Result warnings in capture tests [moa-review]'
+    date: 2026-06-25T15:27:52Z
+  - message: Merge branch 'feat/error-deny' into feat/error-traits
+    date: 2026-06-25T15:26:20Z
+  - message: Merge branch 'feat/xtask' into feat/error-traits
+    date: 2026-06-25T15:25:59Z
+  - message: 'refactor(crs-core,coursers): update trait methods to return Result<T, CourserError> [moa-review]'
+    date: 2026-06-25T15:24:35Z
+  - message: 'fix(crs-core,coursers): replace panics with warnings for config/stdin parse failures [moa-review]'
+    date: 2026-06-25T15:14:18Z
+  - message: 'fix(coursers): handle serde_json serialization failure in deny() without panic [moa-review]'
+    date: 2026-06-25T15:08:05Z
+  - message: 'test(crs-core,coursers): add conformance tests for malformed config/stdin/state error paths [moa-review]'
+    date: 2026-06-25T15:07:01Z
+  - message: 'feat(crs-core): export CourserError from lib.rs [moa-review]'
+    date: 2026-06-25T15:06:54Z
+  tags:
+  - cli
+  readme: "# coursers\n\nClaude Code hook pipeline for course-correcting AI-generated Bash commands.\n\nTwo tools:\n\n- **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures\n- **`crs`** — output filter and command rewriter\n\n---\n\n## How It Works\n\n### Rule-based blocking (`coursers pre`)\n\nReads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command\nmatches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`\nresponse with a human-readable message.\n\nRules support:\n\n- Regex pattern matching (with optional `i` flag)\n- Exception patterns — allow a command through even if the main pattern matches\n- Per-rule messages\n\n### Learned failure tracking (`coursers post`)\n\nReads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and\nintentional failures), it records the command in a rolling failure log. If the same command\nfails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.\n\nThis catches commands that aren't covered by static rules but are clearly not working.\n\n---\n\n## Installation\n\n```sh\ncargo install --path crates/coursers\ncargo install --path crates/crs\n```\n\nWire into `~/.claude/settings.json`:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers pre\" },\n          { \"type\": \"command\", \"command\": \"crs rewrite\" }\n        ]\n      }\n    ],\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers post\" },\n          { \"type\": \"command\", \"command\": \"crs filter\" }\n        ]\n      }\n    ]\n  }\n}\n```\n\n`crs rewrite` and `crs filter` are optional — run `coursers` alone if you only want blocking\nand failure learning.\n\n---\n\n## Configuration\n\nRules file: `~/.config/coursers/course-correct-rules.json`\n(override with `COURSERS_RULES` env var)\n\n```json\n{\n  \"rules\": [\n    {\n    "
 - name: crux
   description: Inspectable, serializable, replayable agent execution.
   url: https://github.com/89jobrien/crux
@@ -419,40 +432,6 @@
     | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
     | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
     | [`crux-macros`](crates/crux-macros)   | `#[crux::ag
-- name: coursers
-  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
-  url: https://github.com/89jobrien/coursers
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-25T07:29:10Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'fix(hooks): doob-branch-tagger injects --tags not -t; fix unless guard'
-    date: 2026-06-25T07:29:04Z
-  - message: 'feat(rules): extend no-sleep-find-work to block timeout commands + 9 new tests'
-    date: 2026-06-25T01:46:39Z
-  - message: 'feat: profile isolation, nu_check, discover integration, fuzz target, scripts, docs'
-    date: 2026-06-24T22:49:28Z
-  - message: 'feat: codex profile isolation — ProfileConfig, ConfigBuilder, ProfileFsRulesLoader, --profile/--rules/--state flags on coursers and crs'
-    date: 2026-06-24T17:44:09Z
-  - message: 'test(crs-core): add unit tests for no-sleep-find-work rule'
-    date: 2026-06-12T22:17:45Z
-  - message: 'docs: add example course-correct-rules.json with no-bash-use-nu rule'
-    date: 2026-06-12T01:38:34Z
-  - message: 'docs: reconcile handoff — link uncommitted-work doob_uuid, prune stale t8/t9 tasks'
-    date: 2026-06-12T01:27:48Z
-  - message: 'test: add e2e test suite (Tier 1/2/3) + cargo-rail CI'
-    date: 2026-06-09T17:02:30Z
-  - message: 'chore: add TODO stub for match-lines flags field'
-    date: 2026-06-09T16:05:20Z
-  - message: 'fix: resolve all clippy warnings (collapsible-if, dead code, ptr_arg)'
-    date: 2026-06-09T16:02:20Z
-  tags:
-  - cli
-  readme: "# coursers\n\nClaude Code hook pipeline for course-correcting AI-generated Bash commands.\n\nTwo tools:\n\n- **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures\n- **`crs`** — output filter and command rewriter\n\n---\n\n## How It Works\n\n### Rule-based blocking (`coursers pre`)\n\nReads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command\nmatches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`\nresponse with a human-readable message.\n\nRules support:\n\n- Regex pattern matching (with optional `i` flag)\n- Exception patterns — allow a command through even if the main pattern matches\n- Per-rule messages\n\n### Learned failure tracking (`coursers post`)\n\nReads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and\nintentional failures), it records the command in a rolling failure log. If the same command\nfails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.\n\nThis catches commands that aren't covered by static rules but are clearly not working.\n\n---\n\n## Installation\n\n```sh\ncargo install --path crates/coursers\ncargo install --path crates/crs\n```\n\nWire into `~/.claude/settings.json`:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers pre\" },\n          { \"type\": \"command\", \"command\": \"crs rewrite\" }\n        ]\n      }\n    ],\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers post\" },\n          { \"type\": \"command\", \"command\": \"crs filter\" }\n        ]\n      }\n    ]\n  }\n}\n```\n\n`crs rewrite` and `crs filter` are optional — run `coursers` alone if you only want blocking\nand failure learning.\n\n---\n\n## Configuration\n\nRules file: `~/.config/coursers/course-correct-rules.json`\n(override with `COURSERS_RULES` env var)\n\n```json\n{\n  \"rules\": [\n    {\n    "
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
@@ -1090,7 +1069,7 @@
   pushed_at: 2026-06-10T11:47:25Z
   version: xtui-v0.3.0
   stars: 1
-  downloads: 45
+  downloads: 46
   recent_commits:
   - message: 'chore: restructure docs to xbook/ with configurable copies and glob support'
     date: 2026-06-09T22:57:01Z
@@ -3216,7 +3195,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1179
+  downloads: 1183
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -3476,7 +3455,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 148
+  downloads: 149
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -3498,7 +3477,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 184
+  downloads: 185
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
