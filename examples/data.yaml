@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-24T11:59:33Z
+  pushed_at: 2026-06-24T23:32:40Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-06-24T23:32:39Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-24T11:59:31Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-20T23:34:02Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-20T11:44:14Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-19T23:30:32Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,36 +219,221 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-24T23:29:27Z
+  pushed_at: 2026-06-25T08:43:10Z
+  version: v0.1.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'merge(fix/phase-registry): phase registry + LOW doc/config fixes [moa-review]'
+    date: 2026-06-25T08:43:03Z
+  - message: 'docs: # Examples on TraceSource/HaloScore/RunConfig, fix justfile comments, Cruxfile fallback note, add README [moa-review]'
+    date: 2026-06-25T03:44:43Z
+  - message: 'refactor(ail): all_phases() registry in phases/mod.rs, run.rs no longer owns phase list [moa-review]'
+    date: 2026-06-25T03:44:43Z
+  - message: 'merge(fix/p4-policy): DiagnosisPolicy extraction, resolve handoff.rs conflict [moa-review]'
+    date: 2026-06-25T03:43:05Z
+  - message: 'merge(fix/med-tests): CourserTraceSource parse tests, Handoff tests, RunConfig cleanup [moa-review]'
+    date: 2026-06-25T03:42:38Z
+  - message: 'refactor(ail): pub(crate) on RunConfig.source, move dir creation to execute() [moa-review]'
+    date: 2026-06-25T03:42:04Z
+  - message: 'test(ail/agent-loop): CourserTraceSource parse tests, Handoff::to_markdown tests [moa-review]'
+    date: 2026-06-25T03:41:57Z
+  - message: 'refactor(ail): extract DiagnosisPolicy from p4, remove hardcoded action+path [moa-review]'
+    date: 2026-06-25T03:40:55Z
+  - message: 'docs: add xtask to CLAUDE.md, TraceSource extension point, update .gitignore'
+    date: 2026-06-25T03:27:01Z
+  - message: 'merge(fix/source-path): remove hardcoded local path from TraceError help [moa-review]'
+    date: 2026-06-25T02:34:28Z
+  readme: |-
+    # updog
+
+    Agent Improvement Loop — systematic agent behavior improvement from observed traces.
+
+    ## What it does
+
+    `ail` runs a 7-phase loop that:
+
+    1. Collects shell command traces from Claude Code sessions (`crs discover`)
+    2. Sends them to an LLM for feedback clustering
+    3. Parses the feedback into structured clusters
+    4. Scores each cluster with a HALO score (High-impact, Actionable, Low-effort, Observable)
+    5. Writes a ranked diagnosis
+    6. Generates a rule candidate
+    7. Produces a handoff document for the next session
+
+    ## Crates
+
+    | Crate        | Type         | Purpose                                                                                           |
+    | ------------ | ------------ | ------------------------------------------------------------------------------------------------- |
+    | `agent-loop` | library      | Domain types: traces, feedback, HALO scoring, diagnosis, handoff. Defines the `TraceSource` port. |
+    | `ail`        | binary + lib | CLI (`ail run`), phase implementations, `CourserTraceSource` adapter                              |
+    | `xtask`      | binary       | Build task runner (`cargo xtask ci\|fmt\|clippy\|test`)                                           |
+
+    ## Quick start
+
+    ```bash
+    # Install
+    cargo install --path crates/ail
+
+    # Run the full loop (dry-run)
+    ail run --agent current --dry-run
+
+    # Run from a specific phase
+    ail run --agent current --phase 4
+
+    # Debug logging
+    RUST_LOG=debug ail run --agent current --dry-run
+    ```
+
+    ## Development
+
+    ```bash
+    # Full CI gate (fmt-check + clippy + nextest)
+    cargo xtask ci        # or: just ci
+
+    # Individual gates
+    cargo xtask fmt-check
+    cargo xtask clippy
+    cargo xtask test
+
+    # Isolated Linux VM (requires smolvm)
+    just ci-vm
+
+    # Crux pipeline
+    just ci-crux
+    ```
+
+    ## Extending
+
+    Implement `agent_loop::TraceSource` to plug in a custom trace source:
+
+    ```rust
+    use agent_loop::{TraceSource, TraceError, TraceRecord};
+
+    struct MySource;
+
+    impl TraceSource for MySource {
+        fn collect(&self, since_days: u32) -> Result<Vec<TraceRecord>, Trace
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-25T07:59:05Z
   version: null
   stars: null
   downloads: null
   recent_commits:
-  - message: 'chore: add xtask crate, .cargo/config.toml alias, update CI to cargo xtask ci'
-    date: 2026-06-24T23:29:21Z
-  - message: 'ci: add Cruxfile, justfile, and GitHub Actions workflow'
-    date: 2026-06-24T23:13:13Z
-  - message: 'test: demo integration test (FakeTraceSource, phases 1/4/5) + HALO unit tests'
-    date: 2026-06-24T22:45:30Z
-  - message: 'fix: align TraceRecord schema to crs discover output (intercepted + unhandled)'
-    date: 2026-06-24T22:41:54Z
-  - message: 'feat: tracing + miette + console — structured output, rich errors, styled UI'
-    date: 2026-06-24T22:33:27Z
-  - message: 'refactor: SOLID — TraceSource port, CourserTraceSource adapter, Phase trait, phase structs'
-    date: 2026-06-24T22:28:25Z
-  - message: 'feat: initial scaffold — agent-loop lib + ail binary (7-phase improvement loop)'
-    date: 2026-06-24T18:36:14Z
+  - message: Reintroduce evolve function for evolution agents
+    date: 2026-06-25T07:59:04Z
+  - message: Merge branch 'develop'
+    date: 2026-06-03T22:58:18Z
+  - message: 'fix(ci): also exclude crux-agentic from test/msrv (dev-dep on crux-baml)'
+    date: 2026-06-03T22:58:17Z
+  - message: Merge branch 'develop'
+    date: 2026-06-03T22:54:26Z
+  - message: 'fix: remove useless .into_iter() for clippy useless_conversion'
+    date: 2026-06-03T22:54:22Z
+  - message: Merge branch 'develop'
+    date: 2026-06-03T22:52:26Z
+  - message: 'fix(ci): exclude crux-agentic from --all-targets (dev-dep on crux-baml)'
+    date: 2026-06-03T22:52:14Z
+  - message: Merge branch 'develop'
+    date: 2026-06-03T22:50:33Z
+  - message: 'fix(ci): exclude crux-baml from CI (requires BAML codegen)'
+    date: 2026-06-03T22:50:28Z
+  - message: Merge branch 'develop'
+    date: 2026-06-03T22:48:23Z
+  tags:
+  - agents
+  readme: |-
+    # crux
+
+    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
+
+    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
+      budgets in `.crux` files. The runtime handles execution, tracing,
+      and error recovery.
+    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
+      you can inspect, serialize, or replay after a crash.
+    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
+      logic, typed delegation, and confidence-based routing -- same trace,
+      same runtime.
+
+    ## Quick example
+
+    A pipeline as a `.crux` file:
+
+    ```yaml
+    pipeline: summarize
+    budget: { calls: 2 }
+
+    steps:
+        - step: count_words
+          handler: shell::capture
+          args:
+              cmd: "wc -w < input.txt"
+
+        - step: log_result
+          handler: ctrl::log
+    ```
+
+    The same thing in Rust:
+
+    ```rust
+    use crux::prelude::*;
+
+    #[crux::agent]
+    async fn summarize(input: String) -> Crux<String> {
+        let count: usize = x.step("count_words", || async {
+            Ok(input.split_whitespace().count())
+        }).await?;
+
+        x.step("format", || async move {
+            Ok(format!("{count} words"))
+        }).await
+    }
+    ```
+
+    Either way, the returned `Crux<T>` is:
+
+    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
+    - **Serializable** -- `serde_json::to_string(&crux)`
+    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
+
+    ## Installation
+
+    ```toml
+    [dependencies]
+    crux = "0.2"
+    ```
+
+    Requires Rust 1.88+ (edition 2024).
+
+    ## Crates
+
+    | Crate                                 | Description                                             |
+    | ------------------------------------- | ------------------------------------------------------- |
+    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
+    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
+    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
+    | [`crux-macros`](crates/crux-macros)   | `#[crux::ag
 - name: coursers
   description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
   url: https://github.com/89jobrien/coursers
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-24T22:49:34Z
+  pushed_at: 2026-06-25T07:29:10Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'fix(hooks): doob-branch-tagger injects --tags not -t; fix unless guard'
+    date: 2026-06-25T07:29:04Z
+  - message: 'feat(rules): extend no-sleep-find-work to block timeout commands + 9 new tests'
+    date: 2026-06-25T01:46:39Z
   - message: 'feat: profile isolation, nu_check, discover integration, fuzz target, scripts, docs'
     date: 2026-06-24T22:49:28Z
   - message: 'feat: codex profile isolation — ProfileConfig, ConfigBuilder, ProfileFsRulesLoader, --profile/--rules/--state flags on coursers and crs'
@@ -265,102 +450,16 @@
     date: 2026-06-09T16:05:20Z
   - message: 'fix: resolve all clippy warnings (collapsible-if, dead code, ptr_arg)'
     date: 2026-06-09T16:02:20Z
-  - message: 'docs: update handoff — session 2, issues #42 #44 #45 #46 resolved'
-    date: 2026-06-09T13:51:49Z
-  - message: 'feat: add match-lines filter mode for structured output parsing'
-    date: 2026-06-08T21:38:40Z
   tags:
   - cli
   readme: "# coursers\n\nClaude Code hook pipeline for course-correcting AI-generated Bash commands.\n\nTwo tools:\n\n- **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures\n- **`crs`** — output filter and command rewriter\n\n---\n\n## How It Works\n\n### Rule-based blocking (`coursers pre`)\n\nReads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command\nmatches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`\nresponse with a human-readable message.\n\nRules support:\n\n- Regex pattern matching (with optional `i` flag)\n- Exception patterns — allow a command through even if the main pattern matches\n- Per-rule messages\n\n### Learned failure tracking (`coursers post`)\n\nReads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and\nintentional failures), it records the command in a rolling failure log. If the same command\nfails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.\n\nThis catches commands that aren't covered by static rules but are clearly not working.\n\n---\n\n## Installation\n\n```sh\ncargo install --path crates/coursers\ncargo install --path crates/crs\n```\n\nWire into `~/.claude/settings.json`:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers pre\" },\n          { \"type\": \"command\", \"command\": \"crs rewrite\" }\n        ]\n      }\n    ],\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers post\" },\n          { \"type\": \"command\", \"command\": \"crs filter\" }\n        ]\n      }\n    ]\n  }\n}\n```\n\n`crs rewrite` and `crs filter` are optional — run `coursers` alone if you only want blocking\nand failure learning.\n\n---\n\n## Configuration\n\nRules file: `~/.config/coursers/course-correct-rules.json`\n(override with `COURSERS_RULES` env var)\n\n```json\n{\n  \"rules\": [\n    {\n    "
-- name: godmode
-  description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
-  url: https://github.com/89jobrien/godmode
-  kinds:
-  - GitHubRepo
-  - ClaudePlugin
-  language: Rust
-  pushed_at: 2026-06-24T18:21:10Z
-  version: v0.5.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'feat(skill): agent-improvement-loop — seven-phase trace-to-code improvement cycle with coursers adapter'
-    date: 2026-06-24T18:20:23Z
-  - message: 'fix(skills): introspection corrections — add rustqual-workspace to index, fix using-crux handler-catalog ref'
-    date: 2026-06-24T08:45:50Z
-  - message: 'fix(rustqual-workspace): fix triage.nu for real rustqual JSON schema'
-    date: 2026-06-24T03:54:12Z
-  - message: 'feat(aichat): add godmode assistant system pack'
-    date: 2026-06-24T03:50:04Z
-  - message: 'feat(rustqual-workspace): add helpers/triage.nu and references/workspace-toml-examples.md'
-    date: 2026-06-24T03:48:17Z
-  - message: 'docs: rebuild agents/INDEX.md and add rustqual-workspace skill'
-    date: 2026-06-24T03:45:03Z
-  - message: "fix(skills): introspection corrections â\x80\x94 remove nonexistent godmode report subcommand, fix audit.nu for nu 0.111+, add branch guard to refactoring, deduplicate issue-triage dispatch, remove phantom skill-index.json ref"
-    date: 2026-06-14T20:02:32Z
-  - message: 'fix(skills): introspect corrections — branch guards, index sync, stale refs'
-    date: 2026-06-14T08:41:29Z
-  - message: 'fix(hooks): use try/catch for built-ins, fix nu --ide-check usage'
-    date: 2026-06-12T02:03:28Z
-  - message: 'feat(hooks): add PostToolUse validators for JSON, TOML, YAML, and Nu syntax'
-    date: 2026-06-12T01:58:06Z
-  readme: |-
-    # godmode
-
-    Self-contained Rust-native development methodology plugin for Claude Code.
-
-    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
-
-    ## Overview
-
-    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
-    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
-    Tasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal
-    `depends_on` chains.
-
-    ## Install
-
-    ```bash
-    cargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode
-    claude plugin install godmode@bazaar
-    ```
-
-    ### Pre-commit hook
-
-    Install the godmode pre-commit hook into any git repo to block commits when tasks are
-    still running and to run cargo gates (fmt-check, clippy, nextest):
-
-    ```bash
-    # From the repo root where you want the hook installed:
-    nu /path/to/godmode/hooks/install.nu
-
-    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
-    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
-    ```
-
-    The hook:
-
-    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
-       printing the offending task IDs.
-    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
-       `cargo nextest run --workspace`.
-    3. Blocks the commit on any failure with a clear message.
-
-    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
-    cargo gates run.
-
-    ## Skills
-
-    | Skill                                     | When                                                   |
-    | ----------------------------------------- | ------------------------------------------------------ |
-    | `godmode:using-godmode`                   | Session orientation, avail
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-24T03:26:19Z
+  pushed_at: 2026-06-25T03:26:01Z
   version: v0.30.0
   stars: 1
   downloads: null
@@ -445,6 +544,191 @@
     ## Quick Start
 
     Requires Linux, root, kernel 5.0+
+- name: obfsck
+  description: Secret-detection and redaction CLI for pre-commit hooks
+  url: https://github.com/89jobrien/obfsck
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-06-25T02:01:25Z
+  version: v0.1.0
+  stars: null
+  downloads: 75
+  recent_commits:
+  - message: 'quality: raise rustqual score from 74.0% to 91.2%'
+    date: 2026-06-25T01:59:16Z
+  - message: Delete demo/examples/16_maestro_session.yaml
+    date: 2026-06-12T06:31:54Z
+  - message: 'refactor(build): consolidate yaml_parser tests into build.rs — eliminate helper duplication'
+    date: 2026-06-08T18:13:16Z
+  - message: 'test(t22): assert audit pass counts each secret exactly once — double-count guard'
+    date: 2026-06-08T13:48:37Z
+  - message: 'test(t20): assert base64 +/_ chars matched by secret patterns — regression guard'
+    date: 2026-06-08T13:48:37Z
+  - message: 'test(t22): assert audit pass counts each secret exactly once — double-count guard'
+    date: 2026-06-08T13:46:45Z
+  - message: 'test(t20): assert base64 +/_ chars matched by secret patterns — regression guard'
+    date: 2026-06-08T13:45:55Z
+  - message: 'feat(t23): deny clippy::unwrap_used in runtime code — CI gate against bare panics'
+    date: 2026-06-08T13:06:50Z
+  - message: 'feat(t23): deny clippy::unwrap_used in runtime code — CI gate against bare panics'
+    date: 2026-06-08T13:06:33Z
+  - message: 'fix(t19): thread allowlist through obfuscate_high_entropy()'
+    date: 2026-06-08T12:46:21Z
+  tags:
+  - cli
+  readme: |+
+    # obfsck
+
+    Redacts secrets and PII from log lines and structured text.
+
+    ## Install
+
+    ```bash
+    cargo install --path .
+    ```
+
+    ## What it does
+
+    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
+    - Obfuscates identifiers with stable mappings (same input => same token)
+    - Supports privacy levels based on how aggressive redaction should be
+
+    ## Obfuscation levels
+
+    - `Minimal`: secret pattern redaction only
+    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
+    - `Paranoid`: adds path, hostname, and high-entropy token redaction
+
+    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
+    Sensitive system paths are preserved.
+
+    Preserved path segments include common roots like `home`, `usr`, `etc`,
+    `windows`, `users`, and `programdata`.
+
+    ### What each level redacts
+
+    | Pattern category | minimal | standard | paranoid |
+    |-----------------|---------|----------|----------|
+    | API keys, tokens, passwords | yes | yes | yes |
+    | IPs, emails, container IDs, usernames | — | yes | yes |
+    | PII (names, SSN, phone, credit card) | — | yes | yes |
+    | Paths, hostnames, high-entropy strings | — | — | yes |
+    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
+
+    `standard` is the privacy-forward default for sharing logs externally.
+    `minimal` is safe for internal tooling where structural identifiers are useful.
+
+    ## redact CLI
+
+    Redact secrets and PII from a file or stdin.
+
+    ```bash
+    # Stdin -> stdout (default level: minimal — secrets only)
+    echo "key=sk-ant-api03-ABCDEF..." | redact
+
+    # File input
+    redact path/to/logfile.txt
+
+    # Write to output file
+    redact input.txt --output redacted.txt
+
+    # Increase level
+    redact input.txt --level standard   # + IPs, emails, usernames, PII
+    redact input.txt --level paranoid   # + paths, hostnames, high-entropy
+
+    # Audit mode — report findings to stderr without redacting
+    redact input.txt --audit
+
+    # Custom secrets config (overrides bundled config)
+    redact input.txt --config ~/.config/obfsck/secrets.yaml
+    ```
+
+    ### Flags
+
+- name: godmode
+  description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
+  url: https://github.com/89jobrien/godmode
+  kinds:
+  - GitHubRepo
+  - ClaudePlugin
+  language: Rust
+  pushed_at: 2026-06-24T18:21:10Z
+  version: v0.5.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'feat(skill): agent-improvement-loop — seven-phase trace-to-code improvement cycle with coursers adapter'
+    date: 2026-06-24T18:20:23Z
+  - message: 'fix(skills): introspection corrections — add rustqual-workspace to index, fix using-crux handler-catalog ref'
+    date: 2026-06-24T08:45:50Z
+  - message: 'fix(rustqual-workspace): fix triage.nu for real rustqual JSON schema'
+    date: 2026-06-24T03:54:12Z
+  - message: 'feat(aichat): add godmode assistant system pack'
+    date: 2026-06-24T03:50:04Z
+  - message: 'feat(rustqual-workspace): add helpers/triage.nu and references/workspace-toml-examples.md'
+    date: 2026-06-24T03:48:17Z
+  - message: 'docs: rebuild agents/INDEX.md and add rustqual-workspace skill'
+    date: 2026-06-24T03:45:03Z
+  - message: "fix(skills): introspection corrections â\x80\x94 remove nonexistent godmode report subcommand, fix audit.nu for nu 0.111+, add branch guard to refactoring, deduplicate issue-triage dispatch, remove phantom skill-index.json ref"
+    date: 2026-06-14T20:02:32Z
+  - message: 'fix(skills): introspect corrections — branch guards, index sync, stale refs'
+    date: 2026-06-14T08:41:29Z
+  - message: 'fix(hooks): use try/catch for built-ins, fix nu --ide-check usage'
+    date: 2026-06-12T02:03:28Z
+  - message: 'feat(hooks): add PostToolUse validators for JSON, TOML, YAML, and Nu syntax'
+    date: 2026-06-12T01:58:06Z
+  readme: |-
+    # godmode
+
+    Self-contained Rust-native development methodology plugin for Claude Code.
+
+    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
+
+    ## Overview
+
+    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
+    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
+    Tasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal
+    `depends_on` chains.
+
+    ## Install
+
+    ```bash
+    cargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode
+    claude plugin install godmode@bazaar
+    ```
+
+    ### Pre-commit hook
+
+    Install the godmode pre-commit hook into any git repo to block commits when tasks are
+    still running and to run cargo gates (fmt-check, clippy, nextest):
+
+    ```bash
+    # From the repo root where you want the hook installed:
+    nu /path/to/godmode/hooks/install.nu
+
+    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
+    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
+    ```
+
+    The hook:
+
+    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
+       printing the offending task IDs.
+    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
+       `cargo nextest run --workspace`.
+    3. Blocks the commit on any failure with a clear message.
+
+    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
+    cargo gates run.
+
+    ## Skills
+
+    | Skill                                     | When                                                   |
+    | ----------------------------------------- | ------------------------------------------------------ |
+    | `godmode:using-godmode`                   | Session orientation, avail
 - name: maid
   description: File organiser CLI — sorts, converts, and routes files to Obsidian vaults
   url: https://github.com/89jobrien/maid
@@ -764,109 +1048,6 @@
     ## Design
 
     - **MCP transport**: stdio (default), TC
-- name: obfsck
-  description: Secret-detection and redaction CLI for pre-commit hooks
-  url: https://github.com/89jobrien/obfsck
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-06-12T06:31:54Z
-  version: v0.1.0
-  stars: null
-  downloads: 74
-  recent_commits:
-  - message: Delete demo/examples/16_maestro_session.yaml
-    date: 2026-06-12T06:31:54Z
-  - message: 'refactor(build): consolidate yaml_parser tests into build.rs — eliminate helper duplication'
-    date: 2026-06-08T18:13:16Z
-  - message: 'test(t22): assert audit pass counts each secret exactly once — double-count guard'
-    date: 2026-06-08T13:48:37Z
-  - message: 'test(t20): assert base64 +/_ chars matched by secret patterns — regression guard'
-    date: 2026-06-08T13:48:37Z
-  - message: 'test(t22): assert audit pass counts each secret exactly once — double-count guard'
-    date: 2026-06-08T13:46:45Z
-  - message: 'test(t20): assert base64 +/_ chars matched by secret patterns — regression guard'
-    date: 2026-06-08T13:45:55Z
-  - message: 'feat(t23): deny clippy::unwrap_used in runtime code — CI gate against bare panics'
-    date: 2026-06-08T13:06:50Z
-  - message: 'feat(t23): deny clippy::unwrap_used in runtime code — CI gate against bare panics'
-    date: 2026-06-08T13:06:33Z
-  - message: 'fix(t19): thread allowlist through obfuscate_high_entropy()'
-    date: 2026-06-08T12:46:21Z
-  - message: 'fix(t18): fail build loudly when secrets.yaml yields zero patterns'
-    date: 2026-06-08T12:46:21Z
-  tags:
-  - cli
-  readme: |+
-    # obfsck
-
-    Redacts secrets and PII from log lines and structured text.
-
-    ## Install
-
-    ```bash
-    cargo install --path .
-    ```
-
-    ## What it does
-
-    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
-    - Obfuscates identifiers with stable mappings (same input => same token)
-    - Supports privacy levels based on how aggressive redaction should be
-
-    ## Obfuscation levels
-
-    - `Minimal`: secret pattern redaction only
-    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
-    - `Paranoid`: adds path, hostname, and high-entropy token redaction
-
-    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
-    Sensitive system paths are preserved.
-
-    Preserved path segments include common roots like `home`, `usr`, `etc`,
-    `windows`, `users`, and `programdata`.
-
-    ### What each level redacts
-
-    | Pattern category | minimal | standard | paranoid |
-    |-----------------|---------|----------|----------|
-    | API keys, tokens, passwords | yes | yes | yes |
-    | IPs, emails, container IDs, usernames | — | yes | yes |
-    | PII (names, SSN, phone, credit card) | — | yes | yes |
-    | Paths, hostnames, high-entropy strings | — | — | yes |
-    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
-
-    `standard` is the privacy-forward default for sharing logs externally.
-    `minimal` is safe for internal tooling where structural identifiers are useful.
-
-    ## redact CLI
-
-    Redact secrets and PII from a file or stdin.
-
-    ```bash
-    # Stdin -> stdout (default level: minimal — secrets only)
-    echo "key=sk-ant-api03-ABCDEF..." | redact
-
-    # File input
-    redact path/to/logfile.txt
-
-    # Write to output file
-    redact input.txt --output redacted.txt
-
-    # Increase level
-    redact input.txt --level standard   # + IPs, emails, usernames, PII
-    redact input.txt --level paranoid   # + paths, hostnames, high-entropy
-
-    # Audit mode — report findings to stderr without redacting
-    redact input.txt --audit
-
-    # Custom secrets config (overrides bundled config)
-    redact input.txt --config ~/.config/obfsck/secrets.yaml
-    ```
-
-    ### Flags
-
 - name: devkit
   description: LLM-powered dev workflow toolkit. Extract a self-correcting CI/agent loop into a reusable scaffold for any project.
   url: https://github.com/89jobrien/devkit
@@ -909,7 +1090,7 @@
   pushed_at: 2026-06-10T11:47:25Z
   version: xtui-v0.3.0
   stars: 1
-  downloads: 44
+  downloads: 45
   recent_commits:
   - message: 'chore: restructure docs to xbook/ with configurable copies and glob support'
     date: 2026-06-09T22:57:01Z
@@ -986,7 +1167,7 @@
   pushed_at: 2026-06-10T07:22:42Z
   version: 0.1.2
   stars: 1
-  downloads: 14
+  downloads: 15
   recent_commits:
   - message: 'fix: always pass --registry to cargo publish'
     date: 2026-06-01T10:53:52Z
@@ -1088,111 +1269,6 @@
     cargo-promote confirm <ticket>
     cargo-promote confirm <ticket> --reason "passed QA"
     car
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-08T11:33:48Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Merge branch 'develop'
-    date: 2026-06-03T22:58:18Z
-  - message: 'fix(ci): also exclude crux-agentic from test/msrv (dev-dep on crux-baml)'
-    date: 2026-06-03T22:58:17Z
-  - message: Merge branch 'develop'
-    date: 2026-06-03T22:54:26Z
-  - message: 'fix: remove useless .into_iter() for clippy useless_conversion'
-    date: 2026-06-03T22:54:22Z
-  - message: Merge branch 'develop'
-    date: 2026-06-03T22:52:26Z
-  - message: 'fix(ci): exclude crux-agentic from --all-targets (dev-dep on crux-baml)'
-    date: 2026-06-03T22:52:14Z
-  - message: Merge branch 'develop'
-    date: 2026-06-03T22:50:33Z
-  - message: 'fix(ci): exclude crux-baml from CI (requires BAML codegen)'
-    date: 2026-06-03T22:50:28Z
-  - message: Merge branch 'develop'
-    date: 2026-06-03T22:48:23Z
-  - message: 'fix(ci): install protoc for baml build script'
-    date: 2026-06-03T22:48:18Z
-  tags:
-  - agents
-  readme: |-
-    # crux
-
-    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
-
-    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
-      budgets in `.crux` files. The runtime handles execution, tracing,
-      and error recovery.
-    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
-      you can inspect, serialize, or replay after a crash.
-    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
-      logic, typed delegation, and confidence-based routing -- same trace,
-      same runtime.
-
-    ## Quick example
-
-    A pipeline as a `.crux` file:
-
-    ```yaml
-    pipeline: summarize
-    budget: { calls: 2 }
-
-    steps:
-        - step: count_words
-          handler: shell::capture
-          args:
-              cmd: "wc -w < input.txt"
-
-        - step: log_result
-          handler: ctrl::log
-    ```
-
-    The same thing in Rust:
-
-    ```rust
-    use crux::prelude::*;
-
-    #[crux::agent]
-    async fn summarize(input: String) -> Crux<String> {
-        let count: usize = x.step("count_words", || async {
-            Ok(input.split_whitespace().count())
-        }).await?;
-
-        x.step("format", || async move {
-            Ok(format!("{count} words"))
-        }).await
-    }
-    ```
-
-    Either way, the returned `Crux<T>` is:
-
-    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
-    - **Serializable** -- `serde_json::to_string(&crux)`
-    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
-
-    ## Installation
-
-    ```toml
-    [dependencies]
-    crux = "0.2"
-    ```
-
-    Requires Rust 1.88+ (edition 2024).
-
-    ## Crates
-
-    | Crate                                 | Description                                             |
-    | ------------------------------------- | ------------------------------------------------------- |
-    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
-    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
-    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
-    | [`crux-macros`](crates/crux-macros)   | `#[crux::ag
 - name: disyn
   description: Hybrid symbolic+neural agent pipeline
   url: https://github.com/89jobrien/disyn
@@ -1303,7 +1379,7 @@
   pushed_at: 2026-06-08T06:40:11.570479Z
   version: 0.1.0
   stars: null
-  downloads: 12
+  downloads: 13
   recent_commits: []
 - name: disyn-runtime
   description: Budget manager, telemetry, and shell executor for the disyn agent pipeline
@@ -1314,7 +1390,7 @@
   pushed_at: 2026-06-08T05:39:24.236954Z
   version: 0.1.0
   stars: null
-  downloads: 19
+  downloads: 20
   recent_commits: []
 - name: disyn-memory
   description: Memory store implementation for the disyn agent pipeline
@@ -1325,7 +1401,7 @@
   pushed_at: 2026-06-08T05:26:27.409395Z
   version: 0.1.0
   stars: null
-  downloads: 19
+  downloads: 20
   recent_commits: []
 - name: disyn-neural
   description: Neural proposal engine and fact extractor for the disyn agent pipeline
@@ -1336,7 +1412,7 @@
   pushed_at: 2026-06-08T05:26:18.193930Z
   version: 0.1.0
   stars: null
-  downloads: 19
+  downloads: 20
   recent_commits: []
 - name: disyn-symbolic
   description: Symbolic verifier and repair engine for the disyn agent pipeline
@@ -1347,7 +1423,7 @@
   pushed_at: 2026-06-08T05:26:07.254857Z
   version: 0.1.0
   stars: null
-  downloads: 19
+  downloads: 20
   recent_commits: []
 - name: disyn-core
   description: Domain types, port traits, and errors for the disyn agent pipeline
@@ -1370,7 +1446,7 @@
   pushed_at: 2026-06-08T05:25:20Z
   version: v0.3.2
   stars: 1
-  downloads: 15
+  downloads: 16
   recent_commits:
   - message: 'fix(ci): correct test fixture path and disable auto-bump workflow'
     date: 2026-06-08T05:25:11Z
@@ -1914,7 +1990,7 @@
   pushed_at: 2026-05-31T15:11:30Z
   version: 0.1.0
   stars: null
-  downloads: 16
+  downloads: 17
   recent_commits:
   - message: 'quality: raise rustqual score from 34.7% to 95.4%'
     date: 2026-05-31T15:09:37Z
@@ -1948,7 +2024,7 @@
   pushed_at: 2026-05-26T14:05:49.432486Z
   version: 0.30.0
   stars: null
-  downloads: 192
+  downloads: 193
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -1959,7 +2035,7 @@
   pushed_at: 2026-05-26T14:04:50.939469Z
   version: 0.30.0
   stars: null
-  downloads: 262
+  downloads: 263
   recent_commits: []
 - name: sandbox
   description: Standalone virtual bash interpreter with sandboxed filesystem
@@ -2239,7 +2315,7 @@
   pushed_at: 2026-05-18T05:22:46.040541Z
   version: 0.2.6
   stars: null
-  downloads: 47
+  downloads: 48
   recent_commits: []
 - name: cruxx-agentic
   description: Built-in step handlers for cruxx-script pipelines
@@ -2261,7 +2337,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 94
+  downloads: 95
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -2294,7 +2370,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 116
+  downloads: 117
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -2339,7 +2415,7 @@
   pushed_at: 2026-05-16T07:22:26Z
   version: 0.3.0
   stars: null
-  downloads: 49
+  downloads: 50
   recent_commits:
   - message: 'feat(prefixe-cli): post-hook Probing resolution — confirm, cycle, exhaust with stats'
     date: 2026-05-16T07:16:20Z
@@ -2429,7 +2505,7 @@
   pushed_at: 2026-05-16T04:04:45.475950Z
   version: 0.3.0
   stars: null
-  downloads: 50
+  downloads: 51
   recent_commits: []
 - name: agentlint-pi
   description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
@@ -2451,7 +2527,7 @@
   pushed_at: 2026-05-16T04:04:00.508658Z
   version: 0.3.0
   stars: null
-  downloads: 68
+  downloads: 69
   recent_commits: []
 - name: agentlint-codex
   description: agentlint validator for OpenAI Codex AGENTS.md files
@@ -2473,7 +2549,7 @@
   pushed_at: 2026-05-16T04:03:15.391246Z
   version: 0.3.0
   stars: null
-  downloads: 67
+  downloads: 68
   recent_commits: []
 - name: agentlint-claude
   description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
@@ -2996,7 +3072,7 @@
   pushed_at: 2026-04-30T21:52:33.203814Z
   version: 0.1.3
   stars: null
-  downloads: 10
+  downloads: 11
   recent_commits: []
 - name: hjlib
   description: Core library for hj handoff workflows
@@ -3007,7 +3083,7 @@
   pushed_at: 2026-04-30T21:51:42.719327Z
   version: 0.1.3
   stars: null
-  downloads: 31
+  downloads: 32
   recent_commits: []
 - name: 89jobrien.github.io
   description: Personal site
@@ -3084,7 +3160,7 @@
   pushed_at: 2026-04-24T19:56:38.098231Z
   version: 0.19.0
   stars: null
-  downloads: 15
+  downloads: 16
   recent_commits: []
 - name: minibox-secrets
   description: Local credential validation and passthrough (1Password, Bitwarden, keyring, env)
@@ -3095,7 +3171,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 37
+  downloads: 38
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -3106,7 +3182,7 @@
   pushed_at: 2026-04-24T19:52:04.917297Z
   version: 0.19.0
   stars: null
-  downloads: 17
+  downloads: 18
   recent_commits: []
 - name: minibox-oci
   description: Standalone OCI image-pulling library for Minibox
@@ -3140,7 +3216,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1177
+  downloads: 1179
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -3159,7 +3235,7 @@
   pushed_at: 2026-04-23T22:43:46.259352Z
   version: 0.1.0
   stars: null
-  downloads: 17
+  downloads: 18
   recent_commits: []
 - name: hooklings
   description: YAML-driven developer preflight checks via crux pipelines
@@ -3345,7 +3421,7 @@
   pushed_at: 2026-04-18T23:42:19.260031Z
   version: 0.2.3
   stars: null
-  downloads: 94
+  downloads: 95
   recent_commits: []
 - name: rx-rxx
   description: Execute compatible scripts directly
@@ -3378,7 +3454,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 67
+  downloads: 68
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -3400,7 +3476,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 147
+  downloads: 148
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -3411,7 +3487,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 78
+  downloads: 79
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -3422,7 +3498,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 183
+  downloads: 184
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
@@ -3500,7 +3576,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 56
+  downloads: 57
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -3511,7 +3587,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 58
+  downloads: 59
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -3522,7 +3598,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 54
+  downloads: 55
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -3533,7 +3609,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 54
+  downloads: 55
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -3544,7 +3620,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 166
+  downloads: 167
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
@@ -3982,7 +4058,7 @@
   pushed_at: 2026-04-12T22:21:14.454502Z
   version: 0.1.0
   stars: null
-  downloads: 16
+  downloads: 17
   recent_commits: []
 - name: slash-testing
   description: Proptest strategies and harness configuration for testing slash-command language parsers
@@ -3993,7 +4069,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 37
+  downloads: 38
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -4004,7 +4080,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 74
+  downloads: 75
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -4015,7 +4091,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 146
+  downloads: 147
   recent_commits: []
 - name: dotfiles
   description: null
