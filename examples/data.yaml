@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-26T23:33:20Z
+  pushed_at: 2026-06-27T11:36:02Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-06-27T11:36:01Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-26T23:33:19Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-23T12:05:32Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-22T23:37:25Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-22T13:02:31Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,513 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: godmode
+  description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
+  url: https://github.com/89jobrien/godmode
+  kinds:
+  - GitHubRepo
+  - ClaudePlugin
+  language: Rust
+  pushed_at: 2026-06-27T22:13:14Z
+  version: v0.5.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'fix(skills): add memory-banking validation workflow with agentlint plugin'
+    date: 2026-06-27T22:12:59Z
+  - message: 'feat(ci): add skill index completeness gate; fix 4 missing entries'
+    date: 2026-06-27T21:23:27Z
+  - message: 'fix(skills): introspection corrections — replace cat/grep with Read/Grep tools, fix stale tdd-agent ref'
+    date: 2026-06-27T18:15:47Z
+  - message: 'fix(skills): add missing skills to index, add CLI subcommands to quick ref'
+    date: 2026-06-27T10:05:10Z
+  - message: 'merge: issue/87-93 — review.rs splits and godmode-core SRP module splits (#87-#93)'
+    date: 2026-06-26T04:29:57Z
+  - message: 'merge: issue/82-85 — add --top, --only, --fix-config flags and COMPLEXITY surfacing to triage.nu (#82, #83, #84, #85)'
+    date: 2026-06-26T04:29:48Z
+  - message: 'merge: issue/94-95 — extract named constants for time/calendar arithmetic (#94, #95)'
+    date: 2026-06-26T04:29:48Z
+  - message: 'refactor(templates): split templates.rs by SRP into loader / render / apply modules'
+    date: 2026-06-26T04:28:17Z
+  - message: 'refactor(sarif): split sarif.rs by SRP into types / builder / entry modules'
+    date: 2026-06-26T04:26:10Z
+  - message: 'refactor(release): split release.rs by SRP into version / tag / release modules'
+    date: 2026-06-26T04:24:00Z
+  readme: |-
+    # godmode
+
+    Self-contained Rust-native development methodology plugin for Claude Code.
+
+    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
+
+    ## Overview
+
+    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
+    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
+    Tasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal
+    `depends_on` chains.
+
+    ## Install
+
+    ```bash
+    cargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode
+    claude plugin install godmode@bazaar
+    ```
+
+    ### Pre-commit hook
+
+    Install the godmode pre-commit hook into any git repo to block commits when tasks are
+    still running and to run cargo gates (fmt-check, clippy, nextest):
+
+    ```bash
+    # From the repo root where you want the hook installed:
+    nu /path/to/godmode/hooks/install.nu
+
+    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
+    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
+    ```
+
+    The hook:
+
+    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
+       printing the offending task IDs.
+    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
+       `cargo nextest run --workspace`.
+    3. Blocks the commit on any failure with a clear message.
+
+    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
+    cargo gates run.
+
+    ## Skills
+
+    | Skill                                     | When                                                   |
+    | ----------------------------------------- | ------------------------------------------------------ |
+    | `godmode:using-godmode`                   | Session orientation, avail
+- name: hj
+  description: Handoff state, reconciliation, rendering, and handup surveys
+  url: https://github.com/89jobrien/hj
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-27T21:23:51Z
+  version: v0.1.3
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(handoff): skip duplicate (date, project, commits) in jsonl log'
+    date: 2026-06-27T21:23:25Z
+  - message: 'fix(gitignore): re-ignore HANDOFF.godmode.*.yaml state files'
+    date: 2026-05-14T02:19:57Z
+  - message: Add CommitRef and update log handling
+    date: 2026-05-12T20:15:08Z
+  - message: Change demo repo user email to local address
+    date: 2026-05-03T14:12:42Z
+  - message: Update user email in common.sh
+    date: 2026-05-03T14:12:03Z
+  - message: 'docs: rewrite README with quick start, YAML format, and key flags'
+    date: 2026-04-30T21:56:35Z
+  - message: 'docs: fix stale hj-cli reference in examples README'
+    date: 2026-04-30T21:54:57Z
+  - message: 'chore: update Cargo.lock for v0.1.3'
+    date: 2026-04-30T21:50:43Z
+  - message: 'release: bump to v0.1.3'
+    date: 2026-04-30T20:23:52Z
+  - message: 'refactor: collapse 6-crate workspace into hjlib + hjx'
+    date: 2026-04-28T17:16:01Z
+  tags:
+  - agents
+  readme: |-
+    # hj
+
+    `hj` tracks work-in-progress across sessions using structured YAML handoff files. Each repo
+    gets a `.ctx/HANDOFF.<project>.<repo>.yaml` that holds open items, priorities, and a session
+    log. The CLI reads that file to triage at session start, appends log entries at session end,
+    syncs state to SQLite, and renders markdown summaries for humans and agents.
+
+    ## Quick Start
+
+    ```bash
+    # Install via pre-built binary
+    cargo binstall hjx
+
+    # In any git repo: scaffold .ctx/ and .gitignore entries
+    hj refresh
+
+    # Start a session — prints P0/P1/P2 triage from the handoff file
+    hj handon
+
+    # End a session — appends a log entry, writes HANDOFF.md, syncs SQLite
+    hj handoff --log-summary "What you did"
+    ```
+
+    ## Handoff File Format
+
+    Handoff files live at `.ctx/HANDOFF.<project>.<repo>.yaml`:
+
+    ```yaml
+    project: myproject
+    id: myproject
+    updated: 2026-04-30
+    items:
+        - id: mp-1
+          priority: P1
+          status: open
+          title: Wire the render pass
+          description: |
+              Description of what needs doing and why.
+          files:
+              - src/render.rs
+        - id: mp-2
+          priority: P2
+          status: done
+          title: Add conformance tests
+          completed: 2026-04-28
+    log:
+        - date: 20260428:131508
+          summary: Shipped render pass skeleton, all tests pass.
+          commits:
+              - sha: abc1234
+                branch: main
+    ```
+
+    Items have `status: open | blocked | done`. The `log` section grows with each session.
+    Commits accept either bare SHAs (`abc1234`) or `{sha, branch}` maps.
+
+    ## Install
+
+    Install the latest release via [`cargo binstall`](https://github.com/cargo-bins/cargo-binstall)
+    (downloads pre-built binaries from GitHub Releases):
+
+    ```bash
+    cargo binstall hjx
+    ```
+
+    Supported targets: `x86_64-unknown-linux-musl`, `aarch64-unknown-linux-musl`,
+    `x86_64-apple-darwin`, `aarch64-apple-darwin`. Unsupported targets fall back to
+    source compilation.
+
+    Install from the current checkout:
+
+    ```bash
+    hj install
+    ```
+
+    Manual equivalent:
+
+    ```bash
+    env RUSTC_WRAPPER= cargo install --path crates/hj
+- name: coursers
+  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
+  url: https://github.com/89jobrien/coursers
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-27T20:40:46Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'feat: agent improvement loop — new rules, rewrites, and eval harness'
+    date: 2026-06-27T20:40:40Z
+  - message: 'docs: update handoff — moa error handling + doc coverage session'
+    date: 2026-06-25T17:00:04Z
+  - message: 'docs(crs-core,coursers,crs): add doc comments to undocumented public API items'
+    date: 2026-06-25T16:47:48Z
+  - message: 'fix(crs-core): suppress unused Result warnings in capture tests [moa-review]'
+    date: 2026-06-25T15:27:52Z
+  - message: Merge branch 'feat/error-deny' into feat/error-traits
+    date: 2026-06-25T15:26:20Z
+  - message: Merge branch 'feat/xtask' into feat/error-traits
+    date: 2026-06-25T15:25:59Z
+  - message: 'refactor(crs-core,coursers): update trait methods to return Result<T, CourserError> [moa-review]'
+    date: 2026-06-25T15:24:35Z
+  - message: 'fix(crs-core,coursers): replace panics with warnings for config/stdin parse failures [moa-review]'
+    date: 2026-06-25T15:14:18Z
+  - message: 'fix(coursers): handle serde_json serialization failure in deny() without panic [moa-review]'
+    date: 2026-06-25T15:08:05Z
+  - message: 'test(crs-core,coursers): add conformance tests for malformed config/stdin/state error paths [moa-review]'
+    date: 2026-06-25T15:07:01Z
+  tags:
+  - cli
+  readme: |-
+    # coursers
+
+    Claude Code hook pipeline for course-correcting AI-generated Bash commands.
+
+    Two tools:
+
+    - **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures
+    - **`crs`** — output filter and command rewriter
+
+    ---
+
+    ## How It Works
+
+    ### Rule-based blocking (`coursers pre`)
+
+    Reads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command
+    matches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`
+    response with a human-readable message.
+
+    Rules support:
+
+    - Regex pattern matching (with optional `i` flag)
+    - Exception patterns — allow a command through even if the main pattern matches
+    - Per-rule messages
+
+    ### Learned failure tracking (`coursers post`)
+
+    Reads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and
+    intentional failures), it records the command in a rolling failure log. If the same command
+    fails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.
+
+    This catches commands that aren't covered by static rules but are clearly not working.
+
+    ---
+
+    ## Installation
+
+    ```sh
+    cargo install --path crates/coursers
+    cargo install --path crates/crs
+    ```
+
+    Install the full hook chain into your local `~/.claude/settings.json`:
+
+    ```json
+    {
+      "hooks": {
+        "PreToolUse": [
+          {
+            "matcher": "Bash",
+            "hooks": [
+              { "type": "command", "command": "coursers pre" },
+              { "type": "command", "command": "crs rewrite" }
+            ]
+          }
+        ],
+        "PostToolUse": [
+          {
+            "matcher": "Bash",
+            "hooks": [
+              { "type": "command", "command": "coursers post" },
+              { "type": "command", "command": "crs filter" }
+            ]
+          }
+        ]
+      }
+    }
+    ```
+
+    Run `crs validate-hooks` after installing the hook block to verify the chain is wired
+    correctly.
+
+    ---
+
+    ## Configuration
+
+    Rules file: `~/.config/coursers/course-correct-rules.json`
+    (override with `COURSERS_RULES` env var)
+
+    ```json
+    {
+      "rules"
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-27T20:35:10Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Merge remote-tracking branch 'origin/main'
+    date: 2026-06-27T20:34:48Z
+  - message: 'merge: develop → main (dead-code cleanup, ail improvements, rustqual, rename)'
+    date: 2026-06-27T20:34:32Z
+  - message: 'chore: update Cargo.lock after crux-improve removal'
+    date: 2026-06-27T20:34:24Z
+  - message: 'chore: remove dead code — drop crux-improve crate, shell shim, and duplicate crux-baml dev-dep'
+    date: 2026-06-27T18:19:39Z
+  - message: 'chore(ail): agent improvement loop run 2026-06-26 — update block messages and grep -c exception'
+    date: 2026-06-26T13:31:36Z
+  - message: Reintroduce evolve function for evolution agents
+    date: 2026-06-25T07:59:04Z
+  - message: 'refactor(crux-agentic): introduce RunConfig struct and misc quality TODOs'
+    date: 2026-06-08T11:33:35Z
+  - message: 'refactor: rename cruxx→crux and split bin into modules'
+    date: 2026-06-06T14:54:44Z
+  - message: 'quality: raise rustqual score from 26.8% to 85.1%'
+    date: 2026-06-04T08:11:16Z
+  - message: Merge branch 'develop'
+    date: 2026-06-03T22:58:18Z
+  tags:
+  - agents
+  readme: |-
+    # crux
+
+    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
+
+    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
+      budgets in `.crux` files. The runtime handles execution, tracing,
+      and error recovery.
+    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
+      you can inspect, serialize, or replay after a crash.
+    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
+      logic, typed delegation, and confidence-based routing -- same trace,
+      same runtime.
+
+    ## Quick example
+
+    A pipeline as a `.crux` file:
+
+    ```yaml
+    pipeline: summarize
+    budget: { calls: 2 }
+
+    steps:
+        - step: count_words
+          handler: shell::capture
+          args:
+              cmd: "wc -w < input.txt"
+
+        - step: log_result
+          handler: ctrl::log
+    ```
+
+    The same thing in Rust:
+
+    ```rust
+    use crux::prelude::*;
+
+    #[crux::agent]
+    async fn summarize(input: String) -> Crux<String> {
+        let count: usize = x.step("count_words", || async {
+            Ok(input.split_whitespace().count())
+        }).await?;
+
+        x.step("format", || async move {
+            Ok(format!("{count} words"))
+        }).await
+    }
+    ```
+
+    Either way, the returned `Crux<T>` is:
+
+    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
+    - **Serializable** -- `serde_json::to_string(&crux)`
+    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
+
+    ## Installation
+
+    ```toml
+    [dependencies]
+    crux = "0.2"
+    ```
+
+    Requires Rust 1.88+ (edition 2024).
+
+    ## Crates
+
+    | Crate                                 | Description                                             |
+    | ------------------------------------- | ------------------------------------------------------- |
+    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
+    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
+    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
+    | [`crux-macros`](crates/crux-macros)   | `#[crux::ag
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-27T18:55:39Z
+  version: v0.30.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: Merge branch 'develop' into next
+    date: 2026-05-27T01:41:13Z
+  - message: 'fix(minibox): address blocking review findings for nesting'
+    date: 2026-05-27T01:37:10Z
+  - message: 'test(miniboxd): add nesting env var integration test'
+    date: 2026-05-26T21:22:56Z
+  - message: 'feat(minibox): overlay tmpfs fallback and cgroup delegation for nesting'
+    date: 2026-05-26T21:21:37Z
+  - message: 'feat(miniboxd): inject MINIBOX_NEST_DEPTH into container env'
+    date: 2026-05-26T21:19:26Z
+  - message: 'feat(minibox): add overlay-on-overlay probe and wire into preflight'
+    date: 2026-05-26T21:18:33Z
+  - message: 'feat(minibox): add nested container support (Tasks 1-5)'
+    date: 2026-05-26T21:15:11Z
+  - message: 'feat(xtask): wire smolfiles into test-in-vm, add --smolfile flag'
+    date: 2026-05-26T20:11:23Z
+  - message: 'test(smolvm): add smoke tests for SmolVmFixture + smolfiles'
+    date: 2026-05-26T20:10:52Z
+  - message: 'docs: add code citations for implementation-status claims (#132)'
+    date: 2026-05-26T20:07:06Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
+
+    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
+    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
+    keeps adapter suites swappable at startup with no recompile.
+
+    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `minibox logs <id>` for stored stdout/stderr
+    - Container events — `minibox events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
+    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
+      Colima available as an alternative via Lima VM
+
+    ---
+
+    ## Quick Start
+
+    Requires Linux, root, kernel 5.0+
 - name: taskit
   description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
   url: https://github.com/89jobrien/taskit
@@ -220,10 +727,10 @@
   - GitHubRepo
   - CratesIo
   language: Rust
-  pushed_at: 2026-06-27T10:44:53Z
+  pushed_at: 2026-06-27T18:03:24Z
   version: v0.1.1
   stars: null
-  downloads: 30
+  downloads: 39
   recent_commits:
   - message: 'feat(workspace): v0.4 multi-crate restructure with PipelineRunner port and taskit init'
     date: 2026-06-27T10:44:43Z
@@ -327,179 +834,109 @@
     ## Subcommands
 
     | Command                                          | D
-- name: godmode
-  description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
-  url: https://github.com/89jobrien/godmode
+- name: obfsck
+  description: Secret-detection and redaction CLI for pre-commit hooks
+  url: https://github.com/89jobrien/obfsck
   kinds:
   - GitHubRepo
-  - ClaudePlugin
+  - CratesIo
   language: Rust
-  pushed_at: 2026-06-27T10:06:30Z
-  version: v0.5.0
-  stars: 1
-  downloads: null
+  pushed_at: 2026-06-27T17:10:50Z
+  version: v0.1.0
+  stars: null
+  downloads: 77
   recent_commits:
-  - message: 'fix(skills): add missing skills to index, add CLI subcommands to quick ref'
-    date: 2026-06-27T10:05:10Z
-  - message: 'merge: issue/87-93 — review.rs splits and godmode-core SRP module splits (#87-#93)'
-    date: 2026-06-26T04:29:57Z
-  - message: 'merge: issue/82-85 — add --top, --only, --fix-config flags and COMPLEXITY surfacing to triage.nu (#82, #83, #84, #85)'
-    date: 2026-06-26T04:29:48Z
-  - message: 'merge: issue/94-95 — extract named constants for time/calendar arithmetic (#94, #95)'
-    date: 2026-06-26T04:29:48Z
-  - message: 'refactor(templates): split templates.rs by SRP into loader / render / apply modules'
-    date: 2026-06-26T04:28:17Z
-  - message: 'refactor(sarif): split sarif.rs by SRP into types / builder / entry modules'
-    date: 2026-06-26T04:26:10Z
-  - message: 'refactor(release): split release.rs by SRP into version / tag / release modules'
-    date: 2026-06-26T04:24:00Z
-  - message: 'refactor(policy): split policy.rs by SRP into loader / engine / types modules'
-    date: 2026-06-26T04:21:59Z
-  - message: 'refactor(review): split check_skills/check_agents into focused helpers, reduce check_plugin_json complexity'
-    date: 2026-06-26T04:19:12Z
-  - message: 'fix(godmode-trace): extract named constants for time and calendar arithmetic'
-    date: 2026-06-26T04:16:33Z
-  readme: |-
-    # godmode
+  - message: 'chore: track rustqual baseline in version control'
+    date: 2026-06-27T17:10:15Z
+  - message: 'handoff: update HANDOFF.obfsck.obfsck.yaml with quality refactoring log entry'
+    date: 2026-06-25T16:55:24Z
+  - message: 'quality: raise rustqual score from 74.0% to 91.2%'
+    date: 2026-06-25T01:59:16Z
+  - message: Delete demo/examples/16_maestro_session.yaml
+    date: 2026-06-12T06:31:54Z
+  - message: 'refactor(build): consolidate yaml_parser tests into build.rs — eliminate helper duplication'
+    date: 2026-06-08T18:13:16Z
+  - message: 'test(t22): assert audit pass counts each secret exactly once — double-count guard'
+    date: 2026-06-08T13:48:37Z
+  - message: 'test(t20): assert base64 +/_ chars matched by secret patterns — regression guard'
+    date: 2026-06-08T13:48:37Z
+  - message: 'test(t22): assert audit pass counts each secret exactly once — double-count guard'
+    date: 2026-06-08T13:46:45Z
+  - message: 'test(t20): assert base64 +/_ chars matched by secret patterns — regression guard'
+    date: 2026-06-08T13:45:55Z
+  - message: 'feat(t23): deny clippy::unwrap_used in runtime code — CI gate against bare panics'
+    date: 2026-06-08T13:06:50Z
+  tags:
+  - cli
+  readme: |+
+    # obfsck
 
-    Self-contained Rust-native development methodology plugin for Claude Code.
-
-    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
-
-    ## Overview
-
-    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
-    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
-    Tasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal
-    `depends_on` chains.
+    Redacts secrets and PII from log lines and structured text.
 
     ## Install
 
     ```bash
-    cargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode
-    claude plugin install godmode@bazaar
+    cargo install --path .
     ```
 
-    ### Pre-commit hook
+    ## What it does
 
-    Install the godmode pre-commit hook into any git repo to block commits when tasks are
-    still running and to run cargo gates (fmt-check, clippy, nextest):
+    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
+    - Obfuscates identifiers with stable mappings (same input => same token)
+    - Supports privacy levels based on how aggressive redaction should be
+
+    ## Obfuscation levels
+
+    - `Minimal`: secret pattern redaction only
+    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
+    - `Paranoid`: adds path, hostname, and high-entropy token redaction
+
+    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
+    Sensitive system paths are preserved.
+
+    Preserved path segments include common roots like `home`, `usr`, `etc`,
+    `windows`, `users`, and `programdata`.
+
+    ### What each level redacts
+
+    | Pattern category | minimal | standard | paranoid |
+    |-----------------|---------|----------|----------|
+    | API keys, tokens, passwords | yes | yes | yes |
+    | IPs, emails, container IDs, usernames | — | yes | yes |
+    | PII (names, SSN, phone, credit card) | — | yes | yes |
+    | Paths, hostnames, high-entropy strings | — | — | yes |
+    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
+
+    `standard` is the privacy-forward default for sharing logs externally.
+    `minimal` is safe for internal tooling where structural identifiers are useful.
+
+    ## redact CLI
+
+    Redact secrets and PII from a file or stdin.
 
     ```bash
-    # From the repo root where you want the hook installed:
-    nu /path/to/godmode/hooks/install.nu
+    # Stdin -> stdout (default level: minimal — secrets only)
+    echo "key=sk-ant-api03-ABCDEF..." | redact
 
-    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
-    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
+    # File input
+    redact path/to/logfile.txt
+
+    # Write to output file
+    redact input.txt --output redacted.txt
+
+    # Increase level
+    redact input.txt --level standard   # + IPs, emails, usernames, PII
+    redact input.txt --level paranoid   # + paths, hostnames, high-entropy
+
+    # Audit mode — report findings to stderr without redacting
+    redact input.txt --audit
+
+    # Custom secrets config (overrides bundled config)
+    redact input.txt --config ~/.config/obfsck/secrets.yaml
     ```
 
-    The hook:
+    ### Flags
 
-    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
-       printing the offending task IDs.
-    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
-       `cargo nextest run --workspace`.
-    3. Blocks the commit on any failure with a clear message.
-
-    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
-    cargo gates run.
-
-    ## Skills
-
-    | Skill                                     | When                                                   |
-    | ----------------------------------------- | ------------------------------------------------------ |
-    | `godmode:using-godmode`                   | Session orientation, avail
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-27T03:24:49Z
-  version: v0.30.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: Merge branch 'develop' into next
-    date: 2026-05-27T01:41:13Z
-  - message: 'fix(minibox): address blocking review findings for nesting'
-    date: 2026-05-27T01:37:10Z
-  - message: 'test(miniboxd): add nesting env var integration test'
-    date: 2026-05-26T21:22:56Z
-  - message: 'feat(minibox): overlay tmpfs fallback and cgroup delegation for nesting'
-    date: 2026-05-26T21:21:37Z
-  - message: 'feat(miniboxd): inject MINIBOX_NEST_DEPTH into container env'
-    date: 2026-05-26T21:19:26Z
-  - message: 'feat(minibox): add overlay-on-overlay probe and wire into preflight'
-    date: 2026-05-26T21:18:33Z
-  - message: 'feat(minibox): add nested container support (Tasks 1-5)'
-    date: 2026-05-26T21:15:11Z
-  - message: 'feat(xtask): wire smolfiles into test-in-vm, add --smolfile flag'
-    date: 2026-05-26T20:11:23Z
-  - message: 'test(smolvm): add smoke tests for SmolVmFixture + smolfiles'
-    date: 2026-05-26T20:10:52Z
-  - message: 'docs: add code citations for implementation-status claims (#132)'
-    date: 2026-05-26T20:07:06Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
-
-    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
-    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
-    keeps adapter suites swappable at startup with no recompile.
-
-    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `minibox logs <id>` for stored stdout/stderr
-    - Container events — `minibox events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
-    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
-      Colima available as an alternative via Lima VM
-
-    ---
-
-    ## Quick Start
-
-    Requires Linux, root, kernel 5.0+
 - name: nu_libs
   description: A library of Nushell scripts organized by category
   url: https://github.com/89jobrien/nu_libs
@@ -663,248 +1100,6 @@
     cargo xtask ci        # or: just ci
 
     # Individual gate
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-26T13:31:40Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Reintroduce evolve function for evolution agents
-    date: 2026-06-25T07:59:04Z
-  - message: Merge branch 'develop'
-    date: 2026-06-03T22:58:18Z
-  - message: 'fix(ci): also exclude crux-agentic from test/msrv (dev-dep on crux-baml)'
-    date: 2026-06-03T22:58:17Z
-  - message: Merge branch 'develop'
-    date: 2026-06-03T22:54:26Z
-  - message: 'fix: remove useless .into_iter() for clippy useless_conversion'
-    date: 2026-06-03T22:54:22Z
-  - message: Merge branch 'develop'
-    date: 2026-06-03T22:52:26Z
-  - message: 'fix(ci): exclude crux-agentic from --all-targets (dev-dep on crux-baml)'
-    date: 2026-06-03T22:52:14Z
-  - message: Merge branch 'develop'
-    date: 2026-06-03T22:50:33Z
-  - message: 'fix(ci): exclude crux-baml from CI (requires BAML codegen)'
-    date: 2026-06-03T22:50:28Z
-  - message: Merge branch 'develop'
-    date: 2026-06-03T22:48:23Z
-  tags:
-  - agents
-  readme: |-
-    # crux
-
-    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
-
-    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
-      budgets in `.crux` files. The runtime handles execution, tracing,
-      and error recovery.
-    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
-      you can inspect, serialize, or replay after a crash.
-    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
-      logic, typed delegation, and confidence-based routing -- same trace,
-      same runtime.
-
-    ## Quick example
-
-    A pipeline as a `.crux` file:
-
-    ```yaml
-    pipeline: summarize
-    budget: { calls: 2 }
-
-    steps:
-        - step: count_words
-          handler: shell::capture
-          args:
-              cmd: "wc -w < input.txt"
-
-        - step: log_result
-          handler: ctrl::log
-    ```
-
-    The same thing in Rust:
-
-    ```rust
-    use crux::prelude::*;
-
-    #[crux::agent]
-    async fn summarize(input: String) -> Crux<String> {
-        let count: usize = x.step("count_words", || async {
-            Ok(input.split_whitespace().count())
-        }).await?;
-
-        x.step("format", || async move {
-            Ok(format!("{count} words"))
-        }).await
-    }
-    ```
-
-    Either way, the returned `Crux<T>` is:
-
-    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
-    - **Serializable** -- `serde_json::to_string(&crux)`
-    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
-
-    ## Installation
-
-    ```toml
-    [dependencies]
-    crux = "0.2"
-    ```
-
-    Requires Rust 1.88+ (edition 2024).
-
-    ## Crates
-
-    | Crate                                 | Description                                             |
-    | ------------------------------------- | ------------------------------------------------------- |
-    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
-    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
-    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
-    | [`crux-macros`](crates/crux-macros)   | `#[crux::ag
-- name: coursers
-  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
-  url: https://github.com/89jobrien/coursers
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-25T17:00:07Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: update handoff — moa error handling + doc coverage session'
-    date: 2026-06-25T17:00:04Z
-  - message: 'docs(crs-core,coursers,crs): add doc comments to undocumented public API items'
-    date: 2026-06-25T16:47:48Z
-  - message: 'fix(crs-core): suppress unused Result warnings in capture tests [moa-review]'
-    date: 2026-06-25T15:27:52Z
-  - message: Merge branch 'feat/error-deny' into feat/error-traits
-    date: 2026-06-25T15:26:20Z
-  - message: Merge branch 'feat/xtask' into feat/error-traits
-    date: 2026-06-25T15:25:59Z
-  - message: 'refactor(crs-core,coursers): update trait methods to return Result<T, CourserError> [moa-review]'
-    date: 2026-06-25T15:24:35Z
-  - message: 'fix(crs-core,coursers): replace panics with warnings for config/stdin parse failures [moa-review]'
-    date: 2026-06-25T15:14:18Z
-  - message: 'fix(coursers): handle serde_json serialization failure in deny() without panic [moa-review]'
-    date: 2026-06-25T15:08:05Z
-  - message: 'test(crs-core,coursers): add conformance tests for malformed config/stdin/state error paths [moa-review]'
-    date: 2026-06-25T15:07:01Z
-  - message: 'feat(crs-core): export CourserError from lib.rs [moa-review]'
-    date: 2026-06-25T15:06:54Z
-  tags:
-  - cli
-  readme: "# coursers\n\nClaude Code hook pipeline for course-correcting AI-generated Bash commands.\n\nTwo tools:\n\n- **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures\n- **`crs`** — output filter and command rewriter\n\n---\n\n## How It Works\n\n### Rule-based blocking (`coursers pre`)\n\nReads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command\nmatches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`\nresponse with a human-readable message.\n\nRules support:\n\n- Regex pattern matching (with optional `i` flag)\n- Exception patterns — allow a command through even if the main pattern matches\n- Per-rule messages\n\n### Learned failure tracking (`coursers post`)\n\nReads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and\nintentional failures), it records the command in a rolling failure log. If the same command\nfails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.\n\nThis catches commands that aren't covered by static rules but are clearly not working.\n\n---\n\n## Installation\n\n```sh\ncargo install --path crates/coursers\ncargo install --path crates/crs\n```\n\nWire into `~/.claude/settings.json`:\n\n```json\n{\n  \"hooks\": {\n    \"PreToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers pre\" },\n          { \"type\": \"command\", \"command\": \"crs rewrite\" }\n        ]\n      }\n    ],\n    \"PostToolUse\": [\n      {\n        \"matcher\": \"Bash\",\n        \"hooks\": [\n          { \"type\": \"command\", \"command\": \"coursers post\" },\n          { \"type\": \"command\", \"command\": \"crs filter\" }\n        ]\n      }\n    ]\n  }\n}\n```\n\n`crs rewrite` and `crs filter` are optional — run `coursers` alone if you only want blocking\nand failure learning.\n\n---\n\n## Configuration\n\nRules file: `~/.config/coursers/course-correct-rules.json`\n(override with `COURSERS_RULES` env var)\n\n```json\n{\n  \"rules\": [\n    {\n    "
-- name: obfsck
-  description: Secret-detection and redaction CLI for pre-commit hooks
-  url: https://github.com/89jobrien/obfsck
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-06-25T02:01:25Z
-  version: v0.1.0
-  stars: null
-  downloads: 77
-  recent_commits:
-  - message: 'quality: raise rustqual score from 74.0% to 91.2%'
-    date: 2026-06-25T01:59:16Z
-  - message: Delete demo/examples/16_maestro_session.yaml
-    date: 2026-06-12T06:31:54Z
-  - message: 'refactor(build): consolidate yaml_parser tests into build.rs — eliminate helper duplication'
-    date: 2026-06-08T18:13:16Z
-  - message: 'test(t22): assert audit pass counts each secret exactly once — double-count guard'
-    date: 2026-06-08T13:48:37Z
-  - message: 'test(t20): assert base64 +/_ chars matched by secret patterns — regression guard'
-    date: 2026-06-08T13:48:37Z
-  - message: 'test(t22): assert audit pass counts each secret exactly once — double-count guard'
-    date: 2026-06-08T13:46:45Z
-  - message: 'test(t20): assert base64 +/_ chars matched by secret patterns — regression guard'
-    date: 2026-06-08T13:45:55Z
-  - message: 'feat(t23): deny clippy::unwrap_used in runtime code — CI gate against bare panics'
-    date: 2026-06-08T13:06:50Z
-  - message: 'feat(t23): deny clippy::unwrap_used in runtime code — CI gate against bare panics'
-    date: 2026-06-08T13:06:33Z
-  - message: 'fix(t19): thread allowlist through obfuscate_high_entropy()'
-    date: 2026-06-08T12:46:21Z
-  tags:
-  - cli
-  readme: |+
-    # obfsck
-
-    Redacts secrets and PII from log lines and structured text.
-
-    ## Install
-
-    ```bash
-    cargo install --path .
-    ```
-
-    ## What it does
-
-    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
-    - Obfuscates identifiers with stable mappings (same input => same token)
-    - Supports privacy levels based on how aggressive redaction should be
-
-    ## Obfuscation levels
-
-    - `Minimal`: secret pattern redaction only
-    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
-    - `Paranoid`: adds path, hostname, and high-entropy token redaction
-
-    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
-    Sensitive system paths are preserved.
-
-    Preserved path segments include common roots like `home`, `usr`, `etc`,
-    `windows`, `users`, and `programdata`.
-
-    ### What each level redacts
-
-    | Pattern category | minimal | standard | paranoid |
-    |-----------------|---------|----------|----------|
-    | API keys, tokens, passwords | yes | yes | yes |
-    | IPs, emails, container IDs, usernames | — | yes | yes |
-    | PII (names, SSN, phone, credit card) | — | yes | yes |
-    | Paths, hostnames, high-entropy strings | — | — | yes |
-    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
-
-    `standard` is the privacy-forward default for sharing logs externally.
-    `minimal` is safe for internal tooling where structural identifiers are useful.
-
-    ## redact CLI
-
-    Redact secrets and PII from a file or stdin.
-
-    ```bash
-    # Stdin -> stdout (default level: minimal — secrets only)
-    echo "key=sk-ant-api03-ABCDEF..." | redact
-
-    # File input
-    redact path/to/logfile.txt
-
-    # Write to output file
-    redact input.txt --output redacted.txt
-
-    # Increase level
-    redact input.txt --level standard   # + IPs, emails, usernames, PII
-    redact input.txt --level paranoid   # + paths, hostnames, high-entropy
-
-    # Audit mode — report findings to stderr without redacting
-    redact input.txt --audit
-
-    # Custom secrets config (overrides bundled config)
-    redact input.txt --config ~/.config/obfsck/secrets.yaml
-    ```
-
-    ### Flags
-
 - name: maid
   description: File organiser CLI — sorts, converts, and routes files to Obsidian vaults
   url: https://github.com/89jobrien/maid
@@ -2677,119 +2872,6 @@
   stars: null
   downloads: 195
   recent_commits: []
-- name: hj
-  description: Handoff state, reconciliation, rendering, and handup surveys
-  url: https://github.com/89jobrien/hj
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-14T02:19:58Z
-  version: v0.1.3
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'fix(gitignore): re-ignore HANDOFF.godmode.*.yaml state files'
-    date: 2026-05-14T02:19:57Z
-  - message: Add CommitRef and update log handling
-    date: 2026-05-12T20:15:08Z
-  - message: Change demo repo user email to local address
-    date: 2026-05-03T14:12:42Z
-  - message: Update user email in common.sh
-    date: 2026-05-03T14:12:03Z
-  - message: 'docs: rewrite README with quick start, YAML format, and key flags'
-    date: 2026-04-30T21:56:35Z
-  - message: 'docs: fix stale hj-cli reference in examples README'
-    date: 2026-04-30T21:54:57Z
-  - message: 'chore: update Cargo.lock for v0.1.3'
-    date: 2026-04-30T21:50:43Z
-  - message: 'release: bump to v0.1.3'
-    date: 2026-04-30T20:23:52Z
-  - message: 'refactor: collapse 6-crate workspace into hjlib + hjx'
-    date: 2026-04-28T17:16:01Z
-  - message: 'fix(ci): harden release workflow per council review'
-    date: 2026-04-26T12:32:19Z
-  tags:
-  - agents
-  readme: |-
-    # hj
-
-    `hj` tracks work-in-progress across sessions using structured YAML handoff files. Each repo
-    gets a `.ctx/HANDOFF.<project>.<repo>.yaml` that holds open items, priorities, and a session
-    log. The CLI reads that file to triage at session start, appends log entries at session end,
-    syncs state to SQLite, and renders markdown summaries for humans and agents.
-
-    ## Quick Start
-
-    ```bash
-    # Install via pre-built binary
-    cargo binstall hjx
-
-    # In any git repo: scaffold .ctx/ and .gitignore entries
-    hj refresh
-
-    # Start a session — prints P0/P1/P2 triage from the handoff file
-    hj handon
-
-    # End a session — appends a log entry, writes HANDOFF.md, syncs SQLite
-    hj handoff --log-summary "What you did"
-    ```
-
-    ## Handoff File Format
-
-    Handoff files live at `.ctx/HANDOFF.<project>.<repo>.yaml`:
-
-    ```yaml
-    project: myproject
-    id: myproject
-    updated: 2026-04-30
-    items:
-        - id: mp-1
-          priority: P1
-          status: open
-          title: Wire the render pass
-          description: |
-              Description of what needs doing and why.
-          files:
-              - src/render.rs
-        - id: mp-2
-          priority: P2
-          status: done
-          title: Add conformance tests
-          completed: 2026-04-28
-    log:
-        - date: 20260428:131508
-          summary: Shipped render pass skeleton, all tests pass.
-          commits:
-              - sha: abc1234
-                branch: main
-    ```
-
-    Items have `status: open | blocked | done`. The `log` section grows with each session.
-    Commits accept either bare SHAs (`abc1234`) or `{sha, branch}` maps.
-
-    ## Install
-
-    Install the latest release via [`cargo binstall`](https://github.com/cargo-bins/cargo-binstall)
-    (downloads pre-built binaries from GitHub Releases):
-
-    ```bash
-    cargo binstall hjx
-    ```
-
-    Supported targets: `x86_64-unknown-linux-musl`, `aarch64-unknown-linux-musl`,
-    `x86_64-apple-darwin`, `aarch64-apple-darwin`. Unsupported targets fall back to
-    source compilation.
-
-    Install from the current checkout:
-
-    ```bash
-    hj install
-    ```
-
-    Manual equivalent:
-
-    ```bash
-    env RUSTC_WRAPPER= cargo install --path crates/hj
 - name: propkit
   description: Reusable proptest property suites ported from Hypothesis
   url: https://github.com/89jobrien/propkit
@@ -3309,7 +3391,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1201
+  downloads: 1210
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -3514,7 +3596,7 @@
   pushed_at: 2026-04-18T23:42:19.260031Z
   version: 0.2.3
   stars: null
-  downloads: 99
+  downloads: 107
   recent_commits: []
 - name: rx-rxx
   description: Execute compatible scripts directly
@@ -3569,7 +3651,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 155
+  downloads: 163
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -3591,7 +3673,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 192
+  downloads: 200
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
