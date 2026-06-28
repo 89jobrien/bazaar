@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-27T23:29:01Z
+  pushed_at: 2026-06-28T11:39:20Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-06-28T11:39:19Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-27T23:29:00Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-24T11:59:31Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-23T23:30:21Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-23T12:05:32Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,13 +213,127 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: taskit
+  description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
+  url: https://github.com/89jobrien/taskit
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-06-28T20:28:39Z
+  version: v0.6.0
+  stars: null
+  downloads: 41
+  recent_commits:
+  - message: 'chore(release): taskit-core v0.6.0'
+    date: 2026-06-28T20:28:24Z
+  - message: 'chore(release): taskit-init v0.6.0'
+    date: 2026-06-28T20:28:23Z
+  - message: 'chore(release): taskit-crux v0.6.0'
+    date: 2026-06-28T20:28:23Z
+  - message: 'chore(release): taskit-engine v0.6.0'
+    date: 2026-06-28T20:28:22Z
+  - message: 'chore(release): taskit v0.6.0'
+    date: 2026-06-28T20:28:22Z
+  - message: 'chore: disable github release and release notes requirement in rail.toml'
+    date: 2026-06-28T20:28:17Z
+  - message: 'chore: add per-crate tag prefixes to rail.toml'
+    date: 2026-06-28T20:27:19Z
+  - message: 'chore(release): taskit v0.5.0'
+    date: 2026-06-28T20:26:10Z
+  - message: 'chore: restructure to workspace dependencies'
+    date: 2026-06-28T20:25:09Z
+  - message: 'docs: update CLAUDE.md with clean and init behavior'
+    date: 2026-06-28T19:47:14Z
+  readme: |-
+    # taskit
+
+    Config-driven `cargo xtask` runner with affected-crate detection, protocol-drift tracking,
+    and CI pipeline orchestration for Rust workspaces.
+
+    ## Install
+
+    ```bash
+    cargo install taskit
+    ```
+
+    ## Quick start
+
+    Run from the root of any Rust workspace:
+
+    ```bash
+    taskit fmt          # format all crates
+    taskit lint         # clippy on all crates
+    taskit test         # nextest on all crates
+    taskit ci           # full local CI pipeline
+    taskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)
+    ```
+
+    Add `--dry-run` to any command to print the commands that would run without executing them.
+
+    ## Configuration
+
+    Create `taskit.toml` at the workspace root to customise behaviour. Every field is optional —
+    taskit works without any configuration by discovering crates via `cargo metadata`.
+
+    ```toml
+    [workspace]
+    # Ordered list of crates for affected-crate detection.
+    # 'dir' is the directory name relative to workspace root.
+    # 'pkg' is the Cargo package name (defaults to dir if omitted).
+    [[workspace.crates]]
+    dir = "my-common"
+
+    [[workspace.crates]]
+    dir = "my-api"
+
+    # If 'source' changes, 'dependents' are also treated as affected.
+    [[workspace.propagation]]
+    source = "my-common"
+    dependents = ["my-api", "my-cli"]
+
+    # Protocol-drift: files whose content hash is tracked in a lockfile.
+    # CI fails when any surface changes without updating the lock.
+    [[protocol.surfaces]]
+    name = "api-types"
+    path = "my-api/src/types.rs"
+
+    [[protocol.surfaces]]
+    name = "cli-commands"
+    path = "my-cli/src/commands/mod.rs"
+
+    [protocol]
+    lockfile = "taskit-protocol.lock"   # default
+
+    # Custom CI pipeline. When omitted, a built-in default pipeline is used.
+    [[ci.steps]]
+    name  = "fmt-check"
+    cmd   = "fmt --check"
+    gate  = true            # blocks subsequent steps on failure
+
+    [[ci.steps]]
+    name = "lint"
+    cmd  = "lint"
+
+    [[ci.steps]]
+    name = "test"
+    cmd  = "test"
+
+    [[ci.steps]]
+    name = "protocol-drift"
+    cmd  = "check-protocol-drift"
+    ```
+
+    ## Subcommands
+
+    | Command                                          | D
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-28T04:52:48Z
+  pushed_at: 2026-06-28T16:19:47Z
   version: v0.30.0
   stars: 1
   downloads: null
@@ -304,6 +418,191 @@
     ## Quick Start
 
     Requires Linux, root, kernel 5.0+
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-28T14:25:31Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Merge remote-tracking branch 'origin/main'
+    date: 2026-06-27T20:34:48Z
+  - message: 'merge: develop → main (dead-code cleanup, ail improvements, rustqual, rename)'
+    date: 2026-06-27T20:34:32Z
+  - message: 'chore: update Cargo.lock after crux-improve removal'
+    date: 2026-06-27T20:34:24Z
+  - message: 'chore: remove dead code — drop crux-improve crate, shell shim, and duplicate crux-baml dev-dep'
+    date: 2026-06-27T18:19:39Z
+  - message: 'chore(ail): agent improvement loop run 2026-06-26 — update block messages and grep -c exception'
+    date: 2026-06-26T13:31:36Z
+  - message: Reintroduce evolve function for evolution agents
+    date: 2026-06-25T07:59:04Z
+  - message: 'refactor(crux-agentic): introduce RunConfig struct and misc quality TODOs'
+    date: 2026-06-08T11:33:35Z
+  - message: 'refactor: rename cruxx→crux and split bin into modules'
+    date: 2026-06-06T14:54:44Z
+  - message: 'quality: raise rustqual score from 26.8% to 85.1%'
+    date: 2026-06-04T08:11:16Z
+  - message: Merge branch 'develop'
+    date: 2026-06-03T22:58:18Z
+  tags:
+  - agents
+  readme: |-
+    # crux
+
+    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
+
+    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
+      budgets in `.crux` files. The runtime handles execution, tracing,
+      and error recovery.
+    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
+      you can inspect, serialize, or replay after a crash.
+    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
+      logic, typed delegation, and confidence-based routing -- same trace,
+      same runtime.
+
+    ## Quick example
+
+    A pipeline as a `.crux` file:
+
+    ```yaml
+    pipeline: summarize
+    budget: { calls: 2 }
+
+    steps:
+        - step: count_words
+          handler: shell::capture
+          args:
+              cmd: "wc -w < input.txt"
+
+        - step: log_result
+          handler: ctrl::log
+    ```
+
+    The same thing in Rust:
+
+    ```rust
+    use crux::prelude::*;
+
+    #[crux::agent]
+    async fn summarize(input: String) -> Crux<String> {
+        let count: usize = x.step("count_words", || async {
+            Ok(input.split_whitespace().count())
+        }).await?;
+
+        x.step("format", || async move {
+            Ok(format!("{count} words"))
+        }).await
+    }
+    ```
+
+    Either way, the returned `Crux<T>` is:
+
+    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
+    - **Serializable** -- `serde_json::to_string(&crux)`
+    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
+
+    ## Installation
+
+    ```toml
+    [dependencies]
+    crux = "0.2"
+    ```
+
+    Requires Rust 1.88+ (edition 2024).
+
+    ## Crates
+
+    | Crate                                 | Description                                             |
+    | ------------------------------------- | ------------------------------------------------------- |
+    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
+    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
+    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
+    | [`crux-macros`](crates/crux-macros)   | `#[crux::ag
+- name: updog
+  description: Agent Improvement Loop — systematic agent behavior improvement from observed traces
+  url: https://github.com/89jobrien/updog
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-28T14:20:06Z
+  version: v0.1.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore(health): baseline report, remove stale fuzz TODO in coursers.rs'
+    date: 2026-06-28T14:20:03Z
+  - message: 'chore(ci): bump codeql-action v3 -> v4'
+    date: 2026-06-26T19:44:16Z
+  - message: 'fix(ci): add clippy-sarif install, security-events permission, continue-on-error for SARIF uploads'
+    date: 2026-06-26T18:15:00Z
+  - message: 'style(xtask): rustfmt line-length fixes'
+    date: 2026-06-26T18:11:58Z
+  - message: 'feat(sarif): cargo rail integration, SARIF output, release workflow'
+    date: 2026-06-26T18:09:08Z
+  - message: 'feat(rail): integrate cargo-rail for ci, crates.io, and gh workflows'
+    date: 2026-06-26T18:04:38Z
+  - message: 'fix(fuzz): add cargo-fuzz manifest metadata'
+    date: 2026-06-25T17:25:24Z
+  - message: 'handoff: update workflow state for 2026-06-25'
+    date: 2026-06-25T16:55:01Z
+  - message: 'docs: fix crate count, correct phase descriptions, add fuzz crate entries'
+    date: 2026-06-25T14:52:51Z
+  - message: 'chore: add fuzz/target/ to .gitignore, remove cached build artifacts'
+    date: 2026-06-25T13:03:10Z
+  readme: |-
+    # updog
+
+    Agent Improvement Loop — systematic agent behavior improvement from observed traces.
+
+    ## What it does
+
+    `ail` runs a 7-phase loop that:
+
+    1. **SDK Traces** — collects shell command traces via `crs discover`
+    2. **Human+LLM Feedback** — prompts for human + LLM review; produces `feedback.json`
+    3. **Promptfoo Evals** — generates an eval template (`evals.yaml`) from feedback clusters
+    4. **HALO Diagnosis** — scores each cluster (High-impact, Actionable, Low-effort, Observable); writes ranked `diagnosis.json`
+    5. **Codex Handoff** — converts diagnosis into a `HANDOFF.agent-improvement.<agent>.md`
+    6. **Automation Heartbeat** — optional; auto-triggers low-risk changes when gate conditions pass
+    7. **Harness Update** — runs `crs validate` and walks through the commit + archive checklist
+
+    ## Crates
+
+    | Crate        | Type         | Purpose                                                                                           |
+    | ------------ | ------------ | ------------------------------------------------------------------------------------------------- |
+    | `agent-loop` | library      | Domain types: traces, feedback, HALO scoring, diagnosis, handoff. Defines the `TraceSource` port. |
+    | `ail`        | binary + lib | CLI (`ail run`), phase implementations, `CourserTraceSource` adapter                              |
+    | `xtask`      | binary       | Build task runner (`cargo xtask ci\|fmt\|clippy\|test`)                                           |
+    | `fuzz`       | fuzz (excluded from workspace) | libFuzzer target for `parse_discover_output`; run with `cargo +nightly fuzz` |
+
+    ## Quick start
+
+    ```bash
+    # Install
+    cargo install --path crates/ail
+
+    # Run the full loop (dry-run)
+    ail run --agent current --dry-run
+
+    # Run from a specific phase
+    ail run --agent current --phase 4
+
+    # Debug logging
+    RUST_LOG=debug ail run --agent current --dry-run
+    ```
+
+    ## Development
+
+    ```bash
+    # Full CI gate (fmt-check + clippy + nextest)
+    cargo xtask ci        # or: just ci
+
+    # Individual gate
 - name: godmode
   description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
   url: https://github.com/89jobrien/godmode
@@ -615,225 +914,6 @@
     ```json
     {
       "rules"
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-27T20:35:10Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Merge remote-tracking branch 'origin/main'
-    date: 2026-06-27T20:34:48Z
-  - message: 'merge: develop → main (dead-code cleanup, ail improvements, rustqual, rename)'
-    date: 2026-06-27T20:34:32Z
-  - message: 'chore: update Cargo.lock after crux-improve removal'
-    date: 2026-06-27T20:34:24Z
-  - message: 'chore: remove dead code — drop crux-improve crate, shell shim, and duplicate crux-baml dev-dep'
-    date: 2026-06-27T18:19:39Z
-  - message: 'chore(ail): agent improvement loop run 2026-06-26 — update block messages and grep -c exception'
-    date: 2026-06-26T13:31:36Z
-  - message: Reintroduce evolve function for evolution agents
-    date: 2026-06-25T07:59:04Z
-  - message: 'refactor(crux-agentic): introduce RunConfig struct and misc quality TODOs'
-    date: 2026-06-08T11:33:35Z
-  - message: 'refactor: rename cruxx→crux and split bin into modules'
-    date: 2026-06-06T14:54:44Z
-  - message: 'quality: raise rustqual score from 26.8% to 85.1%'
-    date: 2026-06-04T08:11:16Z
-  - message: Merge branch 'develop'
-    date: 2026-06-03T22:58:18Z
-  tags:
-  - agents
-  readme: |-
-    # crux
-
-    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
-
-    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
-      budgets in `.crux` files. The runtime handles execution, tracing,
-      and error recovery.
-    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
-      you can inspect, serialize, or replay after a crash.
-    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
-      logic, typed delegation, and confidence-based routing -- same trace,
-      same runtime.
-
-    ## Quick example
-
-    A pipeline as a `.crux` file:
-
-    ```yaml
-    pipeline: summarize
-    budget: { calls: 2 }
-
-    steps:
-        - step: count_words
-          handler: shell::capture
-          args:
-              cmd: "wc -w < input.txt"
-
-        - step: log_result
-          handler: ctrl::log
-    ```
-
-    The same thing in Rust:
-
-    ```rust
-    use crux::prelude::*;
-
-    #[crux::agent]
-    async fn summarize(input: String) -> Crux<String> {
-        let count: usize = x.step("count_words", || async {
-            Ok(input.split_whitespace().count())
-        }).await?;
-
-        x.step("format", || async move {
-            Ok(format!("{count} words"))
-        }).await
-    }
-    ```
-
-    Either way, the returned `Crux<T>` is:
-
-    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
-    - **Serializable** -- `serde_json::to_string(&crux)`
-    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
-
-    ## Installation
-
-    ```toml
-    [dependencies]
-    crux = "0.2"
-    ```
-
-    Requires Rust 1.88+ (edition 2024).
-
-    ## Crates
-
-    | Crate                                 | Description                                             |
-    | ------------------------------------- | ------------------------------------------------------- |
-    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
-    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
-    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
-    | [`crux-macros`](crates/crux-macros)   | `#[crux::ag
-- name: taskit
-  description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
-  url: https://github.com/89jobrien/taskit
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-06-27T18:03:24Z
-  version: v0.1.1
-  stars: null
-  downloads: 39
-  recent_commits:
-  - message: 'feat(workspace): v0.4 multi-crate restructure with PipelineRunner port and taskit init'
-    date: 2026-06-27T10:44:43Z
-  - message: 'fix(workspace): apply MOA review findings [moa-review]'
-    date: 2026-06-27T10:22:36Z
-  - message: 'feat(taskit): add taskit-init and taskit-crux crates, wire Init subcommand'
-    date: 2026-06-27T09:25:57Z
-  - message: 'feat(taskit-engine): PipelineRunner adapters + conformance tests'
-    date: 2026-06-27T09:03:42Z
-  - message: 'refactor(taskit): remove old src/ modules (now in taskit-engine)'
-    date: 2026-06-27T09:00:00Z
-  - message: 'refactor(taskit): convert root package to thin bin crate'
-    date: 2026-06-27T08:59:33Z
-  - message: 'refactor(taskit-engine): create engine crate with all pipeline modules'
-    date: 2026-06-27T08:57:52Z
-  - message: 'refactor(taskit-core): extract core types and PipelineRunner trait'
-    date: 2026-06-27T08:48:15Z
-  - message: 'refactor(taskit): create workspace + taskit-core crate skeleton'
-    date: 2026-06-27T08:44:38Z
-  - message: 'feat(taskit): add OutputFormat::Diagnostic with miette graphical/narrated rendering'
-    date: 2026-06-27T06:48:27Z
-  readme: |-
-    # taskit
-
-    Config-driven `cargo xtask` runner with affected-crate detection, protocol-drift tracking,
-    and CI pipeline orchestration for Rust workspaces.
-
-    ## Install
-
-    ```bash
-    cargo install taskit
-    ```
-
-    ## Quick start
-
-    Run from the root of any Rust workspace:
-
-    ```bash
-    taskit fmt          # format all crates
-    taskit lint         # clippy on all crates
-    taskit test         # nextest on all crates
-    taskit ci           # full local CI pipeline
-    taskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)
-    ```
-
-    Add `--dry-run` to any command to print the commands that would run without executing them.
-
-    ## Configuration
-
-    Create `taskit.toml` at the workspace root to customise behaviour. Every field is optional —
-    taskit works without any configuration by discovering crates via `cargo metadata`.
-
-    ```toml
-    [workspace]
-    # Ordered list of crates for affected-crate detection.
-    # 'dir' is the directory name relative to workspace root.
-    # 'pkg' is the Cargo package name (defaults to dir if omitted).
-    [[workspace.crates]]
-    dir = "my-common"
-
-    [[workspace.crates]]
-    dir = "my-api"
-
-    # If 'source' changes, 'dependents' are also treated as affected.
-    [[workspace.propagation]]
-    source = "my-common"
-    dependents = ["my-api", "my-cli"]
-
-    # Protocol-drift: files whose content hash is tracked in a lockfile.
-    # CI fails when any surface changes without updating the lock.
-    [[protocol.surfaces]]
-    name = "api-types"
-    path = "my-api/src/types.rs"
-
-    [[protocol.surfaces]]
-    name = "cli-commands"
-    path = "my-cli/src/commands/mod.rs"
-
-    [protocol]
-    lockfile = "taskit-protocol.lock"   # default
-
-    # Custom CI pipeline. When omitted, a built-in default pipeline is used.
-    [[ci.steps]]
-    name  = "fmt-check"
-    cmd   = "fmt --check"
-    gate  = true            # blocks subsequent steps on failure
-
-    [[ci.steps]]
-    name = "lint"
-    cmd  = "lint"
-
-    [[ci.steps]]
-    name = "test"
-    cmd  = "test"
-
-    [[ci.steps]]
-    name = "protocol-drift"
-    cmd  = "check-protocol-drift"
-    ```
-
-    ## Subcommands
-
-    | Command                                          | D
 - name: obfsck
   description: Secret-detection and redaction CLI for pre-commit hooks
   url: https://github.com/89jobrien/obfsck
@@ -1020,86 +1100,6 @@
     | `lib/std/nu_deps.nu`            | `nu-deps`                    |
     | `lib/std/nu_release.nu`         | `nu-release`                 |
     | `lib/ta
-- name: updog
-  description: Agent Improvement Loop — systematic agent behavior improvement from observed traces
-  url: https://github.com/89jobrien/updog
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-26T19:44:18Z
-  version: v0.1.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore(ci): bump codeql-action v3 -> v4'
-    date: 2026-06-26T19:44:16Z
-  - message: 'fix(ci): add clippy-sarif install, security-events permission, continue-on-error for SARIF uploads'
-    date: 2026-06-26T18:15:00Z
-  - message: 'style(xtask): rustfmt line-length fixes'
-    date: 2026-06-26T18:11:58Z
-  - message: 'feat(sarif): cargo rail integration, SARIF output, release workflow'
-    date: 2026-06-26T18:09:08Z
-  - message: 'feat(rail): integrate cargo-rail for ci, crates.io, and gh workflows'
-    date: 2026-06-26T18:04:38Z
-  - message: 'fix(fuzz): add cargo-fuzz manifest metadata'
-    date: 2026-06-25T17:25:24Z
-  - message: 'handoff: update workflow state for 2026-06-25'
-    date: 2026-06-25T16:55:01Z
-  - message: 'docs: fix crate count, correct phase descriptions, add fuzz crate entries'
-    date: 2026-06-25T14:52:51Z
-  - message: 'chore: add fuzz/target/ to .gitignore, remove cached build artifacts'
-    date: 2026-06-25T13:03:10Z
-  - message: 'merge(test): ail proptest/unit/integration + fuzz crate [moa-review]'
-    date: 2026-06-25T13:02:46Z
-  readme: |-
-    # updog
-
-    Agent Improvement Loop — systematic agent behavior improvement from observed traces.
-
-    ## What it does
-
-    `ail` runs a 7-phase loop that:
-
-    1. **SDK Traces** — collects shell command traces via `crs discover`
-    2. **Human+LLM Feedback** — prompts for human + LLM review; produces `feedback.json`
-    3. **Promptfoo Evals** — generates an eval template (`evals.yaml`) from feedback clusters
-    4. **HALO Diagnosis** — scores each cluster (High-impact, Actionable, Low-effort, Observable); writes ranked `diagnosis.json`
-    5. **Codex Handoff** — converts diagnosis into a `HANDOFF.agent-improvement.<agent>.md`
-    6. **Automation Heartbeat** — optional; auto-triggers low-risk changes when gate conditions pass
-    7. **Harness Update** — runs `crs validate` and walks through the commit + archive checklist
-
-    ## Crates
-
-    | Crate        | Type         | Purpose                                                                                           |
-    | ------------ | ------------ | ------------------------------------------------------------------------------------------------- |
-    | `agent-loop` | library      | Domain types: traces, feedback, HALO scoring, diagnosis, handoff. Defines the `TraceSource` port. |
-    | `ail`        | binary + lib | CLI (`ail run`), phase implementations, `CourserTraceSource` adapter                              |
-    | `xtask`      | binary       | Build task runner (`cargo xtask ci\|fmt\|clippy\|test`)                                           |
-    | `fuzz`       | fuzz (excluded from workspace) | libFuzzer target for `parse_discover_output`; run with `cargo +nightly fuzz` |
-
-    ## Quick start
-
-    ```bash
-    # Install
-    cargo install --path crates/ail
-
-    # Run the full loop (dry-run)
-    ail run --agent current --dry-run
-
-    # Run from a specific phase
-    ail run --agent current --phase 4
-
-    # Debug logging
-    RUST_LOG=debug ail run --agent current --dry-run
-    ```
-
-    ## Development
-
-    ```bash
-    # Full CI gate (fmt-check + clippy + nextest)
-    cargo xtask ci        # or: just ci
-
-    # Individual gate
 - name: maid
   description: File organiser CLI — sorts, converts, and routes files to Obsidian vaults
   url: https://github.com/89jobrien/maid
@@ -3391,7 +3391,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1260
+  downloads: 1263
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -3596,7 +3596,7 @@
   pushed_at: 2026-04-18T23:42:19.260031Z
   version: 0.2.3
   stars: null
-  downloads: 107
+  downloads: 109
   recent_commits: []
 - name: rx-rxx
   description: Execute compatible scripts directly
@@ -3651,7 +3651,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 165
+  downloads: 167
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -3673,7 +3673,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 203
+  downloads: 205
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
