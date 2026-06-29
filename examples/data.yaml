@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-28T23:30:24Z
+  pushed_at: 2026-06-29T12:35:10Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-06-29T12:35:10Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-28T23:30:23Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-25T11:56:45Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-24T23:32:39Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-24T11:59:31Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,253 +213,215 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
-- name: coursers
-  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
-  url: https://github.com/89jobrien/coursers
+- name: numcp
+  description: MCP server that exposes Nushell tool handlers as MCP tools
+  url: https://github.com/89jobrien/numcp
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-29T09:49:58Z
+  pushed_at: 2026-06-29T13:28:37Z
   version: null
   stars: null
   downloads: null
   recent_commits:
-  - message: 'feat: merge crs binary into coursers (wc-t19 through wc-t23)'
-    date: 2026-06-29T02:08:00Z
-  - message: $(cat <<EOF
-    date: 2026-06-29T00:59:06Z
-  - message: 'feat: add coursers-types leaf crate with domain types and port traits'
-    date: 2026-06-29T00:47:47Z
-  - message: 'feat: agent improvement loop — new rules, rewrites, and eval harness'
-    date: 2026-06-27T20:40:40Z
-  - message: 'docs: update handoff — moa error handling + doc coverage session'
-    date: 2026-06-25T17:00:04Z
-  - message: 'docs(crs-core,coursers,crs): add doc comments to undocumented public API items'
-    date: 2026-06-25T16:47:48Z
-  - message: 'fix(crs-core): suppress unused Result warnings in capture tests [moa-review]'
-    date: 2026-06-25T15:27:52Z
-  - message: Merge branch 'feat/error-deny' into feat/error-traits
-    date: 2026-06-25T15:26:20Z
-  - message: Merge branch 'feat/xtask' into feat/error-traits
-    date: 2026-06-25T15:25:59Z
-  - message: 'refactor(crs-core,coursers): update trait methods to return Result<T, CourserError> [moa-review]'
-    date: 2026-06-25T15:24:35Z
-  tags:
-  - cli
+  - message: 'docs: add AGENTS.md for Codex CLI agent support'
+    date: 2026-06-28T18:26:01Z
+  - message: 'feat: feature-gate nu-engine deps so fuzz crate builds without heavy transitive deps'
+    date: 2026-06-12T22:27:22Z
+  - message: 'docs: update handoff — P2-1 through P6-1 complete, 21 tests green'
+    date: 2026-06-10T01:30:30Z
+  - message: 'fix: remove unused mut in integration test'
+    date: 2026-06-10T01:27:13Z
+  - message: 'feat: implement full MCP server (P2-1 through P6-1)'
+    date: 2026-06-10T01:24:43Z
+  - message: 'docs: bootstrap HANDOFF; add .ctx/ gitignore rules'
+    date: 2026-06-09T19:41:00Z
+  - message: 'feat(p1): config parsing and tool registry with full test coverage'
+    date: 2026-06-09T19:39:15Z
+  - message: 'docs: add implementation plan; defer nu-mcp to P2-1'
+    date: 2026-06-09T19:35:53Z
+  - message: 'feat: skeleton — MCP server exposing Nushell tool handlers'
+    date: 2026-06-09T19:33:05Z
   readme: |-
-    # coursers
+    # numcp
 
-    Claude Code hook pipeline for course-correcting AI-generated Bash commands.
+    An MCP server that exposes Nushell tool handlers as [Model Context Protocol](https://modelcontextprotocol.io/) tools.
 
-    Two tools:
+    `numcp` is the bridge between Nu-defined tool closures (e.g. `kubectl`, `web_search`,
+    `query_knowledge_base`) and any MCP client — including LLM agent daemons that need to
+    call local tools during a reasoning loop.
 
-    - **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures
-    - **`crs`** — output filter and command rewriter
+    ## Overview
 
-    ---
+    ```
+    LLM agent daemon
+      │  MCP stdio transport
+      ▼
+    numcp serve
+      │  nu-mcp engine
+      ▼
+    tool handlers (Nu scripts / config-defined tools)
+      │
+      ▼
+    kubectl / ragit / SurrealDB / web / ...
+    ```
 
-    ## How It Works
+    Tools are defined in a config file (`numcp.toml`) and optionally via `.nu` handler scripts.
+    `numcp` registers them as MCP tools and executes them on demand.
 
-    ### Rule-based blocking (`coursers pre`)
+    ## Status
 
-    Reads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command
-    matches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`
-    response with a human-readable message.
+    **Pre-alpha skeleton.** Not yet functional. Architecture is defined; implementation is in progress.
 
-    Rules support:
-
-    - Regex pattern matching (with optional `i` flag)
-    - Exception patterns — allow a command through even if the main pattern matches
-    - Per-rule messages
-
-    ### Learned failure tracking (`coursers post`)
-
-    Reads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and
-    intentional failures), it records the command in a rolling failure log. If the same command
-    fails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.
-
-    This catches commands that aren't covered by static rules but are clearly not working.
-
-    ---
+    See [`docs/plans/2026-06-09-baml-agent-daemon.md`](https://github.com/89jobrien/nu_libs/blob/main/docs/plans/2026-06-09-baml-agent-daemon.md)
+    in the `nu_libs` repo for the full design.
 
     ## Installation
 
     ```sh
-    cargo install --path crates/coursers
-    cargo install --path crates/crs
+    cargo install numcp
     ```
 
-    Install the full hook chain into your local `~/.claude/settings.json`:
+    Or build from source:
 
-    ```json
-    {
-      "hooks": {
-        "PreToolUse": [
-          {
-            "matcher": "Bash",
-            "hooks": [
-              { "type": "command", "command": "coursers pre" },
-              { "type": "command", "command": "crs rewrite" }
-            ]
-          }
-        ],
-        "PostToolUse": [
-          {
-            "matcher": "Bash",
-            "hooks": [
-              { "type": "command", "command": "coursers post" },
-              { "type": "command", "command": "crs filter" }
-            ]
-          }
-        ]
-      }
-    }
+    ```sh
+    git clone https://github.com/89jobrien/numcp
+    cargo build --release
     ```
 
-    Run `crs validate-hooks` after installing the hook block to verify the chain is wired
-    correctly.
+    ## Usage
 
-    ---
+    ```sh
+    numcp serve --config numcp.toml
+    ```
 
-    ## Configuration
+    ## Config
 
-    Rules file: `~/.config/coursers/course-correct-rules.json`
-    (override with `COURSERS_RULES` env var)
+    ```toml
+    # numcp.toml
 
-    ```json
-    {
-      "rules"
-- name: taskit
-  description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
-  url: https://github.com/89jobrien/taskit
+    [[tool]]
+    name        = "web_search"
+    description = "Search the web for a query"
+    handler     = "tools/web_search.nu"
+
+    [tool.parameters.query]
+    type        = "string"
+    description = "Search terms"
+    required    = true
+
+    [[tool]]
+    name        = "kubectl"
+    description = "Run a kubectl command"
+    handler     = "tools/kubectl.nu"
+
+    [tool.parameters.args]
+    type        = "array"
+    description = "Arguments to pass to kubectl"
+    required    = true
+    ```
+
+    ## Tool Handler Format
+
+    A handler is a Nu script that receives arguments as `$in` and returns a string result:
+
+    ```nushell
+    #!/usr/bin/env nu
+    # tools/web_search.nu
+    let q = $in.query
+    http get $"https://example.com/search?q=($q | url encode)" | get results | to yaml
+    ```
+
+    ## Design
+
+    - **MCP transport**: stdio (default), TC
+- name: updog
+  description: Agent Improvement Loop — systematic agent behavior improvement from observed traces
+  url: https://github.com/89jobrien/updog
   kinds:
   - GitHubRepo
-  - CratesIo
   language: Rust
-  pushed_at: 2026-06-29T04:30:38Z
-  version: v0.6.0
+  pushed_at: 2026-06-29T13:12:11Z
+  version: v0.1.0
   stars: null
-  downloads: 86
-  recent_commits:
-  - message: 'feat(init): add mdBook scaffold generator'
-    date: 2026-06-29T04:30:32Z
-  - message: 'feat(init): expand scaffolding with hooks, CI, deny.toml, .ctx/, and smart discovery'
-    date: 2026-06-29T04:27:47Z
-  - message: 'test: add conformance, property, integration, and fuzz tests'
-    date: 2026-06-29T04:04:37Z
-  - message: $(cat <<EOF
-    date: 2026-06-29T00:43:31Z
-  - message: $(cat <<EOF
-    date: 2026-06-29T00:25:55Z
-  - message: $(cat <<EOF
-    date: 2026-06-28T22:29:42Z
-  - message: $(cat <<'EOF'
-    date: 2026-06-28T22:09:04Z
-  - message: $(cat <<'EOF'
-    date: 2026-06-28T22:08:11Z
-  - message: $(cat <<'EOF'
-    date: 2026-06-28T22:07:29Z
-  - message: $(cat <<'EOF'
-    date: 2026-06-28T22:06:09Z
-  readme: "# taskit\n\nConfig-driven `cargo xtask` runner with affected-crate detection, protocol-drift tracking,\nand CI pipeline orchestration for Rust workspaces.\n\n## Install\n\n```bash\ncargo install taskit\n```\n\n## Quick start\n\nRun from the root of any Rust workspace:\n\n```bash\ntaskit fmt          # format all crates\ntaskit lint         # clippy on all crates\ntaskit test         # nextest on all crates\ntaskit ci           # full local CI pipeline\ntaskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)\n```\n\nAdd `--dry-run` to any command to print the commands that would run without executing them.\n\n## Configuration\n\nCreate `taskit.toml` at the workspace root to customise behaviour. Every field is optional —\ntaskit works without any configuration by discovering crates via `cargo metadata`.\n\n```toml\n[workspace]\n# Ordered list of crates for affected-crate detection.\n# 'dir' is the directory name relative to workspace root.\n# 'pkg' is the Cargo package name (defaults to dir if omitted).\n[[workspace.crates]]\ndir = \"my-common\"\n\n[[workspace.crates]]\ndir = \"my-api\"\n\n# If 'source' changes, 'dependents' are also treated as affected.\n[[workspace.propagation]]\nsource = \"my-common\"\ndependents = [\"my-api\", \"my-cli\"]\n\n# Protocol-drift: files whose content hash is tracked in a lockfile.\n# CI fails when any surface changes without updating the lock.\n[[protocol.surfaces]]\nname = \"api-types\"\npath = \"my-api/src/types.rs\"\n\n[[protocol.surfaces]]\nname = \"cli-commands\"\npath = \"my-cli/src/commands/mod.rs\"\n\n[protocol]\nlockfile = \"taskit-protocol.lock\"   # default\n\n# Custom CI pipeline. When omitted, a built-in default pipeline is used.\n[[ci.steps]]\nname  = \"fmt-check\"\ncmd   = \"fmt --check\"\ngate  = true            # blocks subsequent steps on failure\n\n[[ci.steps]]\nname = \"lint\"\ncmd  = \"lint\"\n\n[[ci.steps]]\nname = \"test\"\ncmd  = \"test\"\n\n[[ci.steps]]\nname = \"protocol-drift\"\ncmd  = \"check-protocol-drift\"\n```\n\n## Subcommands\n\n| Command                                             "
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-29T03:29:42Z
-  version: v0.30.0
-  stars: 1
   downloads: null
   recent_commits:
-  - message: Merge branch 'develop' into next
-    date: 2026-05-27T01:41:13Z
-  - message: 'fix(minibox): address blocking review findings for nesting'
-    date: 2026-05-27T01:37:10Z
-  - message: 'test(miniboxd): add nesting env var integration test'
-    date: 2026-05-26T21:22:56Z
-  - message: 'feat(minibox): overlay tmpfs fallback and cgroup delegation for nesting'
-    date: 2026-05-26T21:21:37Z
-  - message: 'feat(miniboxd): inject MINIBOX_NEST_DEPTH into container env'
-    date: 2026-05-26T21:19:26Z
-  - message: 'feat(minibox): add overlay-on-overlay probe and wire into preflight'
-    date: 2026-05-26T21:18:33Z
-  - message: 'feat(minibox): add nested container support (Tasks 1-5)'
-    date: 2026-05-26T21:15:11Z
-  - message: 'feat(xtask): wire smolfiles into test-in-vm, add --smolfile flag'
-    date: 2026-05-26T20:11:23Z
-  - message: 'test(smolvm): add smoke tests for SmolVmFixture + smolfiles'
-    date: 2026-05-26T20:10:52Z
-  - message: 'docs: add code citations for implementation-status claims (#132)'
-    date: 2026-05-26T20:07:06Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
+  - message: 'chore: self-review improvements'
+    date: 2026-06-29T13:12:10Z
+  - message: 'docs: add AGENTS.md for Codex CLI agent support'
+    date: 2026-06-28T18:27:18Z
+  - message: 'chore(health): baseline report, remove stale fuzz TODO in coursers.rs'
+    date: 2026-06-28T14:20:03Z
+  - message: 'chore(ci): bump codeql-action v3 -> v4'
+    date: 2026-06-26T19:44:16Z
+  - message: 'fix(ci): add clippy-sarif install, security-events permission, continue-on-error for SARIF uploads'
+    date: 2026-06-26T18:15:00Z
+  - message: 'style(xtask): rustfmt line-length fixes'
+    date: 2026-06-26T18:11:58Z
+  - message: 'feat(sarif): cargo rail integration, SARIF output, release workflow'
+    date: 2026-06-26T18:09:08Z
+  - message: 'feat(rail): integrate cargo-rail for ci, crates.io, and gh workflows'
+    date: 2026-06-26T18:04:38Z
+  - message: 'fix(fuzz): add cargo-fuzz manifest metadata'
+    date: 2026-06-25T17:25:24Z
+  - message: 'handoff: update workflow state for 2026-06-25'
+    date: 2026-06-25T16:55:01Z
   readme: |-
-    # minibox
+    # updog
 
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+    Agent Improvement Loop — systematic agent behavior improvement from observed traces.
 
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
+    ## What it does
 
-    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
-    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
-    keeps adapter suites swappable at startup with no recompile.
+    `ail` runs a 7-phase loop that:
 
-    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
+    1. **SDK Traces** — collects shell command traces via `crs discover`
+    2. **Human+LLM Feedback** — prompts for human + LLM review; produces `feedback.json`
+    3. **Promptfoo Evals** — generates an eval template (`evals.yaml`) from feedback clusters
+    4. **HALO Diagnosis** — scores each cluster (High-impact, Actionable, Low-effort, Observable); writes ranked `diagnosis.json`
+    5. **Codex Handoff** — converts diagnosis into a `HANDOFF.agent-improvement.<agent>.md`
+    6. **Automation Heartbeat** — optional; auto-triggers low-risk changes when gate conditions pass
+    7. **Harness Update** — runs `crs validate` and walks through the commit + archive checklist
 
-    ---
+    ## Crates
 
-    ## Why
+    | Crate        | Type         | Purpose                                                                                           |
+    | ------------ | ------------ | ------------------------------------------------------------------------------------------------- |
+    | `agent-loop` | library      | Domain types: traces, feedback, HALO scoring, diagnosis, handoff. Defines the `TraceSource` port. |
+    | `ail`        | binary + lib | CLI (`ail run`), phase implementations, `CourserTraceSource` adapter                              |
+    | `xtask`      | binary       | Build task runner (`cargo xtask ci\|fmt\|clippy\|test`)                                           |
+    | `fuzz`       | fuzz (excluded from workspace) | libFuzzer target for `parse_discover_output`; run with `cargo +nightly fuzz` |
 
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
+    ## Quick start
 
-    ---
+    ```bash
+    # Install
+    cargo install --path crates/ail
 
-    ## What Works Today
+    # Run the full loop (dry-run)
+    ail run --agent current --dry-run
 
-    ### Linux (production)
+    # Run from a specific phase
+    ail run --agent current --phase 4
 
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `minibox logs <id>` for stored stdout/stderr
-    - Container events — `minibox events` streams lifecycle events
+    # Debug logging
+    RUST_LOG=debug ail run --agent current --dry-run
+    ```
 
-    ### Experimental-ish
+    ## Development
 
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
-    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
-      Colima available as an alternative via Lima VM
+    ```bash
+    # Full CI gate (fmt-check + clippy + nextest)
+    cargo xtask ci        # or: just ci
 
-    ---
-
-    ## Quick Start
-
-    Requires Linux, root, kernel 5.0+
+    # Individual gate
 - name: crux
   description: Inspectable, serializable, replayable agent execution.
   url: https://github.com/89jobrien/crux
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-28T14:25:31Z
+  pushed_at: 2026-06-29T12:58:47Z
   version: null
   stars: null
   downloads: null
@@ -558,86 +520,246 @@
     | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
     | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
     | [`crux-macros`](crates/crux-macros)   | `#[crux::ag
-- name: updog
-  description: Agent Improvement Loop — systematic agent behavior improvement from observed traces
-  url: https://github.com/89jobrien/updog
+- name: coursers
+  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
+  url: https://github.com/89jobrien/coursers
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-28T14:20:06Z
-  version: v0.1.0
+  pushed_at: 2026-06-29T12:55:19Z
+  version: null
   stars: null
   downloads: null
   recent_commits:
-  - message: 'chore(health): baseline report, remove stale fuzz TODO in coursers.rs'
-    date: 2026-06-28T14:20:03Z
-  - message: 'chore(ci): bump codeql-action v3 -> v4'
-    date: 2026-06-26T19:44:16Z
-  - message: 'fix(ci): add clippy-sarif install, security-events permission, continue-on-error for SARIF uploads'
-    date: 2026-06-26T18:15:00Z
-  - message: 'style(xtask): rustfmt line-length fixes'
-    date: 2026-06-26T18:11:58Z
-  - message: 'feat(sarif): cargo rail integration, SARIF output, release workflow'
-    date: 2026-06-26T18:09:08Z
-  - message: 'feat(rail): integrate cargo-rail for ci, crates.io, and gh workflows'
-    date: 2026-06-26T18:04:38Z
-  - message: 'fix(fuzz): add cargo-fuzz manifest metadata'
-    date: 2026-06-25T17:25:24Z
-  - message: 'handoff: update workflow state for 2026-06-25'
-    date: 2026-06-25T16:55:01Z
-  - message: 'docs: fix crate count, correct phase descriptions, add fuzz crate entries'
-    date: 2026-06-25T14:52:51Z
-  - message: 'chore: add fuzz/target/ to .gitignore, remove cached build artifacts'
-    date: 2026-06-25T13:03:10Z
+  - message: 'docs: update handoff'
+    date: 2026-06-29T12:55:14Z
+  - message: 'feat: merge crs binary into coursers (wc-t19 through wc-t23)'
+    date: 2026-06-29T02:08:00Z
+  - message: $(cat <<EOF
+    date: 2026-06-29T00:59:06Z
+  - message: 'feat: add coursers-types leaf crate with domain types and port traits'
+    date: 2026-06-29T00:47:47Z
+  - message: 'feat: agent improvement loop — new rules, rewrites, and eval harness'
+    date: 2026-06-27T20:40:40Z
+  - message: 'docs: update handoff — moa error handling + doc coverage session'
+    date: 2026-06-25T17:00:04Z
+  - message: 'docs(crs-core,coursers,crs): add doc comments to undocumented public API items'
+    date: 2026-06-25T16:47:48Z
+  - message: 'fix(crs-core): suppress unused Result warnings in capture tests [moa-review]'
+    date: 2026-06-25T15:27:52Z
+  - message: Merge branch 'feat/error-deny' into feat/error-traits
+    date: 2026-06-25T15:26:20Z
+  - message: Merge branch 'feat/xtask' into feat/error-traits
+    date: 2026-06-25T15:25:59Z
+  tags:
+  - cli
   readme: |-
-    # updog
+    # coursers
 
-    Agent Improvement Loop — systematic agent behavior improvement from observed traces.
+    Claude Code hook pipeline for course-correcting AI-generated Bash commands.
 
-    ## What it does
+    Two tools:
 
-    `ail` runs a 7-phase loop that:
+    - **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures
+    - **`crs`** — output filter and command rewriter
 
-    1. **SDK Traces** — collects shell command traces via `crs discover`
-    2. **Human+LLM Feedback** — prompts for human + LLM review; produces `feedback.json`
-    3. **Promptfoo Evals** — generates an eval template (`evals.yaml`) from feedback clusters
-    4. **HALO Diagnosis** — scores each cluster (High-impact, Actionable, Low-effort, Observable); writes ranked `diagnosis.json`
-    5. **Codex Handoff** — converts diagnosis into a `HANDOFF.agent-improvement.<agent>.md`
-    6. **Automation Heartbeat** — optional; auto-triggers low-risk changes when gate conditions pass
-    7. **Harness Update** — runs `crs validate` and walks through the commit + archive checklist
+    ---
 
-    ## Crates
+    ## How It Works
 
-    | Crate        | Type         | Purpose                                                                                           |
-    | ------------ | ------------ | ------------------------------------------------------------------------------------------------- |
-    | `agent-loop` | library      | Domain types: traces, feedback, HALO scoring, diagnosis, handoff. Defines the `TraceSource` port. |
-    | `ail`        | binary + lib | CLI (`ail run`), phase implementations, `CourserTraceSource` adapter                              |
-    | `xtask`      | binary       | Build task runner (`cargo xtask ci\|fmt\|clippy\|test`)                                           |
-    | `fuzz`       | fuzz (excluded from workspace) | libFuzzer target for `parse_discover_output`; run with `cargo +nightly fuzz` |
+    ### Rule-based blocking (`coursers pre`)
 
-    ## Quick start
+    Reads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command
+    matches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`
+    response with a human-readable message.
 
-    ```bash
-    # Install
-    cargo install --path crates/ail
+    Rules support:
 
-    # Run the full loop (dry-run)
-    ail run --agent current --dry-run
+    - Regex pattern matching (with optional `i` flag)
+    - Exception patterns — allow a command through even if the main pattern matches
+    - Per-rule messages
 
-    # Run from a specific phase
-    ail run --agent current --phase 4
+    ### Learned failure tracking (`coursers post`)
 
-    # Debug logging
-    RUST_LOG=debug ail run --agent current --dry-run
+    Reads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and
+    intentional failures), it records the command in a rolling failure log. If the same command
+    fails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.
+
+    This catches commands that aren't covered by static rules but are clearly not working.
+
+    ---
+
+    ## Installation
+
+    ```sh
+    cargo install --path crates/coursers
+    cargo install --path crates/crs
     ```
 
-    ## Development
+    Install the full hook chain into your local `~/.claude/settings.json`:
 
-    ```bash
-    # Full CI gate (fmt-check + clippy + nextest)
-    cargo xtask ci        # or: just ci
+    ```json
+    {
+      "hooks": {
+        "PreToolUse": [
+          {
+            "matcher": "Bash",
+            "hooks": [
+              { "type": "command", "command": "coursers pre" },
+              { "type": "command", "command": "crs rewrite" }
+            ]
+          }
+        ],
+        "PostToolUse": [
+          {
+            "matcher": "Bash",
+            "hooks": [
+              { "type": "command", "command": "coursers post" },
+              { "type": "command", "command": "crs filter" }
+            ]
+          }
+        ]
+      }
+    }
+    ```
 
-    # Individual gate
+    Run `crs validate-hooks` after installing the hook block to verify the chain is wired
+    correctly.
+
+    ---
+
+    ## Configuration
+
+    Rules file: `~/.config/coursers/course-correct-rules.json`
+    (override with `COURSERS_RULES` env var)
+
+    ```json
+    {
+      "rules"
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-06-29T12:51:59Z
+  version: v0.30.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: Merge branch 'develop' into next
+    date: 2026-05-27T01:41:13Z
+  - message: 'fix(minibox): address blocking review findings for nesting'
+    date: 2026-05-27T01:37:10Z
+  - message: 'test(miniboxd): add nesting env var integration test'
+    date: 2026-05-26T21:22:56Z
+  - message: 'feat(minibox): overlay tmpfs fallback and cgroup delegation for nesting'
+    date: 2026-05-26T21:21:37Z
+  - message: 'feat(miniboxd): inject MINIBOX_NEST_DEPTH into container env'
+    date: 2026-05-26T21:19:26Z
+  - message: 'feat(minibox): add overlay-on-overlay probe and wire into preflight'
+    date: 2026-05-26T21:18:33Z
+  - message: 'feat(minibox): add nested container support (Tasks 1-5)'
+    date: 2026-05-26T21:15:11Z
+  - message: 'feat(xtask): wire smolfiles into test-in-vm, add --smolfile flag'
+    date: 2026-05-26T20:11:23Z
+  - message: 'test(smolvm): add smoke tests for SmolVmFixture + smolfiles'
+    date: 2026-05-26T20:10:52Z
+  - message: 'docs: add code citations for implementation-status claims (#132)'
+    date: 2026-05-26T20:07:06Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
+
+    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
+    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
+    keeps adapter suites swappable at startup with no recompile.
+
+    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `minibox logs <id>` for stored stdout/stderr
+    - Container events — `minibox events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
+    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
+      Colima available as an alternative via Lima VM
+
+    ---
+
+    ## Quick Start
+
+    Requires Linux, root, kernel 5.0+
+- name: taskit
+  description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
+  url: https://github.com/89jobrien/taskit
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-06-29T04:30:38Z
+  version: v0.6.0
+  stars: null
+  downloads: 88
+  recent_commits:
+  - message: 'feat(init): add mdBook scaffold generator'
+    date: 2026-06-29T04:30:32Z
+  - message: 'feat(init): expand scaffolding with hooks, CI, deny.toml, .ctx/, and smart discovery'
+    date: 2026-06-29T04:27:47Z
+  - message: 'test: add conformance, property, integration, and fuzz tests'
+    date: 2026-06-29T04:04:37Z
+  - message: $(cat <<EOF
+    date: 2026-06-29T00:43:31Z
+  - message: $(cat <<EOF
+    date: 2026-06-29T00:25:55Z
+  - message: $(cat <<EOF
+    date: 2026-06-28T22:29:42Z
+  - message: $(cat <<'EOF'
+    date: 2026-06-28T22:09:04Z
+  - message: $(cat <<'EOF'
+    date: 2026-06-28T22:08:11Z
+  - message: $(cat <<'EOF'
+    date: 2026-06-28T22:07:29Z
+  - message: $(cat <<'EOF'
+    date: 2026-06-28T22:06:09Z
+  readme: "# taskit\n\nConfig-driven `cargo xtask` runner with affected-crate detection, protocol-drift tracking,\nand CI pipeline orchestration for Rust workspaces.\n\n## Install\n\n```bash\ncargo install taskit\n```\n\n## Quick start\n\nRun from the root of any Rust workspace:\n\n```bash\ntaskit fmt          # format all crates\ntaskit lint         # clippy on all crates\ntaskit test         # nextest on all crates\ntaskit ci           # full local CI pipeline\ntaskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)\n```\n\nAdd `--dry-run` to any command to print the commands that would run without executing them.\n\n## Configuration\n\nCreate `taskit.toml` at the workspace root to customise behaviour. Every field is optional —\ntaskit works without any configuration by discovering crates via `cargo metadata`.\n\n```toml\n[workspace]\n# Ordered list of crates for affected-crate detection.\n# 'dir' is the directory name relative to workspace root.\n# 'pkg' is the Cargo package name (defaults to dir if omitted).\n[[workspace.crates]]\ndir = \"my-common\"\n\n[[workspace.crates]]\ndir = \"my-api\"\n\n# If 'source' changes, 'dependents' are also treated as affected.\n[[workspace.propagation]]\nsource = \"my-common\"\ndependents = [\"my-api\", \"my-cli\"]\n\n# Protocol-drift: files whose content hash is tracked in a lockfile.\n# CI fails when any surface changes without updating the lock.\n[[protocol.surfaces]]\nname = \"api-types\"\npath = \"my-api/src/types.rs\"\n\n[[protocol.surfaces]]\nname = \"cli-commands\"\npath = \"my-cli/src/commands/mod.rs\"\n\n[protocol]\nlockfile = \"taskit-protocol.lock\"   # default\n\n# Custom CI pipeline. When omitted, a built-in default pipeline is used.\n[[ci.steps]]\nname  = \"fmt-check\"\ncmd   = \"fmt --check\"\ngate  = true            # blocks subsequent steps on failure\n\n[[ci.steps]]\nname = \"lint\"\ncmd  = \"lint\"\n\n[[ci.steps]]\nname = \"test\"\ncmd  = \"test\"\n\n[[ci.steps]]\nname = \"protocol-drift\"\ncmd  = \"check-protocol-drift\"\n```\n\n## Subcommands\n\n| Command                                             "
 - name: godmode
   description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
   url: https://github.com/89jobrien/godmode
@@ -1135,126 +1257,6 @@
     ### Organise
 
     Sort files i
-- name: numcp
-  description: MCP server that exposes Nushell tool handlers as MCP tools
-  url: https://github.com/89jobrien/numcp
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-12T22:27:46Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat: feature-gate nu-engine deps so fuzz crate builds without heavy transitive deps'
-    date: 2026-06-12T22:27:22Z
-  - message: 'docs: update handoff — P2-1 through P6-1 complete, 21 tests green'
-    date: 2026-06-10T01:30:30Z
-  - message: 'fix: remove unused mut in integration test'
-    date: 2026-06-10T01:27:13Z
-  - message: 'feat: implement full MCP server (P2-1 through P6-1)'
-    date: 2026-06-10T01:24:43Z
-  - message: 'docs: bootstrap HANDOFF; add .ctx/ gitignore rules'
-    date: 2026-06-09T19:41:00Z
-  - message: 'feat(p1): config parsing and tool registry with full test coverage'
-    date: 2026-06-09T19:39:15Z
-  - message: 'docs: add implementation plan; defer nu-mcp to P2-1'
-    date: 2026-06-09T19:35:53Z
-  - message: 'feat: skeleton — MCP server exposing Nushell tool handlers'
-    date: 2026-06-09T19:33:05Z
-  readme: |-
-    # numcp
-
-    An MCP server that exposes Nushell tool handlers as [Model Context Protocol](https://modelcontextprotocol.io/) tools.
-
-    `numcp` is the bridge between Nu-defined tool closures (e.g. `kubectl`, `web_search`,
-    `query_knowledge_base`) and any MCP client — including LLM agent daemons that need to
-    call local tools during a reasoning loop.
-
-    ## Overview
-
-    ```
-    LLM agent daemon
-      │  MCP stdio transport
-      ▼
-    numcp serve
-      │  nu-mcp engine
-      ▼
-    tool handlers (Nu scripts / config-defined tools)
-      │
-      ▼
-    kubectl / ragit / SurrealDB / web / ...
-    ```
-
-    Tools are defined in a config file (`numcp.toml`) and optionally via `.nu` handler scripts.
-    `numcp` registers them as MCP tools and executes them on demand.
-
-    ## Status
-
-    **Pre-alpha skeleton.** Not yet functional. Architecture is defined; implementation is in progress.
-
-    See [`docs/plans/2026-06-09-baml-agent-daemon.md`](https://github.com/89jobrien/nu_libs/blob/main/docs/plans/2026-06-09-baml-agent-daemon.md)
-    in the `nu_libs` repo for the full design.
-
-    ## Installation
-
-    ```sh
-    cargo install numcp
-    ```
-
-    Or build from source:
-
-    ```sh
-    git clone https://github.com/89jobrien/numcp
-    cargo build --release
-    ```
-
-    ## Usage
-
-    ```sh
-    numcp serve --config numcp.toml
-    ```
-
-    ## Config
-
-    ```toml
-    # numcp.toml
-
-    [[tool]]
-    name        = "web_search"
-    description = "Search the web for a query"
-    handler     = "tools/web_search.nu"
-
-    [tool.parameters.query]
-    type        = "string"
-    description = "Search terms"
-    required    = true
-
-    [[tool]]
-    name        = "kubectl"
-    description = "Run a kubectl command"
-    handler     = "tools/kubectl.nu"
-
-    [tool.parameters.args]
-    type        = "array"
-    description = "Arguments to pass to kubectl"
-    required    = true
-    ```
-
-    ## Tool Handler Format
-
-    A handler is a Nu script that receives arguments as `$in` and returns a string result:
-
-    ```nushell
-    #!/usr/bin/env nu
-    # tools/web_search.nu
-    let q = $in.query
-    http get $"https://example.com/search?q=($q | url encode)" | get results | to yaml
-    ```
-
-    ## Design
-
-    - **MCP transport**: stdio (default), TC
 - name: devkit
   description: LLM-powered dev workflow toolkit. Extract a self-correcting CI/agent loop into a reusable scaffold for any project.
   url: https://github.com/89jobrien/devkit
@@ -1597,7 +1599,7 @@
   pushed_at: 2026-06-08T05:39:24.236954Z
   version: 0.1.0
   stars: null
-  downloads: 22
+  downloads: 23
   recent_commits: []
 - name: disyn-memory
   description: Memory store implementation for the disyn agent pipeline
@@ -1608,7 +1610,7 @@
   pushed_at: 2026-06-08T05:26:27.409395Z
   version: 0.1.0
   stars: null
-  downloads: 22
+  downloads: 23
   recent_commits: []
 - name: disyn-neural
   description: Neural proposal engine and fact extractor for the disyn agent pipeline
@@ -1619,7 +1621,7 @@
   pushed_at: 2026-06-08T05:26:18.193930Z
   version: 0.1.0
   stars: null
-  downloads: 22
+  downloads: 23
   recent_commits: []
 - name: disyn-symbolic
   description: Symbolic verifier and repair engine for the disyn agent pipeline
@@ -1630,7 +1632,7 @@
   pushed_at: 2026-06-08T05:26:07.254857Z
   version: 0.1.0
   stars: null
-  downloads: 22
+  downloads: 23
   recent_commits: []
 - name: disyn-core
   description: Domain types, port traits, and errors for the disyn agent pipeline
@@ -1641,7 +1643,7 @@
   pushed_at: 2026-06-08T05:25:56.523924Z
   version: 0.1.0
   stars: null
-  downloads: 47
+  downloads: 52
   recent_commits: []
 - name: looprs
   description: Just tools in a loop.
@@ -2522,7 +2524,7 @@
   pushed_at: 2026-05-18T05:22:46.040541Z
   version: 0.2.6
   stars: null
-  downloads: 50
+  downloads: 51
   recent_commits: []
 - name: cruxx-agentic
   description: Built-in step handlers for cruxx-script pipelines
@@ -2533,7 +2535,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 70
+  downloads: 71
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -2544,7 +2546,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 101
+  downloads: 103
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -2555,7 +2557,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 159
+  downloads: 163
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -2566,7 +2568,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 261
+  downloads: 266
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -2577,7 +2579,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 129
+  downloads: 135
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -2588,7 +2590,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 99
+  downloads: 101
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -2599,7 +2601,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 61
+  downloads: 62
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -2610,7 +2612,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 354
+  downloads: 361
   recent_commits: []
 - name: prefixe
   description: Prepend validated prefixes to shell commands — reads rx prefix config
@@ -2712,7 +2714,7 @@
   pushed_at: 2026-05-16T04:04:45.475950Z
   version: 0.3.0
   stars: null
-  downloads: 53
+  downloads: 54
   recent_commits: []
 - name: agentlint-pi
   description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
@@ -2723,7 +2725,7 @@
   pushed_at: 2026-05-16T04:04:23.718026Z
   version: 0.3.0
   stars: null
-  downloads: 55
+  downloads: 56
   recent_commits: []
 - name: agentlint-gemini
   description: agentlint validator for Google Gemini GEMINI.md files
@@ -2734,7 +2736,7 @@
   pushed_at: 2026-05-16T04:04:00.508658Z
   version: 0.3.0
   stars: null
-  downloads: 71
+  downloads: 72
   recent_commits: []
 - name: agentlint-codex
   description: agentlint validator for OpenAI Codex AGENTS.md files
@@ -2745,7 +2747,7 @@
   pushed_at: 2026-05-16T04:03:38.113837Z
   version: 0.3.0
   stars: null
-  downloads: 69
+  downloads: 70
   recent_commits: []
 - name: agentlint-cursor
   description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
@@ -2756,7 +2758,7 @@
   pushed_at: 2026-05-16T04:03:15.391246Z
   version: 0.3.0
   stars: null
-  downloads: 70
+  downloads: 71
   recent_commits: []
 - name: agentlint-claude
   description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
@@ -2767,7 +2769,7 @@
   pushed_at: 2026-05-16T04:02:52.382445Z
   version: 0.3.0
   stars: null
-  downloads: 52
+  downloads: 53
   recent_commits: []
 - name: agentlint-frontmatter
   description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
@@ -2778,7 +2780,7 @@
   pushed_at: 2026-05-16T04:02:28.958456Z
   version: 0.3.0
   stars: null
-  downloads: 114
+  downloads: 117
   recent_commits: []
 - name: agentlint-core
   description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
@@ -2789,7 +2791,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 199
+  downloads: 205
   recent_commits: []
 - name: propkit
   description: Reusable proptest property suites ported from Hypothesis
@@ -3310,7 +3312,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1302
+  downloads: 1313
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -3570,7 +3572,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 205
+  downloads: 207
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -3581,7 +3583,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 81
+  downloads: 82
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -3592,7 +3594,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 243
+  downloads: 246
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
