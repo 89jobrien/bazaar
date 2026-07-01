@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-30T11:55:28Z
+  pushed_at: 2026-06-30T23:35:33Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-06-30T23:35:32Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-30T11:55:27Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-26T23:33:19Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-26T11:55:49Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-25T23:36:11Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,97 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-07-01T03:27:49Z
+  version: v0.30.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: Merge branch 'develop' into next
+    date: 2026-05-27T01:41:13Z
+  - message: 'fix(minibox): address blocking review findings for nesting'
+    date: 2026-05-27T01:37:10Z
+  - message: 'test(miniboxd): add nesting env var integration test'
+    date: 2026-05-26T21:22:56Z
+  - message: 'feat(minibox): overlay tmpfs fallback and cgroup delegation for nesting'
+    date: 2026-05-26T21:21:37Z
+  - message: 'feat(miniboxd): inject MINIBOX_NEST_DEPTH into container env'
+    date: 2026-05-26T21:19:26Z
+  - message: 'feat(minibox): add overlay-on-overlay probe and wire into preflight'
+    date: 2026-05-26T21:18:33Z
+  - message: 'feat(minibox): add nested container support (Tasks 1-5)'
+    date: 2026-05-26T21:15:11Z
+  - message: 'feat(xtask): wire smolfiles into test-in-vm, add --smolfile flag'
+    date: 2026-05-26T20:11:23Z
+  - message: 'test(smolvm): add smoke tests for SmolVmFixture + smolfiles'
+    date: 2026-05-26T20:10:52Z
+  - message: 'docs: add code citations for implementation-status claims (#132)'
+    date: 2026-05-26T20:07:06Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
+
+    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
+    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
+    keeps adapter suites swappable at startup with no recompile.
+
+    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `minibox logs <id>` for stored stdout/stderr
+    - Container events — `minibox events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
+    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
+      Colima available as an alternative via Lima VM
+
+    ---
+
+    ## Quick Start
+
+    Requires Linux, root, kernel 5.0+
 - name: crux
   description: Inspectable, serializable, replayable agent execution.
   url: https://github.com/89jobrien/crux
@@ -328,7 +419,7 @@
   pushed_at: 2026-06-30T19:20:57Z
   version: v0.6.0
   stars: null
-  downloads: 88
+  downloads: 91
   recent_commits:
   - message: 'fix(init): respect --dry-run flag in taskit init'
     date: 2026-06-30T19:20:37Z
@@ -525,7 +616,7 @@
   pushed_at: 2026-06-30T07:43:32.782298Z
   version: 0.3.0
   stars: null
-  downloads: 11
+  downloads: 17
   recent_commits: []
 - name: neusym
   description: MCP server bridging Jira and Linear for bidirectional issue sync
@@ -552,97 +643,6 @@
     date: 2026-06-29T13:21:31Z
   - message: 'feat: implement MCP tools, CLI interface, and complete provider adapters'
     date: 2026-06-29T12:30:41Z
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-30T03:25:58Z
-  version: v0.30.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: Merge branch 'develop' into next
-    date: 2026-05-27T01:41:13Z
-  - message: 'fix(minibox): address blocking review findings for nesting'
-    date: 2026-05-27T01:37:10Z
-  - message: 'test(miniboxd): add nesting env var integration test'
-    date: 2026-05-26T21:22:56Z
-  - message: 'feat(minibox): overlay tmpfs fallback and cgroup delegation for nesting'
-    date: 2026-05-26T21:21:37Z
-  - message: 'feat(miniboxd): inject MINIBOX_NEST_DEPTH into container env'
-    date: 2026-05-26T21:19:26Z
-  - message: 'feat(minibox): add overlay-on-overlay probe and wire into preflight'
-    date: 2026-05-26T21:18:33Z
-  - message: 'feat(minibox): add nested container support (Tasks 1-5)'
-    date: 2026-05-26T21:15:11Z
-  - message: 'feat(xtask): wire smolfiles into test-in-vm, add --smolfile flag'
-    date: 2026-05-26T20:11:23Z
-  - message: 'test(smolvm): add smoke tests for SmolVmFixture + smolfiles'
-    date: 2026-05-26T20:10:52Z
-  - message: 'docs: add code citations for implementation-status claims (#132)'
-    date: 2026-05-26T20:07:06Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
-
-    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
-    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
-    keeps adapter suites swappable at startup with no recompile.
-
-    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `minibox logs <id>` for stored stdout/stderr
-    - Container events — `minibox events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
-    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
-      Colima available as an alternative via Lima VM
-
-    ---
-
-    ## Quick Start
-
-    Requires Linux, root, kernel 5.0+
 - name: numcp
   description: MCP server that exposes Nushell tool handlers as MCP tools
   url: https://github.com/89jobrien/numcp
@@ -2626,7 +2626,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 101
+  downloads: 102
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -2637,7 +2637,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 62
+  downloads: 63
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -3348,7 +3348,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1315
+  downloads: 1319
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -3553,7 +3553,7 @@
   pushed_at: 2026-04-18T23:42:19.260031Z
   version: 0.2.3
   stars: null
-  downloads: 147
+  downloads: 149
   recent_commits: []
 - name: rx-rxx
   description: Execute compatible scripts directly
@@ -3608,7 +3608,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 207
+  downloads: 209
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -3630,7 +3630,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 246
+  downloads: 248
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
