@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-30T23:35:33Z
+  pushed_at: 2026-07-01T12:05:20Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-07-01T12:05:19Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-30T23:35:32Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-27T11:36:01Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-26T23:33:19Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-26T11:55:49Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,7 +219,7 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-07-01T03:27:49Z
+  pushed_at: 2026-07-01T22:41:20Z
   version: v0.30.0
   stars: 1
   downloads: null
@@ -310,11 +310,17 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-06-30T22:25:24Z
+  pushed_at: 2026-07-01T15:45:15Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'docs: add CONFORMANCE.md for crux v0.3'
+    date: 2026-07-01T15:45:13Z
+  - message: 'fix: remove crux-macros from taskit crates (proc-macro, no lib tests)'
+    date: 2026-07-01T15:02:18Z
+  - message: 'feat(crux-baml): use MockLLM for llm::extract handler tests'
+    date: 2026-07-01T14:58:31Z
   - message: 'fix: remove xtask from taskit crates (binary-only, no lib tests)'
     date: 2026-06-30T22:24:58Z
   - message: 'feat: merge event-bus — Vector.dev sinks, harness pipelines, emission types'
@@ -329,12 +335,6 @@
     date: 2026-06-30T19:24:50Z
   - message: 'feat: add Vector.dev sinks, harness pipelines, and workspace dep fixes'
     date: 2026-06-30T19:22:20Z
-  - message: 'feat: add crux-improve crate'
-    date: 2026-06-29T18:14:07Z
-  - message: 'docs(ctx): EOD handoff — 2026-06-28 quality session'
-    date: 2026-06-29T12:58:41Z
-  - message: 'chore: add health baseline + fix registry.rs HashSet dedup'
-    date: 2026-06-28T14:25:17Z
   tags:
   - agents
   readme: |-
@@ -416,11 +416,15 @@
   - GitHubRepo
   - CratesIo
   language: Rust
-  pushed_at: 2026-06-30T19:20:57Z
+  pushed_at: 2026-07-01T14:18:38Z
   version: v0.6.0
   stars: null
-  downloads: 91
+  downloads: 95
   recent_commits:
+  - message: 'fix: remove redundant closure in ci pipeline gate'
+    date: 2026-07-01T14:18:26Z
+  - message: 'refactor: remove anyhow dependency, use TaskitError throughout'
+    date: 2026-07-01T14:17:02Z
   - message: 'fix(init): respect --dry-run flag in taskit init'
     date: 2026-06-30T19:20:37Z
   - message: 'feat(init): add mdBook scaffold generator'
@@ -437,10 +441,6 @@
     date: 2026-06-28T22:29:42Z
   - message: $(cat <<'EOF'
     date: 2026-06-28T22:09:04Z
-  - message: $(cat <<'EOF'
-    date: 2026-06-28T22:08:11Z
-  - message: $(cat <<'EOF'
-    date: 2026-06-28T22:07:29Z
   readme: "# taskit\n\nConfig-driven `cargo xtask` runner with affected-crate detection, protocol-drift tracking,\nand CI pipeline orchestration for Rust workspaces.\n\n## Install\n\n```bash\ncargo install taskit\n```\n\n## Quick start\n\nRun from the root of any Rust workspace:\n\n```bash\ntaskit fmt          # format all crates\ntaskit lint         # clippy on all crates\ntaskit test         # nextest on all crates\ntaskit ci           # full local CI pipeline\ntaskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)\n```\n\nAdd `--dry-run` to any command to print the commands that would run without executing them.\n\n## Configuration\n\nCreate `taskit.toml` at the workspace root to customise behaviour. Every field is optional —\ntaskit works without any configuration by discovering crates via `cargo metadata`.\n\n```toml\n[workspace]\n# Ordered list of crates for affected-crate detection.\n# 'dir' is the directory name relative to workspace root.\n# 'pkg' is the Cargo package name (defaults to dir if omitted).\n[[workspace.crates]]\ndir = \"my-common\"\n\n[[workspace.crates]]\ndir = \"my-api\"\n\n# If 'source' changes, 'dependents' are also treated as affected.\n[[workspace.propagation]]\nsource = \"my-common\"\ndependents = [\"my-api\", \"my-cli\"]\n\n# Protocol-drift: files whose content hash is tracked in a lockfile.\n# CI fails when any surface changes without updating the lock.\n[[protocol.surfaces]]\nname = \"api-types\"\npath = \"my-api/src/types.rs\"\n\n[[protocol.surfaces]]\nname = \"cli-commands\"\npath = \"my-cli/src/commands/mod.rs\"\n\n[protocol]\nlockfile = \"taskit-protocol.lock\"   # default\n\n# Custom CI pipeline. When omitted, a built-in default pipeline is used.\n[[ci.steps]]\nname  = \"fmt-check\"\ncmd   = \"fmt --check\"\ngate  = true            # blocks subsequent steps on failure\n\n[[ci.steps]]\nname = \"lint\"\ncmd  = \"lint\"\n\n[[ci.steps]]\nname = \"test\"\ncmd  = \"test\"\n\n[[ci.steps]]\nname = \"protocol-drift\"\ncmd  = \"check-protocol-drift\"\n```\n\n## Subcommands\n\n| Command                                             "
 - name: godmode
   description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
@@ -1691,7 +1691,7 @@
   pushed_at: 2026-06-08T05:25:20Z
   version: v0.3.2
   stars: 1
-  downloads: 16
+  downloads: 17
   recent_commits:
   - message: 'fix(ci): correct test fixture path and disable auto-bump workflow'
     date: 2026-06-08T05:25:11Z
@@ -2280,7 +2280,7 @@
   pushed_at: 2026-05-26T14:04:50.939469Z
   version: 0.30.0
   stars: null
-  downloads: 275
+  downloads: 276
   recent_commits: []
 - name: sandbox
   description: Standalone virtual bash interpreter with sandboxed filesystem
@@ -3348,7 +3348,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1319
+  downloads: 1321
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -3553,7 +3553,7 @@
   pushed_at: 2026-04-18T23:42:19.260031Z
   version: 0.2.3
   stars: null
-  downloads: 149
+  downloads: 151
   recent_commits: []
 - name: rx-rxx
   description: Execute compatible scripts directly
@@ -3608,7 +3608,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 209
+  downloads: 211
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -3630,7 +3630,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 248
+  downloads: 250
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
