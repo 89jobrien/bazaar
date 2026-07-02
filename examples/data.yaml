@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-07-01T23:36:39Z
+  pushed_at: 2026-07-02T11:51:27Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-07-02T11:51:26Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-07-01T23:36:38Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-28T11:39:19Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-27T23:29:00Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-27T11:36:01Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,120 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: looprs
+  description: Just tools in a loop.
+  url: https://github.com/89jobrien/looprs
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-07-02T16:34:51Z
+  version: v0.3.2
+  stars: 1
+  downloads: 17
+  recent_commits:
+  - message: 'fix(ci): correct test fixture path and disable auto-bump workflow'
+    date: 2026-06-08T05:25:11Z
+  - message: 'build: vendor openssl and bundle rusqlite for cross-compile'
+    date: 2026-06-08T03:36:46Z
+  - message: 'docs: prune resolved HANDOFF items, add .worktrees to gitignore'
+    date: 2026-06-08T01:19:28Z
+  - message: 'merge: implement scenario execution (TODO#8)'
+    date: 2026-06-08T01:18:20Z
+  - message: 'merge: add fs_mode.rs tests'
+    date: 2026-06-08T01:18:16Z
+  - message: 'merge: add ToolError tests'
+    date: 2026-06-08T01:18:13Z
+  - message: 'merge: add models_config.rs tests'
+    date: 2026-06-08T01:18:07Z
+  - message: 'merge: add observability.rs tests'
+    date: 2026-06-08T01:18:03Z
+  - message: 'test: add unit tests for tools/error.rs'
+    date: 2026-06-08T01:17:40Z
+  - message: 'test: add unit tests for models_config.rs'
+    date: 2026-06-08T01:16:00Z
+  tags:
+  - tools
+  readme: |-
+    # looprs
+
+    A Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.
+
+    ## Install
+
+    ```bash
+    git clone https://github.com/89jobrien/looprs.git
+    cd looprs
+    cargo build --release
+    ./target/release/looprs
+    # or: cargo install --path .
+    ```
+
+    ## Configure
+
+    Pick a provider:
+
+    ```bash
+    # Anthropic
+    export ANTHROPIC_API_KEY="sk-ant-..."
+    looprs
+
+    # OpenAI
+    export OPENAI_API_KEY="sk-..."
+    export MODEL="gpt-4-turbo"
+    looprs
+
+    # Local (Ollama)
+    ollama serve  # in another terminal
+    export PROVIDER="local"
+    looprs
+
+    # SDK-backed providers
+    export PROVIDER="openai-sdk"      # openai-sdk | anthropic-sdk | claude-sdk
+    looprs
+    ```
+
+    Persistent config: `.looprs/provider.json`. All env options: `.env.example`.
+
+    ## Built-in Tools
+
+    | Tool | Description |
+    |------|-------------|
+    | `/read` | Read files with line pagination |
+    | `/write` | Create or overwrite files |
+    | `/edit` | Replace text in files |
+    | `/glob` | Find files by name pattern (faster with `fd`) |
+    | `/grep` | Search file contents (faster with `rg`) |
+    | `/bash` | Execute shell commands |
+
+    Optional speedups (auto-detected, falls back to pure Rust):
+
+    ```bash
+    cargo install ripgrep fd-find
+    ```
+
+    ## File References
+
+    Reference files in prompts with `@filename` syntax — contents are injected into the conversation.
+
+    ```
+    Refactor @src/main.rs for better error handling
+    Compare @file1.rs and @file2.rs
+    ```
+
+    ## Extensibility
+
+    The `.looprs/` directory defines agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.
+
+    ```
+    .looprs/
+    ├── provider.json          # Provider settings
+    ├── config.json            # Global config
+    ├── commands/              # Custom slash commands (/)
+    ├── hooks/                 # Event-driven hooks (YAML)
+    ├── skills/                # Skills with progressive disclosure ($)
+    ├── agents/                # Agent role definitions (YAML)
+    └── rules/                 # Constraints
 - name: taskit
   description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
   url: https://github.com/89jobrien/taskit
@@ -220,11 +334,13 @@
   - GitHubRepo
   - CratesIo
   language: Rust
-  pushed_at: 2026-07-02T04:06:58Z
+  pushed_at: 2026-07-02T16:08:36Z
   version: v0.6.0
   stars: 1
-  downloads: 104
+  downloads: 105
   recent_commits:
+  - message: 'fix(engine): proptest command uses filter instead of feature flag'
+    date: 2026-07-02T16:08:18Z
   - message: 'fix(engine): make protocol-drift blocking in pre-push with self-healing'
     date: 2026-07-02T04:06:52Z
   - message: 'feat: v0.7.0 accumulated changes'
@@ -243,8 +359,6 @@
     date: 2026-07-02T01:22:46Z
   - message: 'fix(hooks): use --no-tests warn for proc-macro crates in pre-push'
     date: 2026-07-02T01:10:50Z
-  - message: 'feat: add taskit-testing, taskit-macros, taskit-output crates'
-    date: 2026-07-02T01:07:23Z
   readme: "# taskit\n\nConfig-driven CI pipeline runner with affected-crate detection, protocol-drift tracking,\nand pipeline orchestration for Rust workspaces.\n\n## Install\n\n```bash\ncargo install taskit\n```\n\n## Quick start\n\nRun from the root of any Rust workspace:\n\n```bash\ntaskit fmt          # format all crates\ntaskit lint         # clippy on all crates\ntaskit test         # nextest on all crates\ntaskit ci           # full local CI pipeline\ntaskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)\n```\n\nAdd `--dry-run` to any command to print the commands that would run without executing them.\n\n## Configuration\n\nCreate `taskit.toml` at the workspace root to customise behaviour. Every field is optional —\ntaskit works without any configuration by discovering crates via `cargo metadata`.\n\n```toml\n[workspace]\n# Ordered list of crates for affected-crate detection.\n# 'dir' is the directory name relative to workspace root.\n# 'pkg' is the Cargo package name (defaults to dir if omitted).\n[[workspace.crates]]\ndir = \"my-common\"\n\n[[workspace.crates]]\ndir = \"my-api\"\n\n# If 'source' changes, 'dependents' are also treated as affected.\n[[workspace.propagation]]\nsource = \"my-common\"\ndependents = [\"my-api\", \"my-cli\"]\n\n# Protocol-drift: files whose content hash is tracked in a lockfile.\n# CI fails when any surface changes without updating the lock.\n[[protocol.surfaces]]\nname = \"api-types\"\npath = \"my-api/src/types.rs\"\n\n[[protocol.surfaces]]\nname = \"cli-commands\"\npath = \"my-cli/src/commands/mod.rs\"\n\n[protocol]\nlockfile = \"taskit-protocol.lock\"   # default\n\n# Custom CI pipeline. When omitted, a built-in default pipeline is used.\n[[ci.steps]]\nname  = \"fmt-check\"\ncmd   = \"fmt --check\"\ngate  = true            # blocks subsequent steps on failure\n\n[[ci.steps]]\nname = \"lint\"\ncmd  = \"lint\"\n\n[[ci.steps]]\nname = \"test\"\ncmd  = \"test\"\n\n[[ci.steps]]\nname = \"protocol-drift\"\ncmd  = \"check-protocol-drift\"\n```\n\n## Subcommands\n\n| Command                                                  "
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
@@ -1834,120 +1948,6 @@
   stars: null
   downloads: 52
   recent_commits: []
-- name: looprs
-  description: Just tools in a loop.
-  url: https://github.com/89jobrien/looprs
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-06-08T05:25:20Z
-  version: v0.3.2
-  stars: 1
-  downloads: 17
-  recent_commits:
-  - message: 'fix(ci): correct test fixture path and disable auto-bump workflow'
-    date: 2026-06-08T05:25:11Z
-  - message: 'build: vendor openssl and bundle rusqlite for cross-compile'
-    date: 2026-06-08T03:36:46Z
-  - message: 'docs: prune resolved HANDOFF items, add .worktrees to gitignore'
-    date: 2026-06-08T01:19:28Z
-  - message: 'merge: implement scenario execution (TODO#8)'
-    date: 2026-06-08T01:18:20Z
-  - message: 'merge: add fs_mode.rs tests'
-    date: 2026-06-08T01:18:16Z
-  - message: 'merge: add ToolError tests'
-    date: 2026-06-08T01:18:13Z
-  - message: 'merge: add models_config.rs tests'
-    date: 2026-06-08T01:18:07Z
-  - message: 'merge: add observability.rs tests'
-    date: 2026-06-08T01:18:03Z
-  - message: 'test: add unit tests for tools/error.rs'
-    date: 2026-06-08T01:17:40Z
-  - message: 'test: add unit tests for models_config.rs'
-    date: 2026-06-08T01:16:00Z
-  tags:
-  - tools
-  readme: |-
-    # looprs
-
-    A Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.
-
-    ## Install
-
-    ```bash
-    git clone https://github.com/89jobrien/looprs.git
-    cd looprs
-    cargo build --release
-    ./target/release/looprs
-    # or: cargo install --path .
-    ```
-
-    ## Configure
-
-    Pick a provider:
-
-    ```bash
-    # Anthropic
-    export ANTHROPIC_API_KEY="sk-ant-..."
-    looprs
-
-    # OpenAI
-    export OPENAI_API_KEY="sk-..."
-    export MODEL="gpt-4-turbo"
-    looprs
-
-    # Local (Ollama)
-    ollama serve  # in another terminal
-    export PROVIDER="local"
-    looprs
-
-    # SDK-backed providers
-    export PROVIDER="openai-sdk"      # openai-sdk | anthropic-sdk | claude-sdk
-    looprs
-    ```
-
-    Persistent config: `.looprs/provider.json`. All env options: `.env.example`.
-
-    ## Built-in Tools
-
-    | Tool | Description |
-    |------|-------------|
-    | `/read` | Read files with line pagination |
-    | `/write` | Create or overwrite files |
-    | `/edit` | Replace text in files |
-    | `/glob` | Find files by name pattern (faster with `fd`) |
-    | `/grep` | Search file contents (faster with `rg`) |
-    | `/bash` | Execute shell commands |
-
-    Optional speedups (auto-detected, falls back to pure Rust):
-
-    ```bash
-    cargo install ripgrep fd-find
-    ```
-
-    ## File References
-
-    Reference files in prompts with `@filename` syntax — contents are injected into the conversation.
-
-    ```
-    Refactor @src/main.rs for better error handling
-    Compare @file1.rs and @file2.rs
-    ```
-
-    ## Extensibility
-
-    The `.looprs/` directory defines agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.
-
-    ```
-    .looprs/
-    ├── provider.json          # Provider settings
-    ├── config.json            # Global config
-    ├── commands/              # Custom slash commands (/)
-    ├── hooks/                 # Event-driven hooks (YAML)
-    ├── skills/                # Skills with progressive disclosure ($)
-    ├── agents/                # Agent role definitions (YAML)
-    └── rules/                 # Constraints
 - name: langchainx
   description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
   url: https://github.com/89jobrien/langchainx
