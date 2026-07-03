@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-07-02T11:51:27Z
+  pushed_at: 2026-07-02T23:29:44Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-07-02T23:29:43Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-07-02T11:51:26Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-06-28T23:30:23Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-06-28T11:39:19Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-06-27T23:29:00Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,179 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-07-03T03:21:30Z
+  version: v0.30.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: Merge branch 'develop' into next
+    date: 2026-05-27T01:41:13Z
+  - message: 'fix(minibox): address blocking review findings for nesting'
+    date: 2026-05-27T01:37:10Z
+  - message: 'test(miniboxd): add nesting env var integration test'
+    date: 2026-05-26T21:22:56Z
+  - message: 'feat(minibox): overlay tmpfs fallback and cgroup delegation for nesting'
+    date: 2026-05-26T21:21:37Z
+  - message: 'feat(miniboxd): inject MINIBOX_NEST_DEPTH into container env'
+    date: 2026-05-26T21:19:26Z
+  - message: 'feat(minibox): add overlay-on-overlay probe and wire into preflight'
+    date: 2026-05-26T21:18:33Z
+  - message: 'feat(minibox): add nested container support (Tasks 1-5)'
+    date: 2026-05-26T21:15:11Z
+  - message: 'feat(xtask): wire smolfiles into test-in-vm, add --smolfile flag'
+    date: 2026-05-26T20:11:23Z
+  - message: 'test(smolvm): add smoke tests for SmolVmFixture + smolfiles'
+    date: 2026-05-26T20:10:52Z
+  - message: 'docs: add code citations for implementation-status claims (#132)'
+    date: 2026-05-26T20:07:06Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
+
+    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
+    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
+    keeps adapter suites swappable at startup with no recompile.
+
+    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `minibox logs <id>` for stored stdout/stderr
+    - Container events — `minibox events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
+    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
+      Colima available as an alternative via Lima VM
+
+    ---
+
+    ## Quick Start
+
+    Requires Linux, root, kernel 5.0+
+- name: godmode
+  description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
+  url: https://github.com/89jobrien/godmode
+  kinds:
+  - GitHubRepo
+  - ClaudePlugin
+  language: Rust
+  pushed_at: 2026-07-03T01:13:52Z
+  version: v0.5.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'merge: introspect corrections — stale ''not implemented'' CLI disclaimers'
+    date: 2026-07-03T00:58:26Z
+  - message: 'fix(skills): introspect corrections — remove stale ''not implemented'' CLI disclaimers'
+    date: 2026-07-03T00:53:03Z
+  - message: 'fix(commands): remove nested commands/commands/ from cp artifact'
+    date: 2026-06-30T13:12:06Z
+  - message: 'chore: add commands/ dir (was ~/.claude/commands, now symlinked)'
+    date: 2026-06-30T13:11:33Z
+  - message: 'feat(scripts): add check-refs and gen-index utilities'
+    date: 2026-06-30T13:05:00Z
+  - message: 'fix(skills): add memory-banking validation workflow with agentlint plugin'
+    date: 2026-06-27T22:12:59Z
+  - message: 'feat(ci): add skill index completeness gate; fix 4 missing entries'
+    date: 2026-06-27T21:23:27Z
+  - message: 'fix(skills): introspection corrections — replace cat/grep with Read/Grep tools, fix stale tdd-agent ref'
+    date: 2026-06-27T18:15:47Z
+  - message: 'fix(skills): add missing skills to index, add CLI subcommands to quick ref'
+    date: 2026-06-27T10:05:10Z
+  - message: 'merge: issue/87-93 — review.rs splits and godmode-core SRP module splits (#87-#93)'
+    date: 2026-06-26T04:29:57Z
+  readme: |-
+    # godmode
+
+    Self-contained Rust-native development methodology plugin for Claude Code.
+
+    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
+
+    ## Overview
+
+    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
+    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
+    Tasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal
+    `depends_on` chains.
+
+    ## Install
+
+    ```bash
+    cargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode
+    claude plugin install godmode@bazaar
+    ```
+
+    ### Pre-commit hook
+
+    Install the godmode pre-commit hook into any git repo to block commits when tasks are
+    still running and to run cargo gates (fmt-check, clippy, nextest):
+
+    ```bash
+    # From the repo root where you want the hook installed:
+    nu /path/to/godmode/hooks/install.nu
+
+    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
+    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
+    ```
+
+    The hook:
+
+    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
+       printing the offending task IDs.
+    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
+       `cargo nextest run --workspace`.
+    3. Blocks the commit on any failure with a clear message.
+
+    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
+    cargo gates run.
+
+    ## Skills
+
+    | Skill                                     | When                                                   |
+    | ----------------------------------------- | ------------------------------------------------------ |
+    | `godmode:using-godmode`                   | Session orientation, avail
 - name: looprs
   description: Just tools in a loop.
   url: https://github.com/89jobrien/looprs
@@ -360,97 +533,6 @@
   - message: 'fix(hooks): use --no-tests warn for proc-macro crates in pre-push'
     date: 2026-07-02T01:10:50Z
   readme: "# taskit\n\nConfig-driven CI pipeline runner with affected-crate detection, protocol-drift tracking,\nand pipeline orchestration for Rust workspaces.\n\n## Install\n\n```bash\ncargo install taskit\n```\n\n## Quick start\n\nRun from the root of any Rust workspace:\n\n```bash\ntaskit fmt          # format all crates\ntaskit lint         # clippy on all crates\ntaskit test         # nextest on all crates\ntaskit ci           # full local CI pipeline\ntaskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)\n```\n\nAdd `--dry-run` to any command to print the commands that would run without executing them.\n\n## Configuration\n\nCreate `taskit.toml` at the workspace root to customise behaviour. Every field is optional —\ntaskit works without any configuration by discovering crates via `cargo metadata`.\n\n```toml\n[workspace]\n# Ordered list of crates for affected-crate detection.\n# 'dir' is the directory name relative to workspace root.\n# 'pkg' is the Cargo package name (defaults to dir if omitted).\n[[workspace.crates]]\ndir = \"my-common\"\n\n[[workspace.crates]]\ndir = \"my-api\"\n\n# If 'source' changes, 'dependents' are also treated as affected.\n[[workspace.propagation]]\nsource = \"my-common\"\ndependents = [\"my-api\", \"my-cli\"]\n\n# Protocol-drift: files whose content hash is tracked in a lockfile.\n# CI fails when any surface changes without updating the lock.\n[[protocol.surfaces]]\nname = \"api-types\"\npath = \"my-api/src/types.rs\"\n\n[[protocol.surfaces]]\nname = \"cli-commands\"\npath = \"my-cli/src/commands/mod.rs\"\n\n[protocol]\nlockfile = \"taskit-protocol.lock\"   # default\n\n# Custom CI pipeline. When omitted, a built-in default pipeline is used.\n[[ci.steps]]\nname  = \"fmt-check\"\ncmd   = \"fmt --check\"\ngate  = true            # blocks subsequent steps on failure\n\n[[ci.steps]]\nname = \"lint\"\ncmd  = \"lint\"\n\n[[ci.steps]]\nname = \"test\"\ncmd  = \"test\"\n\n[[ci.steps]]\nname = \"protocol-drift\"\ncmd  = \"check-protocol-drift\"\n```\n\n## Subcommands\n\n| Command                                                  "
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-07-02T03:24:44Z
-  version: v0.30.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: Merge branch 'develop' into next
-    date: 2026-05-27T01:41:13Z
-  - message: 'fix(minibox): address blocking review findings for nesting'
-    date: 2026-05-27T01:37:10Z
-  - message: 'test(miniboxd): add nesting env var integration test'
-    date: 2026-05-26T21:22:56Z
-  - message: 'feat(minibox): overlay tmpfs fallback and cgroup delegation for nesting'
-    date: 2026-05-26T21:21:37Z
-  - message: 'feat(miniboxd): inject MINIBOX_NEST_DEPTH into container env'
-    date: 2026-05-26T21:19:26Z
-  - message: 'feat(minibox): add overlay-on-overlay probe and wire into preflight'
-    date: 2026-05-26T21:18:33Z
-  - message: 'feat(minibox): add nested container support (Tasks 1-5)'
-    date: 2026-05-26T21:15:11Z
-  - message: 'feat(xtask): wire smolfiles into test-in-vm, add --smolfile flag'
-    date: 2026-05-26T20:11:23Z
-  - message: 'test(smolvm): add smoke tests for SmolVmFixture + smolfiles'
-    date: 2026-05-26T20:10:52Z
-  - message: 'docs: add code citations for implementation-status claims (#132)'
-    date: 2026-05-26T20:07:06Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/STABILITY_CHECKLIST.mbx.md](docs/STABILITY_CHECKLIST.mbx.md).
-
-    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
-    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
-    keeps adapter suites swappable at startup with no recompile.
-
-    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `minibox logs <id>` for stored stdout/stderr
-    - Container events — `minibox events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
-    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
-      Colima available as an alternative via Lima VM
-
-    ---
-
-    ## Quick Start
-
-    Requires Linux, root, kernel 5.0+
 - name: claude-code-statusline
   description: Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance — minimal setup, maximum insight.
   url: https://github.com/89jobrien/claude-code-statusline
@@ -558,7 +640,7 @@
   pushed_at: 2026-07-02T01:27:12.077472Z
   version: 0.7.0
   stars: null
-  downloads: 11
+  downloads: 17
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -569,7 +651,7 @@
   pushed_at: 2026-07-02T01:27:09.229936Z
   version: 0.7.0
   stars: null
-  downloads: 11
+  downloads: 17
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -580,7 +662,7 @@
   pushed_at: 2026-07-02T01:27:02.176056Z
   version: 0.7.0
   stars: null
-  downloads: 10
+  downloads: 16
   recent_commits: []
 - name: taskit-testing
   description: Test helpers, declarative macros, and RAII guards for taskit
@@ -591,7 +673,7 @@
   pushed_at: 2026-07-02T01:26:58.132872Z
   version: 0.7.0
   stars: null
-  downloads: 11
+  downloads: 17
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -602,7 +684,7 @@
   pushed_at: 2026-07-02T01:25:46.988300Z
   version: 0.7.0
   stars: null
-  downloads: 15
+  downloads: 21
   recent_commits: []
 - name: crux
   description: Inspectable, serializable, replayable agent execution.
@@ -709,88 +791,6 @@
     | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
     | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
     | [`crux-macros`](crates/crux-macros)   | `#[crux::ag
-- name: godmode
-  description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
-  url: https://github.com/89jobrien/godmode
-  kinds:
-  - GitHubRepo
-  - ClaudePlugin
-  language: Rust
-  pushed_at: 2026-06-30T13:12:07Z
-  version: v0.5.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'fix(commands): remove nested commands/commands/ from cp artifact'
-    date: 2026-06-30T13:12:06Z
-  - message: 'chore: add commands/ dir (was ~/.claude/commands, now symlinked)'
-    date: 2026-06-30T13:11:33Z
-  - message: 'feat(scripts): add check-refs and gen-index utilities'
-    date: 2026-06-30T13:05:00Z
-  - message: 'fix(skills): add memory-banking validation workflow with agentlint plugin'
-    date: 2026-06-27T22:12:59Z
-  - message: 'feat(ci): add skill index completeness gate; fix 4 missing entries'
-    date: 2026-06-27T21:23:27Z
-  - message: 'fix(skills): introspection corrections — replace cat/grep with Read/Grep tools, fix stale tdd-agent ref'
-    date: 2026-06-27T18:15:47Z
-  - message: 'fix(skills): add missing skills to index, add CLI subcommands to quick ref'
-    date: 2026-06-27T10:05:10Z
-  - message: 'merge: issue/87-93 — review.rs splits and godmode-core SRP module splits (#87-#93)'
-    date: 2026-06-26T04:29:57Z
-  - message: 'merge: issue/82-85 — add --top, --only, --fix-config flags and COMPLEXITY surfacing to triage.nu (#82, #83, #84, #85)'
-    date: 2026-06-26T04:29:48Z
-  - message: 'merge: issue/94-95 — extract named constants for time/calendar arithmetic (#94, #95)'
-    date: 2026-06-26T04:29:48Z
-  readme: |-
-    # godmode
-
-    Self-contained Rust-native development methodology plugin for Claude Code.
-
-    > Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.
-
-    ## Overview
-
-    Godmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all
-    stateful operations — skills are thin wrappers that call `godmode` and act on the output.
-    Tasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal
-    `depends_on` chains.
-
-    ## Install
-
-    ```bash
-    cargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode
-    claude plugin install godmode@bazaar
-    ```
-
-    ### Pre-commit hook
-
-    Install the godmode pre-commit hook into any git repo to block commits when tasks are
-    still running and to run cargo gates (fmt-check, clippy, nextest):
-
-    ```bash
-    # From the repo root where you want the hook installed:
-    nu /path/to/godmode/hooks/install.nu
-
-    # Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:
-    nu "$CLAUDE_PLUGIN_ROOT/hooks/install.nu"
-    ```
-
-    The hook:
-
-    1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,
-       printing the offending task IDs.
-    2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and
-       `cargo nextest run --workspace`.
-    3. Blocks the commit on any failure with a clear message.
-
-    If `godmode` is not on PATH, the task-state check is skipped gracefully and only the
-    cargo gates run.
-
-    ## Skills
-
-    | Skill                                     | When                                                   |
-    | ----------------------------------------- | ------------------------------------------------------ |
-    | `godmode:using-godmode`                   | Session orientation, avail
 - name: nu_libs
   description: A library of Nushell scripts organized by category
   url: https://github.com/89jobrien/nu_libs
@@ -3501,7 +3501,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1355
+  downloads: 1356
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
