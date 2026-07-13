@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-07-12T11:29:23Z
+  pushed_at: 2026-07-12T23:22:58Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-07-12T23:22:57Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-07-12T11:29:22Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-07-04T11:34:05Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-07-03T23:28:11Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-07-03T11:50:11Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,250 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: braid-mcp
+  description: MCP (Model Context Protocol) stdio server for braid
+  url: https://crates.io/crates/braid-mcp
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-07-13T08:04:46.563067Z
+  version: 0.3.0
+  stars: null
+  downloads: 8
+  recent_commits: []
+- name: braid-providers
+  description: LLM provider adapters for the braid agent platform (OpenAI, Ollama)
+  url: https://crates.io/crates/braid-providers
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-07-13T07:53:20.810104Z
+  version: 0.3.0
+  stars: null
+  downloads: 0
+  recent_commits: []
+- name: braid
+  description: Personal agent platform — Rust workspace
+  url: https://github.com/89jobrien/braid
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-07-13T07:46:47Z
+  version: v0.3.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: unify workspace dependencies via cargo-rail'
+    date: 2026-07-13T07:46:18Z
+  - message: 'chore: rename braid-core -> braid-engine (name taken on crates.io)'
+    date: 2026-07-13T07:39:22Z
+  - message: 'chore: add crates.io publish metadata to workspace'
+    date: 2026-07-13T07:32:10Z
+  - message: 'chore: add version to all intra-workspace path dependencies (required for crates.io publish)'
+    date: 2026-07-13T07:09:33Z
+  - message: 'docs: fix post-v0.3.0 doc issues'
+    date: 2026-07-13T06:47:06Z
+  - message: 'docs: update CHANGELOG for v0.3.0 and v0.2.0'
+    date: 2026-07-13T06:40:59Z
+  - message: 'chore: bump workspace version to 0.3.0'
+    date: 2026-07-13T06:38:54Z
+  - message: 'feat(braid-components): merge Phase 4 component system (#24)'
+    date: 2026-07-13T06:34:26Z
+  - message: 'feat(braid-components): implement Phase 4 component system (#24)'
+    date: 2026-07-13T06:33:59Z
+  - message: 'docs: add ADRs for event envelope, tool contract, and component format (#17)'
+    date: 2026-07-13T06:29:35Z
+  readme: |
+    # Braid
+
+    Rust-first workspace for the Braid personal agent platform.
+
+    ## Crates
+
+    **Phase 1 — Core**
+    - `braid-model`: canonical domain types (messages, tool calls, transcripts, context)
+    - `braid-ports`: inner-ring port traits (`Provider`, `ToolExecutor`, `EventSink`, `SessionStorage`, `ContextProvider`)
+    - `braid-core`: runtime engine (`Engine<P, T, S, R, C>`), `SimpleLoopPlanner`, tool registry
+    - `braid-providers`: provider adapters (`MockProvider`, `OpenAiProvider`)
+    - `braid-cli`: thin operator entrypoint for local runs
+
+    **Phase 2 — Safety**
+    - `braid-redact`: `RedactionPipeline` with ordered rule chain (secrets, env vars, home paths)
+    - `braid-hooks`: `HookedExecutor` wrapping any `ToolExecutor` with pre/post hook gating
+    - `braid-mcp`: MCP server over stdio (JSON-RPC), tool registration and dispatch
+    - `braid-observe`: session event store; persists `Event` stream to disk
+
+    **Phase 3 — Context**
+    - `braid-context`: context assembly from `DoobSource` (todos) and `RepoSource` (git diff/log); two-stage compaction (staleness filter + token budget with rolling LLM summarization); injected into engine at session start via `ContextProvider` port
+
+    **UI**
+    - `braid-tui`: multi-pane session inspector (Ratatui)
+
+    ## Docs
+
+    - [Planning Docs](./docs/planning/README.md)
+    - [Workspace Overview](./docs/architecture/workspace-overview.md)
+    - [Braid](./docs/planning/Braid.md)
+    - [Braid - Rust Workspace Blueprint](./docs/planning/Braid%20-%20Rust%20Workspace%20Blueprint.md)
+    - [Braid - Rust Workspace Spec](./docs/planning/Braid%20-%20Rust%20Workspace%20Spec.md)
+    - [Braid - Crate Implementation Checklist](./docs/planning/Braid%20-%20Crate%20Implementation%20Checklist.md)
+- name: braid-bootstrap
+  description: Environment setup and health checks for the braid agent platform
+  url: https://crates.io/crates/braid-bootstrap
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-07-13T07:43:39.240721Z
+  version: 0.3.0
+  stars: null
+  downloads: 0
+  recent_commits: []
+- name: braid-engine
+  description: Agent loop engine for the braid platform
+  url: https://crates.io/crates/braid-engine
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-07-13T07:41:30.088394Z
+  version: 0.3.0
+  stars: null
+  downloads: 0
+  recent_commits: []
+- name: braid-hooks
+  description: Pre/post-execution hook system for the braid agent platform
+  url: https://crates.io/crates/braid-hooks
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-07-13T07:35:45.632353Z
+  version: 0.3.0
+  stars: null
+  downloads: 0
+  recent_commits: []
+- name: braid-redact
+  description: Redaction pipeline for secrets and PII in braid agent sessions
+  url: https://crates.io/crates/braid-redact
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-07-13T07:35:29.534149Z
+  version: 0.3.0
+  stars: null
+  downloads: 0
+  recent_commits: []
+- name: braid-ports
+  description: Port traits for the braid agent platform (Provider, ToolExecutor, EventSink, ComponentRegistry)
+  url: https://crates.io/crates/braid-ports
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-07-13T07:34:30.277211Z
+  version: 0.3.0
+  stars: null
+  downloads: 0
+  recent_commits: []
+- name: braid-model
+  description: Canonical domain types for the braid agent platform
+  url: https://crates.io/crates/braid-model
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-07-13T07:33:22.653887Z
+  version: 0.3.0
+  stars: null
+  downloads: 0
+  recent_commits: []
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-07-13T03:24:05Z
+  version: v0.30.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #455 from 89jobrien/next'
+    date: 2026-07-08T04:56:31Z
+  - message: Merge branch 'develop' into next
+    date: 2026-07-08T04:50:49Z
+  - message: 'ci: remove reviewdog workflow'
+    date: 2026-07-08T04:18:50Z
+  - message: 'fix(ci): resolve stability-gates failures on develop'
+    date: 2026-07-08T03:56:17Z
+  - message: 'docs: session plans, bench design doc, and missing reconcile test file'
+    date: 2026-07-07T20:08:44Z
+  - message: 'feat(bench): regression tooling, Justfile, nightly CI (wave C)'
+    date: 2026-07-07T18:44:32Z
+  - message: 'feat(minibox-bench): linux hot-path benches (wave B)'
+    date: 2026-07-07T18:11:43Z
+  - message: 'feat(minibox-bench): dedicated bench crate with hot-path coverage (wave A)'
+    date: 2026-07-07T18:05:01Z
+  - message: 'fix: resolve MoA review HIGH findings (wave 2: F4, F8, D2) + v0.31.0 [moa-review]'
+    date: 2026-07-07T16:03:18Z
+  - message: 'fix: resolve MoA review HIGH findings (wave 1: F1-F3, F5, F7) [moa-review]'
+    date: 2026-07-07T11:58:33Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
+
+    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
+    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
+    keeps adapter suites swappable at startup with no recompile.
+
+    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `minibox logs <id>` for stored stdout/stderr
+    - Container events — `minibox events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
+    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
+      Colima available as an alternative via Lima VM
+
+    ---
+
+    ## Quick Start
+
+    Requires Linux, root, k
 - name: looprs
   description: Just tools in a loop.
   url: https://github.com/89jobrien/looprs
@@ -220,31 +464,31 @@
   - GitHubRepo
   - CratesIo
   language: Rust
-  pushed_at: 2026-07-12T06:49:20Z
+  pushed_at: 2026-07-13T02:26:44Z
   version: v0.3.2
   stars: 1
-  downloads: 34
+  downloads: 71
   recent_commits:
-  - message: 'fix(looprs): derive Default for SessionStoreBackend'
-    date: 2026-07-12T06:48:59Z
-  - message: 'feat(looprs): implement ideas 1-5, stubs 6-10, miette diagnostics on all error types'
-    date: 2026-07-12T06:48:28Z
-  - message: 'ci: install required tools and configure coverage crate'
-    date: 2026-07-12T06:35:01Z
-  - message: 'feat(looprs): implement bundled_agents with reviewer, planner, debugger'
-    date: 2026-07-12T06:18:42Z
-  - message: 'fix(looprs): allow dead_code on mcp_tool_definitions until wired into agent'
-    date: 2026-07-12T06:17:10Z
-  - message: 'feat(looprs): implement mcp_tool_definitions via JSON-RPC tools/list'
-    date: 2026-07-12T06:16:49Z
-  - message: 'feat(looprs): implement ObservationManager persist/load_from via SQLite'
-    date: 2026-07-12T06:12:55Z
-  - message: 'test(looprs): verify Agent runs fully through ports with no real I/O'
-    date: 2026-07-12T06:10:59Z
-  - message: 'feat(looprs): add context compaction via sliding window in run_turn'
-    date: 2026-07-12T06:08:25Z
-  - message: 'chore: align xtask version with workspace; update health baseline to v0.4.0'
-    date: 2026-07-12T06:02:29Z
+  - message: 'fix(clippy): remove redundant use dirs, collapse nested ifs, allow dead_code on mcp stubs'
+    date: 2026-07-13T02:26:16Z
+  - message: 'feat: implement M1-M5 and L2-L3'
+    date: 2026-07-13T02:24:06Z
+  - message: 'feat: implement Q1-Q5 and close L1 (hex Phase 1)'
+    date: 2026-07-13T02:10:21Z
+  - message: 'chore(ideas): anchor 13 tracked ideas as IDEA() comments across codebase'
+    date: 2026-07-13T02:06:47Z
+  - message: 'fix(commands): port bash/python heredoc commands to rust-script and internal actions'
+    date: 2026-07-13T01:46:19Z
+  - message: 'chore: release v0.5.1'
+    date: 2026-07-13T01:33:08Z
+  - message: 'chore: cargo-rail unify, release config, graph in CI'
+    date: 2026-07-13T01:30:56Z
+  - message: 'chore: adopt cargo-rail for CI and local workflows'
+    date: 2026-07-13T01:24:28Z
+  - message: 'chore(devcontainer): add Rust devcontainer with CI tools'
+    date: 2026-07-13T01:20:44Z
+  - message: 'fix(ui): remove redundant else branch in shorten_model'
+    date: 2026-07-13T01:18:54Z
   tags:
   - tools
   readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\n| Tool | Description |\n|------|-------------|\n| `/read` | Read files with line pagination |\n| `/write` | Create or overwrite files |\n| `/edit` | Replace text in files |\n| `/glob` | Find files by name pattern (faster with `fd`) |\n| `/grep` | Search file contents (faster with `rg`) |\n| `/nu` | Execute a Nushell command |\n| `/bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # Provider/model settings\n├── config.json            # Runtime defaults, file refs, pipeline, agents, paths\n├── commands/              # Custom slash commands (/)\n├── hooks/                 # Event-driven hooks (YAML)\n├── skills/      "
@@ -254,10 +498,10 @@
   kinds:
   - CratesIo
   language: Rust
-  pushed_at: 2026-07-12T06:00:04.808763Z
-  version: 0.4.0
+  pushed_at: 2026-07-13T01:34:19.708771Z
+  version: 0.5.1
   stars: null
-  downloads: 8
+  downloads: 32
   recent_commits: []
 - name: looprs-core
   description: Domain types, ports, and macros for looprs
@@ -265,10 +509,10 @@
   kinds:
   - CratesIo
   language: Rust
-  pushed_at: 2026-07-12T05:58:55.861167Z
-  version: 0.4.0
+  pushed_at: 2026-07-13T01:33:35.175861Z
+  version: 0.5.1
   stars: null
-  downloads: 17
+  downloads: 67
   recent_commits: []
 - name: myrv
   description: RV telemetry workspace for a 2015 Leprechaun 260DS — hexagonal Rust architecture, OBD-II, sled KV store
@@ -379,7 +623,7 @@
   pushed_at: 2026-07-12T05:15:01Z
   version: v0.6.0
   stars: 1
-  downloads: 177
+  downloads: 210
   recent_commits:
   - message: 'flow: finish release into main'
     date: 2026-07-12T05:14:53Z
@@ -505,97 +749,6 @@
     | `notfiles` | lib + bin | Symlink/copy packages into `$HOME`, track state, adopt/diff/check |
     | `notsecrets` | lib | Multi-provider secret resolution, native age encryption/decryption |
     | `nothooks` | lib + bin | Run bootstrap h
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-07-12T03:23:27Z
-  version: v0.30.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #455 from 89jobrien/next'
-    date: 2026-07-08T04:56:31Z
-  - message: Merge branch 'develop' into next
-    date: 2026-07-08T04:50:49Z
-  - message: 'ci: remove reviewdog workflow'
-    date: 2026-07-08T04:18:50Z
-  - message: 'fix(ci): resolve stability-gates failures on develop'
-    date: 2026-07-08T03:56:17Z
-  - message: 'docs: session plans, bench design doc, and missing reconcile test file'
-    date: 2026-07-07T20:08:44Z
-  - message: 'feat(bench): regression tooling, Justfile, nightly CI (wave C)'
-    date: 2026-07-07T18:44:32Z
-  - message: 'feat(minibox-bench): linux hot-path benches (wave B)'
-    date: 2026-07-07T18:11:43Z
-  - message: 'feat(minibox-bench): dedicated bench crate with hot-path coverage (wave A)'
-    date: 2026-07-07T18:05:01Z
-  - message: 'fix: resolve MoA review HIGH findings (wave 2: F4, F8, D2) + v0.31.0 [moa-review]'
-    date: 2026-07-07T16:03:18Z
-  - message: 'fix: resolve MoA review HIGH findings (wave 1: F1-F3, F5, F7) [moa-review]'
-    date: 2026-07-07T11:58:33Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
-
-    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
-    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
-    keeps adapter suites swappable at startup with no recompile.
-
-    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `minibox logs <id>` for stored stdout/stderr
-    - Container events — `minibox events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
-    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
-      Colima available as an alternative via Lima VM
-
-    ---
-
-    ## Quick Start
-
-    Requires Linux, root, k
 - name: crux
   description: Inspectable, serializable, replayable agent execution.
   url: https://github.com/89jobrien/crux
@@ -710,7 +863,7 @@
   pushed_at: 2026-07-09T02:11:30.891462Z
   version: 0.3.1
   stars: null
-  downloads: 14
+  downloads: 15
   recent_commits: []
 - name: crux-runtime
   description: Core types, traits, and runtime for the crux agentic DSL
@@ -721,7 +874,7 @@
   pushed_at: 2026-07-09T02:11:26.279438Z
   version: 0.3.1
   stars: null
-  downloads: 17
+  downloads: 18
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -732,7 +885,7 @@
   pushed_at: 2026-07-09T02:11:21.433232Z
   version: 0.3.1
   stars: null
-  downloads: 14
+  downloads: 15
   recent_commits: []
 - name: crux-domain
   description: Pure domain types for the crux agentic DSL — no async, no LLM deps
@@ -743,7 +896,7 @@
   pushed_at: 2026-07-09T02:08:45.038550Z
   version: 0.3.1
   stars: null
-  downloads: 18
+  downloads: 19
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -754,7 +907,7 @@
   pushed_at: 2026-07-09T02:08:43.451783Z
   version: 0.3.1
   stars: null
-  downloads: 14
+  downloads: 15
   recent_commits: []
 - name: crux-types
   description: Serializable wire-format types for the crux agentic DSL
@@ -765,7 +918,7 @@
   pushed_at: 2026-07-09T02:08:40.675079Z
   version: 0.3.1
   stars: null
-  downloads: 41
+  downloads: 42
   recent_commits: []
 - name: disyn
   description: Hybrid symbolic+neural agent pipeline
@@ -799,71 +952,6 @@
   - message: 'chore: add CI workflow, xtask runner, docs, deny.toml, and taskit config'
     date: 2026-07-07T07:02:47Z
   readme: "# disyn\n\n[![crates.io](https://img.shields.io/crates/v/disyn-core.svg)](https://crates.io/crates/disyn-core)\n[![license](https://img.shields.io/crates/l/disyn-core.svg)](LICENSE-MIT)\n\nHybrid symbolic+neural agent pipeline in Rust. Transforms raw\nobservations into verified, executed actions through a typed 7-stage\npipeline where neural proposals are validated and repaired by symbolic\nlogic before execution.\n\n## Pipeline\n\n```\nObservation -> FactExtractor -> MemoryStore::retrieve -> ProposalEngine\n  -> Verifier -> [RepairEngine loop, max 3] -> ApprovedPlan\n  -> ActionExecutor -> ExecutionReport -> MemoryStore::persist\n```\n\nIf verification fails after 3 repair attempts and budget allows, the\norchestrator replans (re-proposes from scratch) once before erroring.\n\n## Crates\n\n| Crate | Description |\n| --- | --- |\n| [`disyn-core`](crates/disyn-core) | Domain types, port traits, error types |\n| [`disyn-symbolic`](crates/disyn-symbolic) | Rule engine, verifier, repair engine, 10-layer verification taxonomy |\n| [`disyn-neural`](crates/disyn-neural) | LLM adapters (OpenAI, Ollama) |\n| [`disyn-memory`](crates/disyn-memory) | State persistence, in-memory store, CatRAG graph types |\n| [`disyn-runtime`](crates/disyn-runtime) | Budget manager (per-class tracking), telemetry, shell executor |\n| [`disyn-app`](crates/disyn-app) | Composition root, orchestrator, CLI |\n| `disyn-xtask` | CI automation (`cargo xtask ci`) |\n\n### Dependency graph\n\n```\ndisyn-core\n  disyn-symbolic\n  disyn-neural\n  disyn-memory\n  disyn-runtime\n    disyn-app (depends on all above)\n```\n\n## Architecture\n\nHexagonal design — all cross-crate boundaries use trait ports defined\nin `disyn-core::ports`: `FactExtractor`, `ProposalEngine`, `Verifier`,\n`RepairEngine`, `MemoryStore`, `ActionExecutor`, `TelemetrySink`. The\n`Orchestrator` in `disyn-app` holds `Box<dyn Port>` for each.\n\n## Build\n\n```sh\ncargo xtask ci          # fmt + clippy + test + build\ncargo build --workspace\ncargo test --workspace\n```\n\n## Configuration\n\n| "
-- name: braid
-  description: Personal agent platform — Rust workspace
-  url: https://github.com/89jobrien/braid
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-07-08T00:26:38Z
-  version: v0.1.1
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: close braid-1/2/3/4/6/7 — all verified done or merged to main'
-    date: 2026-05-02T02:54:28Z
-  - message: 'feat(braid-7): merge observe replay tests'
-    date: 2026-05-02T02:53:29Z
-  - message: 'feat(braid-6): merge arch boundary xtask check-deps'
-    date: 2026-05-02T02:53:25Z
-  - message: 'feat(braid-6): add xtask check-deps to enforce hexagonal crate boundaries'
-    date: 2026-05-02T02:50:23Z
-  - message: 'feat(braid-observe): add replay tests that verify SessionWriter round-trip via ReplaySession'
-    date: 2026-05-02T02:49:16Z
-  - message: 'chore: clean up for public repo'
-    date: 2026-04-29T17:12:34Z
-  - message: 'fix: use vendored OpenSSL for musl cross-compilation'
-    date: 2026-04-29T09:09:36Z
-  - message: Merge remote-tracking branch 'origin/main'
-    date: 2026-04-29T09:01:42Z
-  - message: 'ci: add integration-agent job + nightly cross-compile and release'
-    date: 2026-04-29T08:51:07Z
-  - message: 'feat: add `braid agent` subcommand for warpx harness integration'
-    date: 2026-04-29T07:38:36Z
-  readme: |
-    # Braid
-
-    Rust-first workspace for the Braid personal agent platform.
-
-    ## Crates
-
-    **Phase 1 — Core**
-    - `braid-model`: canonical domain types (messages, tool calls, transcripts, context)
-    - `braid-ports`: inner-ring port traits (`Provider`, `ToolExecutor`, `EventSink`, `SessionStorage`, `ContextProvider`)
-    - `braid-core`: runtime engine (`Engine<P, T, S, R, C>`), `SimpleLoopPlanner`, tool registry
-    - `braid-providers`: provider adapters (`MockProvider`, `OpenAiProvider`)
-    - `braid-cli`: thin operator entrypoint for local runs
-
-    **Phase 2 — Safety**
-    - `braid-redact`: `RedactionPipeline` with ordered rule chain (secrets, env vars, home paths)
-    - `braid-hooks`: `HookedExecutor` wrapping any `ToolExecutor` with pre/post hook gating
-    - `braid-mcp`: MCP server over stdio (JSON-RPC), tool registration and dispatch
-    - `braid-observe`: session event store; persists `Event` stream to disk
-
-    **Phase 3 — Context**
-    - `braid-context`: context assembly from `DoobSource` (todos) and `RepoSource` (git diff/log); two-stage compaction (staleness filter + token budget with rolling LLM summarization); injected into engine at session start via `ContextProvider` port
-
-    **UI**
-    - `braid-tui`: multi-pane session inspector (Ratatui)
-
-    ## Docs
-
-    - [Planning Docs](./docs/planning/README.md)
-    - [Workspace Overview](./docs/architecture/workspace-overview.md)
-    - [Braid](./docs/planning/Braid.md)
-    - [Braid - Rust Workspace Blueprint](./docs/planning/Braid%20-%20Rust%20Workspace%20Blueprint.md)
-    - [Braid - Rust Workspace Spec](./docs/planning/Braid%20-%20Rust%20Workspace%20Spec.md)
-    - [Braid - Crate Implementation Checklist](./docs/planning/Braid%20-%20Crate%20Implementation%20Checklist.md)
 - name: claude-code-statusline
   description: Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance — minimal setup, maximum insight.
   url: https://github.com/89jobrien/claude-code-statusline
@@ -1190,7 +1278,7 @@
   pushed_at: 2026-07-02T01:26:58.132872Z
   version: 0.7.0
   stars: null
-  downloads: 27
+  downloads: 28
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -3247,7 +3335,7 @@
   pushed_at: 2026-05-16T04:04:45.475950Z
   version: 0.3.0
   stars: null
-  downloads: 59
+  downloads: 60
   recent_commits: []
 - name: agentlint-pi
   description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
@@ -3258,7 +3346,7 @@
   pushed_at: 2026-05-16T04:04:23.718026Z
   version: 0.3.0
   stars: null
-  downloads: 61
+  downloads: 62
   recent_commits: []
 - name: agentlint-gemini
   description: agentlint validator for Google Gemini GEMINI.md files
@@ -3269,7 +3357,7 @@
   pushed_at: 2026-05-16T04:04:00.508658Z
   version: 0.3.0
   stars: null
-  downloads: 77
+  downloads: 78
   recent_commits: []
 - name: agentlint-codex
   description: agentlint validator for OpenAI Codex AGENTS.md files
@@ -3280,7 +3368,7 @@
   pushed_at: 2026-05-16T04:03:38.113837Z
   version: 0.3.0
   stars: null
-  downloads: 75
+  downloads: 76
   recent_commits: []
 - name: agentlint-cursor
   description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
@@ -3291,7 +3379,7 @@
   pushed_at: 2026-05-16T04:03:15.391246Z
   version: 0.3.0
   stars: null
-  downloads: 76
+  downloads: 77
   recent_commits: []
 - name: agentlint-claude
   description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
@@ -3302,7 +3390,7 @@
   pushed_at: 2026-05-16T04:02:52.382445Z
   version: 0.3.0
   stars: null
-  downloads: 58
+  downloads: 59
   recent_commits: []
 - name: agentlint-frontmatter
   description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
@@ -3313,7 +3401,7 @@
   pushed_at: 2026-05-16T04:02:28.958456Z
   version: 0.3.0
   stars: null
-  downloads: 128
+  downloads: 131
   recent_commits: []
 - name: agentlint-core
   description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
@@ -3324,7 +3412,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 229
+  downloads: 237
   recent_commits: []
 - name: propkit
   description: Reusable proptest property suites ported from Hypothesis
@@ -3780,7 +3868,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1512
+  downloads: 1514
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
