@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-07-14T11:35:20Z
+  pushed_at: 2026-07-14T23:22:47Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-07-14T23:22:46Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-07-14T11:35:19Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-07-06T12:21:49Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-07-05T23:28:20Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-07-05T11:35:27Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,151 +213,13 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
-- name: fraude
-  description: Fraude — Rust port of the claw-code agent runtime
-  url: https://github.com/89jobrien/fraude
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-07-14T15:48:39Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: rename .claw.json → .fraude.json'
-    date: 2026-07-14T15:48:35Z
-  - message: 'chore: remove stale TODO comments for completed fuzz and test work'
-    date: 2026-07-14T15:32:27Z
-  - message: 'test: add unit and property tests across lsp, runtime, and fraude-cli'
-    date: 2026-07-14T15:29:05Z
-  - message: 'feat(fuzz): add cargo-fuzz targets for sse, openai-compat, lsp, and oauth'
-    date: 2026-07-14T14:51:19Z
-  - message: 'fix(rename): eliminate all remaining claw brand references'
-    date: 2026-07-14T14:01:46Z
-  - message: 'fix(compat-harness): remove claw-code upstream candidate paths'
-    date: 2026-07-14T13:58:42Z
-  - message: 'fix(rename): complete claw→fraude brand rename across commands, runtime, tools, api'
-    date: 2026-07-14T01:16:12Z
-  - message: 'refactor(plugins): split god-module into manifest, registry, manager, types modules'
-    date: 2026-07-13T22:41:46Z
-  - message: 'chore(macros): add proc-macro crate to version control'
-    date: 2026-07-13T22:27:34Z
-  - message: 'fix(plugins,commands): rename .claw-plugin → .fraude-plugin in test fixtures and bundled dirs [moa-review]'
-    date: 2026-07-13T20:51:38Z
-  readme: |-
-    # fraude
-
-    **A high-performance, open-source AI coding agent written in Rust.**
-
-    fraude is a terminal-native CLI agent designed to bring advanced LLM capabilities directly into your development workflow. Built for speed, safety, and efficiency, it provides an interactive agent shell, workspace-aware tools, and persistent session management. It is an independent open-source implementation inspired by Claude Code, not the official Anthropic product.
-
-    ![View Count](https://komarev.com/ghpvc/?username=soongenwong&label=Total+views&color=ffa500&style=for-the-badge)
-
-    ## Star History
-
-    <a href="https://www.star-history.com/?repos=soongenwong%2Fclaudecode&type=date&legend=bottom-right">
-     <picture>
-       <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=soongenwong/claudecode&type=date&theme=dark&legend=top-left" />
-       <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=soongenwong/claudecode&type=date&legend=top-left" />
-       <img alt="ClaudeCode Star History" src="https://api.star-history.com/chart?repos=soongenwong/claudecode&type=date&legend=top-left" />
-     </picture>
-    </a>
-
-    ## Related Projects
-
-    - [Anthropic developer docs](https://platform.claude.com/docs)
-    - [Anthropic](https://www.anthropic.com/)
-    - [Anthropic on X](https://x.com/AnthropicAI)
-
-    ## Key Features
-
-    - **Rust-powered:** Built with Rust for memory safety, minimal binary size, and high execution speed.
-    - **Live TUI dashboard:** A split-pane [`ratatui`](https://ratatui.rs) interface showing the agent's pipeline, a workspace tree that recolors as files are scanned/read/modified, and a syntax-highlighted diff that streams in character-by-character.
-    - **Agentic CLI:** Interactive shell and one-shot prompt support for seamless terminal workflows.
-    - **Model flexible:** Supports Anthropic-compatible and OpenAI-compatible providers, plus xAI/Grok aliases.
-    - **Workspace aware:** Context-aware tools designed to understand your local codebase.
-    - *
-- name: disyn
-  description: Hybrid symbolic+neural agent pipeline
-  url: https://github.com/89jobrien/disyn
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-07-14T15:38:21Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore(cache): update taskit cache after CI pass'
-    date: 2026-07-14T15:38:10Z
-  - message: 'chore: fix check-deps and protocol-drift CI failures'
-    date: 2026-07-12T03:34:59Z
-  - message: 'refactor(polish): quality pass — Q1-6, M1-2 impl + structural cleanup'
-    date: 2026-07-12T03:21:11Z
-  - message: 'ci: run pipeline example in workflow'
-    date: 2026-07-08T06:33:57Z
-  - message: 'feat(disyn-app): validate pipeline output structure'
-    date: 2026-07-08T06:29:02Z
-  - message: 'feat(disyn-app): verify pipeline example output structure'
-    date: 2026-07-08T06:09:48Z
-  - message: 'chore(cache): update taskit hook cache'
-    date: 2026-07-08T04:42:37Z
-  - message: 'feat(app): add verified pipeline example'
-    date: 2026-07-08T04:41:10Z
-  - message: 'refactor(disyn): apply SOLID/hexagonal cleanup across neural and app crates'
-    date: 2026-07-08T04:22:09Z
-  - message: 'chore: add TODO comments from MoA review (10 sites across 8 files)'
-    date: 2026-07-07T08:32:45Z
-  readme: "# disyn\n\n[![crates.io](https://img.shields.io/crates/v/disyn-core.svg)](https://crates.io/crates/disyn-core)\n[![license](https://img.shields.io/crates/l/disyn-core.svg)](LICENSE-MIT)\n\nHybrid symbolic+neural agent pipeline in Rust. Transforms raw\nobservations into verified, executed actions through a typed 7-stage\npipeline where neural proposals are validated and repaired by symbolic\nlogic before execution.\n\n## Pipeline\n\n```\nObservation -> FactExtractor -> MemoryStore::retrieve -> ProposalEngine\n  -> Verifier -> [RepairEngine loop, max 3] -> ApprovedPlan\n  -> ActionExecutor -> ExecutionReport -> MemoryStore::persist\n```\n\nIf verification fails after 3 repair attempts and budget allows, the\norchestrator replans (re-proposes from scratch) once before erroring.\n\n## Crates\n\n| Crate | Description |\n| --- | --- |\n| [`disyn-core`](crates/disyn-core) | Domain types, port traits, error types |\n| [`disyn-symbolic`](crates/disyn-symbolic) | Rule engine, verifier, repair engine, 10-layer verification taxonomy |\n| [`disyn-neural`](crates/disyn-neural) | LLM adapters (OpenAI, Ollama) |\n| [`disyn-memory`](crates/disyn-memory) | State persistence, in-memory store, CatRAG graph types |\n| [`disyn-runtime`](crates/disyn-runtime) | Budget manager (per-class tracking), telemetry, shell executor |\n| [`disyn-app`](crates/disyn-app) | Composition root, orchestrator, CLI |\n| `disyn-xtask` | CI automation (`cargo xtask ci`) |\n\n### Dependency graph\n\n```\ndisyn-core\n  disyn-symbolic\n  disyn-neural\n  disyn-memory\n  disyn-runtime\n    disyn-app (depends on all above)\n```\n\n## Architecture\n\nHexagonal design — all cross-crate boundaries use trait ports defined\nin `disyn-core::ports`: `FactExtractor`, `ProposalEngine`, `Verifier`,\n`RepairEngine`, `MemoryStore`, `ActionExecutor`, `TelemetrySink`. The\n`Orchestrator` in `disyn-app` holds `Box<dyn Port>` for each.\n\n## Build\n\n```sh\ncargo xtask ci          # fmt + clippy + test + build\ncargo build --workspace\ncargo test --workspace\n```\n\n## Configuration\n\n| "
-- name: sparkfile
-  description: YAML-backed project scaffolder
-  url: https://github.com/89jobrien/sparkfile
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-07-14T15:35:29Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: remove release workflow (registry is Tailscale-only)'
-    date: 2026-05-31T21:32:17Z
-  - message: 'chore: add autobump = "patch" to promote.toml'
-    date: 2026-05-31T21:25:22Z
-  - message: 'ci: add cratebox publish pipeline and release workflow'
-    date: 2026-05-31T21:16:42Z
-  - message: 'feat(sparkfile): add yaml-backed project scaffolder'
-    date: 2026-05-10T23:17:07Z
-  - message: 'chore: initialize repository'
-    date: 2026-05-10T23:17:07Z
-  readme: |
-    # sparkfile
-
-    Project scaffolding CLI for creating new projects with consistent workspace conventions.
-
-    ## Usage
-
-    - `sparkfile new rust-cli <name>`
-    - `sparkfile new rust-cli <name> --description "Short description"`
-    - `sparkfile new rust-cli <name> --root /path/to/workspace`
-
-    The `rust-cli` preset creates a Rust 2024 CLI skeleton with local guidance, validation commands, ignore rules, and handoff context.
-
-    Scaffold definitions are populated from YAML files in `scaffolds/`. The default `rust-cli` preset is defined in `scaffolds/rust-cli.yaml`.
-
-    ## Development
-
-    - `just check`: run `cargo check --all-targets`
-    - `just lint`: run `cargo clippy --all-targets -- -D warnings`
-    - `just test`: run `cargo test`
-    - `just gate`: run the local validation gate
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-07-14T03:21:13Z
+  pushed_at: 2026-07-15T03:21:26Z
   version: v0.30.0
   stars: 1
   downloads: null
@@ -442,6 +304,185 @@
     ## Quick Start
 
     Requires Linux, root, k
+- name: fraude
+  description: Fraude — Rust port of the claw-code agent runtime
+  url: https://github.com/89jobrien/fraude
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-07-14T23:35:04Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs: write root README'
+    date: 2026-07-14T23:35:03Z
+  - message: 'chore: rename .claw.json → .fraude.json'
+    date: 2026-07-14T15:48:35Z
+  - message: 'chore: remove stale TODO comments for completed fuzz and test work'
+    date: 2026-07-14T15:32:27Z
+  - message: 'test: add unit and property tests across lsp, runtime, and fraude-cli'
+    date: 2026-07-14T15:29:05Z
+  - message: 'feat(fuzz): add cargo-fuzz targets for sse, openai-compat, lsp, and oauth'
+    date: 2026-07-14T14:51:19Z
+  - message: 'fix(rename): eliminate all remaining claw brand references'
+    date: 2026-07-14T14:01:46Z
+  - message: 'fix(compat-harness): remove claw-code upstream candidate paths'
+    date: 2026-07-14T13:58:42Z
+  - message: 'fix(rename): complete claw→fraude brand rename across commands, runtime, tools, api'
+    date: 2026-07-14T01:16:12Z
+  - message: 'refactor(plugins): split god-module into manifest, registry, manager, types modules'
+    date: 2026-07-13T22:41:46Z
+  - message: 'chore(macros): add proc-macro crate to version control'
+    date: 2026-07-13T22:27:34Z
+  readme: |
+    # Fraude
+
+    A local coding-agent CLI written in safe Rust. Claude Code inspired, clean-room implementation.
+
+    ## Repository layout
+
+    ```
+    rust/          Rust workspace — the active product (fraude binary + supporting crates)
+    src/           Python tooling: parity analysis, reference snapshots, prototype surfaces
+    docs/          Ideas, architecture notes, release drafts
+    ```
+
+    ## Rust workspace
+
+    The `fraude` binary is built from the `rust/` workspace.
+
+    ### Crates
+
+    | Crate | Role |
+    |---|---|
+    | `fraude-cli` | User-facing binary: REPL, prompt, session management, TUI dashboard |
+    | `runtime` | Sessions, config, permissions, prompts, tool loop |
+    | `api` | Provider clients (Anthropic, Grok, OAuth) and streaming |
+    | `tools` | Built-in tool implementations (shell, file I/O, search, web, todos) |
+    | `commands` | Slash-command registry and handlers |
+    | `plugins` | Plugin discovery, registry, manifest parsing, and lifecycle |
+    | `lsp` | Language-server protocol types and process helpers |
+    | `server` | Supporting service layer |
+    | `compat-harness` | Compatibility tooling for extracting manifests from existing installations |
+    | `macros` | Proc-macro utilities |
+
+    ### Build
+
+    ```bash
+    # Prerequisites: Rust stable toolchain
+
+    cargo build --release -p fraude-cli
+
+    # Or install locally
+    cargo install --path rust/crates/fraude-cli --locked
+    ```
+
+    ### Authentication
+
+    ```bash
+    export ANTHROPIC_API_KEY="..."       # Anthropic models
+    export XAI_API_KEY="..."             # Grok models
+
+    # Or use OAuth login
+    fraude login
+    ```
+
+    ### Run
+
+    ```bash
+    fraude                                  # interactive REPL
+    fraude prompt "summarize this repo"     # one-shot
+    fraude --model sonnet "review changes"  # model override
+    fraude agents                           # list available agents
+    fraude skills                           # list available skills
+    ```
+
+    ### Verify
+
+    ```bash
+    cargo fmt --check
+    cargo clippy --workspace --all-targets -- -D warnings
+    cargo test --workspace -- --test-threads=1
+    ```
+
+    ## Configuration
+
+    | File | Scope |
+- name: disyn
+  description: Hybrid symbolic+neural agent pipeline
+  url: https://github.com/89jobrien/disyn
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-07-14T15:38:21Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore(cache): update taskit cache after CI pass'
+    date: 2026-07-14T15:38:10Z
+  - message: 'chore: fix check-deps and protocol-drift CI failures'
+    date: 2026-07-12T03:34:59Z
+  - message: 'refactor(polish): quality pass — Q1-6, M1-2 impl + structural cleanup'
+    date: 2026-07-12T03:21:11Z
+  - message: 'ci: run pipeline example in workflow'
+    date: 2026-07-08T06:33:57Z
+  - message: 'feat(disyn-app): validate pipeline output structure'
+    date: 2026-07-08T06:29:02Z
+  - message: 'feat(disyn-app): verify pipeline example output structure'
+    date: 2026-07-08T06:09:48Z
+  - message: 'chore(cache): update taskit hook cache'
+    date: 2026-07-08T04:42:37Z
+  - message: 'feat(app): add verified pipeline example'
+    date: 2026-07-08T04:41:10Z
+  - message: 'refactor(disyn): apply SOLID/hexagonal cleanup across neural and app crates'
+    date: 2026-07-08T04:22:09Z
+  - message: 'chore: add TODO comments from MoA review (10 sites across 8 files)'
+    date: 2026-07-07T08:32:45Z
+  readme: "# disyn\n\n[![crates.io](https://img.shields.io/crates/v/disyn-core.svg)](https://crates.io/crates/disyn-core)\n[![license](https://img.shields.io/crates/l/disyn-core.svg)](LICENSE-MIT)\n\nHybrid symbolic+neural agent pipeline in Rust. Transforms raw\nobservations into verified, executed actions through a typed 7-stage\npipeline where neural proposals are validated and repaired by symbolic\nlogic before execution.\n\n## Pipeline\n\n```\nObservation -> FactExtractor -> MemoryStore::retrieve -> ProposalEngine\n  -> Verifier -> [RepairEngine loop, max 3] -> ApprovedPlan\n  -> ActionExecutor -> ExecutionReport -> MemoryStore::persist\n```\n\nIf verification fails after 3 repair attempts and budget allows, the\norchestrator replans (re-proposes from scratch) once before erroring.\n\n## Crates\n\n| Crate | Description |\n| --- | --- |\n| [`disyn-core`](crates/disyn-core) | Domain types, port traits, error types |\n| [`disyn-symbolic`](crates/disyn-symbolic) | Rule engine, verifier, repair engine, 10-layer verification taxonomy |\n| [`disyn-neural`](crates/disyn-neural) | LLM adapters (OpenAI, Ollama) |\n| [`disyn-memory`](crates/disyn-memory) | State persistence, in-memory store, CatRAG graph types |\n| [`disyn-runtime`](crates/disyn-runtime) | Budget manager (per-class tracking), telemetry, shell executor |\n| [`disyn-app`](crates/disyn-app) | Composition root, orchestrator, CLI |\n| `disyn-xtask` | CI automation (`cargo xtask ci`) |\n\n### Dependency graph\n\n```\ndisyn-core\n  disyn-symbolic\n  disyn-neural\n  disyn-memory\n  disyn-runtime\n    disyn-app (depends on all above)\n```\n\n## Architecture\n\nHexagonal design — all cross-crate boundaries use trait ports defined\nin `disyn-core::ports`: `FactExtractor`, `ProposalEngine`, `Verifier`,\n`RepairEngine`, `MemoryStore`, `ActionExecutor`, `TelemetrySink`. The\n`Orchestrator` in `disyn-app` holds `Box<dyn Port>` for each.\n\n## Build\n\n```sh\ncargo xtask ci          # fmt + clippy + test + build\ncargo build --workspace\ncargo test --workspace\n```\n\n## Configuration\n\n| "
+- name: sparkfile
+  description: YAML-backed project scaffolder
+  url: https://github.com/89jobrien/sparkfile
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-07-14T15:35:29Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: remove release workflow (registry is Tailscale-only)'
+    date: 2026-05-31T21:32:17Z
+  - message: 'chore: add autobump = "patch" to promote.toml'
+    date: 2026-05-31T21:25:22Z
+  - message: 'ci: add cratebox publish pipeline and release workflow'
+    date: 2026-05-31T21:16:42Z
+  - message: 'feat(sparkfile): add yaml-backed project scaffolder'
+    date: 2026-05-10T23:17:07Z
+  - message: 'chore: initialize repository'
+    date: 2026-05-10T23:17:07Z
+  readme: |
+    # sparkfile
+
+    Project scaffolding CLI for creating new projects with consistent workspace conventions.
+
+    ## Usage
+
+    - `sparkfile new rust-cli <name>`
+    - `sparkfile new rust-cli <name> --description "Short description"`
+    - `sparkfile new rust-cli <name> --root /path/to/workspace`
+
+    The `rust-cli` preset creates a Rust 2024 CLI skeleton with local guidance, validation commands, ignore rules, and handoff context.
+
+    Scaffold definitions are populated from YAML files in `scaffolds/`. The default `rust-cli` preset is defined in `scaffolds/rust-cli.yaml`.
+
+    ## Development
+
+    - `just check`: run `cargo check --all-targets`
+    - `just lint`: run `cargo clippy --all-targets -- -D warnings`
+    - `just test`: run `cargo test`
+    - `just gate`: run the local validation gate
 - name: looprs
   description: Just tools in a loop.
   url: https://github.com/89jobrien/looprs
@@ -486,7 +527,7 @@
   pushed_at: 2026-07-13T08:04:46.563067Z
   version: 0.3.0
   stars: null
-  downloads: 10
+  downloads: 11
   recent_commits: []
 - name: braid-providers
   description: LLM provider adapters for the braid agent platform (OpenAI, Ollama)
@@ -584,7 +625,7 @@
   pushed_at: 2026-07-13T07:41:30.088394Z
   version: 0.3.0
   stars: null
-  downloads: 10
+  downloads: 11
   recent_commits: []
 - name: braid-hooks
   description: Pre/post-execution hook system for the braid agent platform
@@ -617,7 +658,7 @@
   pushed_at: 2026-07-13T07:34:30.277211Z
   version: 0.3.0
   stars: null
-  downloads: 18
+  downloads: 19
   recent_commits: []
 - name: braid-model
   description: Canonical domain types for the braid agent platform
@@ -628,7 +669,7 @@
   pushed_at: 2026-07-13T07:33:22.653887Z
   version: 0.3.0
   stars: null
-  downloads: 20
+  downloads: 22
   recent_commits: []
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
@@ -1012,7 +1053,7 @@
   pushed_at: 2026-07-09T02:11:26.279438Z
   version: 0.3.1
   stars: null
-  downloads: 18
+  downloads: 19
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -1034,7 +1075,7 @@
   pushed_at: 2026-07-09T02:08:45.038550Z
   version: 0.3.1
   stars: null
-  downloads: 19
+  downloads: 20
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -1056,7 +1097,7 @@
   pushed_at: 2026-07-09T02:08:40.675079Z
   version: 0.3.1
   stars: null
-  downloads: 42
+  downloads: 43
   recent_commits: []
 - name: claude-code-statusline
   description: Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance — minimal setup, maximum insight.
@@ -2440,7 +2481,7 @@
   pushed_at: 2026-06-08T05:39:24.236954Z
   version: 0.1.0
   stars: null
-  downloads: 31
+  downloads: 32
   recent_commits: []
 - name: disyn-memory
   description: Memory store implementation for the disyn agent pipeline
@@ -2451,7 +2492,7 @@
   pushed_at: 2026-06-08T05:26:27.409395Z
   version: 0.1.0
   stars: null
-  downloads: 30
+  downloads: 31
   recent_commits: []
 - name: disyn-neural
   description: Neural proposal engine and fact extractor for the disyn agent pipeline
@@ -2484,7 +2525,7 @@
   pushed_at: 2026-06-08T05:25:56.523924Z
   version: 0.1.0
   stars: null
-  downloads: 74
+  downloads: 76
   recent_commits: []
 - name: langchainx
   description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
@@ -3220,7 +3261,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 82
+  downloads: 83
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -3231,7 +3272,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 117
+  downloads: 118
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -3242,7 +3283,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 183
+  downloads: 184
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -3253,7 +3294,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 290
+  downloads: 291
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -3264,7 +3305,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 160
+  downloads: 161
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -3275,7 +3316,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 116
+  downloads: 117
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -3297,7 +3338,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 389
+  downloads: 390
   recent_commits: []
 - name: prefixe
   description: Prepend validated prefixes to shell commands — reads rx prefix config
@@ -3932,7 +3973,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1528
+  downloads: 1532
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -4203,7 +4244,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 91
+  downloads: 92
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -4701,97 +4742,6 @@
   stars: null
   downloads: 189
   recent_commits: []
-- name: dotfiles
-  description: null
-  url: https://github.com/89jobrien/dotfiles
-  kinds:
-  - GitHubRepo
-  language: Shell
-  pushed_at: 2026-04-12T03:53:29Z
-  version: null
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'fix(direnv): remove unsafe global source_up_if_exists; guard nushell hook against empty export'
-    date: 2026-04-12T03:52:16Z
-  - message: 'feat(direnv): add first-class direnv integration'
-    date: 2026-04-11T05:58:43Z
-  - message: Merge remote-tracking branch 'origin/main'
-    date: 2026-04-11T05:57:24Z
-  - message: 'fix(devkit): POSIX-compatible helper sourcing with git-root guard'
-    date: 2026-04-11T01:42:54Z
-  - message: 'fix(devkit): trap temp log cleanup, extract shared helper'
-    date: 2026-04-11T01:41:49Z
-  - message: 'fix(devkit): robust branch detection and consistent shell strictness'
-    date: 2026-04-11T01:39:38Z
-  - message: 'fix(devkit): harden install path, branch detection, and presence checks'
-    date: 2026-04-11T01:37:55Z
-  - message: 'feat(devkit): wire devkit commands into mise tasks and bootstrap'
-    date: 2026-04-11T01:35:35Z
-  - message: 'feat(claude): add cargo-check hook, commit/review/analyze skills, headless tasks'
-    date: 2026-04-11T01:30:49Z
-  - message: 'feat(claude): add dot-claude/ dir and setup-claude-config.sh hook'
-    date: 2026-04-11T01:08:16Z
-  readme: |-
-    # Dotfiles
-
-    [![CI](https://github.com/89jobrien/dotfiles/actions/workflows/ci.yml/badge.svg)](https://github.com/89jobrien/dotfiles/actions/workflows/ci.yml)
-
-    Reproducible dev environment bootstrap with a managed (immutable) core and local (mutable) overrides. Supports macOS, Linux, and Windows (via NixOS-WSL).
-
-    ## Quick start
-
-    **macOS / Linux:**
-
-    ```bash
-    pj dot install
-    # or without pj:
-    ALLOW_DIRECT_DOTFILES_INSTALL=1 ./install.sh
-    ```
-
-    **Windows** (elevated PowerShell):
-
-    ```powershell
-    Set-ExecutionPolicy Bypass -Scope Process -Force
-    .\install.ps1
-    ```
-
-    Installs NixOS-WSL, native Windows dev tools via winget, then runs `nixos-rebuild switch` + `home-manager switch` inside NixOS. See [Windows bootstrap](#windows-nixos-wsl) for details.
-
-    ### Task Runners
-
-    Three equivalent interfaces for day-2 operations:
-    - **Human workflow**: `mise run <task>` (interactive, colored output)
-    - **AI/automation**: `just <recipe>` (scriptable, agent-friendly)
-    - **Compatibility**: `make <target>` (legacy wrapper)
-
-    All task definitions live in `.mise.toml`, `Justfile`, and `Makefile` respectively.
-
-    ### Interactive Menu
-
-    Quick-access TUI for exploring and running dotfiles commands:
-
-    ```bash
-    mise run menu      # Start interactive menu
-    just menu          # Alternative via Just
-    make menu          # Alternative via Make
-    ```
-
-    The menu provides guided navigation to:
-    - **Scripts** - Run bootstrap, setup tools, configuration scripts
-    - **Tasks** - Execute any mise task (doctor, drift, deploy, etc.)
-    - **Documentation** - View CLAUDE.md, README, setup guides
-    - **Repository** - Explore structure, list scripts, file statistics
-    - **Git Operations** - Status, commits, branch management, create new branches
-    - **Utilities** - Run doctor checks, drift detection, secret validation, hook verification
-
-    Ideal for interactive exploration and quick task execution without memorizing commands.
-
-    ### Testing & Validation
-
-    ```bash
-    mise run test              # run all tests
-    mise run test-lib          # run library tests onl
 - name: steve
   description: Steve's not here, man.
   url: https://github.com/89jobrien/steve
