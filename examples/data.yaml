@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-07-16T23:23:29Z
+  pushed_at: 2026-07-17T11:34:09Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-07-17T11:34:08Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-07-16T23:23:28Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-07-13T12:05:03Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-07-12T23:22:57Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-07-12T11:29:22Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,111 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: fraude
+  description: Fraude — Rust port of the claw-code agent runtime
+  url: https://github.com/89jobrien/fraude
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-07-17T13:36:35Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: fmt pass + clippy fixes (let-and-return, unnecessary Result, unused self)'
+    date: 2026-07-17T13:22:52Z
+  - message: 'refactor: four deferred TODO cleanups in api and fraude-cli'
+    date: 2026-07-17T13:18:10Z
+  - message: 'docs: write root README'
+    date: 2026-07-14T23:35:03Z
+  - message: 'chore: rename .claw.json → .fraude.json'
+    date: 2026-07-14T15:48:35Z
+  - message: 'chore: remove stale TODO comments for completed fuzz and test work'
+    date: 2026-07-14T15:32:27Z
+  - message: 'test: add unit and property tests across lsp, runtime, and fraude-cli'
+    date: 2026-07-14T15:29:05Z
+  - message: 'feat(fuzz): add cargo-fuzz targets for sse, openai-compat, lsp, and oauth'
+    date: 2026-07-14T14:51:19Z
+  - message: 'fix(rename): eliminate all remaining claw brand references'
+    date: 2026-07-14T14:01:46Z
+  - message: 'fix(compat-harness): remove claw-code upstream candidate paths'
+    date: 2026-07-14T13:58:42Z
+  - message: 'fix(rename): complete claw→fraude brand rename across commands, runtime, tools, api'
+    date: 2026-07-14T01:16:12Z
+  readme: |
+    # Fraude
+
+    A local coding-agent CLI written in safe Rust. Claude Code inspired, clean-room implementation.
+
+    ## Repository layout
+
+    ```
+    rust/          Rust workspace — the active product (fraude binary + supporting crates)
+    src/           Python tooling: parity analysis, reference snapshots, prototype surfaces
+    docs/          Ideas, architecture notes, release drafts
+    ```
+
+    ## Rust workspace
+
+    The `fraude` binary is built from the `rust/` workspace.
+
+    ### Crates
+
+    | Crate | Role |
+    |---|---|
+    | `fraude-cli` | User-facing binary: REPL, prompt, session management, TUI dashboard |
+    | `runtime` | Sessions, config, permissions, prompts, tool loop |
+    | `api` | Provider clients (Anthropic, Grok, OAuth) and streaming |
+    | `tools` | Built-in tool implementations (shell, file I/O, search, web, todos) |
+    | `commands` | Slash-command registry and handlers |
+    | `plugins` | Plugin discovery, registry, manifest parsing, and lifecycle |
+    | `lsp` | Language-server protocol types and process helpers |
+    | `server` | Supporting service layer |
+    | `compat-harness` | Compatibility tooling for extracting manifests from existing installations |
+    | `macros` | Proc-macro utilities |
+
+    ### Build
+
+    ```bash
+    # Prerequisites: Rust stable toolchain
+
+    cargo build --release -p fraude-cli
+
+    # Or install locally
+    cargo install --path rust/crates/fraude-cli --locked
+    ```
+
+    ### Authentication
+
+    ```bash
+    export ANTHROPIC_API_KEY="..."       # Anthropic models
+    export XAI_API_KEY="..."             # Grok models
+
+    # Or use OAuth login
+    fraude login
+    ```
+
+    ### Run
+
+    ```bash
+    fraude                                  # interactive REPL
+    fraude prompt "summarize this repo"     # one-shot
+    fraude --model sonnet "review changes"  # model override
+    fraude agents                           # list available agents
+    fraude skills                           # list available skills
+    ```
+
+    ### Verify
+
+    ```bash
+    cargo fmt --check
+    cargo clippy --workspace --all-targets -- -D warnings
+    cargo test --workspace -- --test-threads=1
+    ```
+
+    ## Configuration
+
+    | File | Scope |
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
@@ -473,111 +578,6 @@
   tags:
   - cli
   readme: "# doob\n\nModern, agent-first todo CLI built with Rust and SurrealDB.\n\n## Features\n\n- **Fast** - Rust + SurrealDB embedded\n- **Agent-First** - JSON output, batch operations, context detection\n- **Single Binary** - No dependencies\n- **Context-Aware** - Auto-detects project and file from git\n\n## Installation\n\n```bash\ncargo install --path .\n```\n\n## Commands\n\n```bash\n# Add a todo (auto-detects project/file from git)\ndoob todo add \"Fix auth bug\"\n\n# Add with priority and tags\ndoob todo add \"Refactor code\" --priority 1 --tags refactor,urgent\n\n# Batch add\ndoob todo add \"Task 1\" \"Task 2\" \"Task 3\"\n\n# List todos\ndoob todo list\n\n# Filter by status or project\ndoob todo list --status pending\ndoob todo list --project myproject --limit 10\n\n# Complete todo(s)\ndoob todo complete <id>\ndoob todo complete <id1> <id2> <id3>\n\n# Undo completion (mark as pending)\ndoob todo undo <id>\n\n# Set or clear a due date\ndoob todo due <id> 2026-03-15\ndoob todo due <id> clear\n\n# Remove todo(s)\ndoob todo remove <id>\ndoob todo remove <id1> <id2>\n```\n\n## Sync to External Issue Trackers\n\n**Status:** Foundation Complete (Phase 1 & 2) ✅\n\nSync your doob todos to external issue trackers using a plugin architecture.\n\n### Supported Providers\n\n- ✅ **Beads** (bd CLI) - Complete\n- 🚧 **GitHub Issues** - Planned\n- 🚧 **Jira** - Planned\n- 🚧 **Linear** - Planned\n- 🚧 **kan** - Planned\n\n### Architecture\n\nBuilt with hexagonal architecture:\n- **Domain Layer** - Business logic, validation, error handling\n- **Ports** - `IssueTracker` trait interface\n- **Adapters** - Provider-specific implementations (CLI delegation)\n- **Tests** - 19 unit/integration tests (100% passing)\n\n### Documentation\n\n- [Testing Guide](docs/sync/testing.md)\n- [Beads Provider](docs/sync/providers/beads.md)\n\n### Roadmap\n\n**Phase 3: Metadata & Repository** (Next)\n- SurrealDB repository for sync metadata\n- Track external IDs, sync timestamps, errors\n- Multi-provider support per todo\n\n**Phase 4: CLI Commands**\n- `doob sync to --provider beads` - "
-- name: fraude
-  description: Fraude — Rust port of the claw-code agent runtime
-  url: https://github.com/89jobrien/fraude
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-07-14T23:35:04Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: write root README'
-    date: 2026-07-14T23:35:03Z
-  - message: 'chore: rename .claw.json → .fraude.json'
-    date: 2026-07-14T15:48:35Z
-  - message: 'chore: remove stale TODO comments for completed fuzz and test work'
-    date: 2026-07-14T15:32:27Z
-  - message: 'test: add unit and property tests across lsp, runtime, and fraude-cli'
-    date: 2026-07-14T15:29:05Z
-  - message: 'feat(fuzz): add cargo-fuzz targets for sse, openai-compat, lsp, and oauth'
-    date: 2026-07-14T14:51:19Z
-  - message: 'fix(rename): eliminate all remaining claw brand references'
-    date: 2026-07-14T14:01:46Z
-  - message: 'fix(compat-harness): remove claw-code upstream candidate paths'
-    date: 2026-07-14T13:58:42Z
-  - message: 'fix(rename): complete claw→fraude brand rename across commands, runtime, tools, api'
-    date: 2026-07-14T01:16:12Z
-  - message: 'refactor(plugins): split god-module into manifest, registry, manager, types modules'
-    date: 2026-07-13T22:41:46Z
-  - message: 'chore(macros): add proc-macro crate to version control'
-    date: 2026-07-13T22:27:34Z
-  readme: |
-    # Fraude
-
-    A local coding-agent CLI written in safe Rust. Claude Code inspired, clean-room implementation.
-
-    ## Repository layout
-
-    ```
-    rust/          Rust workspace — the active product (fraude binary + supporting crates)
-    src/           Python tooling: parity analysis, reference snapshots, prototype surfaces
-    docs/          Ideas, architecture notes, release drafts
-    ```
-
-    ## Rust workspace
-
-    The `fraude` binary is built from the `rust/` workspace.
-
-    ### Crates
-
-    | Crate | Role |
-    |---|---|
-    | `fraude-cli` | User-facing binary: REPL, prompt, session management, TUI dashboard |
-    | `runtime` | Sessions, config, permissions, prompts, tool loop |
-    | `api` | Provider clients (Anthropic, Grok, OAuth) and streaming |
-    | `tools` | Built-in tool implementations (shell, file I/O, search, web, todos) |
-    | `commands` | Slash-command registry and handlers |
-    | `plugins` | Plugin discovery, registry, manifest parsing, and lifecycle |
-    | `lsp` | Language-server protocol types and process helpers |
-    | `server` | Supporting service layer |
-    | `compat-harness` | Compatibility tooling for extracting manifests from existing installations |
-    | `macros` | Proc-macro utilities |
-
-    ### Build
-
-    ```bash
-    # Prerequisites: Rust stable toolchain
-
-    cargo build --release -p fraude-cli
-
-    # Or install locally
-    cargo install --path rust/crates/fraude-cli --locked
-    ```
-
-    ### Authentication
-
-    ```bash
-    export ANTHROPIC_API_KEY="..."       # Anthropic models
-    export XAI_API_KEY="..."             # Grok models
-
-    # Or use OAuth login
-    fraude login
-    ```
-
-    ### Run
-
-    ```bash
-    fraude                                  # interactive REPL
-    fraude prompt "summarize this repo"     # one-shot
-    fraude --model sonnet "review changes"  # model override
-    fraude agents                           # list available agents
-    fraude skills                           # list available skills
-    ```
-
-    ### Verify
-
-    ```bash
-    cargo fmt --check
-    cargo clippy --workspace --all-targets -- -D warnings
-    cargo test --workspace -- --test-threads=1
-    ```
-
-    ## Configuration
-
-    | File | Scope |
 - name: disyn
   description: Hybrid symbolic+neural agent pipeline
   url: https://github.com/89jobrien/disyn
@@ -4060,7 +4060,7 @@
   pushed_at: 2026-04-23T23:07:16.604202Z
   version: 0.1.0
   stars: null
-  downloads: 49
+  downloads: 50
   recent_commits: []
 - name: slashcrux
   description: Shared vocabulary types for the Slash and Crux agentic Rust ecosystem
@@ -4840,7 +4840,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 193
+  downloads: 194
   recent_commits: []
 - name: dotfiles
   description: notfiles dotfiles config — managed by notfiles
