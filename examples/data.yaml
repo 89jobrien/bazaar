@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-07-18T23:23:22Z
+  pushed_at: 2026-07-19T11:28:00Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-07-19T11:27:59Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-07-18T23:23:21Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-07-15T11:35:35Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-07-14T23:22:46Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-07-14T11:35:19Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,89 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: nu_libs
+  description: A library of Nushell scripts organized by category
+  url: https://github.com/89jobrien/nu_libs
+  kinds:
+  - GitHubRepo
+  language: Nushell
+  pushed_at: 2026-07-19T21:33:07Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Add defguard docker-compose test stack management script
+    date: 2026-07-19T21:32:57Z
+  - message: 'feat(lib): add rust and git utility commands from /tmp analysis'
+    date: 2026-06-30T13:03:58Z
+  - message: 'feat(lib): add doob and gkg modules'
+    date: 2026-06-26T21:12:47Z
+  - message: 'chore: reformat HANDOFF yaml'
+    date: 2026-06-14T07:13:18Z
+  - message: 'chore: harden gitignore, fix mod exports, migrate get -i to --optional'
+    date: 2026-06-14T05:20:22Z
+  - message: 'feat: implement lib/ai/clients/baml.nu — Nu wrapper for nu-ai-daemon'
+    date: 2026-06-14T04:44:47Z
+  - message: 'feat: add rr alias to reload nushell session'
+    date: 2026-06-14T03:17:42Z
+  - message: 'feat: add nul-carapace spec generator with ~/.config/carapace/specs install'
+    date: 2026-06-14T03:15:41Z
+  - message: 'refactor: rename nu-libschema to nul-genschema'
+    date: 2026-06-14T03:13:25Z
+  - message: 'feat: add nu-libschema OpenAPI generator and magi-reconcile completions'
+    date: 2026-06-14T03:11:03Z
+  readme: |-
+    # nu_libs
+
+    A library of Nushell modules organized by category.
+
+    ## Structure
+
+    ```
+    lib/
+      mod.nu      top-level re-export of all categories
+      git/        Git helpers: log stats, branch age/cleanup, gone branches, hooks
+      net/        Network: SSH, sockets, remoting, HTTP, netcat, proxy, SSL
+      fs/         Filesystem: tree traversal, file ops, disk, navigation (up/cdpath/autojump/zoxide)
+      data/       Data transforms: typeof, JSON schema, ini, env, number format, base64, indent
+      ui/         UI/shell: bar, progress meter, completions, aliases (bat/eza), clipboard, notify
+      std/        Nu ecosystem: config, init, modules, deps, release tooling, dynamic loading
+      task/       Productivity: task runner, todo, history, bookmarks, just completions, hosts/path
+      rust/       Rust/Cargo: cargo search, rust AST, coverage
+      doob/       Doob wrappers: repo-scoped todos, search, notes, handoff sync
+      misc/       Misc tools: asciinema, zellij, rustic, rbw, website builder
+
+    scripts/      Standalone scripts (not modules — contain top-level executable code)
+    ai_nu/        Separate repo: AI/LLM agent primitives (OpenAI, Gemini, Ollama)
+    ```
+
+    ## Usage
+
+    ```nu
+    # Load a whole category
+    use lib/git *
+
+    # Load a single file
+    use lib/data/typeof.nu *
+
+    # Load everything
+    use lib/mod.nu *
+    ```
+
+    ### Files with `export def main`
+
+    These conflict when glob-re-exported, so use them directly by file path:
+
+    | File                            | Command                      |
+    | ------------------------------- | ---------------------------- |
+    | `lib/git/bump-version.nu`       | `bump-version`               |
+    | `lib/fs/loc.nu`                 | `loc` (tokei wrapper)        |
+    | `lib/fs/wc.nu`                  | `wc`                         |
+    | `lib/data/expand.nu`            | `expand`                     |
+    | `lib/data/remove-diacritics.nu` | `remove-diacritics`          |
+    | `lib/std/nu_deps.nu`            | `nu-deps`                    |
+    | `lib/std/nu_release.nu`         | `nu-release`                 |
+    | `lib/ta
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
@@ -495,7 +578,7 @@
   pushed_at: 2026-07-16T13:25:03.771588Z
   version: 0.1.0
   stars: null
-  downloads: 12
+  downloads: 13
   recent_commits: []
 - name: lintx
   description: Lint analysis and reporting for Rust workspaces
@@ -506,7 +589,7 @@
   pushed_at: 2026-07-16T13:24:41.573935Z
   version: 0.1.0
   stars: null
-  downloads: 11
+  downloads: 12
   recent_commits: []
 - name: looprs
   description: Just tools in a loop.
@@ -518,7 +601,7 @@
   pushed_at: 2026-07-16T02:42:18Z
   version: v0.3.2
   stars: 1
-  downloads: 83
+  downloads: 87
   recent_commits:
   - message: 'fix(clippy): redundant closure, dead_code on mcp helpers'
     date: 2026-07-16T02:41:41Z
@@ -814,7 +897,7 @@
   pushed_at: 2026-07-13T01:34:19.708771Z
   version: 0.5.1
   stars: null
-  downloads: 43
+  downloads: 46
   recent_commits: []
 - name: looprs-core
   description: Domain types, ports, and macros for looprs
@@ -825,7 +908,7 @@
   pushed_at: 2026-07-13T01:33:35.175861Z
   version: 0.5.1
   stars: null
-  downloads: 79
+  downloads: 82
   recent_commits: []
 - name: myrv
   description: RV telemetry workspace for a 2015 Leprechaun 260DS — hexagonal Rust architecture, OBD-II, sled KV store
@@ -1559,7 +1642,7 @@
   pushed_at: 2026-07-02T01:26:58.132872Z
   version: 0.7.0
   stars: null
-  downloads: 32
+  downloads: 34
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -1570,91 +1653,8 @@
   pushed_at: 2026-07-02T01:25:46.988300Z
   version: 0.7.0
   stars: null
-  downloads: 44
+  downloads: 47
   recent_commits: []
-- name: nu_libs
-  description: A library of Nushell scripts organized by category
-  url: https://github.com/89jobrien/nu_libs
-  kinds:
-  - GitHubRepo
-  language: Nushell
-  pushed_at: 2026-06-30T13:05:20Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat(lib): add rust and git utility commands from /tmp analysis'
-    date: 2026-06-30T13:03:58Z
-  - message: 'feat(lib): add doob and gkg modules'
-    date: 2026-06-26T21:12:47Z
-  - message: 'chore: reformat HANDOFF yaml'
-    date: 2026-06-14T07:13:18Z
-  - message: 'chore: harden gitignore, fix mod exports, migrate get -i to --optional'
-    date: 2026-06-14T05:20:22Z
-  - message: 'feat: implement lib/ai/clients/baml.nu — Nu wrapper for nu-ai-daemon'
-    date: 2026-06-14T04:44:47Z
-  - message: 'feat: add rr alias to reload nushell session'
-    date: 2026-06-14T03:17:42Z
-  - message: 'feat: add nul-carapace spec generator with ~/.config/carapace/specs install'
-    date: 2026-06-14T03:15:41Z
-  - message: 'refactor: rename nu-libschema to nul-genschema'
-    date: 2026-06-14T03:13:25Z
-  - message: 'feat: add nu-libschema OpenAPI generator and magi-reconcile completions'
-    date: 2026-06-14T03:11:03Z
-  - message: 'feat: add extensions layer with magi integration and gemma-lg modelcard'
-    date: 2026-06-14T03:06:17Z
-  readme: |-
-    # nu_libs
-
-    A library of Nushell modules organized by category.
-
-    ## Structure
-
-    ```
-    lib/
-      mod.nu      top-level re-export of all categories
-      git/        Git helpers: log stats, branch age/cleanup, gone branches, hooks
-      net/        Network: SSH, sockets, remoting, HTTP, netcat, proxy, SSL
-      fs/         Filesystem: tree traversal, file ops, disk, navigation (up/cdpath/autojump/zoxide)
-      data/       Data transforms: typeof, JSON schema, ini, env, number format, base64, indent
-      ui/         UI/shell: bar, progress meter, completions, aliases (bat/eza), clipboard, notify
-      std/        Nu ecosystem: config, init, modules, deps, release tooling, dynamic loading
-      task/       Productivity: task runner, todo, history, bookmarks, just completions, hosts/path
-      rust/       Rust/Cargo: cargo search, rust AST, coverage
-      doob/       Doob wrappers: repo-scoped todos, search, notes, handoff sync
-      misc/       Misc tools: asciinema, zellij, rustic, rbw, website builder
-
-    scripts/      Standalone scripts (not modules — contain top-level executable code)
-    ai_nu/        Separate repo: AI/LLM agent primitives (OpenAI, Gemini, Ollama)
-    ```
-
-    ## Usage
-
-    ```nu
-    # Load a whole category
-    use lib/git *
-
-    # Load a single file
-    use lib/data/typeof.nu *
-
-    # Load everything
-    use lib/mod.nu *
-    ```
-
-    ### Files with `export def main`
-
-    These conflict when glob-re-exported, so use them directly by file path:
-
-    | File                            | Command                      |
-    | ------------------------------- | ---------------------------- |
-    | `lib/git/bump-version.nu`       | `bump-version`               |
-    | `lib/fs/loc.nu`                 | `loc` (tokei wrapper)        |
-    | `lib/fs/wc.nu`                  | `wc`                         |
-    | `lib/data/expand.nu`            | `expand`                     |
-    | `lib/data/remove-diacritics.nu` | `remove-diacritics`          |
-    | `lib/std/nu_deps.nu`            | `nu-deps`                    |
-    | `lib/std/nu_release.nu`         | `nu-release`                 |
-    | `lib/ta
 - name: numcp
   description: MCP server that exposes Nushell tool handlers as MCP tools
   url: https://github.com/89jobrien/numcp
@@ -2096,7 +2096,7 @@
   pushed_at: 2026-06-27T17:10:50Z
   version: v0.1.0
   stars: null
-  downloads: 95
+  downloads: 97
   recent_commits:
   - message: 'chore: track rustqual baseline in version control'
     date: 2026-06-27T17:10:15Z
@@ -3058,7 +3058,7 @@
   pushed_at: 2026-05-26T14:05:49.432486Z
   version: 0.30.0
   stars: null
-  downloads: 217
+  downloads: 223
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -3069,7 +3069,7 @@
   pushed_at: 2026-05-26T14:04:50.939469Z
   version: 0.30.0
   stars: null
-  downloads: 307
+  downloads: 316
   recent_commits: []
 - name: sandbox
   description: Standalone virtual bash interpreter with sandboxed filesystem
@@ -3939,7 +3939,7 @@
   pushed_at: 2026-04-30T21:51:42.719327Z
   version: 0.1.3
   stars: null
-  downloads: 45
+  downloads: 46
   recent_commits: []
 - name: 89jobrien.github.io
   description: Personal site
@@ -4027,7 +4027,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 49
+  downloads: 51
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -4038,7 +4038,7 @@
   pushed_at: 2026-04-24T19:52:04.917297Z
   version: 0.19.0
   stars: null
-  downloads: 20
+  downloads: 21
   recent_commits: []
 - name: minibox-oci
   description: Standalone OCI image-pulling library for Minibox
@@ -4049,7 +4049,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 85
+  downloads: 88
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -4072,7 +4072,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1565
+  downloads: 1566
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -4091,7 +4091,7 @@
   pushed_at: 2026-04-23T22:43:46.259352Z
   version: 0.1.0
   stars: null
-  downloads: 20
+  downloads: 21
   recent_commits: []
 - name: hooklings
   description: YAML-driven developer preflight checks via crux pipelines
@@ -4310,7 +4310,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 88
+  downloads: 90
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -4421,7 +4421,7 @@
   pushed_at: 2026-04-16T10:49:00.113250Z
   version: 0.1.2
   stars: null
-  downloads: 18
+  downloads: 19
   recent_commits: []
 - name: hj-render
   description: Markdown rendering for hj handoff workflows
@@ -4432,7 +4432,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 71
+  downloads: 73
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -4443,7 +4443,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 73
+  downloads: 75
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -4454,7 +4454,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 69
+  downloads: 71
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -4465,7 +4465,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 69
+  downloads: 71
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -4476,7 +4476,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 215
+  downloads: 217
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
@@ -4818,7 +4818,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 50
+  downloads: 51
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -4829,7 +4829,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 95
+  downloads: 97
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -4840,7 +4840,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 194
+  downloads: 198
   recent_commits: []
 - name: dotfiles
   description: notfiles dotfiles config — managed by notfiles
