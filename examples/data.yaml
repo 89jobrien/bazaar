@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-07-21T11:38:58Z
+  pushed_at: 2026-07-21T23:24:13Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-07-21T23:24:12Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-07-21T11:38:57Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-07-17T23:21:35Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-07-17T11:34:08Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-07-16T23:23:28Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,13 +213,78 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: braid
+  description: Personal agent platform — Rust workspace
+  url: https://github.com/89jobrien/braid
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-07-22T08:46:30Z
+  version: v0.3.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix: scope unwrap_used clippy lint to non-test code in braid'
+    date: 2026-07-22T08:45:29Z
+  - message: 'feat(braid-tui): split monolithic app.rs into focused modules + harness UI'
+    date: 2026-07-14T01:38:48Z
+  - message: 'chore: unify workspace dependencies via cargo-rail'
+    date: 2026-07-13T07:46:18Z
+  - message: 'chore: rename braid-core -> braid-engine (name taken on crates.io)'
+    date: 2026-07-13T07:39:22Z
+  - message: 'chore: add crates.io publish metadata to workspace'
+    date: 2026-07-13T07:32:10Z
+  - message: 'chore: add version to all intra-workspace path dependencies (required for crates.io publish)'
+    date: 2026-07-13T07:09:33Z
+  - message: 'docs: fix post-v0.3.0 doc issues'
+    date: 2026-07-13T06:47:06Z
+  - message: 'docs: update CHANGELOG for v0.3.0 and v0.2.0'
+    date: 2026-07-13T06:40:59Z
+  - message: 'chore: bump workspace version to 0.3.0'
+    date: 2026-07-13T06:38:54Z
+  - message: 'feat(braid-components): merge Phase 4 component system (#24)'
+    date: 2026-07-13T06:34:26Z
+  readme: |
+    # Braid
+
+    Rust-first workspace for the Braid personal agent platform.
+
+    ## Crates
+
+    **Phase 1 — Core**
+    - `braid-model`: canonical domain types (messages, tool calls, transcripts, context)
+    - `braid-ports`: inner-ring port traits (`Provider`, `ToolExecutor`, `EventSink`, `SessionStorage`, `ContextProvider`)
+    - `braid-core`: runtime engine (`Engine<P, T, S, R, C>`), `SimpleLoopPlanner`, tool registry
+    - `braid-providers`: provider adapters (`MockProvider`, `OpenAiProvider`)
+    - `braid-cli`: thin operator entrypoint for local runs
+
+    **Phase 2 — Safety**
+    - `braid-redact`: `RedactionPipeline` with ordered rule chain (secrets, env vars, home paths)
+    - `braid-hooks`: `HookedExecutor` wrapping any `ToolExecutor` with pre/post hook gating
+    - `braid-mcp`: MCP server over stdio (JSON-RPC), tool registration and dispatch
+    - `braid-observe`: session event store; persists `Event` stream to disk
+
+    **Phase 3 — Context**
+    - `braid-context`: context assembly from `DoobSource` (todos) and `RepoSource` (git diff/log); two-stage compaction (staleness filter + token budget with rolling LLM summarization); injected into engine at session start via `ContextProvider` port
+
+    **UI**
+    - `braid-tui`: multi-pane session inspector (Ratatui)
+
+    ## Docs
+
+    - [Planning Docs](./docs/planning/README.md)
+    - [Workspace Overview](./docs/architecture/workspace-overview.md)
+    - [Braid](./docs/planning/Braid.md)
+    - [Braid - Rust Workspace Blueprint](./docs/planning/Braid%20-%20Rust%20Workspace%20Blueprint.md)
+    - [Braid - Rust Workspace Spec](./docs/planning/Braid%20-%20Rust%20Workspace%20Spec.md)
+    - [Braid - Crate Implementation Checklist](./docs/planning/Braid%20-%20Crate%20Implementation%20Checklist.md)
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-07-21T03:21:40Z
+  pushed_at: 2026-07-22T07:02:58Z
   version: v0.30.0
   stars: 1
   downloads: null
@@ -739,71 +804,6 @@
   stars: null
   downloads: 12
   recent_commits: []
-- name: braid
-  description: Personal agent platform — Rust workspace
-  url: https://github.com/89jobrien/braid
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-07-13T07:46:47Z
-  version: v0.3.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: unify workspace dependencies via cargo-rail'
-    date: 2026-07-13T07:46:18Z
-  - message: 'chore: rename braid-core -> braid-engine (name taken on crates.io)'
-    date: 2026-07-13T07:39:22Z
-  - message: 'chore: add crates.io publish metadata to workspace'
-    date: 2026-07-13T07:32:10Z
-  - message: 'chore: add version to all intra-workspace path dependencies (required for crates.io publish)'
-    date: 2026-07-13T07:09:33Z
-  - message: 'docs: fix post-v0.3.0 doc issues'
-    date: 2026-07-13T06:47:06Z
-  - message: 'docs: update CHANGELOG for v0.3.0 and v0.2.0'
-    date: 2026-07-13T06:40:59Z
-  - message: 'chore: bump workspace version to 0.3.0'
-    date: 2026-07-13T06:38:54Z
-  - message: 'feat(braid-components): merge Phase 4 component system (#24)'
-    date: 2026-07-13T06:34:26Z
-  - message: 'feat(braid-components): implement Phase 4 component system (#24)'
-    date: 2026-07-13T06:33:59Z
-  - message: 'docs: add ADRs for event envelope, tool contract, and component format (#17)'
-    date: 2026-07-13T06:29:35Z
-  readme: |
-    # Braid
-
-    Rust-first workspace for the Braid personal agent platform.
-
-    ## Crates
-
-    **Phase 1 — Core**
-    - `braid-model`: canonical domain types (messages, tool calls, transcripts, context)
-    - `braid-ports`: inner-ring port traits (`Provider`, `ToolExecutor`, `EventSink`, `SessionStorage`, `ContextProvider`)
-    - `braid-core`: runtime engine (`Engine<P, T, S, R, C>`), `SimpleLoopPlanner`, tool registry
-    - `braid-providers`: provider adapters (`MockProvider`, `OpenAiProvider`)
-    - `braid-cli`: thin operator entrypoint for local runs
-
-    **Phase 2 — Safety**
-    - `braid-redact`: `RedactionPipeline` with ordered rule chain (secrets, env vars, home paths)
-    - `braid-hooks`: `HookedExecutor` wrapping any `ToolExecutor` with pre/post hook gating
-    - `braid-mcp`: MCP server over stdio (JSON-RPC), tool registration and dispatch
-    - `braid-observe`: session event store; persists `Event` stream to disk
-
-    **Phase 3 — Context**
-    - `braid-context`: context assembly from `DoobSource` (todos) and `RepoSource` (git diff/log); two-stage compaction (staleness filter + token budget with rolling LLM summarization); injected into engine at session start via `ContextProvider` port
-
-    **UI**
-    - `braid-tui`: multi-pane session inspector (Ratatui)
-
-    ## Docs
-
-    - [Planning Docs](./docs/planning/README.md)
-    - [Workspace Overview](./docs/architecture/workspace-overview.md)
-    - [Braid](./docs/planning/Braid.md)
-    - [Braid - Rust Workspace Blueprint](./docs/planning/Braid%20-%20Rust%20Workspace%20Blueprint.md)
-    - [Braid - Rust Workspace Spec](./docs/planning/Braid%20-%20Rust%20Workspace%20Spec.md)
-    - [Braid - Crate Implementation Checklist](./docs/planning/Braid%20-%20Crate%20Implementation%20Checklist.md)
 - name: braid-bootstrap
   description: Environment setup and health checks for the braid agent platform
   url: https://crates.io/crates/braid-bootstrap
@@ -3331,7 +3331,7 @@
   pushed_at: 2026-05-18T05:22:46.040541Z
   version: 0.2.6
   stars: null
-  downloads: 63
+  downloads: 64
   recent_commits: []
 - name: cruxx-agentic
   description: Built-in step handlers for cruxx-script pipelines
@@ -3342,7 +3342,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 91
+  downloads: 93
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -3353,7 +3353,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 129
+  downloads: 132
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -3364,7 +3364,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 200
+  downloads: 205
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -3375,7 +3375,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 308
+  downloads: 313
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -3386,7 +3386,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 180
+  downloads: 185
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -3397,7 +3397,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 128
+  downloads: 131
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -3408,7 +3408,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 75
+  downloads: 76
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -3419,7 +3419,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 411
+  downloads: 417
   recent_commits: []
 - name: prefixe
   description: Prepend validated prefixes to shell commands — reads rx prefix config
@@ -3521,7 +3521,7 @@
   pushed_at: 2026-05-16T04:04:45.475950Z
   version: 0.3.0
   stars: null
-  downloads: 64
+  downloads: 65
   recent_commits: []
 - name: agentlint-pi
   description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
@@ -3532,7 +3532,7 @@
   pushed_at: 2026-05-16T04:04:23.718026Z
   version: 0.3.0
   stars: null
-  downloads: 66
+  downloads: 67
   recent_commits: []
 - name: agentlint-gemini
   description: agentlint validator for Google Gemini GEMINI.md files
@@ -3543,7 +3543,7 @@
   pushed_at: 2026-05-16T04:04:00.508658Z
   version: 0.3.0
   stars: null
-  downloads: 83
+  downloads: 84
   recent_commits: []
 - name: agentlint-codex
   description: agentlint validator for OpenAI Codex AGENTS.md files
@@ -3554,7 +3554,7 @@
   pushed_at: 2026-05-16T04:03:38.113837Z
   version: 0.3.0
   stars: null
-  downloads: 81
+  downloads: 82
   recent_commits: []
 - name: agentlint-cursor
   description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
@@ -3565,7 +3565,7 @@
   pushed_at: 2026-05-16T04:03:15.391246Z
   version: 0.3.0
   stars: null
-  downloads: 82
+  downloads: 83
   recent_commits: []
 - name: agentlint-claude
   description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
@@ -3576,7 +3576,7 @@
   pushed_at: 2026-05-16T04:02:52.382445Z
   version: 0.3.0
   stars: null
-  downloads: 63
+  downloads: 64
   recent_commits: []
 - name: agentlint-frontmatter
   description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
@@ -3587,7 +3587,7 @@
   pushed_at: 2026-05-16T04:02:28.958456Z
   version: 0.3.0
   stars: null
-  downloads: 142
+  downloads: 145
   recent_commits: []
 - name: agentlint-core
   description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
@@ -3598,7 +3598,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 260
+  downloads: 268
   recent_commits: []
 - name: propkit
   description: Reusable proptest property suites ported from Hypothesis
@@ -4054,7 +4054,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1585
+  downloads: 1596
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -4073,7 +4073,7 @@
   pushed_at: 2026-04-23T22:43:46.259352Z
   version: 0.1.0
   stars: null
-  downloads: 21
+  downloads: 20
   recent_commits: []
 - name: hooklings
   description: YAML-driven developer preflight checks via crux pipelines
@@ -4314,7 +4314,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 238
+  downloads: 240
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -4325,7 +4325,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 97
+  downloads: 98
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -4336,7 +4336,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 283
+  downloads: 286
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
