@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-03T12:07:56Z
+  pushed_at: 2026-08-03T23:27:43Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-08-03T23:27:43Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-03T12:07:55Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-07-30T23:27:39Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-07-30T11:41:30Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-07-29T23:25:35Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,7 +219,7 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-03T12:20:02Z
+  pushed_at: 2026-08-04T03:21:25Z
   version: v0.30.0
   stars: null
   downloads: null
@@ -304,6 +304,89 @@
     ## Quick Start
 
     Requires Linux, root, k
+- name: nu_libs
+  description: A library of Nushell scripts organized by category
+  url: https://github.com/89jobrien/nu_libs
+  kinds:
+  - GitHubRepo
+  language: Nushell
+  pushed_at: 2026-08-03T23:44:06Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(task): resolve pueue log --full/--lines conflict and remove naming collision'
+    date: 2026-08-03T23:44:03Z
+  - message: Add defguard docker-compose test stack management script
+    date: 2026-07-19T21:32:57Z
+  - message: 'feat(lib): add rust and git utility commands from /tmp analysis'
+    date: 2026-06-30T13:03:58Z
+  - message: 'feat(lib): add doob and gkg modules'
+    date: 2026-06-26T21:12:47Z
+  - message: 'chore: reformat HANDOFF yaml'
+    date: 2026-06-14T07:13:18Z
+  - message: 'chore: harden gitignore, fix mod exports, migrate get -i to --optional'
+    date: 2026-06-14T05:20:22Z
+  - message: 'feat: implement lib/ai/clients/baml.nu — Nu wrapper for nu-ai-daemon'
+    date: 2026-06-14T04:44:47Z
+  - message: 'feat: add rr alias to reload nushell session'
+    date: 2026-06-14T03:17:42Z
+  - message: 'feat: add nul-carapace spec generator with ~/.config/carapace/specs install'
+    date: 2026-06-14T03:15:41Z
+  - message: 'refactor: rename nu-libschema to nul-genschema'
+    date: 2026-06-14T03:13:25Z
+  readme: |-
+    # nu_libs
+
+    A library of Nushell modules organized by category.
+
+    ## Structure
+
+    ```
+    lib/
+      mod.nu      top-level re-export of all categories
+      git/        Git helpers: log stats, branch age/cleanup, gone branches, hooks
+      net/        Network: SSH, sockets, remoting, HTTP, netcat, proxy, SSL
+      fs/         Filesystem: tree traversal, file ops, disk, navigation (up/cdpath/autojump/zoxide)
+      data/       Data transforms: typeof, JSON schema, ini, env, number format, base64, indent
+      ui/         UI/shell: bar, progress meter, completions, aliases (bat/eza), clipboard, notify
+      std/        Nu ecosystem: config, init, modules, deps, release tooling, dynamic loading
+      task/       Productivity: task runner, todo, history, bookmarks, just completions, hosts/path
+      rust/       Rust/Cargo: cargo search, rust AST, coverage
+      doob/       Doob wrappers: repo-scoped todos, search, notes, handoff sync
+      misc/       Misc tools: asciinema, zellij, rustic, rbw, website builder
+
+    scripts/      Standalone scripts (not modules — contain top-level executable code)
+    ai_nu/        Separate repo: AI/LLM agent primitives (OpenAI, Gemini, Ollama)
+    ```
+
+    ## Usage
+
+    ```nu
+    # Load a whole category
+    use lib/git *
+
+    # Load a single file
+    use lib/data/typeof.nu *
+
+    # Load everything
+    use lib/mod.nu *
+    ```
+
+    ### Files with `export def main`
+
+    These conflict when glob-re-exported, so use them directly by file path:
+
+    | File                            | Command                      |
+    | ------------------------------- | ---------------------------- |
+    | `lib/git/bump-version.nu`       | `bump-version`               |
+    | `lib/fs/loc.nu`                 | `loc` (tokei wrapper)        |
+    | `lib/fs/wc.nu`                  | `wc`                         |
+    | `lib/data/expand.nu`            | `expand`                     |
+    | `lib/data/remove-diacritics.nu` | `remove-diacritics`          |
+    | `lib/std/nu_deps.nu`            | `nu-deps`                    |
+    | `lib/std/nu_release.nu`         | `nu-release`                 |
+    | `lib/ta
 - name: coursers
   description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
   url: https://github.com/89jobrien/coursers
@@ -785,89 +868,6 @@
     ### Run
 
     ```
-- name: nu_libs
-  description: A library of Nushell scripts organized by category
-  url: https://github.com/89jobrien/nu_libs
-  kinds:
-  - GitHubRepo
-  language: Nushell
-  pushed_at: 2026-07-19T21:33:07Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Add defguard docker-compose test stack management script
-    date: 2026-07-19T21:32:57Z
-  - message: 'feat(lib): add rust and git utility commands from /tmp analysis'
-    date: 2026-06-30T13:03:58Z
-  - message: 'feat(lib): add doob and gkg modules'
-    date: 2026-06-26T21:12:47Z
-  - message: 'chore: reformat HANDOFF yaml'
-    date: 2026-06-14T07:13:18Z
-  - message: 'chore: harden gitignore, fix mod exports, migrate get -i to --optional'
-    date: 2026-06-14T05:20:22Z
-  - message: 'feat: implement lib/ai/clients/baml.nu — Nu wrapper for nu-ai-daemon'
-    date: 2026-06-14T04:44:47Z
-  - message: 'feat: add rr alias to reload nushell session'
-    date: 2026-06-14T03:17:42Z
-  - message: 'feat: add nul-carapace spec generator with ~/.config/carapace/specs install'
-    date: 2026-06-14T03:15:41Z
-  - message: 'refactor: rename nu-libschema to nul-genschema'
-    date: 2026-06-14T03:13:25Z
-  - message: 'feat: add nu-libschema OpenAPI generator and magi-reconcile completions'
-    date: 2026-06-14T03:11:03Z
-  readme: |-
-    # nu_libs
-
-    A library of Nushell modules organized by category.
-
-    ## Structure
-
-    ```
-    lib/
-      mod.nu      top-level re-export of all categories
-      git/        Git helpers: log stats, branch age/cleanup, gone branches, hooks
-      net/        Network: SSH, sockets, remoting, HTTP, netcat, proxy, SSL
-      fs/         Filesystem: tree traversal, file ops, disk, navigation (up/cdpath/autojump/zoxide)
-      data/       Data transforms: typeof, JSON schema, ini, env, number format, base64, indent
-      ui/         UI/shell: bar, progress meter, completions, aliases (bat/eza), clipboard, notify
-      std/        Nu ecosystem: config, init, modules, deps, release tooling, dynamic loading
-      task/       Productivity: task runner, todo, history, bookmarks, just completions, hosts/path
-      rust/       Rust/Cargo: cargo search, rust AST, coverage
-      doob/       Doob wrappers: repo-scoped todos, search, notes, handoff sync
-      misc/       Misc tools: asciinema, zellij, rustic, rbw, website builder
-
-    scripts/      Standalone scripts (not modules — contain top-level executable code)
-    ai_nu/        Separate repo: AI/LLM agent primitives (OpenAI, Gemini, Ollama)
-    ```
-
-    ## Usage
-
-    ```nu
-    # Load a whole category
-    use lib/git *
-
-    # Load a single file
-    use lib/data/typeof.nu *
-
-    # Load everything
-    use lib/mod.nu *
-    ```
-
-    ### Files with `export def main`
-
-    These conflict when glob-re-exported, so use them directly by file path:
-
-    | File                            | Command                      |
-    | ------------------------------- | ---------------------------- |
-    | `lib/git/bump-version.nu`       | `bump-version`               |
-    | `lib/fs/loc.nu`                 | `loc` (tokei wrapper)        |
-    | `lib/fs/wc.nu`                  | `wc`                         |
-    | `lib/data/expand.nu`            | `expand`                     |
-    | `lib/data/remove-diacritics.nu` | `remove-diacritics`          |
-    | `lib/std/nu_deps.nu`            | `nu-deps`                    |
-    | `lib/std/nu_release.nu`         | `nu-release`                 |
-    | `lib/ta
 - name: checkup-secx
   description: Security scanning and audit reporting for Rust workspaces
   url: https://crates.io/crates/checkup-secx
@@ -3500,7 +3500,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 1732
+  downloads: 1840
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4044,7 +4044,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1756
+  downloads: 1758
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
