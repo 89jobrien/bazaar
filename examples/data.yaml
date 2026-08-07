@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-05T23:25:09Z
+  pushed_at: 2026-08-06T11:48:37Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-08-06T11:48:36Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-05T23:25:08Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-08-02T11:31:21Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-01T23:23:43Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-08-01T11:31:22Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,97 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-07T00:24:21Z
+  version: v0.30.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #324 from 89jobrien/chore/xtask-borrow-fixtures'
+    date: 2026-07-26T06:10:14Z
+  - message: 'merge: update borrow fixture PR with main'
+    date: 2026-07-26T06:03:25Z
+  - message: 'Merge pull request #459 from 89jobrien/89jobrien-patch-1'
+    date: 2026-07-26T05:46:32Z
+  - message: Merge branch 'main' into 89jobrien-patch-1
+    date: 2026-07-26T05:43:36Z
+  - message: 'Merge pull request #460 from 89jobrien/chore/gitignore-ctx-state'
+    date: 2026-07-26T05:43:23Z
+  - message: Merge branch 'main' into chore/gitignore-ctx-state
+    date: 2026-07-26T05:42:32Z
+  - message: 'Merge pull request #462 from 89jobrien/ci/auto-promote'
+    date: 2026-07-26T05:40:52Z
+  - message: Merge branch 'main' into 89jobrien-patch-1
+    date: 2026-07-26T05:39:05Z
+  - message: Merge branch 'main' into chore/gitignore-ctx-state
+    date: 2026-07-26T05:39:02Z
+  - message: Merge branch 'main' into ci/auto-promote
+    date: 2026-07-26T05:38:59Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
+
+    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
+    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
+    keeps adapter suites swappable at startup with no recompile.
+
+    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `minibox logs <id>` for stored stdout/stderr
+    - Container events — `minibox events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
+    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
+      Colima available as an alternative via Lima VM
+
+    ---
+
+    ## Quick Start
+
+    Requires Linux, root, k
 - name: tracers
   description: null
   url: https://github.com/89jobrien/tracers
@@ -255,7 +346,7 @@
   pushed_at: 2026-08-06T07:26:36Z
   version: v0.6.0
   stars: 1
-  downloads: 251
+  downloads: 257
   recent_commits:
   - message: 'flow: finish release into main'
     date: 2026-07-12T05:14:53Z
@@ -977,97 +1068,6 @@
     date: 2026-04-24T01:27:33Z
   - message: 'docs: rewrite DAILY_REPORT clippy section — bullet list instead of unreadable wide table'
     date: 2026-04-24T01:25:44Z
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-06T06:44:24Z
-  version: v0.30.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #324 from 89jobrien/chore/xtask-borrow-fixtures'
-    date: 2026-07-26T06:10:14Z
-  - message: 'merge: update borrow fixture PR with main'
-    date: 2026-07-26T06:03:25Z
-  - message: 'Merge pull request #459 from 89jobrien/89jobrien-patch-1'
-    date: 2026-07-26T05:46:32Z
-  - message: Merge branch 'main' into 89jobrien-patch-1
-    date: 2026-07-26T05:43:36Z
-  - message: 'Merge pull request #460 from 89jobrien/chore/gitignore-ctx-state'
-    date: 2026-07-26T05:43:23Z
-  - message: Merge branch 'main' into chore/gitignore-ctx-state
-    date: 2026-07-26T05:42:32Z
-  - message: 'Merge pull request #462 from 89jobrien/ci/auto-promote'
-    date: 2026-07-26T05:40:52Z
-  - message: Merge branch 'main' into 89jobrien-patch-1
-    date: 2026-07-26T05:39:05Z
-  - message: Merge branch 'main' into chore/gitignore-ctx-state
-    date: 2026-07-26T05:39:02Z
-  - message: Merge branch 'main' into ci/auto-promote
-    date: 2026-07-26T05:38:59Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
-
-    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
-    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
-    keeps adapter suites swappable at startup with no recompile.
-
-    **Status:** Active development — `v0.30.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `minibox logs <id>` for stored stdout/stderr
-    - Container events — `minibox events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
-    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
-      Colima available as an alternative via Lima VM
-
-    ---
-
-    ## Quick Start
-
-    Requires Linux, root, k
 - name: mcpipe
   description: Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI
   url: https://github.com/89jobrien/mcpipe
@@ -1894,7 +1894,7 @@
   pushed_at: 2026-08-04T23:04:24.588553Z
   version: 0.8.0
   stars: null
-  downloads: 19
+  downloads: 25
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -1905,7 +1905,7 @@
   pushed_at: 2026-08-04T23:04:11.949045Z
   version: 0.8.0
   stars: null
-  downloads: 20
+  downloads: 26
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -1916,7 +1916,7 @@
   pushed_at: 2026-08-04T23:04:00.578508Z
   version: 0.8.0
   stars: null
-  downloads: 19
+  downloads: 25
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -1927,7 +1927,7 @@
   pushed_at: 2026-08-04T23:03:45.815577Z
   version: 0.8.0
   stars: null
-  downloads: 50
+  downloads: 56
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -1960,7 +1960,7 @@
   pushed_at: 2026-08-04T23:02:23.930119Z
   version: 0.8.0
   stars: null
-  downloads: 64
+  downloads: 65
   recent_commits: []
 - name: taskit-core
   description: Core types and traits for taskit
@@ -1971,7 +1971,7 @@
   pushed_at: 2026-08-04T23:02:13.812559Z
   version: 0.8.0
   stars: null
-  downloads: 48
+  downloads: 54
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -1982,7 +1982,7 @@
   pushed_at: 2026-08-04T23:02:03.842671Z
   version: 0.8.0
   stars: null
-  downloads: 108
+  downloads: 115
   recent_commits: []
 - name: prefixe
   description: Prepend validated prefixes to shell commands — reads rx prefix config
@@ -2577,7 +2577,7 @@
   pushed_at: 2026-07-13T01:33:35.175861Z
   version: 0.5.1
   stars: null
-  downloads: 89
+  downloads: 90
   recent_commits: []
 - name: crux
   description: Inspectable, serializable, replayable agent execution.
@@ -3410,7 +3410,7 @@
   pushed_at: 2026-06-08T05:25:56.523924Z
   version: 0.1.0
   stars: null
-  downloads: 117
+  downloads: 119
   recent_commits: []
 - name: langchainx
   description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
@@ -3889,7 +3889,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 104
+  downloads: 105
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -3900,7 +3900,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 149
+  downloads: 150
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -3911,7 +3911,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 227
+  downloads: 228
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -3922,7 +3922,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 339
+  downloads: 341
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -3933,7 +3933,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 215
+  downloads: 217
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -3944,7 +3944,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 148
+  downloads: 149
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -3955,7 +3955,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 82
+  downloads: 83
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -3966,7 +3966,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 2368
+  downloads: 2551
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4054,7 +4054,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 306
+  downloads: 307
   recent_commits: []
 - name: warpx
   description: 'Warp terminal fork: agentic dev environment, custom UI, MCP, skills'
@@ -4276,7 +4276,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1776
+  downloads: 1785
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -4553,7 +4553,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 80
+  downloads: 81
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -4564,7 +4564,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 82
+  downloads: 83
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -4575,7 +4575,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 78
+  downloads: 79
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -4586,7 +4586,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 78
+  downloads: 79
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -4597,7 +4597,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 245
+  downloads: 246
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
@@ -4939,7 +4939,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 59
+  downloads: 60
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -4961,7 +4961,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 229
+  downloads: 230
   recent_commits: []
 - name: steve
   description: Steve's not here, man.
