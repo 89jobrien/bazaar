@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-15T23:07:27Z
+  pushed_at: 2026-08-16T11:07:34Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-08-16T11:07:33Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-15T23:07:25Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-08-12T11:21:18Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-11T23:19:35Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-08-11T11:20:00Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,13 +213,45 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: tracers
+  description: null
+  url: https://github.com/89jobrien/tracers
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-16T20:23:04Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore(release): v0.1.0'
+    date: 2026-08-16T20:23:01Z
+  - message: 'test(trace-test): add integration test against the real escalation chain fixture'
+    date: 2026-08-16T20:11:17Z
+  - message: 'feat(trace-test): implement assert_trace! macro'
+    date: 2026-08-16T20:10:53Z
+  - message: 'test(trace-test): add property test for confidence_below'
+    date: 2026-08-16T20:10:07Z
+  - message: 'feat(trace-test): implement TraceAssertionError and the four assertion primitives'
+    date: 2026-08-16T20:09:41Z
+  - message: 'feat(trace-test): implement TraceOutcome port for SpawnOutcome/RunOutcome'
+    date: 2026-08-16T20:09:05Z
+  - message: 'feat(trace-test): scaffold new crate and register in workspace'
+    date: 2026-08-16T20:07:55Z
+  - message: 'docs(runtime): flag self-dependency needs a version before first publish'
+    date: 2026-08-16T20:07:05Z
+  - message: 'refactor(runtime): move escalation_wiring fixtures into src/fixtures.rs'
+    date: 2026-08-16T20:05:30Z
+  - message: 'feat(runtime): add test-support feature, promote async-trait to optional dep'
+    date: 2026-08-16T20:02:24Z
+  readme: "# trace::\n\n> a programming language where reasoning is first-class\n\nIn most languages, values are first-class. In `trace::`, _reasoning provenance_ is\nfirst-class. Every computation returns `Trace<T>` — a value enriched with the full\ncausal chain of how it was produced: steps taken, branches considered and rejected,\nconfidence at each decision point, and RAII-style span timing.\n\nThis repository contains the `trace::` language design and a Rust reference\nimplementation of its core types, all of which compile and are usable today.\n\n---\n\n## crates\n\n| crate              | description                                                     | docs |\n| ------------------ | ---------------------------------------------------------------- | --- |\n| `tracers-core`     | `Trace<T>`, `Step`, `Span`, `Branch`, `TraceErr`                | [README](crates/core/README.md) |\n| `tracers-task`     | `Task`, `TaskStatus`, `Priority`, `TaskRegistry`                | [README](crates/task/README.md) |\n| `tracers-agent`    | `Agent` trait, `spawn`/`delegate`, lifecycle escalation hooks   | [README](crates/agent/README.md) |\n| `tracers-runtime`  | `AgentRegistry`, `run_with_escalation`, `join_all`, `speculate` | [README](crates/runtime/README.md) |\n\n`tracers-core` has no dependency on any other crate in the workspace; the\ndependency graph flows `core -> task`, `core -> agent -> runtime`.\n\n---\n\n## the mental model\n\n```rust\n// in Rust you might write:\nfn answer(q: Question) -> Answer { .. }\n\n// in trace:: every computation is inspectable:\nstep answer(q: Question) -> Trace<Answer> { .. }\n\n// and you can interrogate the result:\nlet t = spawn MyAgent::answer(q).await\nt.causal_chain()       // how did we get here?\nt.rejected_branches()  // what did we consider and discard?\nt.bottlenecks()        // where did we slow down?\nt.low_confidence()     // where were we uncertain?\n```\n\n`Trace<T>` is to reasoning what `Result<T, E>` is to errors: a typed,\npropagatable wrapper with explicit handling at every "
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-16T07:34:43Z
+  pushed_at: 2026-08-16T19:56:20Z
   version: v0.32.0
   stars: null
   downloads: null
@@ -313,7 +345,7 @@
   pushed_at: 2026-08-15T21:39:27.848058Z
   version: 0.32.0
   stars: null
-  downloads: 263
+  downloads: 270
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -324,7 +356,7 @@
   pushed_at: 2026-08-15T21:38:00.082275Z
   version: 0.32.0
   stars: null
-  downloads: 387
+  downloads: 395
   recent_commits: []
 - name: taskit
   description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
@@ -441,38 +473,6 @@
     | Skill                                     | When                                                   |
     | ----------------------------------------- | ------------------------------------------------------ |
     | `godmode:using-godmode`                   | Session orientation, avail
-- name: tracers
-  description: null
-  url: https://github.com/89jobrien/tracers
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-14T06:23:22Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat: add mise.toml for tool provisioning and composite workflows'
-    date: 2026-08-14T06:23:19Z
-  - message: 'feat(ci): route taskit''s SARIF output to GitHub code scanning'
-    date: 2026-08-09T00:01:42Z
-  - message: 'fix(core): re-export StepOutcome; chore(deny): trim stale license allowances'
-    date: 2026-08-06T09:31:21Z
-  - message: 'docs: add CONTRIBUTING.md, issue templates, and PR template'
-    date: 2026-08-06T09:29:04Z
-  - message: 'docs: add per-crate READMEs, fix related-work reference'
-    date: 2026-08-06T08:30:19Z
-  - message: 'test: expand coverage on every testing-philosophy dimension'
-    date: 2026-08-06T08:25:32Z
-  - message: 'test: fill testing-philosophy gaps — property, model check, integration'
-    date: 2026-08-06T08:21:03Z
-  - message: 'test(core,task,runtime): grow test suite from 12 to 41 unit tests'
-    date: 2026-08-06T08:16:25Z
-  - message: 'docs(core,task,runtime): add doc comments to raise public API doc coverage'
-    date: 2026-08-06T08:13:54Z
-  - message: 'fix(deps): bump tokio to 1.44.2, add dual MIT/Apache-2.0 LICENSE files'
-    date: 2026-08-06T08:09:22Z
-  readme: "# trace::\n\n> a programming language where reasoning is first-class\n\nIn most languages, values are first-class. In `trace::`, _reasoning provenance_ is\nfirst-class. Every computation returns `Trace<T>` — a value enriched with the full\ncausal chain of how it was produced: steps taken, branches considered and rejected,\nconfidence at each decision point, and RAII-style span timing.\n\nThis repository contains the `trace::` language design and a Rust reference\nimplementation of its core types, all of which compile and are usable today.\n\n---\n\n## crates\n\n| crate              | description                                                     | docs |\n| ------------------ | ---------------------------------------------------------------- | --- |\n| `tracers-core`     | `Trace<T>`, `Step`, `Span`, `Branch`, `TraceErr`                | [README](crates/core/README.md) |\n| `tracers-task`     | `Task`, `TaskStatus`, `Priority`, `TaskRegistry`                | [README](crates/task/README.md) |\n| `tracers-agent`    | `Agent` trait, `spawn`/`delegate`, lifecycle escalation hooks   | [README](crates/agent/README.md) |\n| `tracers-runtime`  | `AgentRegistry`, `run_with_escalation`, `join_all`, `speculate` | [README](crates/runtime/README.md) |\n\n`tracers-core` has no dependency on any other crate in the workspace; the\ndependency graph flows `core -> task`, `core -> agent -> runtime`.\n\n---\n\n## the mental model\n\n```rust\n// in Rust you might write:\nfn answer(q: Question) -> Answer { .. }\n\n// in trace:: every computation is inspectable:\nstep answer(q: Question) -> Trace<Answer> { .. }\n\n// and you can interrogate the result:\nlet t = spawn MyAgent::answer(q).await\nt.causal_chain()       // how did we get here?\nt.rejected_branches()  // what did we consider and discard?\nt.bottlenecks()        // where did we slow down?\nt.low_confidence()     // where were we uncertain?\n```\n\n`Trace<T>` is to reasoning what `Result<T, E>` is to errors: a typed,\npropagatable wrapper with explicit handling at every "
 - name: notfiles
   description: Nix-based dotfiles and system configuration
   url: https://github.com/89jobrien/notfiles
@@ -2347,7 +2347,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 63
+  downloads: 65
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -2392,7 +2392,7 @@
   pushed_at: 2026-07-16T02:42:18Z
   version: v0.3.2
   stars: 1
-  downloads: 103
+  downloads: 108
   recent_commits:
   - message: 'fix(clippy): redundant closure, dead_code on mcp helpers'
     date: 2026-07-16T02:41:41Z
@@ -2566,7 +2566,7 @@
   pushed_at: 2026-07-13T07:34:30.277211Z
   version: 0.3.0
   stars: null
-  downloads: 59
+  downloads: 63
   recent_commits: []
 - name: braid-model
   description: Canonical domain types for the braid agent platform
@@ -2577,7 +2577,7 @@
   pushed_at: 2026-07-13T07:33:22.653887Z
   version: 0.3.0
   stars: null
-  downloads: 79
+  downloads: 85
   recent_commits: []
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
@@ -2588,7 +2588,7 @@
   pushed_at: 2026-07-13T01:34:19.708771Z
   version: 0.5.1
   stars: null
-  downloads: 50
+  downloads: 53
   recent_commits: []
 - name: looprs-core
   description: Domain types, ports, and macros for looprs
@@ -2599,7 +2599,7 @@
   pushed_at: 2026-07-13T01:33:35.175861Z
   version: 0.5.1
   stars: null
-  downloads: 103
+  downloads: 108
   recent_commits: []
 - name: crux
   description: Inspectable, serializable, replayable agent execution.
@@ -2726,7 +2726,7 @@
   pushed_at: 2026-07-09T02:11:26.279438Z
   version: 0.3.1
   stars: null
-  downloads: 34
+  downloads: 35
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -2748,7 +2748,7 @@
   pushed_at: 2026-07-09T02:08:45.038550Z
   version: 0.3.1
   stars: null
-  downloads: 45
+  downloads: 47
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -2770,7 +2770,7 @@
   pushed_at: 2026-07-09T02:08:40.675079Z
   version: 0.3.1
   stars: null
-  downloads: 72
+  downloads: 74
   recent_commits: []
 - name: claude-code-statusline
   description: Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance — minimal setup, maximum insight.
@@ -3097,7 +3097,7 @@
   pushed_at: 2026-06-27T17:10:50Z
   version: v0.1.0
   stars: null
-  downloads: 120
+  downloads: 122
   recent_commits:
   - message: 'chore: track rustqual baseline in version control'
     date: 2026-06-27T17:10:15Z
@@ -3388,7 +3388,7 @@
   pushed_at: 2026-06-08T05:39:24.236954Z
   version: 0.1.0
   stars: null
-  downloads: 52
+  downloads: 53
   recent_commits: []
 - name: disyn-memory
   description: Memory store implementation for the disyn agent pipeline
@@ -3399,7 +3399,7 @@
   pushed_at: 2026-06-08T05:26:27.409395Z
   version: 0.1.0
   stars: null
-  downloads: 51
+  downloads: 52
   recent_commits: []
 - name: disyn-neural
   description: Neural proposal engine and fact extractor for the disyn agent pipeline
@@ -3410,7 +3410,7 @@
   pushed_at: 2026-06-08T05:26:18.193930Z
   version: 0.1.0
   stars: null
-  downloads: 50
+  downloads: 51
   recent_commits: []
 - name: disyn-symbolic
   description: Symbolic verifier and repair engine for the disyn agent pipeline
@@ -3421,7 +3421,7 @@
   pushed_at: 2026-06-08T05:26:07.254857Z
   version: 0.1.0
   stars: null
-  downloads: 51
+  downloads: 52
   recent_commits: []
 - name: disyn-core
   description: Domain types, port traits, and errors for the disyn agent pipeline
@@ -3432,7 +3432,7 @@
   pushed_at: 2026-06-08T05:25:56.523924Z
   version: 0.1.0
   stars: null
-  downloads: 147
+  downloads: 152
   recent_commits: []
 - name: langchainx
   description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
@@ -3878,7 +3878,7 @@
   pushed_at: 2026-05-18T05:22:46.040541Z
   version: 0.2.6
   stars: null
-  downloads: 82
+  downloads: 83
   recent_commits: []
 - name: cruxx-agentic
   description: Built-in step handlers for cruxx-script pipelines
@@ -3889,7 +3889,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 121
+  downloads: 123
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -3900,7 +3900,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 168
+  downloads: 171
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -3911,7 +3911,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 254
+  downloads: 259
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -3922,7 +3922,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 369
+  downloads: 375
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -3933,7 +3933,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 245
+  downloads: 252
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -3944,7 +3944,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 167
+  downloads: 170
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -3955,7 +3955,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 94
+  downloads: 95
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -3966,7 +3966,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 4123
+  downloads: 4131
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -3977,7 +3977,7 @@
   pushed_at: 2026-05-16T04:04:45.475950Z
   version: 0.3.0
   stars: null
-  downloads: 85
+  downloads: 86
   recent_commits: []
 - name: agentlint-pi
   description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
@@ -3988,7 +3988,7 @@
   pushed_at: 2026-05-16T04:04:23.718026Z
   version: 0.3.0
   stars: null
-  downloads: 87
+  downloads: 88
   recent_commits: []
 - name: agentlint-gemini
   description: agentlint validator for Google Gemini GEMINI.md files
@@ -3999,7 +3999,7 @@
   pushed_at: 2026-05-16T04:04:00.508658Z
   version: 0.3.0
   stars: null
-  downloads: 107
+  downloads: 108
   recent_commits: []
 - name: agentlint-codex
   description: agentlint validator for OpenAI Codex AGENTS.md files
@@ -4010,7 +4010,7 @@
   pushed_at: 2026-05-16T04:03:38.113837Z
   version: 0.3.0
   stars: null
-  downloads: 105
+  downloads: 106
   recent_commits: []
 - name: agentlint-cursor
   description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
@@ -4021,7 +4021,7 @@
   pushed_at: 2026-05-16T04:03:15.391246Z
   version: 0.3.0
   stars: null
-  downloads: 106
+  downloads: 107
   recent_commits: []
 - name: agentlint-claude
   description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
@@ -4032,7 +4032,7 @@
   pushed_at: 2026-05-16T04:02:52.382445Z
   version: 0.3.0
   stars: null
-  downloads: 84
+  downloads: 85
   recent_commits: []
 - name: agentlint-frontmatter
   description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
@@ -4043,7 +4043,7 @@
   pushed_at: 2026-05-16T04:02:28.958456Z
   version: 0.3.0
   stars: null
-  downloads: 188
+  downloads: 191
   recent_commits: []
 - name: agentlint-core
   description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
@@ -4054,7 +4054,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 346
+  downloads: 354
   recent_commits: []
 - name: warpx
   description: 'Warp terminal fork: agentic dev environment, custom UI, MCP, skills'
@@ -4178,7 +4178,7 @@
   pushed_at: 2026-04-30T21:51:42.719327Z
   version: 0.1.3
   stars: null
-  downloads: 60
+  downloads: 61
   recent_commits: []
 - name: 89jobrien.github.io
   description: Personal site
@@ -4231,7 +4231,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 64
+  downloads: 65
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -4242,7 +4242,7 @@
   pushed_at: 2026-04-24T19:52:04.917297Z
   version: 0.19.0
   stars: null
-  downloads: 23
+  downloads: 24
   recent_commits: []
 - name: minibox-oci
   description: Standalone OCI image-pulling library for Minibox
@@ -4253,7 +4253,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 112
+  downloads: 114
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -4276,7 +4276,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1958
+  downloads: 1972
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -4295,7 +4295,7 @@
   pushed_at: 2026-04-23T22:43:46.259352Z
   version: 0.1.0
   stars: null
-  downloads: 22
+  downloads: 23
   recent_commits: []
 - name: harvestrs
   description: Polyglot data harvester — syncs Claude memory, git, Obsidian, Pieces to JSONL
@@ -4431,7 +4431,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 116
+  downloads: 118
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -4453,7 +4453,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 268
+  downloads: 270
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -4464,7 +4464,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 117
+  downloads: 118
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -4475,7 +4475,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 321
+  downloads: 324
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
@@ -4553,7 +4553,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 90
+  downloads: 91
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -4564,7 +4564,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 92
+  downloads: 93
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -4575,7 +4575,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 88
+  downloads: 89
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -4586,7 +4586,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 88
+  downloads: 89
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -4597,7 +4597,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 274
+  downloads: 279
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
@@ -4939,7 +4939,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 65
+  downloads: 66
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -4950,7 +4950,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 121
+  downloads: 123
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -4961,7 +4961,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 255
+  downloads: 259
   recent_commits: []
 - name: steve
   description: Steve's not here, man.
