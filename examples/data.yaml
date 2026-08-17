@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-16T23:06:52Z
+  pushed_at: 2026-08-17T11:32:13Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-08-17T11:32:11Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-16T23:06:51Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-08-13T11:21:00Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-12T23:18:30Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-08-12T11:21:18Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-05-14_\n\n| Project                                                                 | Kind          | Tags          | Description                                                                                                         | Updated    |\n| ----------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------- | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                           | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                               | 2026-05-14 |\n| [atelier](https://github.com/89jobrien/atelier)                         | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                | 2026-04-29 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                 | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                             | 2026-04-18 |\n| [minibox](https://github.com/89jobrien/minibox)                         | Repo          | `infra`       | Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning                                                            | 2026-05-14 |\n| [godmode](https://github.com/89jobrien/godmode)                         | Repo / Plugin | —             | Self-contained Rust-native development methodology plugin for Claude Code.                                          | 2026-05-14 |\n| [hj](https://github.com/89jobrien/hj)                                   | Repo          | `agents`      | Handoff state, reconciliation, rendering, and handup surveys                                                        | 2026-05-14 |\n| "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,243 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: mlrs
+  description: Recursive Language Model (RLM) inference in Rust — Rhai-scripted context navigation with unbounded context handling
+  url: https://github.com/89jobrien/mlrs
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-17T19:53:27Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'feat(core): notebook compaction for context window management (plan 01)'
+    date: 2026-08-17T19:53:20Z
+  - message: 'feat: add Nushell completion generation'
+    date: 2026-08-05T18:10:08Z
+  - message: 'docs: add AGENTS.md for Codex CLI agent support'
+    date: 2026-06-28T18:24:58Z
+  - message: fix handoff commit sha quoting
+    date: 2026-05-04T23:06:03Z
+  - message: 'docs: update handoff — EOD 20260424'
+    date: 2026-04-24T21:28:45Z
+  - message: 'docs: add gha-gen implementation plan'
+    date: 2026-04-24T09:59:45Z
+  - message: 'docs: add gha-gen design spec'
+    date: 2026-04-24T09:55:42Z
+  - message: 'feat(core): per-cell output truncation — TruncationPolicy + truncate_output'
+    date: 2026-04-24T08:58:33Z
+  - message: 'feat(core): add cancellation — CancellationToken param on Rlm::run'
+    date: 2026-04-24T08:56:54Z
+  - message: 'docs: update handoff — session 2 log, health check fixes'
+    date: 2026-04-24T01:27:33Z
+- name: godmode
+  description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
+  url: https://github.com/89jobrien/godmode
+  kinds:
+  - GitHubRepo
+  - ClaudePlugin
+  language: Rust
+  pushed_at: 2026-08-17T19:45:41Z
+  version: v0.5.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'merge: gm3 coursers rule lifecycle skill (JOB-472)'
+    date: 2026-08-17T07:20:29Z
+  - message: 'feat(skills): add crs-hook-testing skill — coursers rule lifecycle pipeline (gm3, JOB-472)'
+    date: 2026-08-17T07:15:25Z
+  - message: 'test: add property tests for Config TOML parsing'
+    date: 2026-07-14T01:39:11Z
+  - message: 'test: add property and conformance tests for skill and report_index'
+    date: 2026-07-13T00:44:49Z
+  - message: 'feat(godmode): improve cap and rust-conventions based on session patterns'
+    date: 2026-07-12T17:08:37Z
+  - message: 'docs(commands): add 5 new workflow commands to README'
+    date: 2026-07-12T02:17:47Z
+  - message: 'chore: bump plugin version to 5b513aa'
+    date: 2026-07-12T01:54:34Z
+  - message: 'feat(commands): add 5 MoA-identified workflow commands'
+    date: 2026-07-12T01:54:27Z
+  - message: 'chore: bump plugin version to e178504'
+    date: 2026-07-11T20:47:03Z
+  - message: 'feat(skills): add doc-writer, doc-sync, doc-review skills'
+    date: 2026-07-11T20:19:30Z
+  readme: "# godmode\n\nSelf-contained Rust-native development methodology plugin for Claude Code.\n\n> Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.\n\n## Overview\n\nGodmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all\nstateful operations — skills are thin wrappers that call `godmode` and act on the output.\nTasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal\n`depends_on` chains.\n\n## Install\n\n```bash\ncargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode\nclaude plugin install godmode@bazaar\n```\n\n### Pre-commit hook\n\nInstall the godmode pre-commit hook into any git repo to block commits when tasks are\nstill running and to run cargo gates (fmt-check, clippy, nextest):\n\n```bash\n# From the repo root where you want the hook installed:\nnu /path/to/godmode/hooks/install.nu\n\n# Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:\nnu \"$CLAUDE_PLUGIN_ROOT/hooks/install.nu\"\n```\n\nThe hook:\n\n1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,\n   printing the offending task IDs.\n2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and\n   `cargo nextest run --workspace`.\n3. Blocks the commit on any failure with a clear message.\n\nIf `godmode` is not on PATH, the task-state check is skipped gracefully and only the\ncargo gates run.\n\n## Skills\n\n| Skill                                     | When                                                                  |\n| ----------------------------------------- | --------------------------------------------------------------------- |\n| `godmode:using-godmode`                 "
+- name: coursers
+  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
+  url: https://github.com/89jobrien/coursers
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-17T19:45:38Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs(plans): check off Phase 3 pipeline delivery in godmode-integration plan'
+    date: 2026-08-17T19:45:36Z
+  - message: 'chore(config): finish ~/.claude/hooks -> ~/.config/coursers migration'
+    date: 2026-08-17T19:35:04Z
+  - message: 'fix(scripts): create enrich-handoff temp files in .ctx so mv is atomic'
+    date: 2026-08-17T18:15:11Z
+  - message: 'feat(hook): run course-correct rules inside crs hook pre-tool-use'
+    date: 2026-08-17T18:13:33Z
+  - message: 'fix(rules): whole-command fallback in check_pipeline so operator rules can fire'
+    date: 2026-08-17T18:07:08Z
+  - message: 'fix(hook): match unless as a regex, not a literal substring'
+    date: 2026-08-17T18:01:28Z
+  - message: 'fix(coursers-core): clean up dead test code, satisfy pre-push clippy --all-targets'
+    date: 2026-08-17T07:30:24Z
+  - message: 'merge: hc-a hook-composition traits (JOB-475)'
+    date: 2026-08-17T07:19:33Z
+  - message: 'feat(coursers-core): add PreHook/PostHook/Observer/HookChain port traits (JOB-475 hc-a)'
+    date: 2026-08-17T07:02:00Z
+  - message: 'docs: update handoff with 2026-08-16 session'
+    date: 2026-08-17T03:29:29Z
+  tags:
+  - cli
+  readme: |-
+    # coursers
+
+    Claude Code hook pipeline for course-correcting AI-generated Bash commands.
+
+    Two tools:
+
+    - **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures
+    - **`crs`** — front controller, output filter, command rewriter, and hook validator
+
+    ---
+
+    ## How It Works
+
+    ### Rule-based blocking (`coursers pre`)
+
+    Reads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command
+    matches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`
+    response with a human-readable message.
+
+    Rules support:
+
+    - Regex pattern matching (with optional `i` flag)
+    - Exception patterns — allow a command through even if the main pattern matches
+    - Per-rule messages
+
+    ### Learned failure tracking (`coursers post`)
+
+    Reads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and
+    intentional failures), it records the command in a rolling failure log. If the same command
+    fails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.
+
+    This catches commands that aren't covered by static rules but are clearly not working.
+
+    ---
+
+    ## Installation
+
+    ```sh
+    cargo install --path crates/coursers
+    ```
+
+    Install the front-controller hook chain into your local `~/.claude/settings.json`:
+
+    ```json
+    {
+      "hooks": {
+        "PreToolUse": [
+          {
+            "matcher": "Bash",
+            "hooks": [
+              { "type": "command", "command": "crs hook pre-tool-use" }
+            ]
+          }
+        ],
+        "PostToolUse": [
+          {
+            "matcher": "Bash",
+            "hooks": [
+              { "type": "command", "command": "crs hook post-tool-use" }
+            ]
+          }
+        ]
+      }
+    }
+    ```
+
+    Run `crs validate-hooks` after installing the hook block to verify the chain is wired
+    correctly.
+
+    For Codex, the top-level registry also points at `crs hook --target codex <event>`.
+    Those entries dispatch to the existing `$HOME/.codex/hooks/*.crux` backends, which
+    still compose `coursers pre/post` and `crs rewrite/filter` i
+- name: cannibalizer
+  description: Absorb foreign repos into the Rust ecosystem — extract, classify, and generate hexagonal components
+  url: https://github.com/89jobrien/cannibalizer
+  kinds:
+  - GitHubRepo
+  - ClaudePlugin
+  language: Rust
+  pushed_at: 2026-08-17T19:40:33Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'test: implement C1-C9 classifier conformance suite from classifier-hardening spec'
+    date: 2026-08-17T19:40:27Z
+  - message: 'feat: add Nushell completion generation'
+    date: 2026-08-05T18:09:45Z
+  - message: 'docs: add AGENTS.md for Codex CLI agent support'
+    date: 2026-06-28T18:26:50Z
+  - message: 'docs(classifier): add precedence table to classify() doc comment'
+    date: 2026-04-26T11:15:04Z
+  - message: 'fix: version bump hook — macOS sed compat, trigger only on .rs files'
+    date: 2026-04-26T11:14:51Z
+  - message: 'chore: add auto patch version bump hook'
+    date: 2026-04-26T11:14:00Z
+  - message: 'feat(classifier): add C1-C9 conformance tests and rewrite README'
+    date: 2026-04-26T11:03:52Z
+  - message: 'ci: remove cargo test --doc (binary crate, no lib target)'
+    date: 2026-04-26T10:55:34Z
+  - message: 'fix(clippy): collapse nested if into match guard (ecosystem.rs)'
+    date: 2026-04-26T10:53:48Z
+  - message: 'ci: add GitHub Actions quality workflow'
+    date: 2026-04-26T10:52:34Z
+  tags:
+  - plugins
+  readme: "# cannibalizer\n\nAbsorbs foreign repos into the Rust ecosystem.\n\nScans a source repo, classifies every file by kind (domain logic, port, adapter,\nscript, spec, config), then routes each item to the right destination: ported to\na hexagonal Rust component, absorbed into an existing repo, converted to a skill,\nor archived to the SSD vault.\n\n## Install\n\n```bash\ncargo install --path .\n```\n\nOr build from source:\n\n```bash\ncargo build --release\n# binary at target/release/cnbl\n```\n\n## CLI Pipeline\n\n`cnbl` has a 4-stage pipeline. Each stage reads JSONL from the previous stage\n(stdin or `--input FILE`):\n\n```\nscan  -->  plan  -->  gen  -->  eat\n```\n\n| Command | Input          | Output          | Side effects             |\n| ------- | -------------- | --------------- | ------------------------ |\n| `scan`  | directory path | JSONL to stdout | none                     |\n| `plan`  | scan JSONL     | JSONL to stdout | none                     |\n| `gen`   | plan JSONL     | stub files      | writes to `cnbl-output/` |\n| `eat`   | plan JSONL     | nothing         | copies stubs, archives   |\n\n### Examples\n\n```bash\n# Scan a repo and save classified output\ncnbl scan ~/some-repo --output scan.jsonl\n\n# Generate a routing plan (dry-run shows decisions without writing)\ncnbl plan --input scan.jsonl --repo-map repos.json --dry-run\n\n# Generate hexagonal Rust stubs from the plan\ncnbl gen --input plan.jsonl --out-dir cnbl-output\n\n# Apply: copy stubs into destination repos, archive originals\ncnbl eat --input plan.jsonl --source-repo some-repo --dry-run\n```\n\n## Claude Code Plugin\n\ncannibalizer is also packaged as a Claude Code plugin with skills that wrap the\nCLI stages. Install via bazaar:\n\n```json\n{\n  \"name\": \"cannibalizer\",\n  \"source\": { \"source\": \"github\", \"repo\": \"89jobrien/cannibalizer\" }\n}\n```\n\nSkills in `skills/` invoke the `cnbl` binary and present results interactively.\nThe `cannibalizer` skill in `skills/cnbl/SKILL.md` orchestrates the full\nscan-plan-gen-eat pipeline with approval gates "
+- name: rx
+  description: installs compatible scripts from local paths or remote URLs into a local command directory and records what it installed in a JSON registry.
+  url: https://github.com/89jobrien/rx
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-17T19:36:12Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: add authors, keywords, and categories to workspace package metadata'
+    date: 2026-08-17T19:27:05Z
+  - message: 'docs: update CLAUDE.md and README.md for status, graph, fan subcommands'
+    date: 2026-05-22T06:25:40Z
+  - message: 'feat: implement rx fan subcommand'
+    date: 2026-05-22T06:16:53Z
+  - message: 'feat: implement rx graph subcommand'
+    date: 2026-05-22T02:19:41Z
+  - message: 'feat: implement rx status subcommand'
+    date: 2026-05-22T02:14:11Z
+  - message: 'docs: update CLAUDE.md for rx-core crate structure'
+    date: 2026-05-21T18:24:01Z
+  - message: 'merge: issue #9 fuzz targets'
+    date: 2026-05-21T18:13:07Z
+  - message: 'merge: issue #8 CLI integration tests'
+    date: 2026-05-21T18:12:28Z
+  - message: 'merge: issue #7 conformance tests'
+    date: 2026-05-21T18:11:20Z
+  - message: 'merge: issue #6 property tests'
+    date: 2026-05-21T18:10:30Z
+  readme: "# rx\n\n`rx` installs compatible scripts from local paths or remote URLs into a local command\ndirectory and records what it installed in a JSON registry.\n\n## What It Does\n\n`rx` accepts three source types:\n\n- a single local file\n- a local directory, scanned recursively\n- a remote HTTP or HTTPS URL for a single script\n\nInstalled scripts are copied into the target install directory, marked executable on Unix, and\nwritten to a registry so the installed command set can be discovered later.\n\n## Default Locations\n\nUnless you override the install directory on the command line, `rx` uses XDG-style config paths:\n\n- install directory: `~/.config/rx/bin`\n- registry file: `~/.config/rx/registry.json`\n- prefix config: `~/.config/rx/prefixes.toml`\n\nIf `XDG_CONFIG_HOME` is set, `rx` uses `$XDG_CONFIG_HOME/rx` instead of `~/.config/rx`.\n\n## Installation\n\nInstall the CLIs from this repo:\n\n```bash\ncargo install --path crates/rx-install\ncargo install --path crates/rxx\n```\n\nIf the crates are published on crates.io and release artifacts are available, `cargo-binstall`\ninstalls by package name:\n\n```bash\ncargo binstall rx-install\ncargo binstall rxx\n```\n\n`cargo-binstall` resolves crate metadata from crates.io and then looks at the linked repository\nreleases for matching binary artifacts. It does not use the GitHub repo URL as the primary install\nargument.\n\nOr from crates.io when published:\n\n```bash\ncargo install rx-install\ncargo install rxx\n```\n\nFor local development, bootstrap the pinned toolchain with:\n\n```bash\nmise install\n```\n\n## Usage\n\n```bash\nrx install <source>\nrx install <source> --install-dir <dir>\nrx list\nrx run <name> [-- <args...>]\nrx status [--scan <dir>] [--filter <expr>] [--json]\nrx graph [--scan <dir>] [--who-uses <pkg>] [--deps <pkg>] [--format tree|json|mermaid]\nrx fan [--scan <dir>] [-c <N>] [--timeout <secs>] -- <command...>\nrx <command> [args...]\nrxx <script> [-- <args...>]\n```\n\nFor local development from the workspace root:\n\n```bash\ncargo run --quiet -p rx-install --bin "
 - name: trace-lang-runtime
   description: 'Agent registry, delegation resolution, parallel fan-out, and speculative branching for trace::'
   url: https://crates.io/crates/trace-lang-runtime
@@ -222,7 +459,7 @@
   pushed_at: 2026-08-17T11:13:32.686122Z
   version: 0.2.0
   stars: null
-  downloads: 0
+  downloads: 8
   recent_commits: []
 - name: tracers
   description: null
@@ -312,7 +549,7 @@
   pushed_at: 2026-08-17T11:12:42.805062Z
   version: 0.2.0
   stars: null
-  downloads: 0
+  downloads: 11
   recent_commits: []
 - name: trace-lang-task
   description: 'Serializable task management for trace:: agentic pipelines'
@@ -323,7 +560,7 @@
   pushed_at: 2026-08-17T11:12:39.208808Z
   version: 0.2.0
   stars: null
-  downloads: 0
+  downloads: 8
   recent_commits: []
 - name: trace-lang-core
   description: Core Trace<T> type — reasoning provenance as a first-class value
@@ -334,147 +571,8 @@
   pushed_at: 2026-08-17T11:12:14.724997Z
   version: 0.2.0
   stars: null
-  downloads: 0
+  downloads: 19
   recent_commits: []
-- name: godmode
-  description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
-  url: https://github.com/89jobrien/godmode
-  kinds:
-  - GitHubRepo
-  - ClaudePlugin
-  language: Rust
-  pushed_at: 2026-08-17T10:28:20Z
-  version: v0.5.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'merge: gm3 coursers rule lifecycle skill (JOB-472)'
-    date: 2026-08-17T07:20:29Z
-  - message: 'feat(skills): add crs-hook-testing skill — coursers rule lifecycle pipeline (gm3, JOB-472)'
-    date: 2026-08-17T07:15:25Z
-  - message: 'test: add property tests for Config TOML parsing'
-    date: 2026-07-14T01:39:11Z
-  - message: 'test: add property and conformance tests for skill and report_index'
-    date: 2026-07-13T00:44:49Z
-  - message: 'feat(godmode): improve cap and rust-conventions based on session patterns'
-    date: 2026-07-12T17:08:37Z
-  - message: 'docs(commands): add 5 new workflow commands to README'
-    date: 2026-07-12T02:17:47Z
-  - message: 'chore: bump plugin version to 5b513aa'
-    date: 2026-07-12T01:54:34Z
-  - message: 'feat(commands): add 5 MoA-identified workflow commands'
-    date: 2026-07-12T01:54:27Z
-  - message: 'chore: bump plugin version to e178504'
-    date: 2026-07-11T20:47:03Z
-  - message: 'feat(skills): add doc-writer, doc-sync, doc-review skills'
-    date: 2026-07-11T20:19:30Z
-  readme: "# godmode\n\nSelf-contained Rust-native development methodology plugin for Claude Code.\n\n> Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.\n\n## Overview\n\nGodmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all\nstateful operations — skills are thin wrappers that call `godmode` and act on the output.\nTasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal\n`depends_on` chains.\n\n## Install\n\n```bash\ncargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode\nclaude plugin install godmode@bazaar\n```\n\n### Pre-commit hook\n\nInstall the godmode pre-commit hook into any git repo to block commits when tasks are\nstill running and to run cargo gates (fmt-check, clippy, nextest):\n\n```bash\n# From the repo root where you want the hook installed:\nnu /path/to/godmode/hooks/install.nu\n\n# Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:\nnu \"$CLAUDE_PLUGIN_ROOT/hooks/install.nu\"\n```\n\nThe hook:\n\n1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,\n   printing the offending task IDs.\n2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and\n   `cargo nextest run --workspace`.\n3. Blocks the commit on any failure with a clear message.\n\nIf `godmode` is not on PATH, the task-state check is skipped gracefully and only the\ncargo gates run.\n\n## Skills\n\n| Skill                                     | When                                                                  |\n| ----------------------------------------- | --------------------------------------------------------------------- |\n| `godmode:using-godmode`                 "
-- name: coursers
-  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
-  url: https://github.com/89jobrien/coursers
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-17T07:30:32Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'fix(coursers-core): clean up dead test code, satisfy pre-push clippy --all-targets'
-    date: 2026-08-17T07:30:24Z
-  - message: 'merge: hc-a hook-composition traits (JOB-475)'
-    date: 2026-08-17T07:19:33Z
-  - message: 'feat(coursers-core): add PreHook/PostHook/Observer/HookChain port traits (JOB-475 hc-a)'
-    date: 2026-08-17T07:02:00Z
-  - message: 'docs: update handoff with 2026-08-16 session'
-    date: 2026-08-17T03:29:29Z
-  - message: 'feat(coursers-core): task-aware rule overrides via godmode running-task titles'
-    date: 2026-08-17T00:49:58Z
-  - message: 'fix(coursers-core): merge project+global filters, fix pipeline rewrite pattern/replace mixup'
-    date: 2026-08-17T00:10:45Z
-  - message: 'refactor: rename xtest.nu to probe-vs-pre.nu, default to --suite with no args'
-    date: 2026-08-16T23:59:00Z
-  - message: 'feat: add xtest.nu — auto-generated crs probe vs crs pre divergence tester'
-    date: 2026-08-16T23:53:37Z
-  - message: 'docs: add CLAUDE.md gotchas from agent-improvement-loop session patterns'
-    date: 2026-08-16T23:48:41Z
-  - message: 'feat(coursers): log course-correct blocks to the hook execution log'
-    date: 2026-08-16T08:39:03Z
-  tags:
-  - cli
-  readme: |-
-    # coursers
-
-    Claude Code hook pipeline for course-correcting AI-generated Bash commands.
-
-    Two tools:
-
-    - **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures
-    - **`crs`** — front controller, output filter, command rewriter, and hook validator
-
-    ---
-
-    ## How It Works
-
-    ### Rule-based blocking (`coursers pre`)
-
-    Reads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command
-    matches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`
-    response with a human-readable message.
-
-    Rules support:
-
-    - Regex pattern matching (with optional `i` flag)
-    - Exception patterns — allow a command through even if the main pattern matches
-    - Per-rule messages
-
-    ### Learned failure tracking (`coursers post`)
-
-    Reads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and
-    intentional failures), it records the command in a rolling failure log. If the same command
-    fails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.
-
-    This catches commands that aren't covered by static rules but are clearly not working.
-
-    ---
-
-    ## Installation
-
-    ```sh
-    cargo install --path crates/coursers
-    ```
-
-    Install the front-controller hook chain into your local `~/.claude/settings.json`:
-
-    ```json
-    {
-      "hooks": {
-        "PreToolUse": [
-          {
-            "matcher": "Bash",
-            "hooks": [
-              { "type": "command", "command": "crs hook pre-tool-use" }
-            ]
-          }
-        ],
-        "PostToolUse": [
-          {
-            "matcher": "Bash",
-            "hooks": [
-              { "type": "command", "command": "crs hook post-tool-use" }
-            ]
-          }
-        ]
-      }
-    }
-    ```
-
-    Run `crs validate-hooks` after installing the hook block to verify the chain is wired
-    correctly.
-
-    For Codex, the top-level registry also points at `crs hook --target codex <event>`.
-    Those entries dispatch to the existing `$HOME/.codex/hooks/*.crux` backends, which
-    still compose `coursers pre/post` and `crs rewrite/filter` i
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
@@ -598,7 +696,7 @@
   pushed_at: 2026-08-15T09:55:40Z
   version: v0.6.0
   stars: 1
-  downloads: 272
+  downloads: 277
   recent_commits:
   - message: 'flow: finish release into main'
     date: 2026-07-12T05:14:53Z
@@ -1207,37 +1305,6 @@
     ## Design
 
     - **MCP transport**: stdio (default), TC
-- name: mlrs
-  description: Recursive Language Model (RLM) inference in Rust — Rhai-scripted context navigation with unbounded context handling
-  url: https://github.com/89jobrien/mlrs
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-06T06:44:31Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat: add Nushell completion generation'
-    date: 2026-08-05T18:10:08Z
-  - message: 'docs: add AGENTS.md for Codex CLI agent support'
-    date: 2026-06-28T18:24:58Z
-  - message: fix handoff commit sha quoting
-    date: 2026-05-04T23:06:03Z
-  - message: 'docs: update handoff — EOD 20260424'
-    date: 2026-04-24T21:28:45Z
-  - message: 'docs: add gha-gen implementation plan'
-    date: 2026-04-24T09:59:45Z
-  - message: 'docs: add gha-gen design spec'
-    date: 2026-04-24T09:55:42Z
-  - message: 'feat(core): per-cell output truncation — TruncationPolicy + truncate_output'
-    date: 2026-04-24T08:58:33Z
-  - message: 'feat(core): add cancellation — CancellationToken param on Rlm::run'
-    date: 2026-04-24T08:56:54Z
-  - message: 'docs: update handoff — session 2 log, health check fixes'
-    date: 2026-04-24T01:27:33Z
-  - message: 'docs: rewrite DAILY_REPORT clippy section — bullet list instead of unreadable wide table'
-    date: 2026-04-24T01:25:44Z
 - name: mcpipe
   description: Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI
   url: https://github.com/89jobrien/mcpipe
@@ -1749,41 +1816,6 @@
     cargo-promote confirm <ticket>
     cargo-promote confirm <ticket> --reason "passed QA"
     car
-- name: cannibalizer
-  description: Absorb foreign repos into the Rust ecosystem — extract, classify, and generate hexagonal components
-  url: https://github.com/89jobrien/cannibalizer
-  kinds:
-  - GitHubRepo
-  - ClaudePlugin
-  language: Rust
-  pushed_at: 2026-08-06T06:41:31Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat: add Nushell completion generation'
-    date: 2026-08-05T18:09:45Z
-  - message: 'docs: add AGENTS.md for Codex CLI agent support'
-    date: 2026-06-28T18:26:50Z
-  - message: 'docs(classifier): add precedence table to classify() doc comment'
-    date: 2026-04-26T11:15:04Z
-  - message: 'fix: version bump hook — macOS sed compat, trigger only on .rs files'
-    date: 2026-04-26T11:14:51Z
-  - message: 'chore: add auto patch version bump hook'
-    date: 2026-04-26T11:14:00Z
-  - message: 'feat(classifier): add C1-C9 conformance tests and rewrite README'
-    date: 2026-04-26T11:03:52Z
-  - message: 'ci: remove cargo test --doc (binary crate, no lib target)'
-    date: 2026-04-26T10:55:34Z
-  - message: 'fix(clippy): collapse nested if into match guard (ecosystem.rs)'
-    date: 2026-04-26T10:53:48Z
-  - message: 'ci: add GitHub Actions quality workflow'
-    date: 2026-04-26T10:52:34Z
-  - message: 'fix: resolve 7 blocking issues from sentinel review'
-    date: 2026-04-26T10:48:38Z
-  tags:
-  - plugins
-  readme: "# cannibalizer\n\nAbsorbs foreign repos into the Rust ecosystem.\n\nScans a source repo, classifies every file by kind (domain logic, port, adapter,\nscript, spec, config), then routes each item to the right destination: ported to\na hexagonal Rust component, absorbed into an existing repo, converted to a skill,\nor archived to the SSD vault.\n\n## Install\n\n```bash\ncargo install --path .\n```\n\nOr build from source:\n\n```bash\ncargo build --release\n# binary at target/release/cnbl\n```\n\n## CLI Pipeline\n\n`cnbl` has a 4-stage pipeline. Each stage reads JSONL from the previous stage\n(stdin or `--input FILE`):\n\n```\nscan  -->  plan  -->  gen  -->  eat\n```\n\n| Command | Input          | Output          | Side effects             |\n| ------- | -------------- | --------------- | ------------------------ |\n| `scan`  | directory path | JSONL to stdout | none                     |\n| `plan`  | scan JSONL     | JSONL to stdout | none                     |\n| `gen`   | plan JSONL     | stub files      | writes to `cnbl-output/` |\n| `eat`   | plan JSONL     | nothing         | copies stubs, archives   |\n\n### Examples\n\n```bash\n# Scan a repo and save classified output\ncnbl scan ~/some-repo --output scan.jsonl\n\n# Generate a routing plan (dry-run shows decisions without writing)\ncnbl plan --input scan.jsonl --repo-map repos.json --dry-run\n\n# Generate hexagonal Rust stubs from the plan\ncnbl gen --input plan.jsonl --out-dir cnbl-output\n\n# Apply: copy stubs into destination repos, archive originals\ncnbl eat --input plan.jsonl --source-repo some-repo --dry-run\n```\n\n## Claude Code Plugin\n\ncannibalizer is also packaged as a Claude Code plugin with skills that wrap the\nCLI stages. Install via bazaar:\n\n```json\n{\n  \"name\": \"cannibalizer\",\n  \"source\": { \"source\": \"github\", \"repo\": \"89jobrien/cannibalizer\" }\n}\n```\n\nSkills in `skills/` invoke the `cnbl` binary and present results interactively.\nThe `cannibalizer` skill in `skills/cnbl/SKILL.md` orchestrates the full\nscan-plan-gen-eat pipeline with approval gates "
 - name: braid
   description: Personal agent platform — Rust workspace
   url: https://github.com/89jobrien/braid
@@ -1958,7 +1990,7 @@
   pushed_at: 2026-08-04T23:04:24.588553Z
   version: 0.8.0
   stars: null
-  downloads: 37
+  downloads: 42
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -1969,7 +2001,7 @@
   pushed_at: 2026-08-04T23:04:11.949045Z
   version: 0.8.0
   stars: null
-  downloads: 38
+  downloads: 43
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -1980,7 +2012,7 @@
   pushed_at: 2026-08-04T23:04:00.578508Z
   version: 0.8.0
   stars: null
-  downloads: 37
+  downloads: 42
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -1991,7 +2023,7 @@
   pushed_at: 2026-08-04T23:03:45.815577Z
   version: 0.8.0
   stars: null
-  downloads: 71
+  downloads: 76
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -2035,7 +2067,7 @@
   pushed_at: 2026-08-04T23:02:13.812559Z
   version: 0.8.0
   stars: null
-  downloads: 69
+  downloads: 74
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -2046,7 +2078,7 @@
   pushed_at: 2026-08-04T23:02:03.842671Z
   version: 0.8.0
   stars: null
-  downloads: 153
+  downloads: 158
   recent_commits: []
 - name: prefixe
   description: Prepend validated prefixes to shell commands — reads rx prefix config
@@ -3774,38 +3806,6 @@
     `shell.register_builtin(impl Builtin)`.
 
     ## Ca
-- name: rx
-  description: installs compatible scripts from local paths or remote URLs into a local command directory and records what it installed in a JSON registry.
-  url: https://github.com/89jobrien/rx
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-22T06:25:46Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: update CLAUDE.md and README.md for status, graph, fan subcommands'
-    date: 2026-05-22T06:25:40Z
-  - message: 'feat: implement rx fan subcommand'
-    date: 2026-05-22T06:16:53Z
-  - message: 'feat: implement rx graph subcommand'
-    date: 2026-05-22T02:19:41Z
-  - message: 'feat: implement rx status subcommand'
-    date: 2026-05-22T02:14:11Z
-  - message: 'docs: update CLAUDE.md for rx-core crate structure'
-    date: 2026-05-21T18:24:01Z
-  - message: 'merge: issue #9 fuzz targets'
-    date: 2026-05-21T18:13:07Z
-  - message: 'merge: issue #8 CLI integration tests'
-    date: 2026-05-21T18:12:28Z
-  - message: 'merge: issue #7 conformance tests'
-    date: 2026-05-21T18:11:20Z
-  - message: 'merge: issue #6 property tests'
-    date: 2026-05-21T18:10:30Z
-  - message: 'refactor: merge rx-script-core into rx-core, add status/graph/fan stubs'
-    date: 2026-05-21T18:09:59Z
-  readme: "# rx\n\n`rx` installs compatible scripts from local paths or remote URLs into a local command\ndirectory and records what it installed in a JSON registry.\n\n## What It Does\n\n`rx` accepts three source types:\n\n- a single local file\n- a local directory, scanned recursively\n- a remote HTTP or HTTPS URL for a single script\n\nInstalled scripts are copied into the target install directory, marked executable on Unix, and\nwritten to a registry so the installed command set can be discovered later.\n\n## Default Locations\n\nUnless you override the install directory on the command line, `rx` uses XDG-style config paths:\n\n- install directory: `~/.config/rx/bin`\n- registry file: `~/.config/rx/registry.json`\n- prefix config: `~/.config/rx/prefixes.toml`\n\nIf `XDG_CONFIG_HOME` is set, `rx` uses `$XDG_CONFIG_HOME/rx` instead of `~/.config/rx`.\n\n## Installation\n\nInstall the CLIs from this repo:\n\n```bash\ncargo install --path crates/rx-install\ncargo install --path crates/rxx\n```\n\nIf the crates are published on crates.io and release artifacts are available, `cargo-binstall`\ninstalls by package name:\n\n```bash\ncargo binstall rx-install\ncargo binstall rxx\n```\n\n`cargo-binstall` resolves crate metadata from crates.io and then looks at the linked repository\nreleases for matching binary artifacts. It does not use the GitHub repo URL as the primary install\nargument.\n\nOr from crates.io when published:\n\n```bash\ncargo install rx-install\ncargo install rxx\n```\n\nFor local development, bootstrap the pinned toolchain with:\n\n```bash\nmise install\n```\n\n## Usage\n\n```bash\nrx install <source>\nrx install <source> --install-dir <dir>\nrx list\nrx run <name> [-- <args...>]\nrx status [--scan <dir>] [--filter <expr>] [--json]\nrx graph [--scan <dir>] [--who-uses <pkg>] [--deps <pkg>] [--format tree|json|mermaid]\nrx fan [--scan <dir>] [-c <N>] [--timeout <secs>] -- <command...>\nrx <command> [args...]\nrxx <script> [-- <args...>]\n```\n\nFor local development from the workspace root:\n\n```bash\ncargo run --quiet -p rx-install --bin "
 - name: praxis
   description: Self-improving agent runtime for the cruxx agentic DSL
   url: https://github.com/89jobrien/praxis
@@ -4008,7 +4008,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 4151
+  downloads: 4269
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
