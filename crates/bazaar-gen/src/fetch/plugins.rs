@@ -4,6 +4,7 @@ use anyhow::Result;
 use serde::Deserialize;
 use std::path::PathBuf;
 
+#[derive(Debug)]
 pub struct PluginFetcher {
     pub manifest_path: PathBuf,
 }

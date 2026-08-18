@@ -6,6 +6,7 @@ use serde::Deserialize;
 
 const HTTP_NOT_FOUND: u16 = 404;
 
+#[derive(Debug)]
 pub struct PypiFetcher {
     pub client: Client,
     pub packages: Vec<String>,

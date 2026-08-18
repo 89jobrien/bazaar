@@ -7,6 +7,7 @@ use serde::Deserialize;
 
 const CRATES_IO_PAGE_SIZE: u64 = 100;
 
+#[derive(Debug)]
 pub struct CratesIoFetcher {
     pub client: Client,
     pub user: String,

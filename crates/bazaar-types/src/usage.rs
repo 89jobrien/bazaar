@@ -35,6 +35,6 @@ impl UsageSnapshot {
     pub fn peak_day(&self) -> Option<&UsageDay> {
         self.daily
             .iter()
-            .max_by(|a, b| a.total_cost.partial_cmp(&b.total_cost).unwrap())
+            .max_by(|a, b| a.total_cost.total_cmp(&b.total_cost))
     }
 }

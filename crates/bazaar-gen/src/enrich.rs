@@ -45,6 +45,7 @@ impl EnrichCache {
 }
 
 /// Adapter: runs enrichment pipelines via the external `crux` binary.
+#[derive(Debug)]
 pub struct CruxPipelineRunner;
 
 impl PipelineRunner for CruxPipelineRunner {
