@@ -24,6 +24,7 @@ indexmap = "2"
 base64 = "0.22"
 async-trait = "0.1"
 futures = "0.3"
+obfsck = { git = "https://github.com/89jobrien/obfsck" }
 
 tempfile = "3"
 

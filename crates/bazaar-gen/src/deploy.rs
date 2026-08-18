@@ -1,15 +1,22 @@
 use anyhow::{Context, Result};
+use obfsck::{ObfuscationLevel, obfuscate_text};
 use std::path::Path;
 use std::process::Command;
+
+/// Redact any embedded secrets (e.g. a GitHub token in a clone URL) before
+/// the command line reaches an error message, log line, or context string.
+fn redact_args(args: &[&str]) -> String {
+    obfuscate_text(&args.join(" "), ObfuscationLevel::Paranoid).0
+}
 
 fn git(dir: &Path, args: &[&str]) -> Result<()> {
     let status = Command::new("git")
         .args(args)
         .current_dir(dir)
         .status()
-        .with_context(|| format!("git {}", args.join(" ")))?;
+        .with_context(|| format!("git {}", redact_args(args)))?;
     if !status.success() {
-        anyhow::bail!("git {} failed: {}", args.join(" "), status);
+        anyhow::bail!("git {} failed: {}", redact_args(args), status);
     }
     Ok(())
 }
@@ -87,4 +94,20 @@ fn copy_dir(src: &Path, dst: &Path) -> Result<()> {
         }
     }
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn redact_args_scrubs_token_embedded_in_clone_url() {
+        // Built at runtime (not a literal) so this fixture isn't itself
+        // flagged as a leaked secret by pre-commit scanning.
+        let token = format!("{}_{}", "ghp", "c".repeat(40));
+        let url = repo_url("89jobrien/89jobrien.github.io", Some(&token));
+        let redacted = redact_args(&["clone", "--depth=1", &url, "site"]);
+        assert!(!redacted.contains(&token));
+        assert!(redacted.contains("clone"));
+    }
 }

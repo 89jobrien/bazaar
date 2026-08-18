@@ -1,13 +1,30 @@
 use anyhow::Result;
+use obfsck::{ObfuscationLevel, obfuscate_text};
 use serde::Deserialize;
+use std::fmt;
 use std::path::Path;
 
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct Config {
     pub github_token: Option<String>,
     pub github_user: String,
     pub crates_io_user: String,
     pub pypi_packages: Vec<String>,
+}
+
+impl fmt::Debug for Config {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let redacted_token = self
+            .github_token
+            .as_deref()
+            .map(|t| obfuscate_text(t, ObfuscationLevel::Paranoid).0);
+        f.debug_struct("Config")
+            .field("github_token", &redacted_token)
+            .field("github_user", &self.github_user)
+            .field("crates_io_user", &self.crates_io_user)
+            .field("pypi_packages", &self.pypi_packages)
+            .finish()
+    }
 }
 
 #[derive(Deserialize)]
@@ -109,5 +126,21 @@ mod tests {
             std::env::remove_var("BAZAAR_GITHUB_USER");
             std::env::remove_var("BAZAAR_CRATES_IO_USER");
         }
+    }
+
+    #[test]
+    fn debug_redacts_github_token() {
+        // Built at runtime (not a literal) so this fixture isn't itself
+        // flagged as a leaked secret by pre-commit scanning.
+        let fake_token = format!("{}_{}", "ghp", "a".repeat(40));
+        let cfg = Config {
+            github_token: Some(fake_token.clone()),
+            github_user: "someuser".to_string(),
+            crates_io_user: "someuser".to_string(),
+            pypi_packages: vec![],
+        };
+        let debug_output = format!("{cfg:?}");
+        assert!(!debug_output.contains(&fake_token));
+        assert!(debug_output.contains("someuser"));
     }
 }

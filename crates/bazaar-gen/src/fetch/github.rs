@@ -2,8 +2,10 @@ use crate::model::{Commit, Kind, Project};
 use crate::port::SourceFetcher;
 use anyhow::Result;
 use chrono::{DateTime, Utc};
+use obfsck::{ObfuscationLevel, obfuscate_text};
 use reqwest::Client;
 use serde::Deserialize;
+use std::fmt;
 
 const README_MAX_CHARS: usize = 2000;
 const HTTP_NOT_FOUND: u16 = 404;
@@ -15,6 +17,20 @@ pub struct GitHubFetcher {
     pub client: Client,
     pub user: String,
     pub token: Option<String>,
+}
+
+impl fmt::Debug for GitHubFetcher {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let redacted_token = self
+            .token
+            .as_deref()
+            .map(|t| obfuscate_text(t, ObfuscationLevel::Paranoid).0);
+        f.debug_struct("GitHubFetcher")
+            .field("client", &self.client)
+            .field("user", &self.user)
+            .field("token", &redacted_token)
+            .finish()
+    }
 }
 
 #[derive(Deserialize)]
@@ -183,5 +199,25 @@ impl SourceFetcher for GitHubFetcher {
             });
         }
         Ok(projects)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn debug_redacts_github_token() {
+        // Built at runtime (not a literal) so this fixture isn't itself
+        // flagged as a leaked secret by pre-commit scanning.
+        let fake_token = format!("{}_{}", "gho", "b".repeat(40));
+        let fetcher = GitHubFetcher {
+            client: Client::new(),
+            user: "someuser".to_string(),
+            token: Some(fake_token.clone()),
+        };
+        let debug_output = format!("{fetcher:?}");
+        assert!(!debug_output.contains(&fake_token));
+        assert!(debug_output.contains("someuser"));
     }
 }
