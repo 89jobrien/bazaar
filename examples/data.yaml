@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-18T09:34:37Z
+  pushed_at: 2026-08-18T11:31:46Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-08-18T11:31:44Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-18T09:34:36Z
   - message: 'fix(bazaar-gen): rename cruxx -> crux, regenerate showcase'
@@ -27,8 +29,6 @@
     date: 2026-08-15T23:07:25Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-15T11:07:29Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-08-14T23:08:26Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,17 +213,135 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: taskit
+  description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
+  url: https://github.com/89jobrien/taskit
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-08-18T23:13:06Z
+  version: v0.6.0
+  stars: 1
+  downloads: 285
+  recent_commits:
+  - message: 'flow: finish release into main'
+    date: 2026-07-12T05:14:53Z
+  - message: 'flow: stage staging into release'
+    date: 2026-07-12T05:14:47Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-07-12T05:14:47Z
+  - message: 'fix(test): use ''true'' instead of ''sh --version'' in tool_exists_cmd test'
+    date: 2026-07-12T05:14:42Z
+  - message: 'flow: finish release into main'
+    date: 2026-07-12T05:10:06Z
+  - message: 'flow: sync main into develop'
+    date: 2026-07-12T05:10:06Z
+  - message: 'flow: stage staging into release'
+    date: 2026-07-12T05:10:01Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-07-12T05:10:01Z
+  - message: 'fix(ci): always install taskit from local path, not crates.io'
+    date: 2026-07-12T05:09:58Z
+  - message: 'flow: finish release into main'
+    date: 2026-07-12T05:06:04Z
+  readme: "# taskit\n\nConfig-driven CI pipeline runner with affected-crate detection, protocol-drift tracking,\nand pipeline orchestration for Rust workspaces.\n\n## Install\n\n```bash\ncargo install taskit\n```\n\n## Quick start\n\nRun from the root of any Rust workspace:\n\n```bash\ntaskit fmt          # format all crates\ntaskit lint         # clippy on all crates\ntaskit test         # nextest on all crates\ntaskit ci           # full local CI pipeline\ntaskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)\n```\n\nAdd `--dry-run` to any command to print the commands that would run without executing them.\n\n## Configuration\n\nCreate `taskit.toml` at the workspace root to customise behaviour. Every field is optional —\ntaskit works without any configuration by discovering crates via `cargo metadata`.\n\n```toml\n[workspace]\n# Ordered list of crates for affected-crate detection.\n# 'dir' is the directory name relative to workspace root.\n# 'pkg' is the Cargo package name (defaults to dir if omitted).\n[[workspace.crates]]\ndir = \"my-common\"\n\n[[workspace.crates]]\ndir = \"my-api\"\n\n# If 'source' changes, 'dependents' are also treated as affected.\n[[workspace.propagation]]\nsource = \"my-common\"\ndependents = [\"my-api\", \"my-cli\"]\n\n# Protocol-drift: files whose content hash is tracked in a lockfile.\n# CI fails when any surface changes without updating the lock.\n[[protocol.surfaces]]\nname = \"api-types\"\npath = \"my-api/src/types.rs\"\n\n[[protocol.surfaces]]\nname = \"cli-commands\"\npath = \"my-cli/src/commands/mod.rs\"\n\n[protocol]\nlockfile = \"taskit-protocol.lock\"   # default\n\n# Custom CI pipeline. When omitted, a built-in default pipeline is used.\n[[ci.steps]]\nname  = \"fmt-check\"\ncmd   = \"fmt --check\"\ngate  = true            # blocks subsequent steps on failure\n\n[[ci.steps]]\nname = \"lint\"\ncmd  = \"lint\"\n\n[[ci.steps]]\nname = \"test\"\ncmd  = \"test\"\n\n[[ci.steps]]\nname = \"protocol-drift\"\ncmd  = \"check-protocol-drift\"\n```\n\n## Subcommands\n\n| Command                                                  "
+- name: tracers
+  description: null
+  url: https://github.com/89jobrien/tracers
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-18T23:08:09Z
+  version: v0.2.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'flow: finish release into main'
+    date: 2026-08-18T22:55:54Z
+  - message: 'flow: stage staging into release'
+    date: 2026-08-18T22:55:47Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-08-18T22:55:47Z
+  - message: 'chore(audit): rust-audit mechanical fixes - derives, docs, crate metadata'
+    date: 2026-08-18T22:55:39Z
+  - message: 'chore(flow): enable post-auto push of main and flow branches'
+    date: 2026-08-18T22:12:15Z
+  - message: 'flow: finish release into main'
+    date: 2026-08-18T22:05:52Z
+  - message: 'flow: sync main into develop'
+    date: 2026-08-18T22:05:52Z
+  - message: 'flow: stage staging into release'
+    date: 2026-08-18T22:05:44Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-08-18T22:05:44Z
+  - message: 'chore(release): v0.2.1'
+    date: 2026-08-18T16:10:20Z
+  readme: |-
+    # trace::
+
+    > a programming language where reasoning is first-class
+
+    In most languages, values are first-class. In `trace::`, _reasoning provenance_ is
+    first-class. Every computation returns `Trace<T>` — a value enriched with the full
+    causal chain of how it was produced: steps taken, branches considered and rejected,
+    confidence at each decision point, and RAII-style span timing.
+
+    This repository contains the `trace::` language design and a Rust reference
+    implementation of its core types, all of which compile and are usable today.
+
+    ---
+
+    ## crates
+
+    | crate              | description                                                     | docs |
+    | ------------------ | ---------------------------------------------------------------- | --- |
+    | `trace-lang-core`     | `Trace<T>`, `Step`, `Span`, `Branch`, `TraceErr`                | [README](crates/core/README.md) |
+    | `trace-lang-task`     | `Task`, `TaskStatus`, `Priority`, `TaskRegistry`                | [README](crates/task/README.md) |
+    | `trace-lang-agent`    | `Agent` trait, `spawn`/`delegate`, lifecycle escalation hooks   | [README](crates/agent/README.md) |
+    | `trace-lang-runtime`  | `AgentRegistry`, `run_with_escalation`, `join_all`, `speculate` | [README](crates/runtime/README.md) |
+
+    `trace-lang-core` has no dependency on any other crate in the workspace; the
+    dependency graph flows `core -> task`, `core -> agent -> runtime`.
+
+    ---
+
+    ## the mental model
+
+    ```rust
+    // in Rust you might write:
+    fn answer(q: Question) -> Answer { .. }
+
+    // in trace:: every computation is inspectable:
+    step answer(q: Question) -> Trace<Answer> { .. }
+
+    // and you can interrogate the result:
+    let t = spawn MyAgent::answer(q).await
+    t.causal_chain()       // how did we get here?
+    t.rejected_branches()  // what did we consider and discard?
+    t.bottlenecks()        // where did we slow down?
+    t.low_confidence()     // where were we uncertain?
+    ```
+
+    `Trace<T>` is to reasoning what `Result<T, E>` is to errors: a typed,
+    propagatable wrapper with explicit han
 - name: 89jobrien.github.io
   description: Personal site
   url: https://github.com/89jobrien/89jobrien.github.io
   kinds:
   - GitHubRepo
   language: HTML
-  pushed_at: 2026-08-18T10:06:39Z
+  pushed_at: 2026-08-18T23:05:29Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-18T23:05:28Z
+  - message: Merge remote-tracking branch 'origin/main'
+    date: 2026-08-18T23:04:19Z
+  - message: 'content: ground insights.yaml in the canonical /joe:persona doc'
+    date: 2026-08-18T23:01:06Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-08-18T10:06:39Z
   - message: 'fix(ci): correct bz binary path — target/release/bz, not ../target/release/bz'
@@ -238,12 +356,283 @@
     date: 2026-04-28T18:52:13Z
   - message: 'feat: sync regenerated site from bazaar — consolidate project pages into main index'
     date: 2026-04-28T12:23:57Z
-  - message: 'docs: update handoff'
-    date: 2026-04-21T16:14:36Z
-  - message: 'chore(profile): update usage metrics — 800 sessions, $2871.38, 6.28B tokens'
-    date: 2026-04-21T16:11:59Z
-  - message: 'feat: synthesize insights.yaml daily from data/ via Claude API'
-    date: 2026-04-21T06:59:12Z
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-18T21:40:05Z
+  version: v0.32.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #466 from 89jobrien/sync/main-reconcile-2026-08-15'
+    date: 2026-08-15T11:34:19Z
+  - message: 'Merge pull request #467 from 89jobrien/copilot/fix-pr-ci-check'
+    date: 2026-08-15T11:30:53Z
+  - message: Fix PR CI failures in audit/deny by upgrading rmcp and updating MCP API usage
+    date: 2026-08-15T11:25:35Z
+  - message: 'fix(ci): remove failing taskit install from CI pipeline'
+    date: 2026-08-15T10:49:39Z
+  - message: 'doc: add docs/FEATURE_MATRIX.md and unignore it to fix CI staleness check'
+    date: 2026-08-15T10:09:06Z
+  - message: Merge remote-tracking branch 'origin/main'
+    date: 2026-08-15T09:28:38Z
+  - message: 'flow: finish staging into main'
+    date: 2026-08-15T09:26:29Z
+  - message: 'fix: strict MINIBOX_TEST_BIN_DIR lookup and prune unused deps'
+    date: 2026-08-15T08:28:44Z
+  - message: 'flow: stage next into staging'
+    date: 2026-08-15T06:54:52Z
+  - message: 'flow: promote develop into next'
+    date: 2026-08-15T06:54:52Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
+
+    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
+    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
+    keeps adapter suites swappable at startup with no recompile.
+
+    **Status:** Active development — `v0.31.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `mbx logs <id>` for stored stdout/stderr
+    - Container events — `mbx events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
+    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
+      Colima available as an alternative via Lima VM
+
+    ---
+
+    ## Quick Start
+
+    Requires Linux, root, kernel 5.
+- name: nu_libs
+  description: A library of Nushell scripts organized by category
+  url: https://github.com/89jobrien/nu_libs
+  kinds:
+  - GitHubRepo
+  language: Nushell
+  pushed_at: 2026-08-18T15:35:45Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Add generated Nushell completion scripts for workspace CLIs
+    date: 2026-08-05T18:09:54Z
+  - message: 'fix(pick.nu): handle string and list<string> input, not just tables'
+    date: 2026-08-05T17:00:44Z
+  - message: 'Add pick.nu: fuzzy-select wrapper around external pick'
+    date: 2026-08-05T16:28:08Z
+  - message: 'docs: add missing export-def-main files to collision table'
+    date: 2026-08-04T21:45:07Z
+  - message: 'fix(task): resolve pueue log --full/--lines conflict and remove naming collision'
+    date: 2026-08-03T23:44:03Z
+  - message: Add defguard docker-compose test stack management script
+    date: 2026-07-19T21:32:57Z
+  - message: 'feat(lib): add rust and git utility commands from /tmp analysis'
+    date: 2026-06-30T13:03:58Z
+  - message: 'feat(lib): add doob and gkg modules'
+    date: 2026-06-26T21:12:47Z
+  - message: 'chore: reformat HANDOFF yaml'
+    date: 2026-06-14T07:13:18Z
+  - message: 'chore: harden gitignore, fix mod exports, migrate get -i to --optional'
+    date: 2026-06-14T05:20:22Z
+  readme: |-
+    # nu_libs
+
+    A library of Nushell modules organized by category.
+
+    ## Structure
+
+    ```
+    lib/
+      mod.nu      top-level re-export of all categories
+      git/        Git helpers: log stats, branch age/cleanup, gone branches, hooks
+      net/        Network: SSH, sockets, remoting, HTTP, netcat, proxy, SSL
+      fs/         Filesystem: tree traversal, file ops, disk, navigation (up/cdpath/autojump/zoxide)
+      data/       Data transforms: typeof, JSON schema, ini, env, number format, base64, indent
+      ui/         UI/shell: bar, progress meter, completions, aliases (bat/eza), clipboard, notify
+      std/        Nu ecosystem: config, init, modules, deps, release tooling, dynamic loading
+      task/       Productivity: task runner, todo, history, bookmarks, just completions, hosts/path
+      rust/       Rust/Cargo: cargo search, rust AST, coverage
+      doob/       Doob wrappers: repo-scoped todos, search, notes, handoff sync
+      misc/       Misc tools: asciinema, zellij, rustic, rbw, website builder
+
+    scripts/      Standalone scripts (not modules — contain top-level executable code)
+    ai_nu/        Separate repo: AI/LLM agent primitives (OpenAI, Gemini, Ollama)
+    ```
+
+    ## Usage
+
+    ```nu
+    # Load a whole category
+    use lib/git *
+
+    # Load a single file
+    use lib/data/typeof.nu *
+
+    # Load everything
+    use lib/mod.nu *
+    ```
+
+    ### Files with `export def main`
+
+    These conflict when glob-re-exported, so use them directly by file path:
+
+    | File                            | Command                      |
+    | ------------------------------- | ---------------------------- |
+    | `lib/git/bump-version.nu`       | `bump-version`               |
+    | `lib/fs/loc.nu`                 | `loc` (tokei wrapper)        |
+    | `lib/fs/wc.nu`                  | `wc`                         |
+    | `lib/data/expand.nu`            | `expand`                     |
+    | `lib/data/remove-diacritics.nu` | `remove-diacritics`          |
+    | `lib/std/nu_deps.nu`            | `nu-deps`                    |
+    | `lib/std/nu_release.nu`         | `nu-release`                 |
+    | `lib/ta
+- name: notfiles
+  description: Nix-based dotfiles and system configuration
+  url: https://github.com/89jobrien/notfiles
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-18T15:31:10Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore(repo): remove nested agent worktree marker'
+    date: 2026-07-12T03:53:42Z
+  - message: 'Merge pull request #20 from 89jobrien/chore/sort-cargo-manifests'
+    date: 2026-07-12T03:49:24Z
+  - message: 'fix(ci): install nushell for integration tests'
+    date: 2026-07-12T03:44:04Z
+  - message: 'feat(notforge): add Gitea API foundation'
+    date: 2026-07-12T03:33:24Z
+  - message: 'chore(repo): stop tracking macOS artifacts'
+    date: 2026-07-12T03:33:04Z
+  - message: 'chore(manifests): sort Cargo.toml dependencies'
+    date: 2026-07-12T02:10:48Z
+  - message: 'docs(handoff): log 2026-07-08 — hexagonal architecture refactor, adapters, integration tests, notsecrets cleanup'
+    date: 2026-07-08T19:22:59Z
+  - message: 'chore(nushell): move config payload out of tool repo'
+    date: 2026-07-08T17:28:57Z
+  - message: 'feat(notfiles): hexagonal architecture refactor with adapters, integration tests, and notsecrets cleanup'
+    date: 2026-07-08T17:07:42Z
+  - message: 'feat(nushell): add x alias for cargo xtask'
+    date: 2026-07-07T09:43:59Z
+  tags:
+  - cli
+  - infra
+  readme: |-
+    # notfiles
+
+    A pure-Rust dotfiles manager — and eventually, a complete new-machine bootstrap system.
+
+    `notfiles` started as a Rust replacement for [GNU Stow](https://www.gnu.org/software/stow/). It's growing into a **Cargo workspace** of focused crates that together replace an entire shell-script-based dotfiles ecosystem.
+
+    ---
+
+    ## Quick Start
+
+    ```bash
+    # Symlink your dotfiles
+    notfiles link
+
+    # Check status
+    notfiles status
+
+    # Validate config without changes (CI-friendly)
+    notfiles check
+
+    # Show copy-method divergence
+    notfiles diff
+
+    # Move an existing file into a package
+    notfiles adopt git .gitconfig
+
+    # Remove symlinks
+    notfiles unlink
+
+    # Generate shell completions
+    notfiles completions bash > ~/.bash_completion.d/notfiles
+    ```
+
+    All commands support `--dry-run`, `--verbose`, and `--json` flags.
+
+    On a new machine (once `notstrap` ships):
+
+    ```bash
+    cargo install notstrap
+    notstrap run
+    ```
+
+    ---
+
+    ## Workspace Architecture
+
+    ```
+    notfiles/
+    ├── crates/
+    │   ├── notcore/        # shared types, config, paths, errors, Reporter trait
+    │   ├── notfiles/       # symlink engine (stow replacement)  ← you are here
+    │   ├── notsecrets/     # multi-provider secret resolution + age crypto
+    │   ├── nothooks/       # hook execution engine
+    │   ├── notnet/         # network utilities (Tailscale, Yubikey)
+    │   ├── notstrap/       # new-machine bootstrap orchestrator
+    │   └── notgraph/       # Rust dependency graph visualizer
+    ├── notfiles.toml       # symlink package config
+    └── notstrap.toml       # bootstrap hook/phase config
+    ```
+
+    ### Crate responsibilities
+
+    | Crate | Type | Does |
+    |-------|------|------|
+    | `notcore` | lib | Shared types, config, paths, errors, Reporter trait — no deps on other crates |
+    | `notfiles` | lib + bin | Symlink/copy packages into `$HOME`, track state, adopt/diff/check |
+    | `notsecrets` | lib | Multi-provider secret resolution, native age encryption/decryption |
+    | `nothooks` | lib + bin | Run bootstrap h
 - name: obfsck
   description: Secret-detection and redaction CLI for pre-commit hooks
   url: https://github.com/89jobrien/obfsck
@@ -347,97 +736,6 @@
 
     ### Flags
 
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-18T03:13:28Z
-  version: v0.32.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #466 from 89jobrien/sync/main-reconcile-2026-08-15'
-    date: 2026-08-15T11:34:19Z
-  - message: 'Merge pull request #467 from 89jobrien/copilot/fix-pr-ci-check'
-    date: 2026-08-15T11:30:53Z
-  - message: Fix PR CI failures in audit/deny by upgrading rmcp and updating MCP API usage
-    date: 2026-08-15T11:25:35Z
-  - message: 'fix(ci): remove failing taskit install from CI pipeline'
-    date: 2026-08-15T10:49:39Z
-  - message: 'doc: add docs/FEATURE_MATRIX.md and unignore it to fix CI staleness check'
-    date: 2026-08-15T10:09:06Z
-  - message: Merge remote-tracking branch 'origin/main'
-    date: 2026-08-15T09:28:38Z
-  - message: 'flow: finish staging into main'
-    date: 2026-08-15T09:26:29Z
-  - message: 'fix: strict MINIBOX_TEST_BIN_DIR lookup and prune unused deps'
-    date: 2026-08-15T08:28:44Z
-  - message: 'flow: stage next into staging'
-    date: 2026-08-15T06:54:52Z
-  - message: 'flow: promote develop into next'
-    date: 2026-08-15T06:54:52Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
-
-    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
-    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
-    keeps adapter suites swappable at startup with no recompile.
-
-    **Status:** Active development — `v0.31.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `mbx logs <id>` for stored stdout/stderr
-    - Container events — `mbx events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
-    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
-      Colima available as an alternative via Lima VM
-
-    ---
-
-    ## Quick Start
-
-    Requires Linux, root, kernel 5.
 - name: coursers
   description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
   url: https://github.com/89jobrien/coursers
@@ -789,87 +1087,8 @@
   pushed_at: 2026-08-17T11:13:32.686122Z
   version: 0.2.0
   stars: null
-  downloads: 12
+  downloads: 14
   recent_commits: []
-- name: tracers
-  description: null
-  url: https://github.com/89jobrien/tracers
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-17T11:13:22Z
-  version: v0.2.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'fix(runtime): make self dev-dependency path-only so first publish can resolve'
-    date: 2026-08-17T11:13:21Z
-  - message: 'chore(release): v0.2.0'
-    date: 2026-08-17T11:11:54Z
-  - message: 'chore(release): v1.0.0'
-    date: 2026-08-17T10:29:35Z
-  - message: 'feat!: rename crates to trace-lang-* for crates.io publish'
-    date: 2026-08-17T10:29:21Z
-  - message: 'chore(release): v0.1.1'
-    date: 2026-08-17T10:20:07Z
-  - message: 'docs: update handoff'
-    date: 2026-08-17T03:31:55Z
-  - message: 'chore(release): v0.1.0'
-    date: 2026-08-16T20:26:03Z
-  - message: 'chore(release): v0.1.0'
-    date: 2026-08-16T20:23:01Z
-  - message: 'test(trace-test): add integration test against the real escalation chain fixture'
-    date: 2026-08-16T20:11:17Z
-  - message: 'feat(trace-test): implement assert_trace! macro'
-    date: 2026-08-16T20:10:53Z
-  readme: |-
-    # trace::
-
-    > a programming language where reasoning is first-class
-
-    In most languages, values are first-class. In `trace::`, _reasoning provenance_ is
-    first-class. Every computation returns `Trace<T>` — a value enriched with the full
-    causal chain of how it was produced: steps taken, branches considered and rejected,
-    confidence at each decision point, and RAII-style span timing.
-
-    This repository contains the `trace::` language design and a Rust reference
-    implementation of its core types, all of which compile and are usable today.
-
-    ---
-
-    ## crates
-
-    | crate              | description                                                     | docs |
-    | ------------------ | ---------------------------------------------------------------- | --- |
-    | `trace-lang-core`     | `Trace<T>`, `Step`, `Span`, `Branch`, `TraceErr`                | [README](crates/core/README.md) |
-    | `trace-lang-task`     | `Task`, `TaskStatus`, `Priority`, `TaskRegistry`                | [README](crates/task/README.md) |
-    | `trace-lang-agent`    | `Agent` trait, `spawn`/`delegate`, lifecycle escalation hooks   | [README](crates/agent/README.md) |
-    | `trace-lang-runtime`  | `AgentRegistry`, `run_with_escalation`, `join_all`, `speculate` | [README](crates/runtime/README.md) |
-
-    `trace-lang-core` has no dependency on any other crate in the workspace; the
-    dependency graph flows `core -> task`, `core -> agent -> runtime`.
-
-    ---
-
-    ## the mental model
-
-    ```rust
-    // in Rust you might write:
-    fn answer(q: Question) -> Answer { .. }
-
-    // in trace:: every computation is inspectable:
-    step answer(q: Question) -> Trace<Answer> { .. }
-
-    // and you can interrogate the result:
-    let t = spawn MyAgent::answer(q).await
-    t.causal_chain()       // how did we get here?
-    t.rejected_branches()  // what did we consider and discard?
-    t.bottlenecks()        // where did we slow down?
-    t.low_confidence()     // where were we uncertain?
-    ```
-
-    `Trace<T>` is to reasoning what `Result<T, E>` is to errors: a typed,
-    propagatable wrapper with explicit han
 - name: trace-lang-agent
   description: 'Agent trait, spawn/delegate, and lifecycle escalation hooks for trace::'
   url: https://crates.io/crates/trace-lang-agent
@@ -879,7 +1098,7 @@
   pushed_at: 2026-08-17T11:12:42.805062Z
   version: 0.2.0
   stars: null
-  downloads: 15
+  downloads: 19
   recent_commits: []
 - name: trace-lang-task
   description: 'Serializable task management for trace:: agentic pipelines'
@@ -890,7 +1109,7 @@
   pushed_at: 2026-08-17T11:12:39.208808Z
   version: 0.2.0
   stars: null
-  downloads: 12
+  downloads: 14
   recent_commits: []
 - name: trace-lang-core
   description: Core Trace<T> type — reasoning provenance as a first-class value
@@ -901,7 +1120,7 @@
   pushed_at: 2026-08-17T11:12:14.724997Z
   version: 0.2.0
   stars: null
-  downloads: 21
+  downloads: 23
   recent_commits: []
 - name: minibox-core
   description: Cross-platform shared types, domain traits, and protocol for the minibox container runtime
@@ -912,7 +1131,7 @@
   pushed_at: 2026-08-15T21:39:27.848058Z
   version: 0.32.0
   stars: null
-  downloads: 273
+  downloads: 278
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -923,144 +1142,8 @@
   pushed_at: 2026-08-15T21:38:00.082275Z
   version: 0.32.0
   stars: null
-  downloads: 400
+  downloads: 406
   recent_commits: []
-- name: taskit
-  description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
-  url: https://github.com/89jobrien/taskit
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-08-15T09:55:40Z
-  version: v0.6.0
-  stars: 1
-  downloads: 284
-  recent_commits:
-  - message: 'flow: finish release into main'
-    date: 2026-07-12T05:14:53Z
-  - message: 'flow: stage staging into release'
-    date: 2026-07-12T05:14:47Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-07-12T05:14:47Z
-  - message: 'fix(test): use ''true'' instead of ''sh --version'' in tool_exists_cmd test'
-    date: 2026-07-12T05:14:42Z
-  - message: 'flow: finish release into main'
-    date: 2026-07-12T05:10:06Z
-  - message: 'flow: sync main into develop'
-    date: 2026-07-12T05:10:06Z
-  - message: 'flow: stage staging into release'
-    date: 2026-07-12T05:10:01Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-07-12T05:10:01Z
-  - message: 'fix(ci): always install taskit from local path, not crates.io'
-    date: 2026-07-12T05:09:58Z
-  - message: 'flow: finish release into main'
-    date: 2026-07-12T05:06:04Z
-  readme: "# taskit\n\nConfig-driven CI pipeline runner with affected-crate detection, protocol-drift tracking,\nand pipeline orchestration for Rust workspaces.\n\n## Install\n\n```bash\ncargo install taskit\n```\n\n## Quick start\n\nRun from the root of any Rust workspace:\n\n```bash\ntaskit fmt          # format all crates\ntaskit lint         # clippy on all crates\ntaskit test         # nextest on all crates\ntaskit ci           # full local CI pipeline\ntaskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)\n```\n\nAdd `--dry-run` to any command to print the commands that would run without executing them.\n\n## Configuration\n\nCreate `taskit.toml` at the workspace root to customise behaviour. Every field is optional —\ntaskit works without any configuration by discovering crates via `cargo metadata`.\n\n```toml\n[workspace]\n# Ordered list of crates for affected-crate detection.\n# 'dir' is the directory name relative to workspace root.\n# 'pkg' is the Cargo package name (defaults to dir if omitted).\n[[workspace.crates]]\ndir = \"my-common\"\n\n[[workspace.crates]]\ndir = \"my-api\"\n\n# If 'source' changes, 'dependents' are also treated as affected.\n[[workspace.propagation]]\nsource = \"my-common\"\ndependents = [\"my-api\", \"my-cli\"]\n\n# Protocol-drift: files whose content hash is tracked in a lockfile.\n# CI fails when any surface changes without updating the lock.\n[[protocol.surfaces]]\nname = \"api-types\"\npath = \"my-api/src/types.rs\"\n\n[[protocol.surfaces]]\nname = \"cli-commands\"\npath = \"my-cli/src/commands/mod.rs\"\n\n[protocol]\nlockfile = \"taskit-protocol.lock\"   # default\n\n# Custom CI pipeline. When omitted, a built-in default pipeline is used.\n[[ci.steps]]\nname  = \"fmt-check\"\ncmd   = \"fmt --check\"\ngate  = true            # blocks subsequent steps on failure\n\n[[ci.steps]]\nname = \"lint\"\ncmd  = \"lint\"\n\n[[ci.steps]]\nname = \"test\"\ncmd  = \"test\"\n\n[[ci.steps]]\nname = \"protocol-drift\"\ncmd  = \"check-protocol-drift\"\n```\n\n## Subcommands\n\n| Command                                                  "
-- name: notfiles
-  description: Nix-based dotfiles and system configuration
-  url: https://github.com/89jobrien/notfiles
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-06T07:25:50Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore(repo): remove nested agent worktree marker'
-    date: 2026-07-12T03:53:42Z
-  - message: 'Merge pull request #20 from 89jobrien/chore/sort-cargo-manifests'
-    date: 2026-07-12T03:49:24Z
-  - message: 'fix(ci): install nushell for integration tests'
-    date: 2026-07-12T03:44:04Z
-  - message: 'feat(notforge): add Gitea API foundation'
-    date: 2026-07-12T03:33:24Z
-  - message: 'chore(repo): stop tracking macOS artifacts'
-    date: 2026-07-12T03:33:04Z
-  - message: 'chore(manifests): sort Cargo.toml dependencies'
-    date: 2026-07-12T02:10:48Z
-  - message: 'docs(handoff): log 2026-07-08 — hexagonal architecture refactor, adapters, integration tests, notsecrets cleanup'
-    date: 2026-07-08T19:22:59Z
-  - message: 'chore(nushell): move config payload out of tool repo'
-    date: 2026-07-08T17:28:57Z
-  - message: 'feat(notfiles): hexagonal architecture refactor with adapters, integration tests, and notsecrets cleanup'
-    date: 2026-07-08T17:07:42Z
-  - message: 'feat(nushell): add x alias for cargo xtask'
-    date: 2026-07-07T09:43:59Z
-  tags:
-  - cli
-  - infra
-  readme: |-
-    # notfiles
-
-    A pure-Rust dotfiles manager — and eventually, a complete new-machine bootstrap system.
-
-    `notfiles` started as a Rust replacement for [GNU Stow](https://www.gnu.org/software/stow/). It's growing into a **Cargo workspace** of focused crates that together replace an entire shell-script-based dotfiles ecosystem.
-
-    ---
-
-    ## Quick Start
-
-    ```bash
-    # Symlink your dotfiles
-    notfiles link
-
-    # Check status
-    notfiles status
-
-    # Validate config without changes (CI-friendly)
-    notfiles check
-
-    # Show copy-method divergence
-    notfiles diff
-
-    # Move an existing file into a package
-    notfiles adopt git .gitconfig
-
-    # Remove symlinks
-    notfiles unlink
-
-    # Generate shell completions
-    notfiles completions bash > ~/.bash_completion.d/notfiles
-    ```
-
-    All commands support `--dry-run`, `--verbose`, and `--json` flags.
-
-    On a new machine (once `notstrap` ships):
-
-    ```bash
-    cargo install notstrap
-    notstrap run
-    ```
-
-    ---
-
-    ## Workspace Architecture
-
-    ```
-    notfiles/
-    ├── crates/
-    │   ├── notcore/        # shared types, config, paths, errors, Reporter trait
-    │   ├── notfiles/       # symlink engine (stow replacement)  ← you are here
-    │   ├── notsecrets/     # multi-provider secret resolution + age crypto
-    │   ├── nothooks/       # hook execution engine
-    │   ├── notnet/         # network utilities (Tailscale, Yubikey)
-    │   ├── notstrap/       # new-machine bootstrap orchestrator
-    │   └── notgraph/       # Rust dependency graph visualizer
-    ├── notfiles.toml       # symlink package config
-    └── notstrap.toml       # bootstrap hook/phase config
-    ```
-
-    ### Crate responsibilities
-
-    | Crate | Type | Does |
-    |-------|------|------|
-    | `notcore` | lib | Shared types, config, paths, errors, Reporter trait — no deps on other crates |
-    | `notfiles` | lib + bin | Symlink/copy packages into `$HOME`, track state, adopt/diff/check |
-    | `notsecrets` | lib | Multi-provider secret resolution, native age encryption/decryption |
-    | `nothooks` | lib + bin | Run bootstrap h
 - name: doob
   description: Modern, agent-first todo CLI built with Rust and SurrealDB
   url: https://github.com/89jobrien/doob
@@ -1096,89 +1179,6 @@
   tags:
   - cli
   readme: "# doob\n\nModern, agent-first todo CLI built with Rust and SurrealDB.\n\n## Features\n\n- **Fast** - Rust + SurrealDB embedded\n- **Agent-First** - JSON output, batch operations, context detection\n- **Single Binary** - No dependencies\n- **Context-Aware** - Auto-detects project and file from git\n\n## Installation\n\n```bash\ncargo install --path .\n```\n\n## Commands\n\n```bash\n# Add a todo (auto-detects project/file from git)\ndoob todo add \"Fix auth bug\"\n\n# Add with priority and tags\ndoob todo add \"Refactor code\" --priority 1 --tags refactor,urgent\n\n# Batch add\ndoob todo add \"Task 1\" \"Task 2\" \"Task 3\"\n\n# List todos\ndoob todo list\n\n# Filter by status or project\ndoob todo list --status pending\ndoob todo list --project myproject --limit 10\n\n# Complete todo(s)\ndoob todo complete <id>\ndoob todo complete <id1> <id2> <id3>\n\n# Undo completion (mark as pending)\ndoob todo undo <id>\n\n# Set or clear a due date\ndoob todo due <id> 2026-03-15\ndoob todo due <id> clear\n\n# Remove todo(s)\ndoob todo remove <id>\ndoob todo remove <id1> <id2>\n```\n\n## Sync to External Issue Trackers\n\n**Status:** Foundation Complete (Phase 1 & 2) ✅\n\nSync your doob todos to external issue trackers using a plugin architecture.\n\n### Supported Providers\n\n- ✅ **Beads** (bd CLI) - Complete\n- 🚧 **GitHub Issues** - Planned\n- 🚧 **Jira** - Planned\n- 🚧 **Linear** - Planned\n- 🚧 **kan** - Planned\n\n### Architecture\n\nBuilt with hexagonal architecture:\n- **Domain Layer** - Business logic, validation, error handling\n- **Ports** - `IssueTracker` trait interface\n- **Adapters** - Provider-specific implementations (CLI delegation)\n- **Tests** - 19 unit/integration tests (100% passing)\n\n### Documentation\n\n- [Testing Guide](docs/sync/testing.md)\n- [Beads Provider](docs/sync/providers/beads.md)\n\n### Roadmap\n\n**Phase 3: Metadata & Repository** (Next)\n- SurrealDB repository for sync metadata\n- Track external IDs, sync timestamps, errors\n- Multi-provider support per todo\n\n**Phase 4: CLI Commands**\n- `doob sync to --provider beads` - "
-- name: nu_libs
-  description: A library of Nushell scripts organized by category
-  url: https://github.com/89jobrien/nu_libs
-  kinds:
-  - GitHubRepo
-  language: Nushell
-  pushed_at: 2026-08-06T06:44:56Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Add generated Nushell completion scripts for workspace CLIs
-    date: 2026-08-05T18:09:54Z
-  - message: 'fix(pick.nu): handle string and list<string> input, not just tables'
-    date: 2026-08-05T17:00:44Z
-  - message: 'Add pick.nu: fuzzy-select wrapper around external pick'
-    date: 2026-08-05T16:28:08Z
-  - message: 'docs: add missing export-def-main files to collision table'
-    date: 2026-08-04T21:45:07Z
-  - message: 'fix(task): resolve pueue log --full/--lines conflict and remove naming collision'
-    date: 2026-08-03T23:44:03Z
-  - message: Add defguard docker-compose test stack management script
-    date: 2026-07-19T21:32:57Z
-  - message: 'feat(lib): add rust and git utility commands from /tmp analysis'
-    date: 2026-06-30T13:03:58Z
-  - message: 'feat(lib): add doob and gkg modules'
-    date: 2026-06-26T21:12:47Z
-  - message: 'chore: reformat HANDOFF yaml'
-    date: 2026-06-14T07:13:18Z
-  - message: 'chore: harden gitignore, fix mod exports, migrate get -i to --optional'
-    date: 2026-06-14T05:20:22Z
-  readme: |-
-    # nu_libs
-
-    A library of Nushell modules organized by category.
-
-    ## Structure
-
-    ```
-    lib/
-      mod.nu      top-level re-export of all categories
-      git/        Git helpers: log stats, branch age/cleanup, gone branches, hooks
-      net/        Network: SSH, sockets, remoting, HTTP, netcat, proxy, SSL
-      fs/         Filesystem: tree traversal, file ops, disk, navigation (up/cdpath/autojump/zoxide)
-      data/       Data transforms: typeof, JSON schema, ini, env, number format, base64, indent
-      ui/         UI/shell: bar, progress meter, completions, aliases (bat/eza), clipboard, notify
-      std/        Nu ecosystem: config, init, modules, deps, release tooling, dynamic loading
-      task/       Productivity: task runner, todo, history, bookmarks, just completions, hosts/path
-      rust/       Rust/Cargo: cargo search, rust AST, coverage
-      doob/       Doob wrappers: repo-scoped todos, search, notes, handoff sync
-      misc/       Misc tools: asciinema, zellij, rustic, rbw, website builder
-
-    scripts/      Standalone scripts (not modules — contain top-level executable code)
-    ai_nu/        Separate repo: AI/LLM agent primitives (OpenAI, Gemini, Ollama)
-    ```
-
-    ## Usage
-
-    ```nu
-    # Load a whole category
-    use lib/git *
-
-    # Load a single file
-    use lib/data/typeof.nu *
-
-    # Load everything
-    use lib/mod.nu *
-    ```
-
-    ### Files with `export def main`
-
-    These conflict when glob-re-exported, so use them directly by file path:
-
-    | File                            | Command                      |
-    | ------------------------------- | ---------------------------- |
-    | `lib/git/bump-version.nu`       | `bump-version`               |
-    | `lib/fs/loc.nu`                 | `loc` (tokei wrapper)        |
-    | `lib/fs/wc.nu`                  | `wc`                         |
-    | `lib/data/expand.nu`            | `expand`                     |
-    | `lib/data/remove-diacritics.nu` | `remove-diacritics`          |
-    | `lib/std/nu_deps.nu`            | `nu-deps`                    |
-    | `lib/std/nu_release.nu`         | `nu-release`                 |
-    | `lib/ta
 - name: updog
   description: Agent Improvement Loop — systematic agent behavior improvement from observed traces
   url: https://github.com/89jobrien/updog
@@ -2229,7 +2229,7 @@
   pushed_at: 2026-08-04T23:04:24.588553Z
   version: 0.8.0
   stars: null
-  downloads: 49
+  downloads: 50
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -2240,7 +2240,7 @@
   pushed_at: 2026-08-04T23:04:11.949045Z
   version: 0.8.0
   stars: null
-  downloads: 50
+  downloads: 51
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -2251,7 +2251,7 @@
   pushed_at: 2026-08-04T23:04:00.578508Z
   version: 0.8.0
   stars: null
-  downloads: 49
+  downloads: 50
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -2262,7 +2262,7 @@
   pushed_at: 2026-08-04T23:03:45.815577Z
   version: 0.8.0
   stars: null
-  downloads: 83
+  downloads: 84
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -2306,7 +2306,7 @@
   pushed_at: 2026-08-04T23:02:13.812559Z
   version: 0.8.0
   stars: null
-  downloads: 81
+  downloads: 82
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -2317,7 +2317,7 @@
   pushed_at: 2026-08-04T23:02:03.842671Z
   version: 0.8.0
   stars: null
-  downloads: 165
+  downloads: 166
   recent_commits: []
 - name: prefixe
   description: Prepend validated prefixes to shell commands — reads rx prefix config
@@ -2660,7 +2660,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 65
+  downloads: 66
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -2705,7 +2705,7 @@
   pushed_at: 2026-07-16T02:42:18Z
   version: v0.3.2
   stars: 1
-  downloads: 108
+  downloads: 109
   recent_commits:
   - message: 'fix(clippy): redundant closure, dead_code on mcp helpers'
     date: 2026-07-16T02:41:41Z
@@ -2879,7 +2879,7 @@
   pushed_at: 2026-07-13T07:34:30.277211Z
   version: 0.3.0
   stars: null
-  downloads: 63
+  downloads: 67
   recent_commits: []
 - name: braid-model
   description: Canonical domain types for the braid agent platform
@@ -2890,7 +2890,7 @@
   pushed_at: 2026-07-13T07:33:22.653887Z
   version: 0.3.0
   stars: null
-  downloads: 85
+  downloads: 91
   recent_commits: []
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
@@ -2912,7 +2912,7 @@
   pushed_at: 2026-07-13T01:33:35.175861Z
   version: 0.5.1
   stars: null
-  downloads: 108
+  downloads: 110
   recent_commits: []
 - name: crux-script
   description: YAML-driven pipeline scripting for the crux agentic DSL
@@ -2934,7 +2934,7 @@
   pushed_at: 2026-07-09T02:11:26.279438Z
   version: 0.3.1
   stars: null
-  downloads: 35
+  downloads: 36
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -2956,7 +2956,7 @@
   pushed_at: 2026-07-09T02:08:45.038550Z
   version: 0.3.1
   stars: null
-  downloads: 47
+  downloads: 49
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -2978,7 +2978,7 @@
   pushed_at: 2026-07-09T02:08:40.675079Z
   version: 0.3.1
   stars: null
-  downloads: 74
+  downloads: 76
   recent_commits: []
 - name: claude-code-statusline
   description: Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance — minimal setup, maximum insight.
@@ -3493,7 +3493,7 @@
   pushed_at: 2026-06-08T05:39:24.236954Z
   version: 0.1.0
   stars: null
-  downloads: 53
+  downloads: 54
   recent_commits: []
 - name: disyn-memory
   description: Memory store implementation for the disyn agent pipeline
@@ -3504,7 +3504,7 @@
   pushed_at: 2026-06-08T05:26:27.409395Z
   version: 0.1.0
   stars: null
-  downloads: 52
+  downloads: 53
   recent_commits: []
 - name: disyn-neural
   description: Neural proposal engine and fact extractor for the disyn agent pipeline
@@ -3515,7 +3515,7 @@
   pushed_at: 2026-06-08T05:26:18.193930Z
   version: 0.1.0
   stars: null
-  downloads: 51
+  downloads: 52
   recent_commits: []
 - name: disyn-symbolic
   description: Symbolic verifier and repair engine for the disyn agent pipeline
@@ -3526,7 +3526,7 @@
   pushed_at: 2026-06-08T05:26:07.254857Z
   version: 0.1.0
   stars: null
-  downloads: 52
+  downloads: 53
   recent_commits: []
 - name: disyn-core
   description: Domain types, port traits, and errors for the disyn agent pipeline
@@ -3537,7 +3537,7 @@
   pushed_at: 2026-06-08T05:25:56.523924Z
   version: 0.1.0
   stars: null
-  downloads: 152
+  downloads: 157
   recent_commits: []
 - name: langchainx
   description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
@@ -3951,7 +3951,7 @@
   pushed_at: 2026-05-18T05:22:46.040541Z
   version: 0.2.6
   stars: null
-  downloads: 83
+  downloads: 84
   recent_commits: []
 - name: cruxx-agentic
   description: Built-in step handlers for cruxx-script pipelines
@@ -3962,7 +3962,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 123
+  downloads: 125
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -3973,7 +3973,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 171
+  downloads: 173
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -3984,7 +3984,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 259
+  downloads: 262
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -3995,7 +3995,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 375
+  downloads: 378
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -4006,7 +4006,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 252
+  downloads: 256
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -4017,7 +4017,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 170
+  downloads: 172
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -4028,7 +4028,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 95
+  downloads: 96
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -4039,7 +4039,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 4321
+  downloads: 4471
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4050,7 +4050,7 @@
   pushed_at: 2026-05-16T04:04:45.475950Z
   version: 0.3.0
   stars: null
-  downloads: 86
+  downloads: 87
   recent_commits: []
 - name: agentlint-pi
   description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
@@ -4061,7 +4061,7 @@
   pushed_at: 2026-05-16T04:04:23.718026Z
   version: 0.3.0
   stars: null
-  downloads: 88
+  downloads: 89
   recent_commits: []
 - name: agentlint-gemini
   description: agentlint validator for Google Gemini GEMINI.md files
@@ -4072,7 +4072,7 @@
   pushed_at: 2026-05-16T04:04:00.508658Z
   version: 0.3.0
   stars: null
-  downloads: 108
+  downloads: 109
   recent_commits: []
 - name: agentlint-codex
   description: agentlint validator for OpenAI Codex AGENTS.md files
@@ -4083,7 +4083,7 @@
   pushed_at: 2026-05-16T04:03:38.113837Z
   version: 0.3.0
   stars: null
-  downloads: 106
+  downloads: 107
   recent_commits: []
 - name: agentlint-cursor
   description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
@@ -4094,7 +4094,7 @@
   pushed_at: 2026-05-16T04:03:15.391246Z
   version: 0.3.0
   stars: null
-  downloads: 107
+  downloads: 108
   recent_commits: []
 - name: agentlint-claude
   description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
@@ -4105,7 +4105,7 @@
   pushed_at: 2026-05-16T04:02:52.382445Z
   version: 0.3.0
   stars: null
-  downloads: 85
+  downloads: 86
   recent_commits: []
 - name: agentlint-frontmatter
   description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
@@ -4116,7 +4116,7 @@
   pushed_at: 2026-05-16T04:02:28.958456Z
   version: 0.3.0
   stars: null
-  downloads: 191
+  downloads: 194
   recent_commits: []
 - name: agentlint-core
   description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
@@ -4127,7 +4127,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 354
+  downloads: 360
   recent_commits: []
 - name: warpx
   description: 'Warp terminal fork: agentic dev environment, custom UI, MCP, skills'
@@ -4251,7 +4251,7 @@
   pushed_at: 2026-04-30T21:51:42.719327Z
   version: 0.1.3
   stars: null
-  downloads: 61
+  downloads: 62
   recent_commits: []
 - name: tailbox
   description: Tailscale-rs network adapter for minibox containers
@@ -4295,7 +4295,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 115
+  downloads: 116
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -4318,7 +4318,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 1986
+  downloads: 1995
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -4495,7 +4495,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 270
+  downloads: 273
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -4506,7 +4506,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 118
+  downloads: 119
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -4517,7 +4517,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 324
+  downloads: 327
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
@@ -4595,7 +4595,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 91
+  downloads: 92
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -4606,7 +4606,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 93
+  downloads: 94
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -4617,7 +4617,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 89
+  downloads: 90
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -4628,7 +4628,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 89
+  downloads: 90
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -4639,7 +4639,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 279
+  downloads: 283
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
