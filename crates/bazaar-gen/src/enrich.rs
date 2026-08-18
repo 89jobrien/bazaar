@@ -47,16 +47,16 @@ fn crux_run(pipeline: &Path, input_json: &str) -> Result<serde_json::Value> {
     let input_file = tempfile::NamedTempFile::new()?;
     std::fs::write(input_file.path(), input_json)?;
 
-    let output = Command::new("cruxx")
+    let output = Command::new("crux")
         .arg("run")
         .arg(pipeline)
         .arg(input_file.path())
         .output()
-        .context("cruxx not found — is cruxx-agentic installed? (`cargo install --path crates/cruxx-agentic`)")?;
+        .context("crux not found — is crux-agentic installed? (`cargo install --path crates/crux-agentic`)")?;
 
     if !output.status.success() {
         let stderr = String::from_utf8_lossy(&output.stderr);
-        anyhow::bail!("cruxx run failed: {stderr}");
+        anyhow::bail!("crux run failed: {stderr}");
     }
 
     // crux-run emits structured output after "Output:" line
