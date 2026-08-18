@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-18T09:33:55Z
+  pushed_at: 2026-08-18T09:34:37Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-08-18T09:34:36Z
   - message: 'fix(bazaar-gen): rename cruxx -> crux, regenerate showcase'
     date: 2026-08-18T09:33:38Z
   - message: 'merge: reconcile local main with origin (181 CI regen commits)'
@@ -27,8 +29,6 @@
     date: 2026-08-15T11:07:29Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-14T23:08:26Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-08-14T11:19:26Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,37 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-08-18T10:06:39Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-18T10:06:39Z
+  - message: 'fix(ci): correct bz binary path — target/release/bz, not ../target/release/bz'
+    date: 2026-08-18T10:04:49Z
+  - message: 'fix(ci): commit static insights.yaml, skip live API synthesis; fix output-dir flag'
+    date: 2026-08-18T10:02:29Z
+  - message: 'fix(ci): restore private data/*.txt from gzip+base64 secrets before insights synthesis'
+    date: 2026-08-18T09:46:06Z
+  - message: 'feat(profile): rewrite persona, add live GitHub stats and insights report'
+    date: 2026-04-29T17:01:52Z
+  - message: 'feat: sync regenerated site — add data.yaml, update index, remove individual project pages'
+    date: 2026-04-28T18:52:13Z
+  - message: 'feat: sync regenerated site from bazaar — consolidate project pages into main index'
+    date: 2026-04-28T12:23:57Z
+  - message: 'docs: update handoff'
+    date: 2026-04-21T16:14:36Z
+  - message: 'chore(profile): update usage metrics — 800 sessions, $2871.38, 6.28B tokens'
+    date: 2026-04-21T16:11:59Z
+  - message: 'feat: synthesize insights.yaml daily from data/ via Claude API'
+    date: 2026-04-21T06:59:12Z
 - name: obfsck
   description: Secret-detection and redaction CLI for pre-commit hooks
   url: https://github.com/89jobrien/obfsck
@@ -4222,37 +4253,6 @@
   stars: null
   downloads: 61
   recent_commits: []
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-04-29T18:58:32Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat(profile): rewrite persona, add live GitHub stats and insights report'
-    date: 2026-04-29T17:01:52Z
-  - message: 'feat: sync regenerated site — add data.yaml, update index, remove individual project pages'
-    date: 2026-04-28T18:52:13Z
-  - message: 'feat: sync regenerated site from bazaar — consolidate project pages into main index'
-    date: 2026-04-28T12:23:57Z
-  - message: 'docs: update handoff'
-    date: 2026-04-21T16:14:36Z
-  - message: 'chore(profile): update usage metrics — 800 sessions, $2871.38, 6.28B tokens'
-    date: 2026-04-21T16:11:59Z
-  - message: 'feat: synthesize insights.yaml daily from data/ via Claude API'
-    date: 2026-04-21T06:59:12Z
-  - message: 'ci: fix action SHAs for cache and rust-toolchain'
-    date: 2026-04-21T06:43:03Z
-  - message: 'ci: build and run bazaar-gen instead of curling static file'
-    date: 2026-04-21T06:40:11Z
-  - message: 'docs: update handoff; add CLAUDE.md and gitignore managed block'
-    date: 2026-04-21T01:59:40Z
-  - message: quick
-    date: 2026-04-20T03:06:35Z
 - name: tailbox
   description: Tailscale-rs network adapter for minibox containers
   url: https://crates.io/crates/tailbox
