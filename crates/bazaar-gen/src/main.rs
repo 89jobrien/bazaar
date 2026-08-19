@@ -1,7 +1,6 @@
 mod config;
 mod deploy;
 mod enrich;
-mod error;
 mod fetch;
 mod header;
 mod model;

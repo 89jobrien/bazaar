@@ -89,11 +89,7 @@ fn needs_enrichment(project: &Project, force: bool) -> bool {
 
 fn apply_status(project: &mut Project) {
     if project.health.is_none() {
-        project.health = Some(
-            ProjectStatus::from_pushed_at(project.pushed_at)
-                .as_str()
-                .to_string(),
-        );
+        project.health = Some(ProjectStatus::from_pushed_at(project.pushed_at).to_string());
     }
 }
 

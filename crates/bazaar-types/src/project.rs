@@ -34,23 +34,26 @@ impl ProjectStatus {
             Self::Dormant
         }
     }
+}
 
-    pub fn as_str(&self) -> &'static str {
-        match self {
+impl std::fmt::Display for ProjectStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let s = match self {
             Self::Active => "active",
             Self::Stale => "stale",
             Self::Dormant => "dormant",
-        }
+        };
+        write!(f, "{s}")
     }
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Commit {
     pub message: String,
     pub date: DateTime<Utc>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Project {
     pub name: String,
     pub description: Option<String>,

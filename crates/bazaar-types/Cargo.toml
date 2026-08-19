@@ -2,6 +2,12 @@
 name = "bazaar-types"
 version = "0.1.0"
 edition = "2024"
+authors = ["Joseph O'Brien"]
+description = "Shared domain types (Project, Profile, Insights, Usage) for the bazaar showcase generator"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/89jobrien/bazaar"
+keywords = ["showcase", "portfolio", "types"]
+categories = ["data-structures"]
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }
