@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-21T23:30:31Z
+  pushed_at: 2026-08-22T11:26:49Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-08-22T11:26:48Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-21T23:30:29Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-08-18T11:31:44Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-18T09:34:36Z
-  - message: 'fix(bazaar-gen): rename cruxx -> crux, regenerate showcase'
-    date: 2026-08-18T09:33:38Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,167 +213,13 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-08-22T07:11:58Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-22T07:11:58Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-21T07:27:00Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-20T07:25:03Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-19T07:22:18Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-18T23:05:28Z
-  - message: Merge remote-tracking branch 'origin/main'
-    date: 2026-08-18T23:04:19Z
-  - message: 'content: ground insights.yaml in the canonical /joe:persona doc'
-    date: 2026-08-18T23:01:06Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-18T10:06:39Z
-  - message: 'fix(ci): correct bz binary path — target/release/bz, not ../target/release/bz'
-    date: 2026-08-18T10:04:49Z
-  - message: 'fix(ci): commit static insights.yaml, skip live API synthesis; fix output-dir flag'
-    date: 2026-08-18T10:02:29Z
-- name: trace-lang-runtime
-  description: 'Agent registry, delegation resolution, parallel fan-out, and speculative branching for trace::'
-  url: https://crates.io/crates/trace-lang-runtime
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-08-22T04:10:00.411110Z
-  version: 0.2.2
-  stars: null
-  downloads: 27
-  recent_commits: []
-- name: trace-lang-task
-  description: 'Serializable task management for trace:: agentic pipelines'
-  url: https://crates.io/crates/trace-lang-task
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-08-22T04:09:56.861605Z
-  version: 0.2.2
-  stars: null
-  downloads: 24
-  recent_commits: []
-- name: trace-lang-agent
-  description: 'Agent trait, spawn/delegate, and lifecycle escalation hooks for trace::'
-  url: https://crates.io/crates/trace-lang-agent
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-08-22T04:09:53.925880Z
-  version: 0.2.2
-  stars: null
-  downloads: 34
-  recent_commits: []
-- name: trace-lang-core
-  description: Core Trace<T> type — reasoning provenance as a first-class value
-  url: https://crates.io/crates/trace-lang-core
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-08-22T04:09:49.374662Z
-  version: 0.2.2
-  stars: null
-  downloads: 45
-  recent_commits: []
-- name: tracers
-  description: null
-  url: https://github.com/89jobrien/tracers
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-22T04:08:12Z
-  version: v0.2.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'flow: finish release into main'
-    date: 2026-08-22T04:08:00Z
-  - message: 'flow: stage staging into release'
-    date: 2026-08-22T04:07:51Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-08-22T04:07:51Z
-  - message: 'chore(release): v0.2.2'
-    date: 2026-08-22T04:07:48Z
-  - message: 'refactor: polish pass - simplify winner selection and sorts, add serde round-trip tests'
-    date: 2026-08-18T23:08:03Z
-  - message: 'flow: finish release into main'
-    date: 2026-08-18T22:55:54Z
-  - message: 'flow: sync main into develop'
-    date: 2026-08-18T22:55:54Z
-  - message: 'flow: stage staging into release'
-    date: 2026-08-18T22:55:47Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-08-18T22:55:47Z
-  - message: 'chore(audit): rust-audit mechanical fixes - derives, docs, crate metadata'
-    date: 2026-08-18T22:55:39Z
-  readme: |-
-    # trace::
-
-    > a programming language where reasoning is first-class
-
-    In most languages, values are first-class. In `trace::`, _reasoning provenance_ is
-    first-class. Every computation returns `Trace<T>` — a value enriched with the full
-    causal chain of how it was produced: steps taken, branches considered and rejected,
-    confidence at each decision point, and RAII-style span timing.
-
-    This repository contains the `trace::` language design and a Rust reference
-    implementation of its core types, all of which compile and are usable today.
-
-    ---
-
-    ## crates
-
-    | crate              | description                                                     | docs |
-    | ------------------ | ---------------------------------------------------------------- | --- |
-    | `trace-lang-core`     | `Trace<T>`, `Step`, `Span`, `Branch`, `TraceErr`                | [README](crates/core/README.md) |
-    | `trace-lang-task`     | `Task`, `TaskStatus`, `Priority`, `TaskRegistry`                | [README](crates/task/README.md) |
-    | `trace-lang-agent`    | `Agent` trait, `spawn`/`delegate`, lifecycle escalation hooks   | [README](crates/agent/README.md) |
-    | `trace-lang-runtime`  | `AgentRegistry`, `run_with_escalation`, `join_all`, `speculate` | [README](crates/runtime/README.md) |
-
-    `trace-lang-core` has no dependency on any other crate in the workspace; the
-    dependency graph flows `core -> task`, `core -> agent -> runtime`.
-
-    ---
-
-    ## the mental model
-
-    ```rust
-    // in Rust you might write:
-    fn answer(q: Question) -> Answer { .. }
-
-    // in trace:: every computation is inspectable:
-    step answer(q: Question) -> Trace<Answer> { .. }
-
-    // and you can interrogate the result:
-    let t = spawn MyAgent::answer(q).await
-    t.causal_chain()       // how did we get here?
-    t.rejected_branches()  // what did we consider and discard?
-    t.bottlenecks()        // where did we slow down?
-    t.low_confidence()     // where were we uncertain?
-    ```
-
-    `Trace<T>` is to reasoning what `Result<T, E>` is to errors: a typed,
-    propagatable wrapper with explicit han
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-22T03:12:11Z
+  pushed_at: 2026-08-22T23:25:51Z
   version: v0.32.0
   stars: null
   downloads: null
@@ -458,6 +304,265 @@
     ## Quick Start
 
     Requires Linux, root, kernel 5.
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-22T23:02:13Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs: session handoff for GitHub issue triage-and-fix pass'
+    date: 2026-08-22T23:02:02Z
+  - message: 'merge: issue #12 rewire examples/joe ctrl::noop placeholders'
+    date: 2026-08-22T22:33:01Z
+  - message: 'merge: issue #103 fix trim_start_matches double-strip in expr path resolution'
+    date: 2026-08-22T22:32:54Z
+  - message: 'merge: issue #26 consolidate PlanRule into crux-types'
+    date: 2026-08-22T22:32:49Z
+  - message: 'merge: issue #69 verify and test all 9 wired BAML extract functions'
+    date: 2026-08-22T22:32:36Z
+  - message: 'merge: issue #70 extend json::jq with pipe/select/map'
+    date: 2026-08-22T22:31:28Z
+  - message: 'refactor(crux-types): consolidate PlanRule into crux-types, fixes #26'
+    date: 2026-08-22T22:29:58Z
+  - message: 'chore: remove stale BLOCKED.md, opavs phase gate resolved'
+    date: 2026-08-22T22:28:10Z
+  - message: 'docs(crux-baml): remove stale TODO, add test coverage for all 9 wired BAML extract functions, fixes #69'
+    date: 2026-08-22T22:28:02Z
+  - message: 'chore: remove stale BLOCKED.md (commit unblocked by baml_client fix)'
+    date: 2026-08-22T22:27:50Z
+  tags:
+  - agents
+  readme: |-
+    # crux
+
+    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
+
+    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
+      budgets in `.crux` files. The runtime handles execution, tracing,
+      and error recovery.
+    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
+      you can inspect, serialize, or replay after a crash.
+    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
+      logic, typed delegation, and confidence-based routing -- same trace,
+      same runtime.
+
+    ## Quick example
+
+    A pipeline as a `.crux` file:
+
+    ```yaml
+    pipeline: summarize
+    budget: { calls: 2 }
+
+    steps:
+        - step: count_words
+          handler: shell::capture
+          args:
+              cmd: "wc -w < input.txt"
+
+        - step: log_result
+          handler: ctrl::log
+    ```
+
+    The same thing in Rust:
+
+    ```rust
+    use crux::prelude::*;
+
+    #[crux::agent]
+    async fn summarize(input: String) -> Crux<String> {
+        let count: usize = x.step("count_words", || async {
+            Ok(input.split_whitespace().count())
+        }).await?;
+
+        x.step("format", || async move {
+            Ok(format!("{count} words"))
+        }).await
+    }
+    ```
+
+    Either way, the returned `Crux<T>` is:
+
+    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
+    - **Serializable** -- `serde_json::to_string(&crux)`
+    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
+
+    ## Installation
+
+    ```toml
+    [dependencies]
+    crux = "0.2"
+    ```
+
+    Requires Rust 1.88+ (edition 2024).
+
+    ## Crates
+
+    | Crate                                 | Description                                             |
+    | ------------------------------------- | ------------------------------------------------------- |
+    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
+    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
+    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
+    | [`crux-derive`](crates/crux-macros)   | `#[crux::ag
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-08-22T07:11:58Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-22T07:11:58Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-21T07:27:00Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-20T07:25:03Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-19T07:22:18Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-18T23:05:28Z
+  - message: Merge remote-tracking branch 'origin/main'
+    date: 2026-08-18T23:04:19Z
+  - message: 'content: ground insights.yaml in the canonical /joe:persona doc'
+    date: 2026-08-18T23:01:06Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-18T10:06:39Z
+  - message: 'fix(ci): correct bz binary path — target/release/bz, not ../target/release/bz'
+    date: 2026-08-18T10:04:49Z
+  - message: 'fix(ci): commit static insights.yaml, skip live API synthesis; fix output-dir flag'
+    date: 2026-08-18T10:02:29Z
+- name: trace-lang-runtime
+  description: 'Agent registry, delegation resolution, parallel fan-out, and speculative branching for trace::'
+  url: https://crates.io/crates/trace-lang-runtime
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-08-22T04:10:00.411110Z
+  version: 0.2.2
+  stars: null
+  downloads: 27
+  recent_commits: []
+- name: trace-lang-task
+  description: 'Serializable task management for trace:: agentic pipelines'
+  url: https://crates.io/crates/trace-lang-task
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-08-22T04:09:56.861605Z
+  version: 0.2.2
+  stars: null
+  downloads: 24
+  recent_commits: []
+- name: trace-lang-agent
+  description: 'Agent trait, spawn/delegate, and lifecycle escalation hooks for trace::'
+  url: https://crates.io/crates/trace-lang-agent
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-08-22T04:09:53.925880Z
+  version: 0.2.2
+  stars: null
+  downloads: 35
+  recent_commits: []
+- name: trace-lang-core
+  description: Core Trace<T> type — reasoning provenance as a first-class value
+  url: https://crates.io/crates/trace-lang-core
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-08-22T04:09:49.374662Z
+  version: 0.2.2
+  stars: null
+  downloads: 46
+  recent_commits: []
+- name: tracers
+  description: null
+  url: https://github.com/89jobrien/tracers
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-22T04:08:12Z
+  version: v0.2.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'flow: finish release into main'
+    date: 2026-08-22T04:08:00Z
+  - message: 'flow: stage staging into release'
+    date: 2026-08-22T04:07:51Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-08-22T04:07:51Z
+  - message: 'chore(release): v0.2.2'
+    date: 2026-08-22T04:07:48Z
+  - message: 'refactor: polish pass - simplify winner selection and sorts, add serde round-trip tests'
+    date: 2026-08-18T23:08:03Z
+  - message: 'flow: finish release into main'
+    date: 2026-08-18T22:55:54Z
+  - message: 'flow: sync main into develop'
+    date: 2026-08-18T22:55:54Z
+  - message: 'flow: stage staging into release'
+    date: 2026-08-18T22:55:47Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-08-18T22:55:47Z
+  - message: 'chore(audit): rust-audit mechanical fixes - derives, docs, crate metadata'
+    date: 2026-08-18T22:55:39Z
+  readme: |-
+    # trace::
+
+    > a programming language where reasoning is first-class
+
+    In most languages, values are first-class. In `trace::`, _reasoning provenance_ is
+    first-class. Every computation returns `Trace<T>` — a value enriched with the full
+    causal chain of how it was produced: steps taken, branches considered and rejected,
+    confidence at each decision point, and RAII-style span timing.
+
+    This repository contains the `trace::` language design and a Rust reference
+    implementation of its core types, all of which compile and are usable today.
+
+    ---
+
+    ## crates
+
+    | crate              | description                                                     | docs |
+    | ------------------ | ---------------------------------------------------------------- | --- |
+    | `trace-lang-core`     | `Trace<T>`, `Step`, `Span`, `Branch`, `TraceErr`                | [README](crates/core/README.md) |
+    | `trace-lang-task`     | `Task`, `TaskStatus`, `Priority`, `TaskRegistry`                | [README](crates/task/README.md) |
+    | `trace-lang-agent`    | `Agent` trait, `spawn`/`delegate`, lifecycle escalation hooks   | [README](crates/agent/README.md) |
+    | `trace-lang-runtime`  | `AgentRegistry`, `run_with_escalation`, `join_all`, `speculate` | [README](crates/runtime/README.md) |
+
+    `trace-lang-core` has no dependency on any other crate in the workspace; the
+    dependency graph flows `core -> task`, `core -> agent -> runtime`.
+
+    ---
+
+    ## the mental model
+
+    ```rust
+    // in Rust you might write:
+    fn answer(q: Question) -> Answer { .. }
+
+    // in trace:: every computation is inspectable:
+    step answer(q: Question) -> Trace<Answer> { .. }
+
+    // and you can interrogate the result:
+    let t = spawn MyAgent::answer(q).await
+    t.causal_chain()       // how did we get here?
+    t.rejected_branches()  // what did we consider and discard?
+    t.bottlenecks()        // where did we slow down?
+    t.low_confidence()     // where were we uncertain?
+    ```
+
+    `Trace<T>` is to reasoning what `Result<T, E>` is to errors: a typed,
+    propagatable wrapper with explicit han
 - name: godmode
   description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
   url: https://github.com/89jobrien/godmode
@@ -919,111 +1024,6 @@
     For Codex, the top-level registry also points at `crs hook --target codex <event>`.
     Those entries dispatch to the existing `$HOME/.codex/hooks/*.crux` backends, which
     still compose `coursers pre/post` and `crs rewrite/filter` i
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-18T01:18:03Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: remove stale README.v1.md'
-    date: 2026-08-18T01:17:59Z
-  - message: 'docs: fix crux-derive rename, add missing crate entries, restore justfile recipes'
-    date: 2026-08-18T01:15:44Z
-  - message: 'refactor: merge runtime-module-cycles into main'
-    date: 2026-08-18T00:32:08Z
-  - message: 'chore: update HANDOFF timestamps'
-    date: 2026-08-18T00:32:07Z
-  - message: 'refactor: resolve crux-runtime module cycles; add xtask publish design docs'
-    date: 2026-08-18T00:29:22Z
-  - message: 'chore: update HANDOFF — 2026-07-09 ci audit, xtask publish, partial v0.3.1 release'
-    date: 2026-07-09T18:56:49Z
-  - message: 'chore: remove unused deps (ulid, glob, serde); suppress machete false positive for redb'
-    date: 2026-07-09T02:27:17Z
-  - message: 'refactor: rename crux-macros to crux-derive for crates.io publishing'
-    date: 2026-07-09T02:10:55Z
-  - message: 'chore: add version to all internal workspace dep entries for crates.io publishing'
-    date: 2026-07-09T02:06:58Z
-  - message: 'ci: replace 14-step publish sequence with cargo xtask publish'
-    date: 2026-07-09T02:02:19Z
-  tags:
-  - agents
-  readme: |-
-    # crux
-
-    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
-
-    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
-      budgets in `.crux` files. The runtime handles execution, tracing,
-      and error recovery.
-    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
-      you can inspect, serialize, or replay after a crash.
-    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
-      logic, typed delegation, and confidence-based routing -- same trace,
-      same runtime.
-
-    ## Quick example
-
-    A pipeline as a `.crux` file:
-
-    ```yaml
-    pipeline: summarize
-    budget: { calls: 2 }
-
-    steps:
-        - step: count_words
-          handler: shell::capture
-          args:
-              cmd: "wc -w < input.txt"
-
-        - step: log_result
-          handler: ctrl::log
-    ```
-
-    The same thing in Rust:
-
-    ```rust
-    use crux::prelude::*;
-
-    #[crux::agent]
-    async fn summarize(input: String) -> Crux<String> {
-        let count: usize = x.step("count_words", || async {
-            Ok(input.split_whitespace().count())
-        }).await?;
-
-        x.step("format", || async move {
-            Ok(format!("{count} words"))
-        }).await
-    }
-    ```
-
-    Either way, the returned `Crux<T>` is:
-
-    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
-    - **Serializable** -- `serde_json::to_string(&crux)`
-    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
-
-    ## Installation
-
-    ```toml
-    [dependencies]
-    crux = "0.2"
-    ```
-
-    Requires Rust 1.88+ (edition 2024).
-
-    ## Crates
-
-    | Crate                                 | Description                                             |
-    | ------------------------------------- | ------------------------------------------------------- |
-    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
-    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
-    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
-    | [`crux-derive`](crates/crux-macros)   | `#[crux::ag
 - name: mlrs
   description: Recursive Language Model (RLM) inference in Rust — Rhai-scripted context navigation with unbounded context handling
   url: https://github.com/89jobrien/mlrs
@@ -4039,7 +4039,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 5143
+  downloads: 5154
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4306,7 +4306,7 @@
   pushed_at: 2026-04-23T23:07:16.604202Z
   version: 0.1.0
   stars: null
-  downloads: 66
+  downloads: 67
   recent_commits: []
 - name: slashcrux
   description: Shared vocabulary types for the Slash and Crux agentic Rust ecosystem
@@ -4318,7 +4318,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 2028
+  downloads: 2051
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -5003,7 +5003,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 266
+  downloads: 267
   recent_commits: []
 - name: steve
   description: Steve's not here, man.
