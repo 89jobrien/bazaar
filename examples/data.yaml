@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-22T23:27:47Z
+  pushed_at: 2026-08-23T11:26:51Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-08-23T11:26:50Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-22T23:27:45Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-08-19T11:31:33Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-18T23:27:54Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-08-18T11:31:44Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,17 +213,340 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: coursers
+  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
+  url: https://github.com/89jobrien/coursers
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-23T15:48:51Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs(opavs): record opavs scaffold milestone in progress.md'
+    date: 2026-08-23T15:48:49Z
+  - message: 'fix(githooks): update pre-push hook to xtask''s current subcommand path'
+    date: 2026-08-23T15:46:45Z
+  - message: 'chore(opavs): scaffold Orient-Plan-Act-Verify-Ship phase discipline'
+    date: 2026-08-23T15:43:02Z
+  - message: 'fix(coursers): use terminal-aware fancy rendering for crs probe preview; add just install'
+    date: 2026-08-23T15:18:36Z
+  - message: 'feat(coursers-core, coursers): migrate CourserError to miette::Diagnostic, render RuleViolation in hook denies'
+    date: 2026-08-23T14:54:38Z
+  - message: 'chore(handoff): session-end update'
+    date: 2026-08-23T09:10:50Z
+  - message: 'merge: hc-d wire opt-in HookChain path into coursers binaries (JOB-475)'
+    date: 2026-08-20T23:52:24Z
+  - message: 'feat(coursers): opt-in HookChain path via COURSERS_HOOK_CHAIN=1 (hc-d, JOB-475)'
+    date: 2026-08-20T23:51:41Z
+  - message: 'feat(coursers-core): PostToolUse output redaction + disable dollar-var pre-expansion'
+    date: 2026-08-20T23:45:51Z
+  - message: 'merge: hc-c unified AppConfig loading (JOB-475)'
+    date: 2026-08-20T22:55:07Z
+  tags:
+  - cli
+  readme: |-
+    # coursers
+
+    Claude Code hook pipeline for course-correcting AI-generated Bash commands.
+
+    Two tools:
+
+    - **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures
+    - **`crs`** — front controller, output filter, command rewriter, and hook validator
+
+    ---
+
+    ## How It Works
+
+    ### Rule-based blocking (`coursers pre`)
+
+    Reads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command
+    matches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`
+    response with a human-readable message.
+
+    Rules support:
+
+    - Regex pattern matching (with optional `i` flag)
+    - Exception patterns — allow a command through even if the main pattern matches
+    - Per-rule messages
+
+    ### Learned failure tracking (`coursers post`)
+
+    Reads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and
+    intentional failures), it records the command in a rolling failure log. If the same command
+    fails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.
+
+    This catches commands that aren't covered by static rules but are clearly not working.
+
+    ---
+
+    ## Installation
+
+    ```sh
+    cargo install --path crates/coursers
+    ```
+
+    Install the front-controller hook chain into your local `~/.claude/settings.json`:
+
+    ```json
+    {
+      "hooks": {
+        "PreToolUse": [
+          {
+            "matcher": "Bash",
+            "hooks": [
+              { "type": "command", "command": "crs hook pre-tool-use" }
+            ]
+          }
+        ],
+        "PostToolUse": [
+          {
+            "matcher": "Bash",
+            "hooks": [
+              { "type": "command", "command": "crs hook post-tool-use" }
+            ]
+          }
+        ]
+      }
+    }
+    ```
+
+    Run `crs validate-hooks` after installing the hook block to verify the chain is wired
+    correctly.
+
+    For Codex, the top-level registry also points at `crs hook --target codex <event>`.
+    Those entries dispatch to the existing `$HOME/.codex/hooks/*.crux` backends, which
+    still compose `coursers pre/post` and `crs rewrite/filter` i
+- name: obfsck
+  description: Secret-detection and redaction CLI for pre-commit hooks
+  url: https://github.com/89jobrien/obfsck
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-08-23T14:35:06Z
+  version: v0.1.0
+  stars: null
+  downloads: 124
+  recent_commits:
+  - message: 'chore: sync handoff state, knowledge graph, and preflight/demo scripts'
+    date: 2026-08-23T14:34:05Z
+  - message: 'docs(skills): correct run-obfsck gotcha for the split-literal fixture fix'
+    date: 2026-08-23T12:51:26Z
+  - message: 'feat(skills): add run-obfsck skill driving all 5 binaries'
+    date: 2026-08-23T12:49:59Z
+  - message: 'feat(demo): showcase all five obfsck binaries, not just redact'
+    date: 2026-08-21T18:45:03Z
+  - message: 'feat(errors): render miette fancy diagnostics in bin mains'
+    date: 2026-08-21T18:32:50Z
+  - message: 'feat(errors): adopt miette for diagnostics, replace Box<dyn Error> in ports'
+    date: 2026-08-21T18:29:03Z
+  - message: 'quality(rust-audit): derive Debug across public surface, redact provider API keys'
+    date: 2026-08-21T18:25:27Z
+  - message: 'chore(handoff): update session state after gitleaks adapter refactor'
+    date: 2026-08-18T04:31:27Z
+  - message: 'refactor(adapters): switch secret scanning to gitleaks adapter'
+    date: 2026-08-18T00:39:08Z
+  - message: 'chore: track rustqual baseline in version control'
+    date: 2026-06-27T17:10:15Z
+  tags:
+  - cli
+  readme: |+
+    # obfsck
+
+    Redacts secrets and PII from log lines and structured text.
+
+    ## Install
+
+    ```bash
+    cargo install --path .
+    ```
+
+    ## What it does
+
+    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
+    - Obfuscates identifiers with stable mappings (same input => same token)
+    - Supports privacy levels based on how aggressive redaction should be
+
+    ## Obfuscation levels
+
+    - `Minimal`: secret pattern redaction only
+    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
+    - `Paranoid`: adds path, hostname, and high-entropy token redaction
+
+    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
+    Sensitive system paths are preserved.
+
+    Preserved path segments include common roots like `home`, `usr`, `etc`,
+    `windows`, `users`, and `programdata`.
+
+    ### What each level redacts
+
+    | Pattern category | minimal | standard | paranoid |
+    |-----------------|---------|----------|----------|
+    | API keys, tokens, passwords | yes | yes | yes |
+    | IPs, emails, container IDs, usernames | — | yes | yes |
+    | PII (names, SSN, phone, credit card) | — | yes | yes |
+    | Paths, hostnames, high-entropy strings | — | — | yes |
+    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
+
+    `standard` is the privacy-forward default for sharing logs externally.
+    `minimal` is safe for internal tooling where structural identifiers are useful.
+
+    ## redact CLI
+
+    Redact secrets and PII from a file or stdin.
+
+    ```bash
+    # Stdin -> stdout (default level: minimal — secrets only)
+    echo "key=sk-ant-api03-ABCDEF..." | redact
+
+    # File input
+    redact path/to/logfile.txt
+
+    # Write to output file
+    redact input.txt --output redacted.txt
+
+    # Increase level
+    redact input.txt --level standard   # + IPs, emails, usernames, PII
+    redact input.txt --level paranoid   # + paths, hostnames, high-entropy
+
+    # Audit mode — report findings to stderr without redacting
+    redact input.txt --audit
+
+    # Custom secrets config (overrides bundled config)
+    redact input.txt --config ~/.config/obfsck/secrets.yaml
+    ```
+
+    ### Flags
+
+- name: tracers
+  description: 'trace:: — Trace<T> as a first-class value: Rust crates for execution provenance, task graphs with checkpointing, and escalating multi-agent runtimes'
+  url: https://github.com/89jobrien/tracers
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-23T13:59:44Z
+  version: v0.2.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'flow: finish release into main'
+    date: 2026-08-23T13:59:42Z
+  - message: 'flow: stage staging into release'
+    date: 2026-08-23T13:59:36Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-08-23T13:59:36Z
+  - message: 'chore(ctx): update handoff and taskit telemetry'
+    date: 2026-08-23T13:59:36Z
+  - message: 'feat(skills): add run-tracers skill with end-to-end smoke driver'
+    date: 2026-08-23T12:47:34Z
+  - message: 'chore(handoff): session-end update'
+    date: 2026-08-23T09:11:27Z
+  - message: 'flow: finish release into main'
+    date: 2026-08-22T04:08:00Z
+  - message: 'flow: sync main into develop'
+    date: 2026-08-22T04:08:00Z
+  - message: 'flow: stage staging into release'
+    date: 2026-08-22T04:07:51Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-08-22T04:07:51Z
+  readme: |-
+    # trace::
+
+    > a programming language where reasoning is first-class
+
+    In most languages, values are first-class. In `trace::`, _reasoning provenance_ is
+    first-class. Every computation returns `Trace<T>` — a value enriched with the full
+    causal chain of how it was produced: steps taken, branches considered and rejected,
+    confidence at each decision point, and RAII-style span timing.
+
+    This repository contains the `trace::` language design and a Rust reference
+    implementation of its core types, all of which compile and are usable today.
+
+    ---
+
+    ## crates
+
+    | crate              | description                                                     | docs |
+    | ------------------ | ---------------------------------------------------------------- | --- |
+    | `trace-lang-core`     | `Trace<T>`, `Step`, `Span`, `Branch`, `TraceErr`                | [README](crates/core/README.md) |
+    | `trace-lang-task`     | `Task`, `TaskStatus`, `Priority`, `TaskRegistry`                | [README](crates/task/README.md) |
+    | `trace-lang-agent`    | `Agent` trait, `spawn`/`delegate`, lifecycle escalation hooks   | [README](crates/agent/README.md) |
+    | `trace-lang-runtime`  | `AgentRegistry`, `run_with_escalation`, `join_all`, `speculate` | [README](crates/runtime/README.md) |
+
+    `trace-lang-core` has no dependency on any other crate in the workspace; the
+    dependency graph flows `core -> task`, `core -> agent -> runtime`.
+
+    ---
+
+    ## the mental model
+
+    ```rust
+    // in Rust you might write:
+    fn answer(q: Question) -> Answer { .. }
+
+    // in trace:: every computation is inspectable:
+    step answer(q: Question) -> Trace<Answer> { .. }
+
+    // and you can interrogate the result:
+    let t = spawn MyAgent::answer(q).await
+    t.causal_chain()       // how did we get here?
+    t.rejected_branches()  // what did we consider and discard?
+    t.bottlenecks()        // where did we slow down?
+    t.low_confidence()     // where were we uncertain?
+    ```
+
+    `Trace<T>` is to reasoning what `Result<T, E>` is to errors: a typed,
+    propagatable wrapper with explicit han
+- name: taskit
+  description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
+  url: https://github.com/89jobrien/taskit
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-08-23T12:48:21Z
+  version: v0.6.0
+  stars: 1
+  downloads: 306
+  recent_commits:
+  - message: 'flow: finish release into main'
+    date: 2026-07-12T05:14:53Z
+  - message: 'flow: stage staging into release'
+    date: 2026-07-12T05:14:47Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-07-12T05:14:47Z
+  - message: 'fix(test): use ''true'' instead of ''sh --version'' in tool_exists_cmd test'
+    date: 2026-07-12T05:14:42Z
+  - message: 'flow: finish release into main'
+    date: 2026-07-12T05:10:06Z
+  - message: 'flow: sync main into develop'
+    date: 2026-07-12T05:10:06Z
+  - message: 'flow: stage staging into release'
+    date: 2026-07-12T05:10:01Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-07-12T05:10:01Z
+  - message: 'fix(ci): always install taskit from local path, not crates.io'
+    date: 2026-07-12T05:09:58Z
+  - message: 'flow: finish release into main'
+    date: 2026-07-12T05:06:04Z
+  readme: "# taskit\n\nConfig-driven CI pipeline runner with affected-crate detection, protocol-drift tracking,\nand pipeline orchestration for Rust workspaces.\n\n## Install\n\n```bash\ncargo install taskit\n```\n\n## Quick start\n\nRun from the root of any Rust workspace:\n\n```bash\ntaskit fmt          # format all crates\ntaskit lint         # clippy on all crates\ntaskit test         # nextest on all crates\ntaskit ci           # full local CI pipeline\ntaskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)\n```\n\nAdd `--dry-run` to any command to print the commands that would run without executing them.\n\n## Configuration\n\nCreate `taskit.toml` at the workspace root to customise behaviour. Every field is optional —\ntaskit works without any configuration by discovering crates via `cargo metadata`.\n\n```toml\n[workspace]\n# Ordered list of crates for affected-crate detection.\n# 'dir' is the directory name relative to workspace root.\n# 'pkg' is the Cargo package name (defaults to dir if omitted).\n[[workspace.crates]]\ndir = \"my-common\"\n\n[[workspace.crates]]\ndir = \"my-api\"\n\n# If 'source' changes, 'dependents' are also treated as affected.\n[[workspace.propagation]]\nsource = \"my-common\"\ndependents = [\"my-api\", \"my-cli\"]\n\n# Protocol-drift: files whose content hash is tracked in a lockfile.\n# CI fails when any surface changes without updating the lock.\n[[protocol.surfaces]]\nname = \"api-types\"\npath = \"my-api/src/types.rs\"\n\n[[protocol.surfaces]]\nname = \"cli-commands\"\npath = \"my-cli/src/commands/mod.rs\"\n\n[protocol]\nlockfile = \"taskit-protocol.lock\"   # default\n\n# Custom CI pipeline. When omitted, a built-in default pipeline is used.\n[[ci.steps]]\nname  = \"fmt-check\"\ncmd   = \"fmt --check\"\ngate  = true            # blocks subsequent steps on failure\n\n[[ci.steps]]\nname = \"lint\"\ncmd  = \"lint\"\n\n[[ci.steps]]\nname = \"test\"\ncmd  = \"test\"\n\n[[ci.steps]]\nname = \"protocol-drift\"\ncmd  = \"check-protocol-drift\"\n```\n\n## Subcommands\n\n| Command                                                  "
 - name: opavs
   description: Orient-Plan-Act-Verify-Ship phase discipline CLI
   url: https://github.com/89jobrien/opavs
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-23T11:26:08Z
+  pushed_at: 2026-08-23T12:41:18Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'feat(repo): stop repo-root resolution at git worktree boundary'
+    date: 2026-08-23T12:41:11Z
   - message: 'ci: cache the crux binary keyed on upstream commit SHA'
     date: 2026-08-23T11:25:59Z
   - message: 'ci: fix crux install by specifying the crux-cli package'
@@ -488,7 +811,7 @@
   pushed_at: 2026-08-22T04:09:56.861605Z
   version: 0.2.2
   stars: null
-  downloads: 25
+  downloads: 27
   recent_commits: []
 - name: trace-lang-agent
   description: 'Agent trait, spawn/delegate, and lifecycle escalation hooks for trace::'
@@ -499,7 +822,7 @@
   pushed_at: 2026-08-22T04:09:53.925880Z
   version: 0.2.2
   stars: null
-  downloads: 36
+  downloads: 38
   recent_commits: []
 - name: trace-lang-core
   description: Core Trace<T> type — reasoning provenance as a first-class value
@@ -512,85 +835,6 @@
   stars: null
   downloads: 47
   recent_commits: []
-- name: tracers
-  description: null
-  url: https://github.com/89jobrien/tracers
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-22T04:08:12Z
-  version: v0.2.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'flow: finish release into main'
-    date: 2026-08-22T04:08:00Z
-  - message: 'flow: stage staging into release'
-    date: 2026-08-22T04:07:51Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-08-22T04:07:51Z
-  - message: 'chore(release): v0.2.2'
-    date: 2026-08-22T04:07:48Z
-  - message: 'refactor: polish pass - simplify winner selection and sorts, add serde round-trip tests'
-    date: 2026-08-18T23:08:03Z
-  - message: 'flow: finish release into main'
-    date: 2026-08-18T22:55:54Z
-  - message: 'flow: sync main into develop'
-    date: 2026-08-18T22:55:54Z
-  - message: 'flow: stage staging into release'
-    date: 2026-08-18T22:55:47Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-08-18T22:55:47Z
-  - message: 'chore(audit): rust-audit mechanical fixes - derives, docs, crate metadata'
-    date: 2026-08-18T22:55:39Z
-  readme: |-
-    # trace::
-
-    > a programming language where reasoning is first-class
-
-    In most languages, values are first-class. In `trace::`, _reasoning provenance_ is
-    first-class. Every computation returns `Trace<T>` — a value enriched with the full
-    causal chain of how it was produced: steps taken, branches considered and rejected,
-    confidence at each decision point, and RAII-style span timing.
-
-    This repository contains the `trace::` language design and a Rust reference
-    implementation of its core types, all of which compile and are usable today.
-
-    ---
-
-    ## crates
-
-    | crate              | description                                                     | docs |
-    | ------------------ | ---------------------------------------------------------------- | --- |
-    | `trace-lang-core`     | `Trace<T>`, `Step`, `Span`, `Branch`, `TraceErr`                | [README](crates/core/README.md) |
-    | `trace-lang-task`     | `Task`, `TaskStatus`, `Priority`, `TaskRegistry`                | [README](crates/task/README.md) |
-    | `trace-lang-agent`    | `Agent` trait, `spawn`/`delegate`, lifecycle escalation hooks   | [README](crates/agent/README.md) |
-    | `trace-lang-runtime`  | `AgentRegistry`, `run_with_escalation`, `join_all`, `speculate` | [README](crates/runtime/README.md) |
-
-    `trace-lang-core` has no dependency on any other crate in the workspace; the
-    dependency graph flows `core -> task`, `core -> agent -> runtime`.
-
-    ---
-
-    ## the mental model
-
-    ```rust
-    // in Rust you might write:
-    fn answer(q: Question) -> Answer { .. }
-
-    // in trace:: every computation is inspectable:
-    step answer(q: Question) -> Trace<Answer> { .. }
-
-    // and you can interrogate the result:
-    let t = spawn MyAgent::answer(q).await
-    t.causal_chain()       // how did we get here?
-    t.rejected_branches()  // what did we consider and discard?
-    t.bottlenecks()        // where did we slow down?
-    t.low_confidence()     // where were we uncertain?
-    ```
-
-    `Trace<T>` is to reasoning what `Result<T, E>` is to errors: a typed,
-    propagatable wrapper with explicit han
 - name: godmode
   description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
   url: https://github.com/89jobrien/godmode
@@ -707,109 +951,6 @@
     | `lib/std/nu_deps.nu`            | `nu-deps`                    |
     | `lib/std/nu_release.nu`         | `nu-release`                 |
     | `lib/ta
-- name: obfsck
-  description: Secret-detection and redaction CLI for pre-commit hooks
-  url: https://github.com/89jobrien/obfsck
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-08-21T18:46:02Z
-  version: v0.1.0
-  stars: null
-  downloads: 124
-  recent_commits:
-  - message: 'feat(demo): showcase all five obfsck binaries, not just redact'
-    date: 2026-08-21T18:45:03Z
-  - message: 'feat(errors): render miette fancy diagnostics in bin mains'
-    date: 2026-08-21T18:32:50Z
-  - message: 'feat(errors): adopt miette for diagnostics, replace Box<dyn Error> in ports'
-    date: 2026-08-21T18:29:03Z
-  - message: 'quality(rust-audit): derive Debug across public surface, redact provider API keys'
-    date: 2026-08-21T18:25:27Z
-  - message: 'chore(handoff): update session state after gitleaks adapter refactor'
-    date: 2026-08-18T04:31:27Z
-  - message: 'refactor(adapters): switch secret scanning to gitleaks adapter'
-    date: 2026-08-18T00:39:08Z
-  - message: 'chore: track rustqual baseline in version control'
-    date: 2026-06-27T17:10:15Z
-  - message: 'handoff: update HANDOFF.obfsck.obfsck.yaml with quality refactoring log entry'
-    date: 2026-06-25T16:55:24Z
-  - message: 'quality: raise rustqual score from 74.0% to 91.2%'
-    date: 2026-06-25T01:59:16Z
-  - message: Delete demo/examples/16_maestro_session.yaml
-    date: 2026-06-12T06:31:54Z
-  tags:
-  - cli
-  readme: |+
-    # obfsck
-
-    Redacts secrets and PII from log lines and structured text.
-
-    ## Install
-
-    ```bash
-    cargo install --path .
-    ```
-
-    ## What it does
-
-    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
-    - Obfuscates identifiers with stable mappings (same input => same token)
-    - Supports privacy levels based on how aggressive redaction should be
-
-    ## Obfuscation levels
-
-    - `Minimal`: secret pattern redaction only
-    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
-    - `Paranoid`: adds path, hostname, and high-entropy token redaction
-
-    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
-    Sensitive system paths are preserved.
-
-    Preserved path segments include common roots like `home`, `usr`, `etc`,
-    `windows`, `users`, and `programdata`.
-
-    ### What each level redacts
-
-    | Pattern category | minimal | standard | paranoid |
-    |-----------------|---------|----------|----------|
-    | API keys, tokens, passwords | yes | yes | yes |
-    | IPs, emails, container IDs, usernames | — | yes | yes |
-    | PII (names, SSN, phone, credit card) | — | yes | yes |
-    | Paths, hostnames, high-entropy strings | — | — | yes |
-    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
-
-    `standard` is the privacy-forward default for sharing logs externally.
-    `minimal` is safe for internal tooling where structural identifiers are useful.
-
-    ## redact CLI
-
-    Redact secrets and PII from a file or stdin.
-
-    ```bash
-    # Stdin -> stdout (default level: minimal — secrets only)
-    echo "key=sk-ant-api03-ABCDEF..." | redact
-
-    # File input
-    redact path/to/logfile.txt
-
-    # Write to output file
-    redact input.txt --output redacted.txt
-
-    # Increase level
-    redact input.txt --level standard   # + IPs, emails, usernames, PII
-    redact input.txt --level paranoid   # + paths, hostnames, high-entropy
-
-    # Audit mode — report findings to stderr without redacting
-    redact input.txt --audit
-
-    # Custom secrets config (overrides bundled config)
-    redact input.txt --config ~/.config/obfsck/secrets.yaml
-    ```
-
-    ### Flags
-
 - name: notfiles
   description: Nix-based dotfiles and system configuration
   url: https://github.com/89jobrien/notfiles
@@ -913,145 +1054,6 @@
     | `notfiles` | lib + bin | Symlink/copy packages into `$HOME`, track state, adopt/diff/check |
     | `notsecrets` | lib | Multi-provider secret resolution, native age encryption/decryption |
     | `nothooks` | lib + bin | Run bootstrap h
-- name: taskit
-  description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
-  url: https://github.com/89jobrien/taskit
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-08-18T23:13:06Z
-  version: v0.6.0
-  stars: 1
-  downloads: 299
-  recent_commits:
-  - message: 'flow: finish release into main'
-    date: 2026-07-12T05:14:53Z
-  - message: 'flow: stage staging into release'
-    date: 2026-07-12T05:14:47Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-07-12T05:14:47Z
-  - message: 'fix(test): use ''true'' instead of ''sh --version'' in tool_exists_cmd test'
-    date: 2026-07-12T05:14:42Z
-  - message: 'flow: finish release into main'
-    date: 2026-07-12T05:10:06Z
-  - message: 'flow: sync main into develop'
-    date: 2026-07-12T05:10:06Z
-  - message: 'flow: stage staging into release'
-    date: 2026-07-12T05:10:01Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-07-12T05:10:01Z
-  - message: 'fix(ci): always install taskit from local path, not crates.io'
-    date: 2026-07-12T05:09:58Z
-  - message: 'flow: finish release into main'
-    date: 2026-07-12T05:06:04Z
-  readme: "# taskit\n\nConfig-driven CI pipeline runner with affected-crate detection, protocol-drift tracking,\nand pipeline orchestration for Rust workspaces.\n\n## Install\n\n```bash\ncargo install taskit\n```\n\n## Quick start\n\nRun from the root of any Rust workspace:\n\n```bash\ntaskit fmt          # format all crates\ntaskit lint         # clippy on all crates\ntaskit test         # nextest on all crates\ntaskit ci           # full local CI pipeline\ntaskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)\n```\n\nAdd `--dry-run` to any command to print the commands that would run without executing them.\n\n## Configuration\n\nCreate `taskit.toml` at the workspace root to customise behaviour. Every field is optional —\ntaskit works without any configuration by discovering crates via `cargo metadata`.\n\n```toml\n[workspace]\n# Ordered list of crates for affected-crate detection.\n# 'dir' is the directory name relative to workspace root.\n# 'pkg' is the Cargo package name (defaults to dir if omitted).\n[[workspace.crates]]\ndir = \"my-common\"\n\n[[workspace.crates]]\ndir = \"my-api\"\n\n# If 'source' changes, 'dependents' are also treated as affected.\n[[workspace.propagation]]\nsource = \"my-common\"\ndependents = [\"my-api\", \"my-cli\"]\n\n# Protocol-drift: files whose content hash is tracked in a lockfile.\n# CI fails when any surface changes without updating the lock.\n[[protocol.surfaces]]\nname = \"api-types\"\npath = \"my-api/src/types.rs\"\n\n[[protocol.surfaces]]\nname = \"cli-commands\"\npath = \"my-cli/src/commands/mod.rs\"\n\n[protocol]\nlockfile = \"taskit-protocol.lock\"   # default\n\n# Custom CI pipeline. When omitted, a built-in default pipeline is used.\n[[ci.steps]]\nname  = \"fmt-check\"\ncmd   = \"fmt --check\"\ngate  = true            # blocks subsequent steps on failure\n\n[[ci.steps]]\nname = \"lint\"\ncmd  = \"lint\"\n\n[[ci.steps]]\nname = \"test\"\ncmd  = \"test\"\n\n[[ci.steps]]\nname = \"protocol-drift\"\ncmd  = \"check-protocol-drift\"\n```\n\n## Subcommands\n\n| Command                                                  "
-- name: coursers
-  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
-  url: https://github.com/89jobrien/coursers
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-18T02:10:44Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs(plans): record first live coursers-rules pipeline run'
-    date: 2026-08-18T02:10:42Z
-  - message: 'docs(plans): check off Phase 3 pipeline delivery in godmode-integration plan'
-    date: 2026-08-17T19:45:36Z
-  - message: 'chore(config): finish ~/.claude/hooks -> ~/.config/coursers migration'
-    date: 2026-08-17T19:35:04Z
-  - message: 'fix(scripts): create enrich-handoff temp files in .ctx so mv is atomic'
-    date: 2026-08-17T18:15:11Z
-  - message: 'feat(hook): run course-correct rules inside crs hook pre-tool-use'
-    date: 2026-08-17T18:13:33Z
-  - message: 'fix(rules): whole-command fallback in check_pipeline so operator rules can fire'
-    date: 2026-08-17T18:07:08Z
-  - message: 'fix(hook): match unless as a regex, not a literal substring'
-    date: 2026-08-17T18:01:28Z
-  - message: 'fix(coursers-core): clean up dead test code, satisfy pre-push clippy --all-targets'
-    date: 2026-08-17T07:30:24Z
-  - message: 'merge: hc-a hook-composition traits (JOB-475)'
-    date: 2026-08-17T07:19:33Z
-  - message: 'feat(coursers-core): add PreHook/PostHook/Observer/HookChain port traits (JOB-475 hc-a)'
-    date: 2026-08-17T07:02:00Z
-  tags:
-  - cli
-  readme: |-
-    # coursers
-
-    Claude Code hook pipeline for course-correcting AI-generated Bash commands.
-
-    Two tools:
-
-    - **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures
-    - **`crs`** — front controller, output filter, command rewriter, and hook validator
-
-    ---
-
-    ## How It Works
-
-    ### Rule-based blocking (`coursers pre`)
-
-    Reads the Claude Code `PreToolUse` JSON payload from stdin. If the `Bash` tool's command
-    matches a rule in `~/.config/coursers/course-correct-rules.json`, the hook returns a `deny`
-    response with a human-readable message.
-
-    Rules support:
-
-    - Regex pattern matching (with optional `i` flag)
-    - Exception patterns — allow a command through even if the main pattern matches
-    - Per-rule messages
-
-    ### Learned failure tracking (`coursers post`)
-
-    Reads the `PostToolUse` payload. When a `Bash` command exits non-zero (excluding signals and
-    intentional failures), it records the command in a rolling failure log. If the same command
-    fails ≥ N times in a sliding window, `coursers pre` will block it on the next attempt.
-
-    This catches commands that aren't covered by static rules but are clearly not working.
-
-    ---
-
-    ## Installation
-
-    ```sh
-    cargo install --path crates/coursers
-    ```
-
-    Install the front-controller hook chain into your local `~/.claude/settings.json`:
-
-    ```json
-    {
-      "hooks": {
-        "PreToolUse": [
-          {
-            "matcher": "Bash",
-            "hooks": [
-              { "type": "command", "command": "crs hook pre-tool-use" }
-            ]
-          }
-        ],
-        "PostToolUse": [
-          {
-            "matcher": "Bash",
-            "hooks": [
-              { "type": "command", "command": "crs hook post-tool-use" }
-            ]
-          }
-        ]
-      }
-    }
-    ```
-
-    Run `crs validate-hooks` after installing the hook block to verify the chain is wired
-    correctly.
-
-    For Codex, the top-level registry also points at `crs hook --target codex <event>`.
-    Those entries dispatch to the existing `$HOME/.codex/hooks/*.crux` backends, which
-    still compose `coursers pre/post` and `crs rewrite/filter` i
 - name: mlrs
   description: Recursive Language Model (RLM) inference in Rust — Rhai-scripted context navigation with unbounded context handling
   url: https://github.com/89jobrien/mlrs
@@ -2257,7 +2259,7 @@
   pushed_at: 2026-08-04T23:04:24.588553Z
   version: 0.8.0
   stars: null
-  downloads: 64
+  downloads: 71
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -2268,7 +2270,7 @@
   pushed_at: 2026-08-04T23:04:11.949045Z
   version: 0.8.0
   stars: null
-  downloads: 65
+  downloads: 72
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -2279,7 +2281,7 @@
   pushed_at: 2026-08-04T23:04:00.578508Z
   version: 0.8.0
   stars: null
-  downloads: 64
+  downloads: 71
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -2290,7 +2292,7 @@
   pushed_at: 2026-08-04T23:03:45.815577Z
   version: 0.8.0
   stars: null
-  downloads: 99
+  downloads: 106
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -2334,7 +2336,7 @@
   pushed_at: 2026-08-04T23:02:13.812559Z
   version: 0.8.0
   stars: null
-  downloads: 97
+  downloads: 104
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -2345,7 +2347,7 @@
   pushed_at: 2026-08-04T23:02:03.842671Z
   version: 0.8.0
   stars: null
-  downloads: 188
+  downloads: 195
   recent_commits: []
 - name: prefixe
   description: Prepend validated prefixes to shell commands — reads rx prefix config
@@ -4067,7 +4069,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 5156
+  downloads: 5157
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4346,7 +4348,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 2069
+  downloads: 2070
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
