@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-23T11:26:51Z
+  pushed_at: 2026-08-23T23:27:53Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-08-23T23:27:51Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-23T11:26:50Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-08-19T23:29:13Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-19T11:31:33Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-08-18T23:27:54Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,128 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-08-24T07:41:42Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-24T07:41:41Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-23T07:13:04Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-22T07:11:58Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-21T07:27:00Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-20T07:25:03Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-19T07:22:18Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-18T23:05:28Z
+  - message: Merge remote-tracking branch 'origin/main'
+    date: 2026-08-18T23:04:19Z
+  - message: 'content: ground insights.yaml in the canonical /joe:persona doc'
+    date: 2026-08-18T23:01:06Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-18T10:06:39Z
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-24T03:19:46Z
+  version: v0.32.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #466 from 89jobrien/sync/main-reconcile-2026-08-15'
+    date: 2026-08-15T11:34:19Z
+  - message: 'Merge pull request #467 from 89jobrien/copilot/fix-pr-ci-check'
+    date: 2026-08-15T11:30:53Z
+  - message: Fix PR CI failures in audit/deny by upgrading rmcp and updating MCP API usage
+    date: 2026-08-15T11:25:35Z
+  - message: 'fix(ci): remove failing taskit install from CI pipeline'
+    date: 2026-08-15T10:49:39Z
+  - message: 'doc: add docs/FEATURE_MATRIX.md and unignore it to fix CI staleness check'
+    date: 2026-08-15T10:09:06Z
+  - message: Merge remote-tracking branch 'origin/main'
+    date: 2026-08-15T09:28:38Z
+  - message: 'flow: finish staging into main'
+    date: 2026-08-15T09:26:29Z
+  - message: 'fix: strict MINIBOX_TEST_BIN_DIR lookup and prune unused deps'
+    date: 2026-08-15T08:28:44Z
+  - message: 'flow: stage next into staging'
+    date: 2026-08-15T06:54:52Z
+  - message: 'flow: promote develop into next'
+    date: 2026-08-15T06:54:52Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
+
+    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
+    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
+    keeps adapter suites swappable at startup with no recompile.
+
+    **Status:** Active development — `v0.31.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `mbx logs <id>` for stored stdout/stderr
+    - Container events — `mbx events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
+    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
+      Colima available as an alternative via Lima VM
+
+    ---
+
+    ## Quick Start
+
+    Requires Linux, root, kernel 5.
 - name: coursers
   description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
   url: https://github.com/89jobrien/coursers
@@ -669,128 +791,6 @@
     | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
     | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
     | [`crux-derive`](crates/crux-macros)   | `#[crux::ag
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-08-23T07:13:05Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-23T07:13:04Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-22T07:11:58Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-21T07:27:00Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-20T07:25:03Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-19T07:22:18Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-18T23:05:28Z
-  - message: Merge remote-tracking branch 'origin/main'
-    date: 2026-08-18T23:04:19Z
-  - message: 'content: ground insights.yaml in the canonical /joe:persona doc'
-    date: 2026-08-18T23:01:06Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-18T10:06:39Z
-  - message: 'fix(ci): correct bz binary path — target/release/bz, not ../target/release/bz'
-    date: 2026-08-18T10:04:49Z
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-23T03:18:42Z
-  version: v0.32.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #466 from 89jobrien/sync/main-reconcile-2026-08-15'
-    date: 2026-08-15T11:34:19Z
-  - message: 'Merge pull request #467 from 89jobrien/copilot/fix-pr-ci-check'
-    date: 2026-08-15T11:30:53Z
-  - message: Fix PR CI failures in audit/deny by upgrading rmcp and updating MCP API usage
-    date: 2026-08-15T11:25:35Z
-  - message: 'fix(ci): remove failing taskit install from CI pipeline'
-    date: 2026-08-15T10:49:39Z
-  - message: 'doc: add docs/FEATURE_MATRIX.md and unignore it to fix CI staleness check'
-    date: 2026-08-15T10:09:06Z
-  - message: Merge remote-tracking branch 'origin/main'
-    date: 2026-08-15T09:28:38Z
-  - message: 'flow: finish staging into main'
-    date: 2026-08-15T09:26:29Z
-  - message: 'fix: strict MINIBOX_TEST_BIN_DIR lookup and prune unused deps'
-    date: 2026-08-15T08:28:44Z
-  - message: 'flow: stage next into staging'
-    date: 2026-08-15T06:54:52Z
-  - message: 'flow: promote develop into next'
-    date: 2026-08-15T06:54:52Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
-
-    A container runtime written in Rust. Daemon/CLI split, OCI image pulling, Linux namespace
-    isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal architecture
-    keeps adapter suites swappable at startup with no recompile.
-
-    **Status:** Active development — `v0.31.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `mbx logs <id>` for stored stdout/stderr
-    - Container events — `mbx events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
-    - **macOS adapters** — run/stop/ps via smolvm or krun (VM-backed); exec/logs not supported;
-      Colima available as an alternative via Lima VM
-
-    ---
-
-    ## Quick Start
-
-    Requires Linux, root, kernel 5.
 - name: trace-lang-runtime
   description: 'Agent registry, delegation resolution, parallel fan-out, and speculative branching for trace::'
   url: https://crates.io/crates/trace-lang-runtime
@@ -800,7 +800,7 @@
   pushed_at: 2026-08-22T04:10:00.411110Z
   version: 0.2.2
   stars: null
-  downloads: 28
+  downloads: 30
   recent_commits: []
 - name: trace-lang-task
   description: 'Serializable task management for trace:: agentic pipelines'
@@ -2690,7 +2690,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 70
+  downloads: 71
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -2909,7 +2909,7 @@
   pushed_at: 2026-07-13T07:34:30.277211Z
   version: 0.3.0
   stars: null
-  downloads: 68
+  downloads: 72
   recent_commits: []
 - name: braid-model
   description: Canonical domain types for the braid agent platform
@@ -2920,7 +2920,7 @@
   pushed_at: 2026-07-13T07:33:22.653887Z
   version: 0.3.0
   stars: null
-  downloads: 92
+  downloads: 98
   recent_commits: []
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
@@ -4069,7 +4069,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 5157
+  downloads: 5165
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4080,7 +4080,7 @@
   pushed_at: 2026-05-16T04:04:45.475950Z
   version: 0.3.0
   stars: null
-  downloads: 87
+  downloads: 88
   recent_commits: []
 - name: agentlint-pi
   description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
@@ -4091,7 +4091,7 @@
   pushed_at: 2026-05-16T04:04:23.718026Z
   version: 0.3.0
   stars: null
-  downloads: 89
+  downloads: 90
   recent_commits: []
 - name: agentlint-gemini
   description: agentlint validator for Google Gemini GEMINI.md files
@@ -4102,7 +4102,7 @@
   pushed_at: 2026-05-16T04:04:00.508658Z
   version: 0.3.0
   stars: null
-  downloads: 109
+  downloads: 110
   recent_commits: []
 - name: agentlint-codex
   description: agentlint validator for OpenAI Codex AGENTS.md files
@@ -4113,7 +4113,7 @@
   pushed_at: 2026-05-16T04:03:38.113837Z
   version: 0.3.0
   stars: null
-  downloads: 107
+  downloads: 108
   recent_commits: []
 - name: agentlint-cursor
   description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
@@ -4124,7 +4124,7 @@
   pushed_at: 2026-05-16T04:03:15.391246Z
   version: 0.3.0
   stars: null
-  downloads: 108
+  downloads: 109
   recent_commits: []
 - name: agentlint-claude
   description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
@@ -4135,7 +4135,7 @@
   pushed_at: 2026-05-16T04:02:52.382445Z
   version: 0.3.0
   stars: null
-  downloads: 86
+  downloads: 87
   recent_commits: []
 - name: agentlint-frontmatter
   description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
@@ -4146,7 +4146,7 @@
   pushed_at: 2026-05-16T04:02:28.958456Z
   version: 0.3.0
   stars: null
-  downloads: 195
+  downloads: 198
   recent_commits: []
 - name: agentlint-core
   description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
@@ -4157,7 +4157,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 362
+  downloads: 369
   recent_commits: []
 - name: warpx
   description: 'Warp terminal fork: agentic dev environment, custom UI, MCP, skills'
@@ -4348,7 +4348,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 2070
+  downloads: 2074
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -5302,96 +5302,3 @@
         source "$HOME/shell-aliases/fish/aliases.fish"
     end
     ```
-- name: message-extractor
-  description: null
-  url: https://github.com/89jobrien/message-extractor
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-02-25T02:33:57Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: ignore non-readme markdown'
-    date: 2026-02-25T02:33:48Z
-  - message: 'feat(ui): add configurable fetch limit'
-    date: 2026-02-25T02:33:41Z
-  - message: 'chore: add frontend dev task'
-    date: 2026-02-25T02:28:09Z
-  - message: 'feat(ui): make messages scrollable'
-    date: 2026-02-25T02:28:02Z
-  - message: 'chore: harden watcher port cleanup'
-    date: 2026-02-25T02:19:28Z
-  - message: 'chore: auto-clear watcher port'
-    date: 2026-02-25T02:18:40Z
-  - message: 'chore: add beads instructions'
-    date: 2026-02-25T02:00:11Z
-  - message: 'chore(beads): add repo config'
-    date: 2026-02-25T02:00:05Z
-  - message: 'docs(beads): add repo guide'
-    date: 2026-02-25T01:59:49Z
-  - message: 'style(example): tidy extract usage'
-    date: 2026-02-25T01:57:20Z
-  readme: |-
-    # Message Extractor
-
-    A Rust-based system for extracting, monitoring, and visualizing conversations from AI coding assistants in real-time.
-
-    ## Overview
-
-    Message Extractor provides a complete solution for working with AI assistant conversations:
-
-    1. **Core Library** (`message-extractor`): Extract messages from 7+ AI assistants
-    2. **Watcher Service** (`message-watcher`): Monitor files and stream updates via SSE
-    3. **Web UI** (`frontend`): Real-time visualization with search and filtering
-
-    **Why this exists**: If you use multiple AI coding assistants, you might want to aggregate their conversations, search across them, or analyze usage patterns. This project makes that easy.
-
-    ```text
-    ┌──────────┐    ┌─────────────────┐    ┌──────────────┐
-    │ Session  │───▶│ message-watcher │───▶│   Browser    │
-    │  Files   │    │   (Rust + SSE)  │    │ (Yew + WASM) │
-    └──────────┘    └─────────────────┘    └──────────────┘
-      .jsonl/.json     File watching         Real-time UI
-    ```
-
-    ## Quick Start (Full System)
-
-    Get the complete system running in 2 minutes:
-
-    ```bash
-    # 1. Clone and build
-    git clone https://github.com/yourusername/message-extractor.git
-    cd message-extractor
-    cargo build --release
-
-    # 2. Start backend (Terminal 1)
-    mise run watcher:run
-
-    # 3. Start frontend (Terminal 2)
-    cd frontend && mise exec -- trunk serve
-
-    # 4. Open browser
-    open http://localhost:8080
-    ```
-
-    You'll see messages from all your AI assistants streaming in real-time! 🎉
-
-    ## Features
-
-    ### Core Library
-    - **Trait-based design** for extensible provider support
-    - **Async I/O** for efficient file processing
-    - **Type-safe** error handling with `thiserror`
-    - **7 provider implementations**:
-      - Claude
-      - Codex
-      - Copilot
-      - Gemini
-      - OpenCode
-      - Droid
-      - Cursor
-
-    ### Watcher Service
-    - **Real-time m
