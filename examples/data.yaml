@@ -4,11 +4,15 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-25T09:57:44Z
+  pushed_at: 2026-08-25T12:09:16Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'fix(ci): use github token for cross-repo checkout'
+    date: 2026-08-25T12:08:11Z
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-08-25T11:11:03Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-24T23:09:29Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -25,10 +29,6 @@
     date: 2026-08-21T23:30:29Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-21T11:32:56Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-08-20T23:32:59Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-08-20T11:33:29Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,85 +213,6 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
-- name: tracers
-  description: 'trace:: — Trace<T> as a first-class value: Rust crates for execution provenance, task graphs with checkpointing, and escalating multi-agent runtimes'
-  url: https://github.com/89jobrien/tracers
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-25T10:33:54Z
-  version: v0.2.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'fix(ci): install taskit-required cargo tools'
-    date: 2026-08-25T10:33:46Z
-  - message: 'fix(ci): make SARIF upload non-blocking'
-    date: 2026-08-25T10:29:13Z
-  - message: 'fix(ci): install protobuf before taskit setup'
-    date: 2026-08-25T10:22:42Z
-  - message: 'flow: finish release into main'
-    date: 2026-08-23T13:59:42Z
-  - message: 'flow: stage staging into release'
-    date: 2026-08-23T13:59:36Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-08-23T13:59:36Z
-  - message: 'chore(ctx): update handoff and taskit telemetry'
-    date: 2026-08-23T13:59:36Z
-  - message: 'feat(skills): add run-tracers skill with end-to-end smoke driver'
-    date: 2026-08-23T12:47:34Z
-  - message: 'chore(handoff): session-end update'
-    date: 2026-08-23T09:11:27Z
-  - message: 'flow: finish release into main'
-    date: 2026-08-22T04:08:00Z
-  readme: |-
-    # trace::
-
-    > a programming language where reasoning is first-class
-
-    In most languages, values are first-class. In `trace::`, _reasoning provenance_ is
-    first-class. Every computation returns `Trace<T>` — a value enriched with the full
-    causal chain of how it was produced: steps taken, branches considered and rejected,
-    confidence at each decision point, and RAII-style span timing.
-
-    This repository contains the `trace::` language design and a Rust reference
-    implementation of its core types, all of which compile and are usable today.
-
-    ---
-
-    ## crates
-
-    | crate              | description                                                     | docs |
-    | ------------------ | ---------------------------------------------------------------- | --- |
-    | `trace-lang-core`     | `Trace<T>`, `Step`, `Span`, `Branch`, `TraceErr`                | [README](crates/core/README.md) |
-    | `trace-lang-task`     | `Task`, `TaskStatus`, `Priority`, `TaskRegistry`                | [README](crates/task/README.md) |
-    | `trace-lang-agent`    | `Agent` trait, `spawn`/`delegate`, lifecycle escalation hooks   | [README](crates/agent/README.md) |
-    | `trace-lang-runtime`  | `AgentRegistry`, `run_with_escalation`, `join_all`, `speculate` | [README](crates/runtime/README.md) |
-
-    `trace-lang-core` has no dependency on any other crate in the workspace; the
-    dependency graph flows `core -> task`, `core -> agent -> runtime`.
-
-    ---
-
-    ## the mental model
-
-    ```rust
-    // in Rust you might write:
-    fn answer(q: Question) -> Answer { .. }
-
-    // in trace:: every computation is inspectable:
-    step answer(q: Question) -> Trace<Answer> { .. }
-
-    // and you can interrogate the result:
-    let t = spawn MyAgent::answer(q).await
-    t.causal_chain()       // how did we get here?
-    t.rejected_branches()  // what did we consider and discard?
-    t.bottlenecks()        // where did we slow down?
-    t.low_confidence()     // where were we uncertain?
-    ```
-
-    `Trace<T>` is to reasoning what `Result<T, E>` is to errors: a typed,
-    propagatable wrapper with explicit han
 - name: looprs
   description: Just tools in a loop.
   url: https://github.com/89jobrien/looprs
@@ -299,11 +220,13 @@
   - GitHubRepo
   - CratesIo
   language: Rust
-  pushed_at: 2026-08-25T10:33:21Z
+  pushed_at: 2026-08-25T12:06:52Z
   version: v0.3.2
   stars: 1
   downloads: 134
   recent_commits:
+  - message: 'fix(tests): satisfy clippy uninlined format args'
+    date: 2026-08-25T12:06:20Z
   - message: 'fix(ci): run fuzz on nightly and resolve clippy format lints'
     date: 2026-08-25T10:32:26Z
   - message: 'fix(ci): use nightly cargo-fuzz and satisfy clippy format lint'
@@ -322,8 +245,6 @@
     date: 2026-08-25T05:41:46Z
   - message: 'chore(env): centralize secret loading via source_up'
     date: 2026-08-25T05:40:06Z
-  - message: 'feat(commands): add /models command metadata and help docs'
-    date: 2026-08-25T05:10:19Z
   tags:
   - tools
   readme: |-
@@ -414,6 +335,85 @@
     .looprs/
     ├── provider.json          # Provider/model settings
     ├── config.json            # Runtime defaults, file refs, pipeline, ag
+- name: tracers
+  description: 'trace:: — Trace<T> as a first-class value: Rust crates for execution provenance, task graphs with checkpointing, and escalating multi-agent runtimes'
+  url: https://github.com/89jobrien/tracers
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-25T10:33:54Z
+  version: v0.2.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(ci): install taskit-required cargo tools'
+    date: 2026-08-25T10:33:46Z
+  - message: 'fix(ci): make SARIF upload non-blocking'
+    date: 2026-08-25T10:29:13Z
+  - message: 'fix(ci): install protobuf before taskit setup'
+    date: 2026-08-25T10:22:42Z
+  - message: 'flow: finish release into main'
+    date: 2026-08-23T13:59:42Z
+  - message: 'flow: stage staging into release'
+    date: 2026-08-23T13:59:36Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-08-23T13:59:36Z
+  - message: 'chore(ctx): update handoff and taskit telemetry'
+    date: 2026-08-23T13:59:36Z
+  - message: 'feat(skills): add run-tracers skill with end-to-end smoke driver'
+    date: 2026-08-23T12:47:34Z
+  - message: 'chore(handoff): session-end update'
+    date: 2026-08-23T09:11:27Z
+  - message: 'flow: finish release into main'
+    date: 2026-08-22T04:08:00Z
+  readme: |-
+    # trace::
+
+    > a programming language where reasoning is first-class
+
+    In most languages, values are first-class. In `trace::`, _reasoning provenance_ is
+    first-class. Every computation returns `Trace<T>` — a value enriched with the full
+    causal chain of how it was produced: steps taken, branches considered and rejected,
+    confidence at each decision point, and RAII-style span timing.
+
+    This repository contains the `trace::` language design and a Rust reference
+    implementation of its core types, all of which compile and are usable today.
+
+    ---
+
+    ## crates
+
+    | crate              | description                                                     | docs |
+    | ------------------ | ---------------------------------------------------------------- | --- |
+    | `trace-lang-core`     | `Trace<T>`, `Step`, `Span`, `Branch`, `TraceErr`                | [README](crates/core/README.md) |
+    | `trace-lang-task`     | `Task`, `TaskStatus`, `Priority`, `TaskRegistry`                | [README](crates/task/README.md) |
+    | `trace-lang-agent`    | `Agent` trait, `spawn`/`delegate`, lifecycle escalation hooks   | [README](crates/agent/README.md) |
+    | `trace-lang-runtime`  | `AgentRegistry`, `run_with_escalation`, `join_all`, `speculate` | [README](crates/runtime/README.md) |
+
+    `trace-lang-core` has no dependency on any other crate in the workspace; the
+    dependency graph flows `core -> task`, `core -> agent -> runtime`.
+
+    ---
+
+    ## the mental model
+
+    ```rust
+    // in Rust you might write:
+    fn answer(q: Question) -> Answer { .. }
+
+    // in trace:: every computation is inspectable:
+    step answer(q: Question) -> Trace<Answer> { .. }
+
+    // and you can interrogate the result:
+    let t = spawn MyAgent::answer(q).await
+    t.causal_chain()       // how did we get here?
+    t.rejected_branches()  // what did we consider and discard?
+    t.bottlenecks()        // where did we slow down?
+    t.low_confidence()     // where were we uncertain?
+    ```
+
+    `Trace<T>` is to reasoning what `Result<T, E>` is to errors: a typed,
+    propagatable wrapper with explicit han
 - name: crux
   description: Inspectable, serializable, replayable agent execution.
   url: https://github.com/89jobrien/crux
@@ -562,7 +562,7 @@
   pushed_at: 2026-08-25T10:13:37Z
   version: v0.1.0
   stars: null
-  downloads: 126
+  downloads: 128
   recent_commits:
   - message: 'fix(deps): bump quinn-proto for RustSec-2026-0185'
     date: 2026-08-25T10:11:49Z
@@ -1134,7 +1134,7 @@
   pushed_at: 2026-08-22T04:09:53.925880Z
   version: 0.2.2
   stars: null
-  downloads: 41
+  downloads: 42
   recent_commits: []
 - name: trace-lang-core
   description: Core Trace<T> type — reasoning provenance as a first-class value
@@ -1145,7 +1145,7 @@
   pushed_at: 2026-08-22T04:09:49.374662Z
   version: 0.2.2
   stars: null
-  downloads: 54
+  downloads: 57
   recent_commits: []
 - name: nu_libs
   description: A library of Nushell scripts organized by category
@@ -2458,7 +2458,7 @@
   pushed_at: 2026-08-04T23:03:18.842007Z
   version: 0.8.0
   stars: null
-  downloads: 51
+  downloads: 53
   recent_commits: []
 - name: taskit-crux
   description: Embedded Cruxfile runner for taskit (behind feature flag)
@@ -2480,7 +2480,7 @@
   pushed_at: 2026-08-04T23:02:23.930119Z
   version: 0.8.0
   stars: null
-  downloads: 93
+  downloads: 97
   recent_commits: []
 - name: taskit-core
   description: Core types and traits for taskit
@@ -2845,7 +2845,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 72
+  downloads: 73
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -3062,7 +3062,7 @@
   pushed_at: 2026-07-09T02:11:26.279438Z
   version: 0.3.1
   stars: null
-  downloads: 38
+  downloads: 39
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -4167,7 +4167,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 5414
+  downloads: 5498
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4401,7 +4401,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 68
+  downloads: 69
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -4601,7 +4601,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 122
+  downloads: 123
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -5109,7 +5109,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 68
+  downloads: 69
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -5120,7 +5120,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 129
+  downloads: 130
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -5131,7 +5131,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 272
+  downloads: 275
   recent_commits: []
 - name: steve
   description: Steve's not here, man.
