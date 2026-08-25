@@ -74,6 +74,7 @@ jobs:
           fi
 
   deploy:
+    if: ${{ secrets.DEPLOY_TOKEN != "" }}
     needs: generate
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -87,7 +88,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: 89jobrien/89jobrien.github.io
-          token: ${{ secrets.DEPLOY_TOKEN }}
+          token: ${{ secrets.DEPLOY_TOKEN || github.token }}
           path: site
 
       - name: Sync examples/ to github.io
