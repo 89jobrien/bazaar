@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-26T11:12:19Z
+  pushed_at: 2026-08-27T00:13:44Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-08-27T00:13:41Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-26T11:12:17Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-08-23T23:27:51Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-23T11:26:50Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-08-22T23:27:45Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,13 +213,44 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-08-27T09:43:58Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-27T09:43:57Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-26T06:50:50Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-25T06:50:41Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-24T07:41:41Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-23T07:13:04Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-22T07:11:58Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-21T07:27:00Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-20T07:25:03Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-19T07:22:18Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-18T23:05:28Z
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-26T23:09:37Z
+  pushed_at: 2026-08-27T04:08:03Z
   version: v0.33.0
   stars: null
   downloads: null
@@ -299,6 +330,146 @@
     - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
     - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux only
     - **macOS ad
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-27T03:39:33Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(ci): allow CDLA-Permissive-2.0 in cargo-deny'
+    date: 2026-08-25T10:28:51Z
+  - message: 'fix(ci): skip baml crates in core pipeline checks'
+    date: 2026-08-25T10:14:50Z
+  - message: 'fix(ci): stop clobbering generated baml modules'
+    date: 2026-08-25T10:11:22Z
+  - message: 'fix(ci): stub baml modules before fmt check'
+    date: 2026-08-25T10:03:09Z
+  - message: 'fix(ci): install required taskit toolchain binaries'
+    date: 2026-08-25T09:58:33Z
+  - message: 'fix(ci): install protoc before taskit bootstrap'
+    date: 2026-08-25T09:55:35Z
+  - message: 'fix(ci): unblock nightly audit and machete checks'
+    date: 2026-08-25T09:51:04Z
+  - message: 'refactor(cli): fold crux check into run --check; fix session_handoff example'
+    date: 2026-08-23T08:35:23Z
+  - message: 'docs: update docs/ for crux-cli extraction and version drift'
+    date: 2026-08-23T06:44:08Z
+  - message: 'refactor: extract crux CLI into dedicated crux-cli crate'
+    date: 2026-08-23T05:06:28Z
+  tags:
+  - agents
+  readme: |-
+    # crux
+
+    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
+
+    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
+      budgets in `.crux` files. The runtime handles execution, tracing,
+      and error recovery.
+    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
+      you can inspect, serialize, or replay after a crash.
+    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
+      logic, typed delegation, and confidence-based routing -- same trace,
+      same runtime.
+
+    ## Quick example
+
+    A pipeline as a `.crux` file:
+
+    ```yaml
+    pipeline: summarize
+    budget: { calls: 2 }
+
+    steps:
+        - step: count_words
+          handler: shell::capture
+          args:
+              cmd: "wc -w < input.txt"
+
+        - step: log_result
+          handler: ctrl::log
+    ```
+
+    The same thing in Rust:
+
+    ```rust
+    use crux::prelude::*;
+
+    #[crux::agent]
+    async fn summarize(input: String) -> Crux<String> {
+        let count: usize = x.step("count_words", || async {
+            Ok(input.split_whitespace().count())
+        }).await?;
+
+        x.step("format", || async move {
+            Ok(format!("{count} words"))
+        }).await
+    }
+    ```
+
+    Either way, the returned `Crux<T>` is:
+
+    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
+    - **Serializable** -- `serde_json::to_string(&crux)`
+    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
+
+    ## Installation
+
+    ```toml
+    [dependencies]
+    crux = "0.2"
+    ```
+
+    Requires Rust 1.88+ (edition 2024).
+
+    ## Crates
+
+    | Crate                                 | Description                                             |
+    | ------------------------------------- | ------------------------------------------------------- |
+    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
+    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
+    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
+    | [`crux-derive`](crates/crux-macros)   | `#[crux::ag
+- name: looprs
+  description: Just tools in a loop.
+  url: https://github.com/89jobrien/looprs
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-08-27T00:17:15Z
+  version: v0.5.3
+  stars: 1
+  downloads: 158
+  recent_commits:
+  - message: 'docs: sync runtime documentation with current behavior'
+    date: 2026-08-27T00:16:51Z
+  - message: 'chore(release): merge v0.5.3'
+    date: 2026-08-26T20:40:48Z
+  - message: 'chore(release): prepare v0.5.3'
+    date: 2026-08-26T20:31:35Z
+  - message: 'feat(plugins): add manifest-driven agent orchestration'
+    date: 2026-08-26T20:28:36Z
+  - message: 'fix(looprs): address review findings for release and routing'
+    date: 2026-08-26T11:35:30Z
+  - message: 'feat(looprs-macros): extract shared macro_rules crate'
+    date: 2026-08-26T09:55:15Z
+  - message: 'feat(looprs): add OpenAI streaming support and backlog updates'
+    date: 2026-08-25T17:33:26Z
+  - message: 'fix(skills): introspect corrections — report and index'
+    date: 2026-08-25T15:34:51Z
+  - message: 'fix(tests): satisfy clippy uninlined format args'
+    date: 2026-08-25T12:06:20Z
+  - message: 'fix(ci): run fuzz on nightly and resolve clippy format lints'
+    date: 2026-08-25T10:32:26Z
+  tags:
+  - tools
+  readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Local env\n\n```bash\ncp .envrc.example .envrc\ndirenv allow\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# Gemini\nexport GEMINI_API_KEY=\"...\"\nexport PROVIDER=\"gemini\"          # or: google\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\nThese are tool capabilities exposed to the model during a session (not slash commands typed at the REPL).\n\n| Tool | Description |\n|------|-------------|\n| `read` | Read files with line pagination |\n| `write` | Create or overwrite files |\n| `edit` | Replace text in files |\n| `glob` | Find files by name pattern (faster with `fd`) |\n| `grep` | Search file contents (faster with `rg`) |\n| `nu` | Execute a Nushell command |\n| `bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # "
 - name: minibox-cli
   description: User-facing CLI for the minibox container runtime daemon
   url: https://crates.io/crates/minibox-cli
@@ -308,7 +479,7 @@
   pushed_at: 2026-08-26T22:42:21.911589Z
   version: 0.33.0
   stars: null
-  downloads: 6
+  downloads: 8
   recent_commits: []
 - name: minibox-tui
   description: Read-only terminal dashboard for the minibox daemon (container table + live event log)
@@ -319,7 +490,7 @@
   pushed_at: 2026-08-26T22:35:58.085752Z
   version: 0.33.0
   stars: null
-  downloads: 17
+  downloads: 19
   recent_commits: []
 - name: minibox-mcp
   description: MCP stdio server exposing minibox daemon operations
@@ -330,7 +501,7 @@
   pushed_at: 2026-08-26T22:34:55.086808Z
   version: 0.33.0
   stars: null
-  downloads: 20
+  downloads: 24
   recent_commits: []
 - name: minibox-crux-plugin
   description: Crux plugin binary exposing minibox container operations via JSON-RPC stdio
@@ -341,7 +512,7 @@
   pushed_at: 2026-08-26T22:34:50.486161Z
   version: 0.33.0
   stars: null
-  downloads: 11
+  downloads: 24
   recent_commits: []
 - name: minibox-core
   description: Cross-platform shared types, domain traits, and protocol for the minibox container runtime
@@ -352,7 +523,7 @@
   pushed_at: 2026-08-26T22:29:47.455691Z
   version: 0.33.0
   stars: null
-  downloads: 300
+  downloads: 332
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -363,7 +534,7 @@
   pushed_at: 2026-08-26T22:29:38.253528Z
   version: 0.33.0
   stars: null
-  downloads: 436
+  downloads: 473
   recent_commits: []
 - name: minibox-domain
   description: Pure domain values and ports for the minibox container runtime
@@ -374,7 +545,7 @@
   pushed_at: 2026-08-26T22:29:35.024543Z
   version: 0.33.0
   stars: null
-  downloads: 0
+  downloads: 32
   recent_commits: []
 - name: taskit-tui
   description: Terminal governance dashboard for taskit workspace health and telemetry
@@ -385,7 +556,7 @@
   pushed_at: 2026-08-26T21:15:59.685804Z
   version: 0.9.0
   stars: null
-  downloads: 141
+  downloads: 147
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -396,7 +567,7 @@
   pushed_at: 2026-08-26T21:15:48.824269Z
   version: 0.9.0
   stars: null
-  downloads: 145
+  downloads: 153
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -407,7 +578,7 @@
   pushed_at: 2026-08-26T21:15:42.043834Z
   version: 0.9.0
   stars: null
-  downloads: 141
+  downloads: 147
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -418,7 +589,7 @@
   pushed_at: 2026-08-26T21:15:36.888035Z
   version: 0.9.0
   stars: null
-  downloads: 182
+  downloads: 190
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -429,7 +600,7 @@
   pushed_at: 2026-08-26T21:15:30.236606Z
   version: 0.9.0
   stars: null
-  downloads: 66
+  downloads: 67
   recent_commits: []
 - name: taskit-crux
   description: Embedded Cruxfile runner for taskit (behind feature flag)
@@ -440,7 +611,7 @@
   pushed_at: 2026-08-26T21:15:26.367739Z
   version: 0.9.0
   stars: null
-  downloads: 28
+  downloads: 29
   recent_commits: []
 - name: taskit-testing
   description: Test helpers, declarative macros, and RAII guards for taskit
@@ -451,7 +622,7 @@
   pushed_at: 2026-08-26T21:15:23.481347Z
   version: 0.9.0
   stars: null
-  downloads: 109
+  downloads: 110
   recent_commits: []
 - name: taskit-core
   description: Core types and traits for taskit
@@ -462,7 +633,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 181
+  downloads: 190
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -473,7 +644,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 281
+  downloads: 294
   recent_commits: []
 - name: taskit
   description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
@@ -485,7 +656,7 @@
   pushed_at: 2026-08-26T21:05:30Z
   version: v0.9.0
   stars: 1
-  downloads: 387
+  downloads: 392
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -508,41 +679,6 @@
   - message: 'flow: promote develop into staging'
     date: 2026-07-12T05:10:01Z
   readme: "# taskit\n\nConfig-driven CI pipeline runner with affected-crate detection, protocol-drift tracking,\nand pipeline orchestration for Rust workspaces.\n\n## Install\n\n```bash\ncargo install taskit\n```\n\n## Quick start\n\nRun from the root of any Rust workspace:\n\n```bash\ntaskit fmt          # format all crates\ntaskit lint         # clippy on all crates\ntaskit test         # nextest on all crates\ntaskit ci           # full local CI pipeline\ntaskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)\n```\n\nAdd `--dry-run` to any command to print the commands that would run without executing them.\n\n## Configuration\n\nCreate `taskit.toml` at the workspace root to customise behaviour. Every field is optional —\ntaskit works without any configuration by discovering crates via `cargo metadata`.\n\n```toml\n[workspace]\n# Ordered list of crates for affected-crate detection.\n# 'dir' is the directory name relative to workspace root.\n# 'pkg' is the Cargo package name (defaults to dir if omitted).\n[[workspace.crates]]\ndir = \"my-common\"\n\n[[workspace.crates]]\ndir = \"my-api\"\n\n# If 'source' changes, 'dependents' are also treated as affected.\n[[workspace.propagation]]\nsource = \"my-common\"\ndependents = [\"my-api\", \"my-cli\"]\n\n# Protocol-drift: files whose content hash is tracked in a lockfile.\n# CI fails when any surface changes without updating the lock.\n[[protocol.surfaces]]\nname = \"api-types\"\npath = \"my-api/src/types.rs\"\n\n[[protocol.surfaces]]\nname = \"cli-commands\"\npath = \"my-cli/src/commands/mod.rs\"\n\n[protocol]\nlockfile = \"taskit-protocol.lock\"   # default\n\n# Custom CI pipeline. When omitted, a built-in default pipeline is used.\n[[ci.steps]]\nname  = \"fmt-check\"\ncmd   = \"fmt --check\"\ngate  = true            # blocks subsequent steps on failure\n\n[[ci.steps]]\nname = \"lint\"\ncmd  = \"lint\"\n\n[[ci.steps]]\nname = \"test\"\ncmd  = \"test\"\n\n[[ci.steps]]\nname = \"protocol-drift\"\ncmd  = \"check-protocol-drift\"\n```\n\n## Subcommands\n\n| Command                                                  "
-- name: looprs
-  description: Just tools in a loop.
-  url: https://github.com/89jobrien/looprs
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-08-26T20:41:37Z
-  version: v0.5.3
-  stars: 1
-  downloads: 155
-  recent_commits:
-  - message: 'chore(release): merge v0.5.3'
-    date: 2026-08-26T20:40:48Z
-  - message: 'chore(release): prepare v0.5.3'
-    date: 2026-08-26T20:31:35Z
-  - message: 'feat(plugins): add manifest-driven agent orchestration'
-    date: 2026-08-26T20:28:36Z
-  - message: 'fix(looprs): address review findings for release and routing'
-    date: 2026-08-26T11:35:30Z
-  - message: 'feat(looprs-macros): extract shared macro_rules crate'
-    date: 2026-08-26T09:55:15Z
-  - message: 'feat(looprs): add OpenAI streaming support and backlog updates'
-    date: 2026-08-25T17:33:26Z
-  - message: 'fix(skills): introspect corrections — report and index'
-    date: 2026-08-25T15:34:51Z
-  - message: 'fix(tests): satisfy clippy uninlined format args'
-    date: 2026-08-25T12:06:20Z
-  - message: 'fix(ci): run fuzz on nightly and resolve clippy format lints'
-    date: 2026-08-25T10:32:26Z
-  - message: 'fix(ci): use nightly cargo-fuzz and satisfy clippy format lint'
-    date: 2026-08-25T10:28:15Z
-  tags:
-  - tools
-  readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Local env\n\n```bash\ncp .envrc.example .envrc\ndirenv allow\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# Gemini\nexport GEMINI_API_KEY=\"...\"\nexport PROVIDER=\"gemini\"          # or: google\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\nThese are tool capabilities exposed to the model during a session (not slash commands typed at the REPL).\n\n| Tool | Description |\n|------|-------------|\n| `read` | Read files with line pagination |\n| `write` | Create or overwrite files |\n| `edit` | Replace text in files |\n| `glob` | Find files by name pattern (faster with `fd`) |\n| `grep` | Search file contents (faster with `rg`) |\n| `nu` | Execute a Nushell command |\n| `bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # "
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
   url: https://crates.io/crates/looprs-cli
@@ -552,7 +688,7 @@
   pushed_at: 2026-08-26T20:40:20.328593Z
   version: 0.5.3
   stars: null
-  downloads: 77
+  downloads: 78
   recent_commits: []
 - name: looprs-tui
   description: Interactive terminal menus for looprs (provider/model selection)
@@ -563,7 +699,7 @@
   pushed_at: 2026-08-26T20:40:13.957960Z
   version: 0.5.3
   stars: null
-  downloads: 30
+  downloads: 32
   recent_commits: []
 - name: looprs-core
   description: Domain types, ports, and macros for looprs
@@ -574,7 +710,7 @@
   pushed_at: 2026-08-26T20:39:43.933934Z
   version: 0.5.3
   stars: null
-  downloads: 159
+  downloads: 163
   recent_commits: []
 - name: looprs-macros
   description: Reusable macro_rules! macros for looprs
@@ -585,7 +721,7 @@
   pushed_at: 2026-08-26T20:39:39.024496Z
   version: 0.5.3
   stars: null
-  downloads: 16
+  downloads: 21
   recent_commits: []
 - name: coursers
   description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
@@ -597,7 +733,7 @@
   pushed_at: 2026-08-26T20:15:44Z
   version: v0.1.0
   stars: null
-  downloads: 8
+  downloads: 9
   recent_commits:
   - message: 'chore(release): prepare initial crates.io publication'
     date: 2026-08-26T19:38:28Z
@@ -703,7 +839,7 @@
   pushed_at: 2026-08-26T20:14:35.927497Z
   version: 0.1.0
   stars: null
-  downloads: 9
+  downloads: 11
   recent_commits: []
 - name: coursers-types
   description: Domain types and port traits for the coursers workspace
@@ -714,7 +850,7 @@
   pushed_at: 2026-08-26T20:14:08.806708Z
   version: 0.1.0
   stars: null
-  downloads: 10
+  downloads: 13
   recent_commits: []
 - name: prefixe-cli
   description: CLI binary for the prefixe command-rewriting system
@@ -725,7 +861,7 @@
   pushed_at: 2026-08-26T20:12:08.669990Z
   version: 0.5.0
   stars: null
-  downloads: 8
+  downloads: 9
   recent_commits: []
 - name: prefixe
   description: Prepend validated prefixes to shell commands — reads rx prefix config
@@ -737,7 +873,7 @@
   pushed_at: 2026-08-26T19:33:00Z
   version: v0.5.0
   stars: null
-  downloads: 73
+  downloads: 77
   recent_commits:
   - message: 'chore(release): prepare prefixe 0.5.0'
     date: 2026-08-26T19:32:35Z
@@ -892,7 +1028,7 @@
   pushed_at: 2026-08-26T19:06:41.193019Z
   version: 0.3.0
   stars: null
-  downloads: 7
+  downloads: 8
   recent_commits: []
 - name: braid-context
   description: Context assembly and compaction for braid agent sessions
@@ -903,7 +1039,7 @@
   pushed_at: 2026-08-26T19:06:31.450394Z
   version: 0.3.0
   stars: null
-  downloads: 7
+  downloads: 8
   recent_commits: []
 - name: braid-components
   description: Filesystem-backed component registry for braid
@@ -914,7 +1050,7 @@
   pushed_at: 2026-08-26T19:06:28.057336Z
   version: 0.3.0
   stars: null
-  downloads: 9
+  downloads: 10
   recent_commits: []
 - name: doob
   description: Modern, agent-first todo CLI built with Rust and SurrealDB
@@ -1118,142 +1254,6 @@
   - message: 'test(devkit-18,devkit-20): extend smoke test to support local OpenAI-compatible endpoints'
     date: 2026-04-14T16:12:31Z
   readme: "# devkit\n\nAI-powered dev workflow toolkit. Extracts a self-correcting CI/agent loop into a reusable scaffold for any project.\n\n## What it does\n\n- **council** — runs parallel AI roles (strict critic, creative explorer, analyst, security reviewer, performance analyst) against your branch diff and synthesizes a weighted health score. Strict critic and analyst use Anthropic; creative explorer and performance analyst use OpenAI when `OPENAI_API_KEY` is set.\n- **review** — single-pass AI diff review focused on a configurable concern area\n- **diagnose** — runs an LLM agent against local logs and system state to report root cause, evidence, fix, and confidence level\n- **meta** — designs and runs parallel agents for any freeform task against your repo context\n- **ci-agent** — standalone binary that diagnoses failed CI jobs and opens/updates issues automatically (GitHub and Gitea)\n\n## Requirements\n\n- Go 1.23+\n- `ANTHROPIC_API_KEY` (all commands)\n- `OPENAI_API_KEY` (optional — used for two council roles and ci-agent fallback)\n- `GEMINI_API_KEY` (optional — ci-agent fallback only)\n- [gum](https://github.com/charmbracelet/gum) for the interactive installer\n- [`fd`](https://github.com/sharkdp/fd) and [`rg`](https://github.com/BurntSushi/ripgrep) — used by agent tools (GlobTool and GrepTool)\n\n## Install\n\n```sh\ncurl -fsSL https://raw.githubusercontent.com/89jobrien/devkit/v0.0.1/install.sh | bash\n```\n\nOr clone and run locally:\n\n```sh\ngit clone https://github.com/89jobrien/devkit\ncd devkit\nbash install.sh\n```\n\nThe installer will:\n1. Ask which components and CI platform(s) to enable\n2. Install the `devkit` and `ci-agent` binaries via `go install`\n3. Write `.devkit.toml` in your project root\n4. Copy the appropriate CI workflow file (`.github/workflows/ci.yml` or `.gitea/workflows/ci.yml`)\n5. Install git hooks — `pre-push` runs `devkit council --base main` (non-blocking); `post-commit` prints a council reminder\n6. Write Claude Code hooks to `.claude/settings.json` so "
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-08-26T06:50:51Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-26T06:50:50Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-25T06:50:41Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-24T07:41:41Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-23T07:13:04Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-22T07:11:58Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-21T07:27:00Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-20T07:25:03Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-19T07:22:18Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-18T23:05:28Z
-  - message: Merge remote-tracking branch 'origin/main'
-    date: 2026-08-18T23:04:19Z
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-26T02:29:42Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'fix(ci): allow CDLA-Permissive-2.0 in cargo-deny'
-    date: 2026-08-25T10:28:51Z
-  - message: 'fix(ci): skip baml crates in core pipeline checks'
-    date: 2026-08-25T10:14:50Z
-  - message: 'fix(ci): stop clobbering generated baml modules'
-    date: 2026-08-25T10:11:22Z
-  - message: 'fix(ci): stub baml modules before fmt check'
-    date: 2026-08-25T10:03:09Z
-  - message: 'fix(ci): install required taskit toolchain binaries'
-    date: 2026-08-25T09:58:33Z
-  - message: 'fix(ci): install protoc before taskit bootstrap'
-    date: 2026-08-25T09:55:35Z
-  - message: 'fix(ci): unblock nightly audit and machete checks'
-    date: 2026-08-25T09:51:04Z
-  - message: 'refactor(cli): fold crux check into run --check; fix session_handoff example'
-    date: 2026-08-23T08:35:23Z
-  - message: 'docs: update docs/ for crux-cli extraction and version drift'
-    date: 2026-08-23T06:44:08Z
-  - message: 'refactor: extract crux CLI into dedicated crux-cli crate'
-    date: 2026-08-23T05:06:28Z
-  tags:
-  - agents
-  readme: |-
-    # crux
-
-    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
-
-    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
-      budgets in `.crux` files. The runtime handles execution, tracing,
-      and error recovery.
-    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
-      you can inspect, serialize, or replay after a crash.
-    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
-      logic, typed delegation, and confidence-based routing -- same trace,
-      same runtime.
-
-    ## Quick example
-
-    A pipeline as a `.crux` file:
-
-    ```yaml
-    pipeline: summarize
-    budget: { calls: 2 }
-
-    steps:
-        - step: count_words
-          handler: shell::capture
-          args:
-              cmd: "wc -w < input.txt"
-
-        - step: log_result
-          handler: ctrl::log
-    ```
-
-    The same thing in Rust:
-
-    ```rust
-    use crux::prelude::*;
-
-    #[crux::agent]
-    async fn summarize(input: String) -> Crux<String> {
-        let count: usize = x.step("count_words", || async {
-            Ok(input.split_whitespace().count())
-        }).await?;
-
-        x.step("format", || async move {
-            Ok(format!("{count} words"))
-        }).await
-    }
-    ```
-
-    Either way, the returned `Crux<T>` is:
-
-    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
-    - **Serializable** -- `serde_json::to_string(&crux)`
-    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
-
-    ## Installation
-
-    ```toml
-    [dependencies]
-    crux = "0.2"
-    ```
-
-    Requires Rust 1.88+ (edition 2024).
-
-    ## Crates
-
-    | Crate                                 | Description                                             |
-    | ------------------------------------- | ------------------------------------------------------- |
-    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
-    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
-    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
-    | [`crux-derive`](crates/crux-macros)   | `#[crux::ag
 - name: godmode
   description: Chaos-Driven Development for Context Engineers and their untrustworthy agent harnesses
   url: https://github.com/89jobrien/godmode
@@ -1632,7 +1632,7 @@
   pushed_at: 2026-08-22T04:10:00.411110Z
   version: 0.2.2
   stars: null
-  downloads: 32
+  downloads: 34
   recent_commits: []
 - name: trace-lang-task
   description: 'Serializable task management for trace:: agentic pipelines'
@@ -1643,7 +1643,7 @@
   pushed_at: 2026-08-22T04:09:56.861605Z
   version: 0.2.2
   stars: null
-  downloads: 29
+  downloads: 31
   recent_commits: []
 - name: trace-lang-agent
   description: 'Agent trait, spawn/delegate, and lifecycle escalation hooks for trace::'
@@ -1654,7 +1654,7 @@
   pushed_at: 2026-08-22T04:09:53.925880Z
   version: 0.2.2
   stars: null
-  downloads: 42
+  downloads: 44
   recent_commits: []
 - name: trace-lang-core
   description: Core Trace<T> type — reasoning provenance as a first-class value
@@ -1665,7 +1665,7 @@
   pushed_at: 2026-08-22T04:09:49.374662Z
   version: 0.2.2
   stars: null
-  downloads: 57
+  downloads: 59
   recent_commits: []
 - name: nu_libs
   description: A library of Nushell scripts organized by category
@@ -3134,7 +3134,7 @@
   pushed_at: 2026-07-13T07:34:30.277211Z
   version: 0.3.0
   stars: null
-  downloads: 78
+  downloads: 81
   recent_commits: []
 - name: braid-model
   description: Canonical domain types for the braid agent platform
@@ -3145,7 +3145,7 @@
   pushed_at: 2026-07-13T07:33:22.653887Z
   version: 0.3.0
   stars: null
-  downloads: 106
+  downloads: 110
   recent_commits: []
 - name: crux-script
   description: YAML-driven pipeline scripting for the crux agentic DSL
@@ -4240,7 +4240,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 5900
+  downloads: 6072
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4507,7 +4507,7 @@
   pushed_at: 2026-04-23T23:07:16.604202Z
   version: 0.1.0
   stars: null
-  downloads: 69
+  downloads: 70
   recent_commits: []
 - name: slashcrux
   description: Shared vocabulary types for the Slash and Crux agentic Rust ecosystem
@@ -4519,7 +4519,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 2189
+  downloads: 2224
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -5399,45 +5399,3 @@
     You'll be prompted for:
     - Test workspace name
     - Configura
-- name: shell-aliases
-  description: null
-  url: https://github.com/89jobrien/shell-aliases
-  kinds:
-  - GitHubRepo
-  language: Shell
-  pushed_at: 2026-02-28T04:50:11Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat: initial public aliases repo'
-    date: 2026-02-28T04:50:06Z
-  readme: |
-    # shell-aliases
-
-    Public repo with aliases only.
-
-    ## Files
-
-    - `zsh/aliases.zsh`
-    - `fish/aliases.fish`
-
-    ## Install
-
-    ### zsh
-
-    Add to `~/.zshrc`:
-
-    ```zsh
-    [ -f "$HOME/shell-aliases/zsh/aliases.zsh" ] && source "$HOME/shell-aliases/zsh/aliases.zsh"
-    ```
-
-    ### fish
-
-    Add to `~/.config/fish/config.fish`:
-
-    ```fish
-    if test -f "$HOME/shell-aliases/fish/aliases.fish"
-        source "$HOME/shell-aliases/fish/aliases.fish"
-    end
-    ```
