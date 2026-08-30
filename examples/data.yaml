@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-29T11:13:16Z
+  pushed_at: 2026-08-29T23:14:26Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-08-29T23:14:24Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-29T11:13:14Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-08-25T23:10:17Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-08-25T12:10:13Z
-  - message: 'fix(ci): use github token for cross-repo checkout'
-    date: 2026-08-25T12:08:11Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,11 +219,13 @@
   kinds:
   - GitHubRepo
   language: HTML
-  pushed_at: 2026-08-29T06:45:34Z
+  pushed_at: 2026-08-30T06:48:00Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-08-30T06:47:59Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-08-29T06:45:33Z
   - message: 'chore: sync showcase from bazaar'
@@ -242,15 +244,13 @@
     date: 2026-08-22T07:11:58Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-08-21T07:27:00Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-08-20T07:25:03Z
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-29T02:34:02Z
+  pushed_at: 2026-08-30T02:36:47Z
   version: v0.33.0
   stars: null
   downloads: null
@@ -335,7 +335,7 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-29T02:06:13Z
+  pushed_at: 2026-08-30T02:06:53Z
   version: null
   stars: null
   downloads: null
@@ -580,7 +580,7 @@
   pushed_at: 2026-08-27T00:17:15Z
   version: v0.5.3
   stars: 1
-  downloads: 166
+  downloads: 167
   recent_commits:
   - message: 'docs: sync runtime documentation with current behavior'
     date: 2026-08-27T00:16:51Z
@@ -812,7 +812,7 @@
   pushed_at: 2026-08-26T20:39:43.933934Z
   version: 0.5.3
   stars: null
-  downloads: 170
+  downloads: 171
   recent_commits: []
 - name: looprs-macros
   description: Reusable macro_rules! macros for looprs
@@ -823,7 +823,7 @@
   pushed_at: 2026-08-26T20:39:39.024496Z
   version: 0.5.3
   stars: null
-  downloads: 24
+  downloads: 25
   recent_commits: []
 - name: coursers
   description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
@@ -3067,7 +3067,7 @@
   pushed_at: 2026-07-13T08:04:46.563067Z
   version: 0.3.0
   stars: null
-  downloads: 17
+  downloads: 18
   recent_commits: []
 - name: braid-providers
   description: LLM provider adapters for the braid agent platform (OpenAI, Ollama)
@@ -3078,7 +3078,7 @@
   pushed_at: 2026-07-13T07:53:20.810104Z
   version: 0.3.0
   stars: null
-  downloads: 16
+  downloads: 17
   recent_commits: []
 - name: braid-bootstrap
   description: Environment setup and health checks for the braid agent platform
@@ -3089,7 +3089,7 @@
   pushed_at: 2026-07-13T07:43:39.240721Z
   version: 0.3.0
   stars: null
-  downloads: 16
+  downloads: 17
   recent_commits: []
 - name: braid-engine
   description: Agent loop engine for the braid platform
@@ -3100,7 +3100,7 @@
   pushed_at: 2026-07-13T07:41:30.088394Z
   version: 0.3.0
   stars: null
-  downloads: 17
+  downloads: 18
   recent_commits: []
 - name: braid-hooks
   description: Pre/post-execution hook system for the braid agent platform
@@ -3111,7 +3111,7 @@
   pushed_at: 2026-07-13T07:35:45.632353Z
   version: 0.3.0
   stars: null
-  downloads: 16
+  downloads: 17
   recent_commits: []
 - name: braid-redact
   description: Redaction pipeline for secrets and PII in braid agent sessions
@@ -3122,7 +3122,7 @@
   pushed_at: 2026-07-13T07:35:29.534149Z
   version: 0.3.0
   stars: null
-  downloads: 17
+  downloads: 18
   recent_commits: []
 - name: braid-ports
   description: Port traits for the braid agent platform (Provider, ToolExecutor, EventSink, ComponentRegistry)
@@ -3133,7 +3133,7 @@
   pushed_at: 2026-07-13T07:34:30.277211Z
   version: 0.3.0
   stars: null
-  downloads: 85
+  downloads: 86
   recent_commits: []
 - name: braid-model
   description: Canonical domain types for the braid agent platform
@@ -3144,7 +3144,7 @@
   pushed_at: 2026-07-13T07:33:22.653887Z
   version: 0.3.0
   stars: null
-  downloads: 116
+  downloads: 117
   recent_commits: []
 - name: crux-script
   description: YAML-driven pipeline scripting for the crux agentic DSL
@@ -4239,7 +4239,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 6431
+  downloads: 6450
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4518,7 +4518,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 2271
+  downloads: 2276
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
