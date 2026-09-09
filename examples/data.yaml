@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-08T23:15:50Z
+  pushed_at: 2026-09-09T11:16:45Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-09-09T11:16:43Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-08T23:15:48Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-09-05T11:14:06Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-04T23:15:25Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-09-04T11:16:25Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,52 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: looprs
+  description: Just tools in a loop.
+  url: https://github.com/89jobrien/looprs
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-09-09T22:58:49Z
+  version: v0.5.3
+  stars: 1
+  downloads: 175
+  recent_commits:
+  - message: 'Merge pull request #38 from 89jobrien/fix/release-registry-visibility'
+    date: 2026-09-09T22:58:46Z
+  - message: 'fix(release): use registry index for visibility checks'
+    date: 2026-09-09T22:47:17Z
+  - message: 'Merge pull request #37 from 89jobrien/release-v0.5.4'
+    date: 2026-09-09T22:03:35Z
+  - message: 'fix(release): preserve unreleased changelog section'
+    date: 2026-09-09T21:52:37Z
+  - message: 'docs(changelog): prepare 0.5.4 release notes'
+    date: 2026-09-09T21:36:28Z
+  - message: 'chore(release): bump workspace to 0.5.4'
+    date: 2026-09-09T21:28:03Z
+  - message: 'Merge pull request #36 from 89jobrien/fix/nightly-fuzz-target'
+    date: 2026-09-09T03:34:20Z
+  - message: 'fix(ci): target glibc for address sanitizer fuzzing'
+    date: 2026-09-09T03:31:30Z
+  - message: 'Merge pull request #35 from 89jobrien/fix/nightly-cargo-fuzz'
+    date: 2026-09-09T03:15:30Z
+  - message: 'fix(ci): scope cargo fuzz fallback'
+    date: 2026-09-09T03:13:08Z
+  tags:
+  - tools
+  readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Local env\n\n```bash\ncp .envrc.example .envrc\ndirenv allow\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# Gemini\nexport GEMINI_API_KEY=\"...\"\nexport PROVIDER=\"gemini\"          # or: google\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\nThese are tool capabilities exposed to the model during a session (not slash commands typed at the REPL).\n\n| Tool | Description |\n|------|-------------|\n| `read` | Read files with line pagination |\n| `write` | Create or overwrite files |\n| `edit` | Replace text in files |\n| `glob` | Find files by name pattern (faster with `fd`) |\n| `grep` | Search file contents (faster with `rg`) |\n| `nu` | Execute a Nushell command |\n| `bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # "
+- name: looprs-macros
+  description: Reusable macro_rules! macros for looprs
+  url: https://crates.io/crates/looprs-macros
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-09-09T22:39:00.077887Z
+  version: 0.5.4
+  stars: null
+  downloads: 33
+  recent_commits: []
 - name: 89jobrien.github.io
   description: Personal site
   url: https://github.com/89jobrien/89jobrien.github.io
@@ -244,41 +290,6 @@
     date: 2026-09-01T06:53:20Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-08-31T07:01:24Z
-- name: looprs
-  description: Just tools in a loop.
-  url: https://github.com/89jobrien/looprs
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-09-09T03:34:20Z
-  version: v0.5.3
-  stars: 1
-  downloads: 175
-  recent_commits:
-  - message: 'Merge pull request #36 from 89jobrien/fix/nightly-fuzz-target'
-    date: 2026-09-09T03:34:20Z
-  - message: 'fix(ci): target glibc for address sanitizer fuzzing'
-    date: 2026-09-09T03:31:30Z
-  - message: 'Merge pull request #35 from 89jobrien/fix/nightly-cargo-fuzz'
-    date: 2026-09-09T03:15:30Z
-  - message: 'fix(ci): scope cargo fuzz fallback'
-    date: 2026-09-09T03:13:08Z
-  - message: 'fix(ci): allow cargo fuzz binary fallback'
-    date: 2026-09-09T02:55:20Z
-  - message: 'Merge pull request #34 from 89jobrien/develop'
-    date: 2026-09-09T02:39:53Z
-  - message: 'fix(ci): harden release and test resilience'
-    date: 2026-09-09T02:26:17Z
-  - message: 'fix(ci): use immutable release checkout ref'
-    date: 2026-09-09T02:10:52Z
-  - message: 'fix(ci): install runtime tools and resolve dependency audit'
-    date: 2026-09-09T01:53:59Z
-  - message: 'fix(ci): use supported protoc version'
-    date: 2026-09-08T13:38:15Z
-  tags:
-  - tools
-  readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Local env\n\n```bash\ncp .envrc.example .envrc\ndirenv allow\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# Gemini\nexport GEMINI_API_KEY=\"...\"\nexport PROVIDER=\"gemini\"          # or: google\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\nThese are tool capabilities exposed to the model during a session (not slash commands typed at the REPL).\n\n| Tool | Description |\n|------|-------------|\n| `read` | Read files with line pagination |\n| `write` | Create or overwrite files |\n| `edit` | Replace text in files |\n| `glob` | Find files by name pattern (faster with `fd`) |\n| `grep` | Search file contents (faster with `rg`) |\n| `nu` | Execute a Nushell command |\n| `bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # "
 - name: godmode
   description: Rust-native development methodology for Claude Code, Codex, and OpenCode
   url: https://github.com/89jobrien/godmode
@@ -586,7 +597,7 @@
   pushed_at: 2026-09-07T18:17:35Z
   version: v0.9.0
   stars: 1
-  downloads: 432
+  downloads: 433
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -1109,17 +1120,6 @@
   version: 0.5.3
   stars: null
   downloads: 183
-  recent_commits: []
-- name: looprs-macros
-  description: Reusable macro_rules! macros for looprs
-  url: https://crates.io/crates/looprs-macros
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-08-26T20:39:39.024496Z
-  version: 0.5.3
-  stars: null
-  downloads: 33
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
@@ -4297,7 +4297,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 8068
+  downloads: 8267
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4576,7 +4576,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 2421
+  downloads: 2422
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -4864,7 +4864,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 101
+  downloads: 102
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
