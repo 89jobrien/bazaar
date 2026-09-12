@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-11T11:16:38Z
+  pushed_at: 2026-09-11T23:15:28Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-09-11T23:15:26Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-11T11:16:36Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-09-07T23:16:06Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-07T11:17:26Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-09-06T23:14:51Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,17 +213,152 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-12T10:22:48Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(runtime): merge architecture review fixes'
+    date: 2026-09-12T10:20:02Z
+  - message: 'fix(cli): restore readable pipeline output [moa-review]'
+    date: 2026-09-10T16:54:55Z
+  - message: 'fix(review): resolve integration findings [moa-review]'
+    date: 2026-09-10T16:43:05Z
+  - message: 'merge: integrate release documentation fixes'
+    date: 2026-09-10T01:31:29Z
+  - message: 'merge: integrate CLI review fixes'
+    date: 2026-09-10T01:31:19Z
+  - message: 'merge: integrate handler consumer fixes'
+    date: 2026-09-10T01:31:13Z
+  - message: 'merge: integrate execution review fixes'
+    date: 2026-09-10T01:31:05Z
+  - message: 'merge: integrate crux-types review fixes'
+    date: 2026-09-10T01:30:40Z
+  - message: 'fix(release): align 0.4 APIs and docs [moa-review]'
+    date: 2026-09-09T22:49:35Z
+  - message: 'fix(tests): update handler execution consumers [moa-review]'
+    date: 2026-09-09T22:47:11Z
+  tags:
+  - agents
+  readme: "# Crux\n\nAgentic workflows as YAML pipelines and typed Rust agents, with every\nexecution captured as an inspectable, serializable, and replayable trace.\n\n- **Write pipelines in YAML.** Define steps, fan-out, piping, and\n  budgets in `.crux` files. The runtime handles execution, tracing,\n  and error recovery.\n- **Every step is traced.** Each step lands in a typed `Crux<T>` value\n  you can inspect, serialize, or replay after a crash.\n- **Rust when you need it.** Drop into `#[crux::agent]` for custom\n  logic, typed delegation, and confidence-based routing -- same trace,\n  same runtime.\n\n## Quick example\n\nA pipeline as a `.crux` file:\n\n```yaml\npipeline: summarize\nbudget: { calls: 2 }\n\nsteps:\n    - step: count_words\n      handler: shell::capture\n      args:\n          cmd: \"wc -w < input.txt\"\n\n    - step: log_result\n      handler: ctrl::log\n```\n\nRun it with the CLI:\n\n```bash\ncrux run pipeline.crux\n```\n\nThe same thing in Rust:\n\n```rust\nuse crux::prelude::*;\n\n#[crux::agent]\nasync fn summarize(input: String) -> Crux<String> {\n    let count: usize = x.step(\"count_words\", || async {\n        Ok(input.split_whitespace().count())\n    }).await?;\n\n    x.step(\"format\", || async move {\n        Ok(format!(\"{count} words\"))\n    }).await\n}\n```\n\nEither way, the returned `Crux<T>` is:\n\n- **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`\n- **Serializable** -- `serde_json::to_string(&crux)`\n- **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash\n\n## Installation\n\nInstall the pipeline CLI:\n\n```bash\ncargo install --git https://github.com/89jobrien/crux --tag v0.3.1 crux-cli\n```\n\nAdd the Rust DSL to a project:\n\n```toml\n[dependencies]\ncrux = { git = \"https://github.com/89jobrien/crux\", tag = \"v0.3.1\" }\n```\n\nRequires Rust 1.89+ (edition 2024).\n\nThe `crux` CLI can discover pipelines, validate or run `.crux` files and\n`Cruxfile` targets, replay saved traces, and generate pipelines from natural\nlanguage goals:\n\n```bash\ncrux list .\ncrux run pipeline.crux --check\ncrux run "
+- name: obfsck
+  description: Secret-detection and redaction CLI for pre-commit hooks
+  url: https://github.com/89jobrien/obfsck
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-09-12T09:19:25Z
+  version: v0.1.0
+  stars: null
+  downloads: 142
+  recent_commits:
+  - message: 'feat(cli): merge feat/unified-obfsck-cli'
+    date: 2026-09-12T09:18:07Z
+  - message: 'fix(security): harden scanning and validation'
+    date: 2026-09-12T09:15:42Z
+  - message: 'feat(patterns): add configurable pattern model'
+    date: 2026-09-12T07:46:49Z
+  - message: 'chore: refresh handoff and capture analyzer follow-up'
+    date: 2026-08-28T19:37:17Z
+  - message: 'fix(cli): show canonical redact usage'
+    date: 2026-08-27T00:17:55Z
+  - message: 'docs(cli): promote unified obfsck commands'
+    date: 2026-08-27T00:14:38Z
+  - message: 'feat(cli): deprecate legacy analyzer binary'
+    date: 2026-08-27T00:09:43Z
+  - message: 'feat(cli): add unified obfsck subcommands'
+    date: 2026-08-27T00:06:48Z
+  - message: 'refactor(cli): share redaction command implementation'
+    date: 2026-08-27T00:03:38Z
+  - message: 'fix(deps): bump quinn-proto for RustSec-2026-0185'
+    date: 2026-08-25T10:11:49Z
+  tags:
+  - cli
+  readme: |-
+    # obfsck
+
+    Redacts secrets and PII from log lines and structured text.
+
+    ## Install
+
+    ```bash
+    cargo install --path .
+    ```
+
+    ## What it does
+
+    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
+    - Obfuscates identifiers with stable mappings (same input => same token)
+    - Supports privacy levels based on how aggressive redaction should be
+
+    ## Obfuscation levels
+
+    - `Minimal`: secret pattern redaction only
+    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
+    - `Paranoid`: adds path, hostname, and high-entropy token redaction
+
+    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
+    Sensitive system paths are preserved.
+
+    Preserved path segments include common roots like `home`, `usr`, `etc`,
+    `windows`, `users`, and `programdata`.
+
+    ### What each level redacts
+
+    | Pattern category | minimal | standard | paranoid |
+    |-----------------|---------|----------|----------|
+    | API keys, tokens, passwords | yes | yes | yes |
+    | IPs, emails, container IDs, usernames | — | yes | yes |
+    | PII (names, SSN, phone, credit card) | — | yes | yes |
+    | Paths, hostnames, high-entropy strings | — | — | yes |
+    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
+
+    `standard` is the privacy-forward default for sharing logs externally.
+    `minimal` is safe for internal tooling where structural identifiers are useful.
+
+    ## obfsck CLI
+
+    Redact secrets and PII from a file or stdin.
+
+    ```bash
+    # Stdin -> stdout (default level: minimal — secrets only)
+    echo "key=sk-ant-api03-ABCDEF..." | obfsck redact
+
+    # File input
+    obfsck redact path/to/logfile.txt
+
+    # Write to output file
+    obfsck redact input.txt --output redacted.txt
+
+    # Increase level
+    obfsck redact input.txt --level standard   # + IPs, emails, usernames, PII
+    obfsck redact input.txt --level paranoid   # + paths, hostnames, high-entropy
+
+    # Audit mode — report findings to stderr without redacting
+    obfsck redact input.txt --audit
+
+    # Custom secrets config (overrides bundled config)
+    obfsck redact input.txt --conf
 - name: 89jobrien.github.io
   description: Personal site
   url: https://github.com/89jobrien/89jobrien.github.io
   kinds:
   - GitHubRepo
   language: HTML
-  pushed_at: 2026-09-11T06:52:02Z
+  pushed_at: 2026-09-12T06:48:06Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-12T06:48:05Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-09-11T06:52:01Z
   - message: 'chore: sync showcase from bazaar'
@@ -242,15 +377,13 @@
     date: 2026-09-04T06:52:32Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-09-03T06:52:29Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-02T06:56:53Z
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-11T02:37:25Z
+  pushed_at: 2026-09-12T02:36:43Z
   version: v0.33.1
   stars: null
   downloads: null
@@ -329,111 +462,6 @@
 
     - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
     - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux o
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-11T02:07:21Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'fix(ci): allow CDLA-Permissive-2.0 in cargo-deny'
-    date: 2026-08-25T10:28:51Z
-  - message: 'fix(ci): skip baml crates in core pipeline checks'
-    date: 2026-08-25T10:14:50Z
-  - message: 'fix(ci): stop clobbering generated baml modules'
-    date: 2026-08-25T10:11:22Z
-  - message: 'fix(ci): stub baml modules before fmt check'
-    date: 2026-08-25T10:03:09Z
-  - message: 'fix(ci): install required taskit toolchain binaries'
-    date: 2026-08-25T09:58:33Z
-  - message: 'fix(ci): install protoc before taskit bootstrap'
-    date: 2026-08-25T09:55:35Z
-  - message: 'fix(ci): unblock nightly audit and machete checks'
-    date: 2026-08-25T09:51:04Z
-  - message: 'refactor(cli): fold crux check into run --check; fix session_handoff example'
-    date: 2026-08-23T08:35:23Z
-  - message: 'docs: update docs/ for crux-cli extraction and version drift'
-    date: 2026-08-23T06:44:08Z
-  - message: 'refactor: extract crux CLI into dedicated crux-cli crate'
-    date: 2026-08-23T05:06:28Z
-  tags:
-  - agents
-  readme: |-
-    # crux
-
-    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
-
-    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
-      budgets in `.crux` files. The runtime handles execution, tracing,
-      and error recovery.
-    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
-      you can inspect, serialize, or replay after a crash.
-    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
-      logic, typed delegation, and confidence-based routing -- same trace,
-      same runtime.
-
-    ## Quick example
-
-    A pipeline as a `.crux` file:
-
-    ```yaml
-    pipeline: summarize
-    budget: { calls: 2 }
-
-    steps:
-        - step: count_words
-          handler: shell::capture
-          args:
-              cmd: "wc -w < input.txt"
-
-        - step: log_result
-          handler: ctrl::log
-    ```
-
-    The same thing in Rust:
-
-    ```rust
-    use crux::prelude::*;
-
-    #[crux::agent]
-    async fn summarize(input: String) -> Crux<String> {
-        let count: usize = x.step("count_words", || async {
-            Ok(input.split_whitespace().count())
-        }).await?;
-
-        x.step("format", || async move {
-            Ok(format!("{count} words"))
-        }).await
-    }
-    ```
-
-    Either way, the returned `Crux<T>` is:
-
-    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
-    - **Serializable** -- `serde_json::to_string(&crux)`
-    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
-
-    ## Installation
-
-    ```toml
-    [dependencies]
-    crux = "0.2"
-    ```
-
-    Requires Rust 1.88+ (edition 2024).
-
-    ## Crates
-
-    | Crate                                 | Description                                             |
-    | ------------------------------------- | ------------------------------------------------------- |
-    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
-    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
-    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
-    | [`crux-derive`](crates/crux-macros)   | `#[crux::ag
 - name: looprs
   description: Just tools in a loop.
   url: https://github.com/89jobrien/looprs
@@ -886,109 +914,6 @@
 
     `opavs upgrade` checks the latest `89jobrien/opavs` GitHub Release, downloads
     the archive matching the current platform, and replaces th
-- name: obfsck
-  description: Secret-detection and redaction CLI for pre-commit hooks
-  url: https://github.com/89jobrien/obfsck
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-08-28T19:39:28Z
-  version: v0.1.0
-  stars: null
-  downloads: 142
-  recent_commits:
-  - message: 'fix(deps): bump quinn-proto for RustSec-2026-0185'
-    date: 2026-08-25T10:11:49Z
-  - message: 'fix(deps): patch RustSec advisories in lockfile'
-    date: 2026-08-25T10:06:02Z
-  - message: 'chore: sync handoff state, knowledge graph, and preflight/demo scripts'
-    date: 2026-08-23T14:34:05Z
-  - message: 'docs(skills): correct run-obfsck gotcha for the split-literal fixture fix'
-    date: 2026-08-23T12:51:26Z
-  - message: 'feat(skills): add run-obfsck skill driving all 5 binaries'
-    date: 2026-08-23T12:49:59Z
-  - message: 'feat(demo): showcase all five obfsck binaries, not just redact'
-    date: 2026-08-21T18:45:03Z
-  - message: 'feat(errors): render miette fancy diagnostics in bin mains'
-    date: 2026-08-21T18:32:50Z
-  - message: 'feat(errors): adopt miette for diagnostics, replace Box<dyn Error> in ports'
-    date: 2026-08-21T18:29:03Z
-  - message: 'quality(rust-audit): derive Debug across public surface, redact provider API keys'
-    date: 2026-08-21T18:25:27Z
-  - message: 'chore(handoff): update session state after gitleaks adapter refactor'
-    date: 2026-08-18T04:31:27Z
-  tags:
-  - cli
-  readme: |+
-    # obfsck
-
-    Redacts secrets and PII from log lines and structured text.
-
-    ## Install
-
-    ```bash
-    cargo install --path .
-    ```
-
-    ## What it does
-
-    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
-    - Obfuscates identifiers with stable mappings (same input => same token)
-    - Supports privacy levels based on how aggressive redaction should be
-
-    ## Obfuscation levels
-
-    - `Minimal`: secret pattern redaction only
-    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
-    - `Paranoid`: adds path, hostname, and high-entropy token redaction
-
-    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
-    Sensitive system paths are preserved.
-
-    Preserved path segments include common roots like `home`, `usr`, `etc`,
-    `windows`, `users`, and `programdata`.
-
-    ### What each level redacts
-
-    | Pattern category | minimal | standard | paranoid |
-    |-----------------|---------|----------|----------|
-    | API keys, tokens, passwords | yes | yes | yes |
-    | IPs, emails, container IDs, usernames | — | yes | yes |
-    | PII (names, SSN, phone, credit card) | — | yes | yes |
-    | Paths, hostnames, high-entropy strings | — | — | yes |
-    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
-
-    `standard` is the privacy-forward default for sharing logs externally.
-    `minimal` is safe for internal tooling where structural identifiers are useful.
-
-    ## redact CLI
-
-    Redact secrets and PII from a file or stdin.
-
-    ```bash
-    # Stdin -> stdout (default level: minimal — secrets only)
-    echo "key=sk-ant-api03-ABCDEF..." | redact
-
-    # File input
-    redact path/to/logfile.txt
-
-    # Write to output file
-    redact input.txt --output redacted.txt
-
-    # Increase level
-    redact input.txt --level standard   # + IPs, emails, usernames, PII
-    redact input.txt --level paranoid   # + paths, hostnames, high-entropy
-
-    # Audit mode — report findings to stderr without redacting
-    redact input.txt --audit
-
-    # Custom secrets config (overrides bundled config)
-    redact input.txt --config ~/.config/obfsck/secrets.yaml
-    ```
-
-    ### Flags
-
 - name: minibox-cli
   description: User-facing CLI for the minibox container runtime daemon
   url: https://crates.io/crates/minibox-cli
@@ -4297,7 +4222,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 8705
+  downloads: 8723
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4576,7 +4501,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 2451
+  downloads: 2456
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -5320,34 +5245,3 @@
 
     - Some steps require `sudo`.
     - You may need to approve exit nodes and subnet routes in the Tailscale admin console.
-- name: pjlib
-  description: null
-  url: https://github.com/89jobrien/pjlib
-  kinds:
-  - GitHubRepo
-  language: Shell
-  pushed_at: 2026-03-16T02:12:58Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Merge chore/archive-core-sets-2026-01-20 into main
-    date: 2026-03-16T02:12:42Z
-  - message: 'chore: archive legacy agents and reorganize structure'
-    date: 2026-03-16T02:08:24Z
-  - message: 'docs: optimize documentation for AI consumption'
-    date: 2026-03-16T02:02:13Z
-  - message: 'feat: add skills development toolkit with validation and automation'
-    date: 2026-03-15T20:26:00Z
-  - message: 'docs: add doob sync implementation plan'
-    date: 2026-03-04T08:41:43Z
-  - message: 'docs: add doob sync plugin system design'
-    date: 2026-03-04T08:38:28Z
-  - message: 'chore: archive legacy components to steve repo'
-    date: 2026-03-04T05:09:09Z
-  - message: 'feat: add Maestro code review commands with hexagonal architecture support'
-    date: 2026-03-04T04:49:26Z
-  - message: 'chore: cleanup results and updated configuration'
-    date: 2026-02-23T13:36:55Z
-  - message: 'test: add integration tests and documentation'
-    date: 2026-02-23T13:12:50Z
