@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-11T23:15:28Z
+  pushed_at: 2026-09-12T11:14:16Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-09-12T11:14:13Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-11T23:15:26Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-09-08T11:17:22Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-07T23:16:06Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-09-07T11:17:26Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,7 +219,7 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-12T10:22:48Z
+  pushed_at: 2026-09-12T23:04:53Z
   version: null
   stars: null
   downloads: null
@@ -247,6 +247,162 @@
   tags:
   - agents
   readme: "# Crux\n\nAgentic workflows as YAML pipelines and typed Rust agents, with every\nexecution captured as an inspectable, serializable, and replayable trace.\n\n- **Write pipelines in YAML.** Define steps, fan-out, piping, and\n  budgets in `.crux` files. The runtime handles execution, tracing,\n  and error recovery.\n- **Every step is traced.** Each step lands in a typed `Crux<T>` value\n  you can inspect, serialize, or replay after a crash.\n- **Rust when you need it.** Drop into `#[crux::agent]` for custom\n  logic, typed delegation, and confidence-based routing -- same trace,\n  same runtime.\n\n## Quick example\n\nA pipeline as a `.crux` file:\n\n```yaml\npipeline: summarize\nbudget: { calls: 2 }\n\nsteps:\n    - step: count_words\n      handler: shell::capture\n      args:\n          cmd: \"wc -w < input.txt\"\n\n    - step: log_result\n      handler: ctrl::log\n```\n\nRun it with the CLI:\n\n```bash\ncrux run pipeline.crux\n```\n\nThe same thing in Rust:\n\n```rust\nuse crux::prelude::*;\n\n#[crux::agent]\nasync fn summarize(input: String) -> Crux<String> {\n    let count: usize = x.step(\"count_words\", || async {\n        Ok(input.split_whitespace().count())\n    }).await?;\n\n    x.step(\"format\", || async move {\n        Ok(format!(\"{count} words\"))\n    }).await\n}\n```\n\nEither way, the returned `Crux<T>` is:\n\n- **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`\n- **Serializable** -- `serde_json::to_string(&crux)`\n- **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash\n\n## Installation\n\nInstall the pipeline CLI:\n\n```bash\ncargo install --git https://github.com/89jobrien/crux --tag v0.3.1 crux-cli\n```\n\nAdd the Rust DSL to a project:\n\n```toml\n[dependencies]\ncrux = { git = \"https://github.com/89jobrien/crux\", tag = \"v0.3.1\" }\n```\n\nRequires Rust 1.89+ (edition 2024).\n\nThe `crux` CLI can discover pipelines, validate or run `.crux` files and\n`Cruxfile` targets, replay saved traces, and generate pipelines from natural\nlanguage goals:\n\n```bash\ncrux list .\ncrux run pipeline.crux --check\ncrux run "
+- name: opavs
+  description: Orient-Plan-Act-Verify-Ship phase discipline CLI
+  url: https://github.com/89jobrien/opavs
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-12T22:49:05Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'feat: expand OPAVS agent lifecycle support'
+    date: 2026-09-05T23:31:24Z
+  - message: 'feat(repo): stop repo-root resolution at git worktree boundary'
+    date: 2026-08-23T12:41:11Z
+  - message: 'ci: cache the crux binary keyed on upstream commit SHA'
+    date: 2026-08-23T11:25:59Z
+  - message: 'ci: fix crux install by specifying the crux-cli package'
+    date: 2026-08-23T08:50:36Z
+  - message: 'ci: add crux-driven GitHub Actions pipeline'
+    date: 2026-08-23T08:25:00Z
+  - message: 'docs: clarify opavs plugin now delegates to the compiled binary'
+    date: 2026-08-23T00:51:59Z
+  - message: 'test: add property, fuzz, conformance, and integration coverage'
+    date: 2026-08-22T23:15:54Z
+  - message: 'fix(opavs): merge fix/moa-review-01'
+    date: 2026-08-22T22:52:29Z
+  - message: 'fix(opavs): address HIGH/MED moa-review findings [moa-review]'
+    date: 2026-08-22T22:37:34Z
+  - message: 'Initial scaffold: opavs phase-gating CLI with task-graph companion'
+    date: 2026-08-22T22:30:22Z
+  readme: |-
+    # opavs
+
+    Orient → Plan → Act → Verify → Ship. A workflow-phasing CLI: it gates what an
+    agent (or a person) is allowed to do based on which phase a repo is in —
+    read-only exploration, then a written plan, then edits, then verification,
+    then commit/push — each with a wider blast radius than the last. The point is
+    enforcement, not ceremony: a `PreToolUse` hook denies file mutations and
+    unapproved shell commands outside `ACT`, and denies `git commit`/`git push`
+    outside `SHIP`. The discipline is real state on disk, not just a convention.
+
+    Reimplements (in Rust) the shell-based `opavs-phase.sh` / `opavs-guard.sh`
+    pair from the `opavs` Claude Code plugin, for any repo using the
+    `.ctx/opavs/` state directory convention.
+
+    A lightweight task-graph companion rides alongside the phase machinery, for
+    repos that want to track what's runnable inside a phase — but the phase gate
+    is what this tool is _for_.
+
+    ## Install
+
+    Install from a source checkout, then install the agent integrations you use:
+
+    ```
+    git clone https://github.com/89jobrien/opavs.git
+    cargo install --path opavs
+    opavs plugin install all
+    ```
+
+    ## Commands
+
+    ### Phase discipline (core)
+
+    ```
+    opavs init [repo_root]     # scaffold OPAVS state and update instruction files
+    opavs phase get            # print current phase (defaults to ORIENT)
+    opavs phase set <PHASE>    # ORIENT | PLAN | ACT | VERIFY | SHIP
+
+    opavs guard                # PreToolUse hook entrypoint: reads Claude Code hook
+                                # JSON on stdin, emits an allow/deny
+                                # permissionDecision on stdout
+
+    opavs plugin install <target> [--home /path/to/home]
+                                # install OPAVS integration for one target:
+                                # claude | codex | gemini | opencode | all
+
+    opavs upgrade               # download and install the newest GitHub release
+    ```
+
+    `opavs upgrade` checks the latest `89jobrien/opavs` GitHub Release, downloads
+    the archive matching the current platform, and replaces th
+- name: looprs
+  description: Just tools in a loop.
+  url: https://github.com/89jobrien/looprs
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-09-12T14:45:40Z
+  version: v0.5.4
+  stars: 1
+  downloads: 203
+  recent_commits:
+  - message: 'Merge pull request #39 from 89jobrien/fix/release-auth-header'
+    date: 2026-09-10T01:04:17Z
+  - message: 'fix(release): prevent wrapped tag auth headers'
+    date: 2026-09-10T00:52:28Z
+  - message: 'Merge pull request #38 from 89jobrien/fix/release-registry-visibility'
+    date: 2026-09-09T22:58:46Z
+  - message: 'fix(release): use registry index for visibility checks'
+    date: 2026-09-09T22:47:17Z
+  - message: 'Merge pull request #37 from 89jobrien/release-v0.5.4'
+    date: 2026-09-09T22:03:35Z
+  - message: 'fix(release): preserve unreleased changelog section'
+    date: 2026-09-09T21:52:37Z
+  - message: 'docs(changelog): prepare 0.5.4 release notes'
+    date: 2026-09-09T21:36:28Z
+  - message: 'chore(release): bump workspace to 0.5.4'
+    date: 2026-09-09T21:28:03Z
+  - message: 'Merge pull request #36 from 89jobrien/fix/nightly-fuzz-target'
+    date: 2026-09-09T03:34:20Z
+  - message: 'fix(ci): target glibc for address sanitizer fuzzing'
+    date: 2026-09-09T03:31:30Z
+  tags:
+  - tools
+  readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Local env\n\n```bash\ncp .envrc.example .envrc\ndirenv allow\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# Gemini\nexport GEMINI_API_KEY=\"...\"\nexport PROVIDER=\"gemini\"          # or: google\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\nThese are tool capabilities exposed to the model during a session (not slash commands typed at the REPL).\n\n| Tool | Description |\n|------|-------------|\n| `read` | Read files with line pagination |\n| `write` | Create or overwrite files |\n| `edit` | Replace text in files |\n| `glob` | Find files by name pattern (faster with `fd`) |\n| `grep` | Search file contents (faster with `rg`) |\n| `nu` | Execute a Nushell command |\n| `bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # "
+- name: godmode
+  description: Rust-native development methodology for Claude Code, Codex, and OpenCode
+  url: https://github.com/89jobrien/godmode
+  kinds:
+  - GitHubRepo
+  - ClaudePlugin
+  language: Rust
+  pushed_at: 2026-09-12T11:53:12Z
+  version: v0.5.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'fix(ci): make conformance portable and refresh skill index'
+    date: 2026-08-25T10:27:15Z
+  - message: 'merge: coursers followups — trace-log wiring, crs-* rule lifecycle pipeline (JOB-472)'
+    date: 2026-08-18T02:07:10Z
+  - message: 'feat(pipelines): coursers-rules lifecycle pipeline with crs-* skills (JOB-472)'
+    date: 2026-08-17T19:45:16Z
+  - message: 'fix(commands): correct broken skill/agent refs in gm/ commands, update README'
+    date: 2026-08-17T10:27:32Z
+  - message: 'merge: gm3 coursers rule lifecycle skill (JOB-472)'
+    date: 2026-08-17T07:20:29Z
+  - message: 'feat(skills): add crs-hook-testing skill — coursers rule lifecycle pipeline (gm3, JOB-472)'
+    date: 2026-08-17T07:15:25Z
+  - message: 'docs: update handoff'
+    date: 2026-08-17T03:29:59Z
+  - message: 'feat(godmode-core): surface coursers failure-learning data in handon and context'
+    date: 2026-08-17T00:27:51Z
+  - message: 'fix(skills): introspection corrections — missing skill index entries, broken agent subcommand ref, undocumented CLI families'
+    date: 2026-08-16T23:15:26Z
+  - message: 'fix(devloop): update CLI references to devloop git analyze, wire orphaned agents to skills'
+    date: 2026-08-15T11:11:12Z
+  topics:
+  - ai-agents
+  - claude-code
+  - opencode
+  - rust
+  - tdd
+  readme: "# godmode\n\nSelf-contained Rust-native development methodology plugin for Claude Code.\n\n> Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.\n\n## Overview\n\nGodmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all\nstateful operations — skills are thin wrappers that call `godmode` and act on the output.\nTasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal\n`depends_on` chains.\n\n## Install\n\n```bash\ncargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode\nclaude plugin install godmode@bazaar\n```\n\n### Pre-commit hook\n\nInstall the godmode pre-commit hook into any git repo to block commits when tasks are\nstill running and to run cargo gates (fmt-check, clippy, nextest):\n\n```bash\n# From the repo root where you want the hook installed:\nnu /path/to/godmode/hooks/install.nu\n\n# Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:\nnu \"$CLAUDE_PLUGIN_ROOT/hooks/install.nu\"\n```\n\nThe hook:\n\n1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,\n   printing the offending task IDs.\n2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and\n   `cargo nextest run --workspace`.\n3. Blocks the commit on any failure with a clear message.\n\nIf `godmode` is not on PATH, the task-state check is skipped gracefully and only the\ncargo gates run.\n\n## Skills\n\n| Skill                                     | When                                                                  |\n| ----------------------------------------- | --------------------------------------------------------------------- |\n| `godmode:using-godmode`                 "
 - name: obfsck
   description: Secret-detection and redaction CLI for pre-commit hooks
   url: https://github.com/89jobrien/obfsck
@@ -462,41 +618,6 @@
 
     - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
     - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux o
-- name: looprs
-  description: Just tools in a loop.
-  url: https://github.com/89jobrien/looprs
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-09-10T01:31:41Z
-  version: v0.5.4
-  stars: 1
-  downloads: 203
-  recent_commits:
-  - message: 'Merge pull request #39 from 89jobrien/fix/release-auth-header'
-    date: 2026-09-10T01:04:17Z
-  - message: 'fix(release): prevent wrapped tag auth headers'
-    date: 2026-09-10T00:52:28Z
-  - message: 'Merge pull request #38 from 89jobrien/fix/release-registry-visibility'
-    date: 2026-09-09T22:58:46Z
-  - message: 'fix(release): use registry index for visibility checks'
-    date: 2026-09-09T22:47:17Z
-  - message: 'Merge pull request #37 from 89jobrien/release-v0.5.4'
-    date: 2026-09-09T22:03:35Z
-  - message: 'fix(release): preserve unreleased changelog section'
-    date: 2026-09-09T21:52:37Z
-  - message: 'docs(changelog): prepare 0.5.4 release notes'
-    date: 2026-09-09T21:36:28Z
-  - message: 'chore(release): bump workspace to 0.5.4'
-    date: 2026-09-09T21:28:03Z
-  - message: 'Merge pull request #36 from 89jobrien/fix/nightly-fuzz-target'
-    date: 2026-09-09T03:34:20Z
-  - message: 'fix(ci): target glibc for address sanitizer fuzzing'
-    date: 2026-09-09T03:31:30Z
-  tags:
-  - tools
-  readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Local env\n\n```bash\ncp .envrc.example .envrc\ndirenv allow\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# Gemini\nexport GEMINI_API_KEY=\"...\"\nexport PROVIDER=\"gemini\"          # or: google\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\nThese are tool capabilities exposed to the model during a session (not slash commands typed at the REPL).\n\n| Tool | Description |\n|------|-------------|\n| `read` | Read files with line pagination |\n| `write` | Create or overwrite files |\n| `edit` | Replace text in files |\n| `glob` | Find files by name pattern (faster with `fd`) |\n| `grep` | Search file contents (faster with `rg`) |\n| `nu` | Execute a Nushell command |\n| `bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # "
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
   url: https://crates.io/crates/looprs-cli
@@ -541,45 +662,6 @@
   stars: null
   downloads: 68
   recent_commits: []
-- name: godmode
-  description: Rust-native development methodology for Claude Code, Codex, and OpenCode
-  url: https://github.com/89jobrien/godmode
-  kinds:
-  - GitHubRepo
-  - ClaudePlugin
-  language: Rust
-  pushed_at: 2026-09-09T02:44:13Z
-  version: v0.5.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'fix(ci): make conformance portable and refresh skill index'
-    date: 2026-08-25T10:27:15Z
-  - message: 'merge: coursers followups — trace-log wiring, crs-* rule lifecycle pipeline (JOB-472)'
-    date: 2026-08-18T02:07:10Z
-  - message: 'feat(pipelines): coursers-rules lifecycle pipeline with crs-* skills (JOB-472)'
-    date: 2026-08-17T19:45:16Z
-  - message: 'fix(commands): correct broken skill/agent refs in gm/ commands, update README'
-    date: 2026-08-17T10:27:32Z
-  - message: 'merge: gm3 coursers rule lifecycle skill (JOB-472)'
-    date: 2026-08-17T07:20:29Z
-  - message: 'feat(skills): add crs-hook-testing skill — coursers rule lifecycle pipeline (gm3, JOB-472)'
-    date: 2026-08-17T07:15:25Z
-  - message: 'docs: update handoff'
-    date: 2026-08-17T03:29:59Z
-  - message: 'feat(godmode-core): surface coursers failure-learning data in handon and context'
-    date: 2026-08-17T00:27:51Z
-  - message: 'fix(skills): introspection corrections — missing skill index entries, broken agent subcommand ref, undocumented CLI families'
-    date: 2026-08-16T23:15:26Z
-  - message: 'fix(devloop): update CLI references to devloop git analyze, wire orphaned agents to skills'
-    date: 2026-08-15T11:11:12Z
-  topics:
-  - ai-agents
-  - claude-code
-  - opencode
-  - rust
-  - tdd
-  readme: "# godmode\n\nSelf-contained Rust-native development methodology plugin for Claude Code.\n\n> Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.\n\n## Overview\n\nGodmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all\nstateful operations — skills are thin wrappers that call `godmode` and act on the output.\nTasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal\n`depends_on` chains.\n\n## Install\n\n```bash\ncargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode\nclaude plugin install godmode@bazaar\n```\n\n### Pre-commit hook\n\nInstall the godmode pre-commit hook into any git repo to block commits when tasks are\nstill running and to run cargo gates (fmt-check, clippy, nextest):\n\n```bash\n# From the repo root where you want the hook installed:\nnu /path/to/godmode/hooks/install.nu\n\n# Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:\nnu \"$CLAUDE_PLUGIN_ROOT/hooks/install.nu\"\n```\n\nThe hook:\n\n1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,\n   printing the offending task IDs.\n2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and\n   `cargo nextest run --workspace`.\n3. Blocks the commit on any failure with a clear message.\n\nIf `godmode` is not on PATH, the task-state check is skipped gracefully and only the\ncargo gates run.\n\n## Skills\n\n| Skill                                     | When                                                                  |\n| ----------------------------------------- | --------------------------------------------------------------------- |\n| `godmode:using-godmode`                 "
 - name: langchainx
   description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
   url: https://github.com/89jobrien/langchainx
@@ -658,7 +740,7 @@
   pushed_at: 2026-09-07T18:17:35Z
   version: v0.9.0
   stars: 1
-  downloads: 445
+  downloads: 447
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -832,88 +914,6 @@
     For Codex, the top-level registry also points at `crs hook --target codex <event>`.
     Those entries dispatch to the existing `$HOME/.codex/hooks/*.crux` backends, which
     still compose `coursers pre/post` and `crs rewrite/filter` i
-- name: opavs
-  description: Orient-Plan-Act-Verify-Ship phase discipline CLI
-  url: https://github.com/89jobrien/opavs
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-05T23:31:36Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat: expand OPAVS agent lifecycle support'
-    date: 2026-09-05T23:31:24Z
-  - message: 'feat(repo): stop repo-root resolution at git worktree boundary'
-    date: 2026-08-23T12:41:11Z
-  - message: 'ci: cache the crux binary keyed on upstream commit SHA'
-    date: 2026-08-23T11:25:59Z
-  - message: 'ci: fix crux install by specifying the crux-cli package'
-    date: 2026-08-23T08:50:36Z
-  - message: 'ci: add crux-driven GitHub Actions pipeline'
-    date: 2026-08-23T08:25:00Z
-  - message: 'docs: clarify opavs plugin now delegates to the compiled binary'
-    date: 2026-08-23T00:51:59Z
-  - message: 'test: add property, fuzz, conformance, and integration coverage'
-    date: 2026-08-22T23:15:54Z
-  - message: 'fix(opavs): merge fix/moa-review-01'
-    date: 2026-08-22T22:52:29Z
-  - message: 'fix(opavs): address HIGH/MED moa-review findings [moa-review]'
-    date: 2026-08-22T22:37:34Z
-  - message: 'Initial scaffold: opavs phase-gating CLI with task-graph companion'
-    date: 2026-08-22T22:30:22Z
-  readme: |-
-    # opavs
-
-    Orient → Plan → Act → Verify → Ship. A workflow-phasing CLI: it gates what an
-    agent (or a person) is allowed to do based on which phase a repo is in —
-    read-only exploration, then a written plan, then edits, then verification,
-    then commit/push — each with a wider blast radius than the last. The point is
-    enforcement, not ceremony: a `PreToolUse` hook denies file mutations and
-    unapproved shell commands outside `ACT`, and denies `git commit`/`git push`
-    outside `SHIP`. The discipline is real state on disk, not just a convention.
-
-    Reimplements (in Rust) the shell-based `opavs-phase.sh` / `opavs-guard.sh`
-    pair from the `opavs` Claude Code plugin, for any repo using the
-    `.ctx/opavs/` state directory convention.
-
-    A lightweight task-graph companion rides alongside the phase machinery, for
-    repos that want to track what's runnable inside a phase — but the phase gate
-    is what this tool is _for_.
-
-    ## Install
-
-    Install from a source checkout, then install the agent integrations you use:
-
-    ```
-    git clone https://github.com/89jobrien/opavs.git
-    cargo install --path opavs
-    opavs plugin install all
-    ```
-
-    ## Commands
-
-    ### Phase discipline (core)
-
-    ```
-    opavs init [repo_root]     # scaffold OPAVS state and update instruction files
-    opavs phase get            # print current phase (defaults to ORIENT)
-    opavs phase set <PHASE>    # ORIENT | PLAN | ACT | VERIFY | SHIP
-
-    opavs guard                # PreToolUse hook entrypoint: reads Claude Code hook
-                                # JSON on stdin, emits an allow/deny
-                                # permissionDecision on stdout
-
-    opavs plugin install <target> [--home /path/to/home]
-                                # install OPAVS integration for one target:
-                                # claude | codex | gemini | opencode | all
-
-    opavs upgrade               # download and install the newest GitHub release
-    ```
-
-    `opavs upgrade` checks the latest `89jobrien/opavs` GitHub Release, downloads
-    the archive matching the current platform, and replaces th
 - name: minibox-cli
   description: User-facing CLI for the minibox container runtime daemon
   url: https://crates.io/crates/minibox-cli
@@ -956,7 +956,7 @@
   pushed_at: 2026-08-26T21:15:59.685804Z
   version: 0.9.0
   stars: null
-  downloads: 199
+  downloads: 200
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -967,7 +967,7 @@
   pushed_at: 2026-08-26T21:15:48.824269Z
   version: 0.9.0
   stars: null
-  downloads: 210
+  downloads: 211
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -978,7 +978,7 @@
   pushed_at: 2026-08-26T21:15:42.043834Z
   version: 0.9.0
   stars: null
-  downloads: 197
+  downloads: 198
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -989,7 +989,7 @@
   pushed_at: 2026-08-26T21:15:36.888035Z
   version: 0.9.0
   stars: null
-  downloads: 252
+  downloads: 253
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -1033,7 +1033,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 256
+  downloads: 257
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -1044,7 +1044,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 383
+  downloads: 384
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
@@ -4222,7 +4222,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 8723
+  downloads: 8732
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4501,7 +4501,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 2456
+  downloads: 2457
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -5010,7 +5010,7 @@
   pushed_at: 2026-04-13T21:30:34Z
   version: 0.2.0
   stars: null
-  downloads: 39
+  downloads: 41
   recent_commits:
   - message: 'docs: update CLAUDE.md with config path gotcha and format_args'
     date: 2026-04-13T21:30:31Z
