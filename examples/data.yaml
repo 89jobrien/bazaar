@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-12T11:14:16Z
+  pushed_at: 2026-09-12T23:14:21Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-09-12T23:14:19Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-12T11:14:13Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-09-08T23:15:48Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-08T11:17:22Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-09-07T23:16:06Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,13 +213,263 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: obfsck
+  description: Secret-detection and redaction CLI for pre-commit hooks
+  url: https://github.com/89jobrien/obfsck
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-09-13T07:29:23Z
+  version: v0.1.0
+  stars: null
+  downloads: 142
+  recent_commits:
+  - message: 'feat(cli): merge feat/unified-obfsck-cli'
+    date: 2026-09-12T09:18:07Z
+  - message: 'fix(security): harden scanning and validation'
+    date: 2026-09-12T09:15:42Z
+  - message: 'feat(patterns): add configurable pattern model'
+    date: 2026-09-12T07:46:49Z
+  - message: 'chore: refresh handoff and capture analyzer follow-up'
+    date: 2026-08-28T19:37:17Z
+  - message: 'fix(cli): show canonical redact usage'
+    date: 2026-08-27T00:17:55Z
+  - message: 'docs(cli): promote unified obfsck commands'
+    date: 2026-08-27T00:14:38Z
+  - message: 'feat(cli): deprecate legacy analyzer binary'
+    date: 2026-08-27T00:09:43Z
+  - message: 'feat(cli): add unified obfsck subcommands'
+    date: 2026-08-27T00:06:48Z
+  - message: 'refactor(cli): share redaction command implementation'
+    date: 2026-08-27T00:03:38Z
+  - message: 'fix(deps): bump quinn-proto for RustSec-2026-0185'
+    date: 2026-08-25T10:11:49Z
+  tags:
+  - cli
+  readme: |-
+    # obfsck
+
+    Redacts secrets and PII from log lines and structured text.
+
+    ## Install
+
+    ```bash
+    cargo install --path .
+    ```
+
+    ## What it does
+
+    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
+    - Obfuscates identifiers with stable mappings (same input => same token)
+    - Supports privacy levels based on how aggressive redaction should be
+
+    ## Obfuscation levels
+
+    - `Minimal`: secret pattern redaction only
+    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
+    - `Paranoid`: adds path, hostname, and high-entropy token redaction
+
+    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
+    Sensitive system paths are preserved.
+
+    Preserved path segments include common roots like `home`, `usr`, `etc`,
+    `windows`, `users`, and `programdata`.
+
+    ### What each level redacts
+
+    | Pattern category | minimal | standard | paranoid |
+    |-----------------|---------|----------|----------|
+    | API keys, tokens, passwords | yes | yes | yes |
+    | IPs, emails, container IDs, usernames | — | yes | yes |
+    | PII (names, SSN, phone, credit card) | — | yes | yes |
+    | Paths, hostnames, high-entropy strings | — | — | yes |
+    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
+
+    `standard` is the privacy-forward default for sharing logs externally.
+    `minimal` is safe for internal tooling where structural identifiers are useful.
+
+    ## obfsck CLI
+
+    Redact secrets and PII from a file or stdin.
+
+    ```bash
+    # Stdin -> stdout (default level: minimal — secrets only)
+    echo "key=sk-ant-api03-ABCDEF..." | obfsck redact
+
+    # File input
+    obfsck redact path/to/logfile.txt
+
+    # Write to output file
+    obfsck redact input.txt --output redacted.txt
+
+    # Increase level
+    obfsck redact input.txt --level standard   # + IPs, emails, usernames, PII
+    obfsck redact input.txt --level paranoid   # + paths, hostnames, high-entropy
+
+    # Audit mode — report findings to stderr without redacting
+    obfsck redact input.txt --audit
+
+    # Custom secrets config (overrides bundled config)
+    obfsck redact input.txt --conf
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-09-13T06:52:21Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-13T06:52:21Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-12T06:48:05Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-11T06:52:01Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-10T06:52:24Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-09T06:52:51Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-08T06:52:25Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-07T07:02:51Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-06T06:47:09Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-05T06:47:01Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-04T06:52:32Z
+- name: looprs
+  description: Just tools in a loop.
+  url: https://github.com/89jobrien/looprs
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-09-13T06:19:18Z
+  version: v0.5.4
+  stars: 1
+  downloads: 203
+  recent_commits:
+  - message: 'Merge pull request #39 from 89jobrien/fix/release-auth-header'
+    date: 2026-09-10T01:04:17Z
+  - message: 'fix(release): prevent wrapped tag auth headers'
+    date: 2026-09-10T00:52:28Z
+  - message: 'Merge pull request #38 from 89jobrien/fix/release-registry-visibility'
+    date: 2026-09-09T22:58:46Z
+  - message: 'fix(release): use registry index for visibility checks'
+    date: 2026-09-09T22:47:17Z
+  - message: 'Merge pull request #37 from 89jobrien/release-v0.5.4'
+    date: 2026-09-09T22:03:35Z
+  - message: 'fix(release): preserve unreleased changelog section'
+    date: 2026-09-09T21:52:37Z
+  - message: 'docs(changelog): prepare 0.5.4 release notes'
+    date: 2026-09-09T21:36:28Z
+  - message: 'chore(release): bump workspace to 0.5.4'
+    date: 2026-09-09T21:28:03Z
+  - message: 'Merge pull request #36 from 89jobrien/fix/nightly-fuzz-target'
+    date: 2026-09-09T03:34:20Z
+  - message: 'fix(ci): target glibc for address sanitizer fuzzing'
+    date: 2026-09-09T03:31:30Z
+  tags:
+  - tools
+  readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Local env\n\n```bash\ncp .envrc.example .envrc\ndirenv allow\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# Gemini\nexport GEMINI_API_KEY=\"...\"\nexport PROVIDER=\"gemini\"          # or: google\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\nThese are tool capabilities exposed to the model during a session (not slash commands typed at the REPL).\n\n| Tool | Description |\n|------|-------------|\n| `read` | Read files with line pagination |\n| `write` | Create or overwrite files |\n| `edit` | Replace text in files |\n| `glob` | Find files by name pattern (faster with `fd`) |\n| `grep` | Search file contents (faster with `rg`) |\n| `nu` | Execute a Nushell command |\n| `bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # "
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-13T02:37:14Z
+  version: v0.33.1
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #472 from 89jobrien/issue/250'
+    date: 2026-08-28T18:49:13Z
+  - message: 'merge: sync local Searchbox with Wave 1'
+    date: 2026-08-28T18:41:31Z
+  - message: 'Merge pull request #470 from 89jobrien/issues/wave1-integration'
+    date: 2026-08-28T18:34:44Z
+  - message: 'fix(ci): gate VZ startup path to macOS'
+    date: 2026-08-28T18:29:54Z
+  - message: 'fix(ci): gate VZ dependencies to macOS'
+    date: 2026-08-28T18:23:37Z
+  - message: 'fix(runtime): cover UID mapping in all-feature builds'
+    date: 2026-08-28T18:08:57Z
+  - message: 'chore(protocol): accept Wave 1 contract changes'
+    date: 2026-08-28T18:00:16Z
+  - message: 'merge: issue #231 typed capability matrix'
+    date: 2026-08-28T17:42:57Z
+  - message: 'merge: issue #452 VOLUME-aware commits'
+    date: 2026-08-28T17:37:51Z
+  - message: 'merge: issues #451 #448 #450 Linux isolation and lifecycle'
+    date: 2026-08-28T17:35:54Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
+
+    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
+    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
+    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
+    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
+    lifecycle without shelling out to the CLI.
+
+    **Status:** Active development — `v0.32.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — local `search`, `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `mbx logs <id>` for stored stdout/stderr
+    - Container events — `mbx events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux o
 - name: crux
   description: Inspectable, serializable, replayable agent execution.
   url: https://github.com/89jobrien/crux
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-12T23:04:53Z
+  pushed_at: 2026-09-13T02:06:49Z
   version: null
   stars: null
   downloads: null
@@ -329,41 +579,6 @@
 
     `opavs upgrade` checks the latest `89jobrien/opavs` GitHub Release, downloads
     the archive matching the current platform, and replaces th
-- name: looprs
-  description: Just tools in a loop.
-  url: https://github.com/89jobrien/looprs
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-09-12T14:45:40Z
-  version: v0.5.4
-  stars: 1
-  downloads: 203
-  recent_commits:
-  - message: 'Merge pull request #39 from 89jobrien/fix/release-auth-header'
-    date: 2026-09-10T01:04:17Z
-  - message: 'fix(release): prevent wrapped tag auth headers'
-    date: 2026-09-10T00:52:28Z
-  - message: 'Merge pull request #38 from 89jobrien/fix/release-registry-visibility'
-    date: 2026-09-09T22:58:46Z
-  - message: 'fix(release): use registry index for visibility checks'
-    date: 2026-09-09T22:47:17Z
-  - message: 'Merge pull request #37 from 89jobrien/release-v0.5.4'
-    date: 2026-09-09T22:03:35Z
-  - message: 'fix(release): preserve unreleased changelog section'
-    date: 2026-09-09T21:52:37Z
-  - message: 'docs(changelog): prepare 0.5.4 release notes'
-    date: 2026-09-09T21:36:28Z
-  - message: 'chore(release): bump workspace to 0.5.4'
-    date: 2026-09-09T21:28:03Z
-  - message: 'Merge pull request #36 from 89jobrien/fix/nightly-fuzz-target'
-    date: 2026-09-09T03:34:20Z
-  - message: 'fix(ci): target glibc for address sanitizer fuzzing'
-    date: 2026-09-09T03:31:30Z
-  tags:
-  - tools
-  readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Local env\n\n```bash\ncp .envrc.example .envrc\ndirenv allow\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# Gemini\nexport GEMINI_API_KEY=\"...\"\nexport PROVIDER=\"gemini\"          # or: google\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\nThese are tool capabilities exposed to the model during a session (not slash commands typed at the REPL).\n\n| Tool | Description |\n|------|-------------|\n| `read` | Read files with line pagination |\n| `write` | Create or overwrite files |\n| `edit` | Replace text in files |\n| `glob` | Find files by name pattern (faster with `fd`) |\n| `grep` | Search file contents (faster with `rg`) |\n| `nu` | Execute a Nushell command |\n| `bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # "
 - name: godmode
   description: Rust-native development methodology for Claude Code, Codex, and OpenCode
   url: https://github.com/89jobrien/godmode
@@ -403,221 +618,6 @@
   - rust
   - tdd
   readme: "# godmode\n\nSelf-contained Rust-native development methodology plugin for Claude Code.\n\n> Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.\n\n## Overview\n\nGodmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all\nstateful operations — skills are thin wrappers that call `godmode` and act on the output.\nTasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal\n`depends_on` chains.\n\n## Install\n\n```bash\ncargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode\nclaude plugin install godmode@bazaar\n```\n\n### Pre-commit hook\n\nInstall the godmode pre-commit hook into any git repo to block commits when tasks are\nstill running and to run cargo gates (fmt-check, clippy, nextest):\n\n```bash\n# From the repo root where you want the hook installed:\nnu /path/to/godmode/hooks/install.nu\n\n# Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:\nnu \"$CLAUDE_PLUGIN_ROOT/hooks/install.nu\"\n```\n\nThe hook:\n\n1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,\n   printing the offending task IDs.\n2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and\n   `cargo nextest run --workspace`.\n3. Blocks the commit on any failure with a clear message.\n\nIf `godmode` is not on PATH, the task-state check is skipped gracefully and only the\ncargo gates run.\n\n## Skills\n\n| Skill                                     | When                                                                  |\n| ----------------------------------------- | --------------------------------------------------------------------- |\n| `godmode:using-godmode`                 "
-- name: obfsck
-  description: Secret-detection and redaction CLI for pre-commit hooks
-  url: https://github.com/89jobrien/obfsck
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-09-12T09:19:25Z
-  version: v0.1.0
-  stars: null
-  downloads: 142
-  recent_commits:
-  - message: 'feat(cli): merge feat/unified-obfsck-cli'
-    date: 2026-09-12T09:18:07Z
-  - message: 'fix(security): harden scanning and validation'
-    date: 2026-09-12T09:15:42Z
-  - message: 'feat(patterns): add configurable pattern model'
-    date: 2026-09-12T07:46:49Z
-  - message: 'chore: refresh handoff and capture analyzer follow-up'
-    date: 2026-08-28T19:37:17Z
-  - message: 'fix(cli): show canonical redact usage'
-    date: 2026-08-27T00:17:55Z
-  - message: 'docs(cli): promote unified obfsck commands'
-    date: 2026-08-27T00:14:38Z
-  - message: 'feat(cli): deprecate legacy analyzer binary'
-    date: 2026-08-27T00:09:43Z
-  - message: 'feat(cli): add unified obfsck subcommands'
-    date: 2026-08-27T00:06:48Z
-  - message: 'refactor(cli): share redaction command implementation'
-    date: 2026-08-27T00:03:38Z
-  - message: 'fix(deps): bump quinn-proto for RustSec-2026-0185'
-    date: 2026-08-25T10:11:49Z
-  tags:
-  - cli
-  readme: |-
-    # obfsck
-
-    Redacts secrets and PII from log lines and structured text.
-
-    ## Install
-
-    ```bash
-    cargo install --path .
-    ```
-
-    ## What it does
-
-    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
-    - Obfuscates identifiers with stable mappings (same input => same token)
-    - Supports privacy levels based on how aggressive redaction should be
-
-    ## Obfuscation levels
-
-    - `Minimal`: secret pattern redaction only
-    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
-    - `Paranoid`: adds path, hostname, and high-entropy token redaction
-
-    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
-    Sensitive system paths are preserved.
-
-    Preserved path segments include common roots like `home`, `usr`, `etc`,
-    `windows`, `users`, and `programdata`.
-
-    ### What each level redacts
-
-    | Pattern category | minimal | standard | paranoid |
-    |-----------------|---------|----------|----------|
-    | API keys, tokens, passwords | yes | yes | yes |
-    | IPs, emails, container IDs, usernames | — | yes | yes |
-    | PII (names, SSN, phone, credit card) | — | yes | yes |
-    | Paths, hostnames, high-entropy strings | — | — | yes |
-    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
-
-    `standard` is the privacy-forward default for sharing logs externally.
-    `minimal` is safe for internal tooling where structural identifiers are useful.
-
-    ## obfsck CLI
-
-    Redact secrets and PII from a file or stdin.
-
-    ```bash
-    # Stdin -> stdout (default level: minimal — secrets only)
-    echo "key=sk-ant-api03-ABCDEF..." | obfsck redact
-
-    # File input
-    obfsck redact path/to/logfile.txt
-
-    # Write to output file
-    obfsck redact input.txt --output redacted.txt
-
-    # Increase level
-    obfsck redact input.txt --level standard   # + IPs, emails, usernames, PII
-    obfsck redact input.txt --level paranoid   # + paths, hostnames, high-entropy
-
-    # Audit mode — report findings to stderr without redacting
-    obfsck redact input.txt --audit
-
-    # Custom secrets config (overrides bundled config)
-    obfsck redact input.txt --conf
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-09-12T06:48:06Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-12T06:48:05Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-11T06:52:01Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-10T06:52:24Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-09T06:52:51Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-08T06:52:25Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-07T07:02:51Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-06T06:47:09Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-05T06:47:01Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-04T06:52:32Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-03T06:52:29Z
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-12T02:36:43Z
-  version: v0.33.1
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #472 from 89jobrien/issue/250'
-    date: 2026-08-28T18:49:13Z
-  - message: 'merge: sync local Searchbox with Wave 1'
-    date: 2026-08-28T18:41:31Z
-  - message: 'Merge pull request #470 from 89jobrien/issues/wave1-integration'
-    date: 2026-08-28T18:34:44Z
-  - message: 'fix(ci): gate VZ startup path to macOS'
-    date: 2026-08-28T18:29:54Z
-  - message: 'fix(ci): gate VZ dependencies to macOS'
-    date: 2026-08-28T18:23:37Z
-  - message: 'fix(runtime): cover UID mapping in all-feature builds'
-    date: 2026-08-28T18:08:57Z
-  - message: 'chore(protocol): accept Wave 1 contract changes'
-    date: 2026-08-28T18:00:16Z
-  - message: 'merge: issue #231 typed capability matrix'
-    date: 2026-08-28T17:42:57Z
-  - message: 'merge: issue #452 VOLUME-aware commits'
-    date: 2026-08-28T17:37:51Z
-  - message: 'merge: issues #451 #448 #450 Linux isolation and lifecycle'
-    date: 2026-08-28T17:35:54Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
-
-    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
-    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
-    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
-    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
-    lifecycle without shelling out to the CLI.
-
-    **Status:** Active development — `v0.32.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — local `search`, `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `mbx logs <id>` for stored stdout/stderr
-    - Container events — `mbx events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux o
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
   url: https://crates.io/crates/looprs-cli
@@ -1055,7 +1055,7 @@
   pushed_at: 2026-08-26T20:14:35.927497Z
   version: 0.1.0
   stars: null
-  downloads: 18
+  downloads: 19
   recent_commits: []
 - name: coursers-types
   description: Domain types and port traits for the coursers workspace
@@ -1066,7 +1066,7 @@
   pushed_at: 2026-08-26T20:14:08.806708Z
   version: 0.1.0
   stars: null
-  downloads: 22
+  downloads: 24
   recent_commits: []
 - name: prefixe-cli
   description: CLI binary for the prefixe command-rewriting system
@@ -1089,7 +1089,7 @@
   pushed_at: 2026-08-26T19:33:00Z
   version: v0.5.0
   stars: null
-  downloads: 88
+  downloads: 90
   recent_commits:
   - message: 'chore(release): prepare prefixe 0.5.0'
     date: 2026-08-26T19:32:35Z
@@ -3000,7 +3000,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 89
+  downloads: 90
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -3173,7 +3173,7 @@
   pushed_at: 2026-07-13T07:35:29.534149Z
   version: 0.3.0
   stars: null
-  downloads: 21
+  downloads: 22
   recent_commits: []
 - name: braid-ports
   description: Port traits for the braid agent platform (Provider, ToolExecutor, EventSink, ComponentRegistry)
@@ -3184,7 +3184,7 @@
   pushed_at: 2026-07-13T07:34:30.277211Z
   version: 0.3.0
   stars: null
-  downloads: 109
+  downloads: 116
   recent_commits: []
 - name: braid-model
   description: Canonical domain types for the braid agent platform
@@ -3195,7 +3195,7 @@
   pushed_at: 2026-07-13T07:33:22.653887Z
   version: 0.3.0
   stars: null
-  downloads: 147
+  downloads: 155
   recent_commits: []
 - name: crux-script
   description: YAML-driven pipeline scripting for the crux agentic DSL
@@ -3217,7 +3217,7 @@
   pushed_at: 2026-07-09T02:11:26.279438Z
   version: 0.3.1
   stars: null
-  downloads: 53
+  downloads: 54
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -3239,7 +3239,7 @@
   pushed_at: 2026-07-09T02:08:45.038550Z
   version: 0.3.1
   stars: null
-  downloads: 75
+  downloads: 77
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -3261,7 +3261,7 @@
   pushed_at: 2026-07-09T02:08:40.675079Z
   version: 0.3.1
   stars: null
-  downloads: 103
+  downloads: 105
   recent_commits: []
 - name: claude-code-statusline
   description: Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance — minimal setup, maximum insight.
@@ -3744,7 +3744,7 @@
   pushed_at: 2026-06-08T05:39:24.236954Z
   version: 0.1.0
   stars: null
-  downloads: 63
+  downloads: 64
   recent_commits: []
 - name: disyn-memory
   description: Memory store implementation for the disyn agent pipeline
@@ -3755,7 +3755,7 @@
   pushed_at: 2026-06-08T05:26:27.409395Z
   version: 0.1.0
   stars: null
-  downloads: 62
+  downloads: 63
   recent_commits: []
 - name: disyn-neural
   description: Neural proposal engine and fact extractor for the disyn agent pipeline
@@ -3766,7 +3766,7 @@
   pushed_at: 2026-06-08T05:26:18.193930Z
   version: 0.1.0
   stars: null
-  downloads: 61
+  downloads: 62
   recent_commits: []
 - name: disyn-symbolic
   description: Symbolic verifier and repair engine for the disyn agent pipeline
@@ -3777,7 +3777,7 @@
   pushed_at: 2026-06-08T05:26:07.254857Z
   version: 0.1.0
   stars: null
-  downloads: 62
+  downloads: 63
   recent_commits: []
 - name: disyn-core
   description: Domain types, port traits, and errors for the disyn agent pipeline
@@ -3788,7 +3788,7 @@
   pushed_at: 2026-06-08T05:25:56.523924Z
   version: 0.1.0
   stars: null
-  downloads: 197
+  downloads: 202
   recent_commits: []
 - name: surgeon
   description: Agentic code analysis and improvement tool for Rust
@@ -4134,7 +4134,7 @@
   pushed_at: 2026-05-18T05:22:46.040541Z
   version: 0.2.6
   stars: null
-  downloads: 94
+  downloads: 95
   recent_commits: []
 - name: cruxx-agentic
   description: Built-in step handlers for cruxx-script pipelines
@@ -4145,7 +4145,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 143
+  downloads: 145
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -4156,7 +4156,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 201
+  downloads: 204
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -4167,7 +4167,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 302
+  downloads: 307
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -4178,7 +4178,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 425
+  downloads: 430
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -4189,7 +4189,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 308
+  downloads: 314
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -4200,7 +4200,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 200
+  downloads: 203
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -4211,7 +4211,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 106
+  downloads: 107
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -4222,7 +4222,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 8732
+  downloads: 8761
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4233,7 +4233,7 @@
   pushed_at: 2026-05-16T04:04:45.475950Z
   version: 0.3.0
   stars: null
-  downloads: 99
+  downloads: 100
   recent_commits: []
 - name: agentlint-pi
   description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
@@ -4244,7 +4244,7 @@
   pushed_at: 2026-05-16T04:04:23.718026Z
   version: 0.3.0
   stars: null
-  downloads: 101
+  downloads: 102
   recent_commits: []
 - name: agentlint-gemini
   description: agentlint validator for Google Gemini GEMINI.md files
@@ -4255,7 +4255,7 @@
   pushed_at: 2026-05-16T04:04:00.508658Z
   version: 0.3.0
   stars: null
-  downloads: 122
+  downloads: 123
   recent_commits: []
 - name: agentlint-codex
   description: agentlint validator for OpenAI Codex AGENTS.md files
@@ -4266,7 +4266,7 @@
   pushed_at: 2026-05-16T04:03:38.113837Z
   version: 0.3.0
   stars: null
-  downloads: 120
+  downloads: 121
   recent_commits: []
 - name: agentlint-cursor
   description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
@@ -4277,7 +4277,7 @@
   pushed_at: 2026-05-16T04:03:15.391246Z
   version: 0.3.0
   stars: null
-  downloads: 121
+  downloads: 122
   recent_commits: []
 - name: agentlint-claude
   description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
@@ -4288,7 +4288,7 @@
   pushed_at: 2026-05-16T04:02:52.382445Z
   version: 0.3.0
   stars: null
-  downloads: 98
+  downloads: 99
   recent_commits: []
 - name: agentlint-frontmatter
   description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
@@ -4299,7 +4299,7 @@
   pushed_at: 2026-05-16T04:02:28.958456Z
   version: 0.3.0
   stars: null
-  downloads: 222
+  downloads: 225
   recent_commits: []
 - name: agentlint-core
   description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
@@ -4310,7 +4310,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 422
+  downloads: 430
   recent_commits: []
 - name: warpx
   description: 'Warp terminal fork: agentic dev environment, custom UI, MCP, skills'
@@ -4434,7 +4434,7 @@
   pushed_at: 2026-04-30T21:51:42.719327Z
   version: 0.1.3
   stars: null
-  downloads: 70
+  downloads: 71
   recent_commits: []
 - name: tailbox
   description: Tailscale-rs network adapter for minibox containers
@@ -4501,7 +4501,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 2457
+  downloads: 2478
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -4678,7 +4678,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 292
+  downloads: 293
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -4689,7 +4689,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 130
+  downloads: 131
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -4700,7 +4700,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 353
+  downloads: 354
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
@@ -4778,7 +4778,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 100
+  downloads: 101
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -4789,7 +4789,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 103
+  downloads: 104
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -4800,7 +4800,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 98
+  downloads: 99
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -4811,7 +4811,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 98
+  downloads: 99
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -4822,7 +4822,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 317
+  downloads: 322
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
