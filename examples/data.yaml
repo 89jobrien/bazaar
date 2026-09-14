@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-13T11:13:59Z
+  pushed_at: 2026-09-13T23:15:13Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-09-13T23:15:10Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-13T11:13:57Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-09-09T23:15:31Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-09T11:16:43Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-09-08T23:15:48Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,226 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-09-14T07:04:36Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-14T07:04:35Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-13T06:52:21Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-12T06:48:05Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-11T06:52:01Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-10T06:52:24Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-09T06:52:51Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-08T06:52:25Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-07T07:02:51Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-06T06:47:09Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-05T06:47:01Z
+- name: bamlish
+  description: Standalone BAML schema library and generated Rust client for structured LLM output
+  url: https://github.com/89jobrien/bamlish
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-14T05:53:10Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore(baml): scaffold core/ and extensions/ directories'
+    date: 2026-05-10T08:34:48Z
+  - message: 'docs: update handoff'
+    date: 2026-05-10T08:06:12Z
+  - message: 'feat: initial bamlish project setup'
+    date: 2026-05-10T07:47:52Z
+  readme: |-
+    # bamlish
+
+    Structured LLM output library for the dev workspace. Defines BAML schemas and exposes a generated
+    Rust client (`baml_client`) for calling AI functions with type-safe return values.
+
+    Covers: git branch analysis, multi-role council synthesis, Claude session parsing, doob task
+    analysis, maestro session analysis, devloop agent planning, and meta-schema generation.
+
+    ## Usage
+
+    Add to `Cargo.toml`:
+
+    ```toml
+    bamlish = { path = "../bamlish" }
+    ```
+
+    Types and the async call surface are exposed at the crate root:
+
+    ```rust
+    use bamlish::{B, BranchInsight, CitedFinding};
+
+    let insight: BranchInsight = B.AnalyzeBranch.call(
+        "feature/auth".into(),
+        commits,
+        sessions,
+        commit_count,
+        session_count,
+        None,
+    ).await?;
+    ```
+
+    For council analysis, run the role functions in parallel and synthesize:
+
+    ```rust
+    use bamlish::{B, CouncilInsight};
+
+    let (strict, creative, general) = tokio::join!(
+        B.AnalyzeBranch_StrictCritic.call(...),
+        B.AnalyzeBranch_CreativeExplorer.call(...),
+        B.AnalyzeBranch_GeneralAnalyst.call(...),
+    );
+    let council: CouncilInsight = B.SynthesizeCouncilInsights.call(...).await?;
+    ```
+
+    ## BAML functions by domain
+
+    | Domain          | Key functions                                                                                                                                 |
+    | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+    | Branch analysis | `AnalyzeBranch`, `AnalyzeBranchWithCodeStructure`, `ExtractUserIntent`, `AnswerTimelineQuestion`                                              |
+    | Council         | `AnalyzeBranch_StrictCritic`, `_CreativeExplorer`, `_GeneralAnalyst`, `_SecurityReviewer`, `_PerformanceAnalyst`, `SynthesizeCouncilInsights` |
+    | Conversation    | `SummarizeConversation`, `AnalyzeToolUsage`, `AnalyzeTaskProgression`, `QuickSummarize`, `GenerateSessionTitle`                               |
+    | Session logs    | `A
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-14T02:41:15Z
+  version: v0.33.1
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #472 from 89jobrien/issue/250'
+    date: 2026-08-28T18:49:13Z
+  - message: 'merge: sync local Searchbox with Wave 1'
+    date: 2026-08-28T18:41:31Z
+  - message: 'Merge pull request #470 from 89jobrien/issues/wave1-integration'
+    date: 2026-08-28T18:34:44Z
+  - message: 'fix(ci): gate VZ startup path to macOS'
+    date: 2026-08-28T18:29:54Z
+  - message: 'fix(ci): gate VZ dependencies to macOS'
+    date: 2026-08-28T18:23:37Z
+  - message: 'fix(runtime): cover UID mapping in all-feature builds'
+    date: 2026-08-28T18:08:57Z
+  - message: 'chore(protocol): accept Wave 1 contract changes'
+    date: 2026-08-28T18:00:16Z
+  - message: 'merge: issue #231 typed capability matrix'
+    date: 2026-08-28T17:42:57Z
+  - message: 'merge: issue #452 VOLUME-aware commits'
+    date: 2026-08-28T17:37:51Z
+  - message: 'merge: issues #451 #448 #450 Linux isolation and lifecycle'
+    date: 2026-08-28T17:35:54Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
+
+    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
+    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
+    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
+    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
+    lifecycle without shelling out to the CLI.
+
+    **Status:** Active development — `v0.32.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — local `search`, `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `mbx logs <id>` for stored stdout/stderr
+    - Container events — `mbx events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux o
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-14T02:09:40Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(runtime): merge architecture review fixes'
+    date: 2026-09-12T10:20:02Z
+  - message: 'fix(cli): restore readable pipeline output [moa-review]'
+    date: 2026-09-10T16:54:55Z
+  - message: 'fix(review): resolve integration findings [moa-review]'
+    date: 2026-09-10T16:43:05Z
+  - message: 'merge: integrate release documentation fixes'
+    date: 2026-09-10T01:31:29Z
+  - message: 'merge: integrate CLI review fixes'
+    date: 2026-09-10T01:31:19Z
+  - message: 'merge: integrate handler consumer fixes'
+    date: 2026-09-10T01:31:13Z
+  - message: 'merge: integrate execution review fixes'
+    date: 2026-09-10T01:31:05Z
+  - message: 'merge: integrate crux-types review fixes'
+    date: 2026-09-10T01:30:40Z
+  - message: 'fix(release): align 0.4 APIs and docs [moa-review]'
+    date: 2026-09-09T22:49:35Z
+  - message: 'fix(tests): update handler execution consumers [moa-review]'
+    date: 2026-09-09T22:47:11Z
+  tags:
+  - agents
+  readme: "# Crux\n\nAgentic workflows as YAML pipelines and typed Rust agents, with every\nexecution captured as an inspectable, serializable, and replayable trace.\n\n- **Write pipelines in YAML.** Define steps, fan-out, piping, and\n  budgets in `.crux` files. The runtime handles execution, tracing,\n  and error recovery.\n- **Every step is traced.** Each step lands in a typed `Crux<T>` value\n  you can inspect, serialize, or replay after a crash.\n- **Rust when you need it.** Drop into `#[crux::agent]` for custom\n  logic, typed delegation, and confidence-based routing -- same trace,\n  same runtime.\n\n## Quick example\n\nA pipeline as a `.crux` file:\n\n```yaml\npipeline: summarize\nbudget: { calls: 2 }\n\nsteps:\n    - step: count_words\n      handler: shell::capture\n      args:\n          cmd: \"wc -w < input.txt\"\n\n    - step: log_result\n      handler: ctrl::log\n```\n\nRun it with the CLI:\n\n```bash\ncrux run pipeline.crux\n```\n\nThe same thing in Rust:\n\n```rust\nuse crux::prelude::*;\n\n#[crux::agent]\nasync fn summarize(input: String) -> Crux<String> {\n    let count: usize = x.step(\"count_words\", || async {\n        Ok(input.split_whitespace().count())\n    }).await?;\n\n    x.step(\"format\", || async move {\n        Ok(format!(\"{count} words\"))\n    }).await\n}\n```\n\nEither way, the returned `Crux<T>` is:\n\n- **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`\n- **Serializable** -- `serde_json::to_string(&crux)`\n- **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash\n\n## Installation\n\nInstall the pipeline CLI:\n\n```bash\ncargo install --git https://github.com/89jobrien/crux --tag v0.3.1 crux-cli\n```\n\nAdd the Rust DSL to a project:\n\n```toml\n[dependencies]\ncrux = { git = \"https://github.com/89jobrien/crux\", tag = \"v0.3.1\" }\n```\n\nRequires Rust 1.89+ (edition 2024).\n\nThe `crux` CLI can discover pipelines, validate or run `.crux` files and\n`Cruxfile` targets, replay saved traces, and generate pipelines from natural\nlanguage goals:\n\n```bash\ncrux list .\ncrux run pipeline.crux --check\ncrux run "
 - name: obfsck
   description: Secret-detection and redaction CLI for pre-commit hooks
   url: https://github.com/89jobrien/obfsck
@@ -312,37 +532,6 @@
 
     # Custom secrets config (overrides bundled config)
     obfsck redact input.txt --conf
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-09-13T06:52:21Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-13T06:52:21Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-12T06:48:05Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-11T06:52:01Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-10T06:52:24Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-09T06:52:51Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-08T06:52:25Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-07T07:02:51Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-06T06:47:09Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-05T06:47:01Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-04T06:52:32Z
 - name: looprs
   description: Just tools in a loop.
   url: https://github.com/89jobrien/looprs
@@ -378,125 +567,6 @@
   tags:
   - tools
   readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Local env\n\n```bash\ncp .envrc.example .envrc\ndirenv allow\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# Gemini\nexport GEMINI_API_KEY=\"...\"\nexport PROVIDER=\"gemini\"          # or: google\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\nThese are tool capabilities exposed to the model during a session (not slash commands typed at the REPL).\n\n| Tool | Description |\n|------|-------------|\n| `read` | Read files with line pagination |\n| `write` | Create or overwrite files |\n| `edit` | Replace text in files |\n| `glob` | Find files by name pattern (faster with `fd`) |\n| `grep` | Search file contents (faster with `rg`) |\n| `nu` | Execute a Nushell command |\n| `bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # "
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-13T02:37:14Z
-  version: v0.33.1
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #472 from 89jobrien/issue/250'
-    date: 2026-08-28T18:49:13Z
-  - message: 'merge: sync local Searchbox with Wave 1'
-    date: 2026-08-28T18:41:31Z
-  - message: 'Merge pull request #470 from 89jobrien/issues/wave1-integration'
-    date: 2026-08-28T18:34:44Z
-  - message: 'fix(ci): gate VZ startup path to macOS'
-    date: 2026-08-28T18:29:54Z
-  - message: 'fix(ci): gate VZ dependencies to macOS'
-    date: 2026-08-28T18:23:37Z
-  - message: 'fix(runtime): cover UID mapping in all-feature builds'
-    date: 2026-08-28T18:08:57Z
-  - message: 'chore(protocol): accept Wave 1 contract changes'
-    date: 2026-08-28T18:00:16Z
-  - message: 'merge: issue #231 typed capability matrix'
-    date: 2026-08-28T17:42:57Z
-  - message: 'merge: issue #452 VOLUME-aware commits'
-    date: 2026-08-28T17:37:51Z
-  - message: 'merge: issues #451 #448 #450 Linux isolation and lifecycle'
-    date: 2026-08-28T17:35:54Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
-
-    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
-    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
-    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
-    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
-    lifecycle without shelling out to the CLI.
-
-    **Status:** Active development — `v0.32.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — local `search`, `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `mbx logs <id>` for stored stdout/stderr
-    - Container events — `mbx events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux o
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-13T02:06:49Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'fix(runtime): merge architecture review fixes'
-    date: 2026-09-12T10:20:02Z
-  - message: 'fix(cli): restore readable pipeline output [moa-review]'
-    date: 2026-09-10T16:54:55Z
-  - message: 'fix(review): resolve integration findings [moa-review]'
-    date: 2026-09-10T16:43:05Z
-  - message: 'merge: integrate release documentation fixes'
-    date: 2026-09-10T01:31:29Z
-  - message: 'merge: integrate CLI review fixes'
-    date: 2026-09-10T01:31:19Z
-  - message: 'merge: integrate handler consumer fixes'
-    date: 2026-09-10T01:31:13Z
-  - message: 'merge: integrate execution review fixes'
-    date: 2026-09-10T01:31:05Z
-  - message: 'merge: integrate crux-types review fixes'
-    date: 2026-09-10T01:30:40Z
-  - message: 'fix(release): align 0.4 APIs and docs [moa-review]'
-    date: 2026-09-09T22:49:35Z
-  - message: 'fix(tests): update handler execution consumers [moa-review]'
-    date: 2026-09-09T22:47:11Z
-  tags:
-  - agents
-  readme: "# Crux\n\nAgentic workflows as YAML pipelines and typed Rust agents, with every\nexecution captured as an inspectable, serializable, and replayable trace.\n\n- **Write pipelines in YAML.** Define steps, fan-out, piping, and\n  budgets in `.crux` files. The runtime handles execution, tracing,\n  and error recovery.\n- **Every step is traced.** Each step lands in a typed `Crux<T>` value\n  you can inspect, serialize, or replay after a crash.\n- **Rust when you need it.** Drop into `#[crux::agent]` for custom\n  logic, typed delegation, and confidence-based routing -- same trace,\n  same runtime.\n\n## Quick example\n\nA pipeline as a `.crux` file:\n\n```yaml\npipeline: summarize\nbudget: { calls: 2 }\n\nsteps:\n    - step: count_words\n      handler: shell::capture\n      args:\n          cmd: \"wc -w < input.txt\"\n\n    - step: log_result\n      handler: ctrl::log\n```\n\nRun it with the CLI:\n\n```bash\ncrux run pipeline.crux\n```\n\nThe same thing in Rust:\n\n```rust\nuse crux::prelude::*;\n\n#[crux::agent]\nasync fn summarize(input: String) -> Crux<String> {\n    let count: usize = x.step(\"count_words\", || async {\n        Ok(input.split_whitespace().count())\n    }).await?;\n\n    x.step(\"format\", || async move {\n        Ok(format!(\"{count} words\"))\n    }).await\n}\n```\n\nEither way, the returned `Crux<T>` is:\n\n- **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`\n- **Serializable** -- `serde_json::to_string(&crux)`\n- **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash\n\n## Installation\n\nInstall the pipeline CLI:\n\n```bash\ncargo install --git https://github.com/89jobrien/crux --tag v0.3.1 crux-cli\n```\n\nAdd the Rust DSL to a project:\n\n```toml\n[dependencies]\ncrux = { git = \"https://github.com/89jobrien/crux\", tag = \"v0.3.1\" }\n```\n\nRequires Rust 1.89+ (edition 2024).\n\nThe `crux` CLI can discover pipelines, validate or run `.crux` files and\n`Cruxfile` targets, replay saved traces, and generate pipelines from natural\nlanguage goals:\n\n```bash\ncrux list .\ncrux run pipeline.crux --check\ncrux run "
 - name: opavs
   description: Orient-Plan-Act-Verify-Ship phase discipline CLI
   url: https://github.com/89jobrien/opavs
@@ -4222,7 +4292,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 8794
+  downloads: 8841
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4344,76 +4414,6 @@
   - message: 'feat(xtask): add run and install commands'
     date: 2026-05-11T21:39:56Z
   readme: "## About\n\n[Warp](https://www.warp.dev) is an agentic development environment, born out of the terminal. Use Warp's built-in coding agent, or bring your own CLI agent (Claude Code, Codex, Gemini CLI, and others).\n\n## Installation\n\nYou can [download Warp](https://www.warp.dev/download) and [read our docs](https://docs.warp.dev/) for platform-specific instructions.\n\n## Licensing\n\nWarp's UI framework (the `warpui_core` and `warpui` crates) are licensed under the [MIT license](LICENSE-MIT).\n\nThe rest of the code in this repository is licensed under the [AGPL v3](LICENSE-AGPL).\n\n## Open Source & Contributing\n\nWarp's client codebase is open source and lives in this repository. We welcome community contributions and have designed a lightweight workflow to help new contributors get started. For the full contribution flow, read our [CONTRIBUTING.md](CONTRIBUTING.md) guide.\n\n### Issue to PR\n\nBefore filing, [search existing issues](https://github.com/warpdotdev/warp/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc) for your bug or feature request. If nothing exists, [file an issue](https://github.com/warpdotdev/warp/issues/new/choose) using our templates. Security vulnerabilities should be reported privately as described in [CONTRIBUTING.md](CONTRIBUTING.md#reporting-security-issues).\n\nOnce filed, a Warp maintainer reviews the issue and may apply a readiness label: [`ready-to-spec`](https://github.com/warpdotdev/warp/issues?q=is%3Aissue+is%3Aopen+label%3Aready-to-spec) signals the design is open for contributors to spec out, and [`ready-to-implement`](https://github.com/warpdotdev/warp/issues?q=is%3Aissue+is%3Aopen+label%3Aready-to-implement) signals the design is settled and code PRs are welcome. Anyone can pick up a labeled issue — mention **@oss-maintainers** on an issue if you'd like it considered for a readiness label.\n\n### Building the Repo Locally\n\nTo build and run Warp from source:\n\n```bash\n./script/bootstrap   # platform-specific setup\n./script/run         # "
-- name: bamlish
-  description: Standalone BAML schema library and generated Rust client for structured LLM output
-  url: https://github.com/89jobrien/bamlish
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-10T08:35:57Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore(baml): scaffold core/ and extensions/ directories'
-    date: 2026-05-10T08:34:48Z
-  - message: 'docs: update handoff'
-    date: 2026-05-10T08:06:12Z
-  - message: 'feat: initial bamlish project setup'
-    date: 2026-05-10T07:47:52Z
-  readme: |-
-    # bamlish
-
-    Structured LLM output library for the dev workspace. Defines BAML schemas and exposes a generated
-    Rust client (`baml_client`) for calling AI functions with type-safe return values.
-
-    Covers: git branch analysis, multi-role council synthesis, Claude session parsing, doob task
-    analysis, maestro session analysis, devloop agent planning, and meta-schema generation.
-
-    ## Usage
-
-    Add to `Cargo.toml`:
-
-    ```toml
-    bamlish = { path = "../bamlish" }
-    ```
-
-    Types and the async call surface are exposed at the crate root:
-
-    ```rust
-    use bamlish::{B, BranchInsight, CitedFinding};
-
-    let insight: BranchInsight = B.AnalyzeBranch.call(
-        "feature/auth".into(),
-        commits,
-        sessions,
-        commit_count,
-        session_count,
-        None,
-    ).await?;
-    ```
-
-    For council analysis, run the role functions in parallel and synthesize:
-
-    ```rust
-    use bamlish::{B, CouncilInsight};
-
-    let (strict, creative, general) = tokio::join!(
-        B.AnalyzeBranch_StrictCritic.call(...),
-        B.AnalyzeBranch_CreativeExplorer.call(...),
-        B.AnalyzeBranch_GeneralAnalyst.call(...),
-    );
-    let council: CouncilInsight = B.SynthesizeCouncilInsights.call(...).await?;
-    ```
-
-    ## BAML functions by domain
-
-    | Domain          | Key functions                                                                                                                                 |
-    | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-    | Branch analysis | `AnalyzeBranch`, `AnalyzeBranchWithCodeStructure`, `ExtractUserIntent`, `AnswerTimelineQuestion`                                              |
-    | Council         | `AnalyzeBranch_StrictCritic`, `_CreativeExplorer`, `_GeneralAnalyst`, `_SecurityReviewer`, `_PerformanceAnalyst`, `SynthesizeCouncilInsights` |
-    | Conversation    | `SummarizeConversation`, `AnalyzeToolUsage`, `AnalyzeTaskProgression`, `QuickSummarize`, `GenerateSessionTitle`                               |
-    | Session logs    | `A
 - name: hjx
   description: CLI for handoff state, reconciliation, and handup surveys
   url: https://crates.io/crates/hjx
@@ -4501,7 +4501,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 2484
+  downloads: 2489
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
