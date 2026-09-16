@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-15T11:17:11Z
+  pushed_at: 2026-09-15T23:16:05Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-09-15T23:16:03Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-15T11:17:09Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-09-11T23:15:26Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-11T11:16:36Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-09-10T23:15:07Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,156 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-16T09:25:29Z
+  version: v0.33.1
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #472 from 89jobrien/issue/250'
+    date: 2026-08-28T18:49:13Z
+  - message: 'merge: sync local Searchbox with Wave 1'
+    date: 2026-08-28T18:41:31Z
+  - message: 'Merge pull request #470 from 89jobrien/issues/wave1-integration'
+    date: 2026-08-28T18:34:44Z
+  - message: 'fix(ci): gate VZ startup path to macOS'
+    date: 2026-08-28T18:29:54Z
+  - message: 'fix(ci): gate VZ dependencies to macOS'
+    date: 2026-08-28T18:23:37Z
+  - message: 'fix(runtime): cover UID mapping in all-feature builds'
+    date: 2026-08-28T18:08:57Z
+  - message: 'chore(protocol): accept Wave 1 contract changes'
+    date: 2026-08-28T18:00:16Z
+  - message: 'merge: issue #231 typed capability matrix'
+    date: 2026-08-28T17:42:57Z
+  - message: 'merge: issue #452 VOLUME-aware commits'
+    date: 2026-08-28T17:37:51Z
+  - message: 'merge: issues #451 #448 #450 Linux isolation and lifecycle'
+    date: 2026-08-28T17:35:54Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
+
+    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
+    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
+    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
+    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
+    lifecycle without shelling out to the CLI.
+
+    **Status:** Active development — `v0.32.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — local `search`, `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `mbx logs <id>` for stored stdout/stderr
+    - Container events — `mbx events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux o
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-16T08:37:52Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(runtime): merge architecture review fixes'
+    date: 2026-09-12T10:20:02Z
+  - message: 'fix(cli): restore readable pipeline output [moa-review]'
+    date: 2026-09-10T16:54:55Z
+  - message: 'fix(review): resolve integration findings [moa-review]'
+    date: 2026-09-10T16:43:05Z
+  - message: 'merge: integrate release documentation fixes'
+    date: 2026-09-10T01:31:29Z
+  - message: 'merge: integrate CLI review fixes'
+    date: 2026-09-10T01:31:19Z
+  - message: 'merge: integrate handler consumer fixes'
+    date: 2026-09-10T01:31:13Z
+  - message: 'merge: integrate execution review fixes'
+    date: 2026-09-10T01:31:05Z
+  - message: 'merge: integrate crux-types review fixes'
+    date: 2026-09-10T01:30:40Z
+  - message: 'fix(release): align 0.4 APIs and docs [moa-review]'
+    date: 2026-09-09T22:49:35Z
+  - message: 'fix(tests): update handler execution consumers [moa-review]'
+    date: 2026-09-09T22:47:11Z
+  tags:
+  - agents
+  readme: "# Crux\n\nAgentic workflows as YAML pipelines and typed Rust agents, with every\nexecution captured as an inspectable, serializable, and replayable trace.\n\n- **Write pipelines in YAML.** Define steps, fan-out, piping, and\n  budgets in `.crux` files. The runtime handles execution, tracing,\n  and error recovery.\n- **Every step is traced.** Each step lands in a typed `Crux<T>` value\n  you can inspect, serialize, or replay after a crash.\n- **Rust when you need it.** Drop into `#[crux::agent]` for custom\n  logic, typed delegation, and confidence-based routing -- same trace,\n  same runtime.\n\n## Quick example\n\nA pipeline as a `.crux` file:\n\n```yaml\npipeline: summarize\nbudget: { calls: 2 }\n\nsteps:\n    - step: count_words\n      handler: shell::capture\n      args:\n          cmd: \"wc -w < input.txt\"\n\n    - step: log_result\n      handler: ctrl::log\n```\n\nRun it with the CLI:\n\n```bash\ncrux run pipeline.crux\n```\n\nThe same thing in Rust:\n\n```rust\nuse crux::prelude::*;\n\n#[crux::agent]\nasync fn summarize(input: String) -> Crux<String> {\n    let count: usize = x.step(\"count_words\", || async {\n        Ok(input.split_whitespace().count())\n    }).await?;\n\n    x.step(\"format\", || async move {\n        Ok(format!(\"{count} words\"))\n    }).await\n}\n```\n\nEither way, the returned `Crux<T>` is:\n\n- **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`\n- **Serializable** -- `serde_json::to_string(&crux)`\n- **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash\n\n## Installation\n\nInstall the pipeline CLI:\n\n```bash\ncargo install --git https://github.com/89jobrien/crux --tag v0.3.1 crux-cli\n```\n\nAdd the Rust DSL to a project:\n\n```toml\n[dependencies]\ncrux = { git = \"https://github.com/89jobrien/crux\", tag = \"v0.3.1\" }\n```\n\nRequires Rust 1.89+ (edition 2024).\n\nThe `crux` CLI can discover pipelines, validate or run `.crux` files and\n`Cruxfile` targets, replay saved traces, and generate pipelines from natural\nlanguage goals:\n\n```bash\ncrux list .\ncrux run pipeline.crux --check\ncrux run "
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-09-16T06:54:16Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-16T06:54:15Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-15T06:54:20Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-14T07:04:35Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-13T06:52:21Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-12T06:48:05Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-11T06:52:01Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-10T06:52:24Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-09T06:52:51Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-08T06:52:25Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-07T07:02:51Z
 - name: godmode
   description: Rust-native development methodology for Claude Code, Codex, and OpenCode
   url: https://github.com/89jobrien/godmode
@@ -220,31 +370,31 @@
   - GitHubRepo
   - ClaudePlugin
   language: Rust
-  pushed_at: 2026-09-15T22:50:14Z
+  pushed_at: 2026-09-16T05:21:18Z
   version: v0.5.0
   stars: 1
   downloads: null
   recent_commits:
-  - message: 'Merge pull request #114 from 89jobrien/chore/feature-idea-backlog'
-    date: 2026-09-15T22:50:13Z
-  - message: 'chore(backlog): track evidence-backed feature ideas'
-    date: 2026-09-15T22:46:58Z
-  - message: 'Merge pull request #100 from 89jobrien/issue/86'
-    date: 2026-09-15T20:06:12Z
-  - message: 'refactor(cli): split command dispatcher into handlers'
-    date: 2026-09-15T20:01:45Z
-  - message: 'fix(ci): make conformance portable and refresh skill index'
-    date: 2026-08-25T10:27:15Z
-  - message: 'merge: coursers followups — trace-log wiring, crs-* rule lifecycle pipeline (JOB-472)'
-    date: 2026-08-18T02:07:10Z
-  - message: 'feat(pipelines): coursers-rules lifecycle pipeline with crs-* skills (JOB-472)'
-    date: 2026-08-17T19:45:16Z
-  - message: 'fix(commands): correct broken skill/agent refs in gm/ commands, update README'
-    date: 2026-08-17T10:27:32Z
-  - message: 'merge: gm3 coursers rule lifecycle skill (JOB-472)'
-    date: 2026-08-17T07:20:29Z
-  - message: 'feat(skills): add crs-hook-testing skill — coursers rule lifecycle pipeline (gm3, JOB-472)'
-    date: 2026-08-17T07:15:25Z
+  - message: 'merge: issue #112'
+    date: 2026-09-16T05:19:56Z
+  - message: 'merge: issue #113'
+    date: 2026-09-16T05:19:22Z
+  - message: 'merge: issue #108'
+    date: 2026-09-16T05:16:38Z
+  - message: 'merge: issue #109'
+    date: 2026-09-16T05:16:37Z
+  - message: 'merge: issue #111'
+    date: 2026-09-16T05:16:37Z
+  - message: 'merge: issue #107'
+    date: 2026-09-16T05:16:37Z
+  - message: 'merge: issue #106'
+    date: 2026-09-16T05:16:37Z
+  - message: 'merge: issue #110'
+    date: 2026-09-16T05:16:37Z
+  - message: 'merge: issue #104'
+    date: 2026-09-16T05:16:37Z
+  - message: 'merge: issue #102'
+    date: 2026-09-16T05:16:37Z
   topics:
   - ai-agents
   - claude-code
@@ -425,156 +575,6 @@
     | Council         | `AnalyzeBranch_StrictCritic`, `_CreativeExplorer`, `_GeneralAnalyst`, `_SecurityReviewer`, `_PerformanceAnalyst`, `SynthesizeCouncilInsights` |
     | Conversation    | `SummarizeConversation`, `AnalyzeToolUsage`, `AnalyzeTaskProgression`, `QuickSummarize`, `GenerateSessionTitle`                               |
     | Session logs    | `A
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-09-15T06:54:21Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-15T06:54:20Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-14T07:04:35Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-13T06:52:21Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-12T06:48:05Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-11T06:52:01Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-10T06:52:24Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-09T06:52:51Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-08T06:52:25Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-07T07:02:51Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-06T06:47:09Z
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-15T02:38:08Z
-  version: v0.33.1
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #472 from 89jobrien/issue/250'
-    date: 2026-08-28T18:49:13Z
-  - message: 'merge: sync local Searchbox with Wave 1'
-    date: 2026-08-28T18:41:31Z
-  - message: 'Merge pull request #470 from 89jobrien/issues/wave1-integration'
-    date: 2026-08-28T18:34:44Z
-  - message: 'fix(ci): gate VZ startup path to macOS'
-    date: 2026-08-28T18:29:54Z
-  - message: 'fix(ci): gate VZ dependencies to macOS'
-    date: 2026-08-28T18:23:37Z
-  - message: 'fix(runtime): cover UID mapping in all-feature builds'
-    date: 2026-08-28T18:08:57Z
-  - message: 'chore(protocol): accept Wave 1 contract changes'
-    date: 2026-08-28T18:00:16Z
-  - message: 'merge: issue #231 typed capability matrix'
-    date: 2026-08-28T17:42:57Z
-  - message: 'merge: issue #452 VOLUME-aware commits'
-    date: 2026-08-28T17:37:51Z
-  - message: 'merge: issues #451 #448 #450 Linux isolation and lifecycle'
-    date: 2026-08-28T17:35:54Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
-
-    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
-    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
-    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
-    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
-    lifecycle without shelling out to the CLI.
-
-    **Status:** Active development — `v0.32.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — local `search`, `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `mbx logs <id>` for stored stdout/stderr
-    - Container events — `mbx events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux o
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-14T02:09:40Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'fix(runtime): merge architecture review fixes'
-    date: 2026-09-12T10:20:02Z
-  - message: 'fix(cli): restore readable pipeline output [moa-review]'
-    date: 2026-09-10T16:54:55Z
-  - message: 'fix(review): resolve integration findings [moa-review]'
-    date: 2026-09-10T16:43:05Z
-  - message: 'merge: integrate release documentation fixes'
-    date: 2026-09-10T01:31:29Z
-  - message: 'merge: integrate CLI review fixes'
-    date: 2026-09-10T01:31:19Z
-  - message: 'merge: integrate handler consumer fixes'
-    date: 2026-09-10T01:31:13Z
-  - message: 'merge: integrate execution review fixes'
-    date: 2026-09-10T01:31:05Z
-  - message: 'merge: integrate crux-types review fixes'
-    date: 2026-09-10T01:30:40Z
-  - message: 'fix(release): align 0.4 APIs and docs [moa-review]'
-    date: 2026-09-09T22:49:35Z
-  - message: 'fix(tests): update handler execution consumers [moa-review]'
-    date: 2026-09-09T22:47:11Z
-  tags:
-  - agents
-  readme: "# Crux\n\nAgentic workflows as YAML pipelines and typed Rust agents, with every\nexecution captured as an inspectable, serializable, and replayable trace.\n\n- **Write pipelines in YAML.** Define steps, fan-out, piping, and\n  budgets in `.crux` files. The runtime handles execution, tracing,\n  and error recovery.\n- **Every step is traced.** Each step lands in a typed `Crux<T>` value\n  you can inspect, serialize, or replay after a crash.\n- **Rust when you need it.** Drop into `#[crux::agent]` for custom\n  logic, typed delegation, and confidence-based routing -- same trace,\n  same runtime.\n\n## Quick example\n\nA pipeline as a `.crux` file:\n\n```yaml\npipeline: summarize\nbudget: { calls: 2 }\n\nsteps:\n    - step: count_words\n      handler: shell::capture\n      args:\n          cmd: \"wc -w < input.txt\"\n\n    - step: log_result\n      handler: ctrl::log\n```\n\nRun it with the CLI:\n\n```bash\ncrux run pipeline.crux\n```\n\nThe same thing in Rust:\n\n```rust\nuse crux::prelude::*;\n\n#[crux::agent]\nasync fn summarize(input: String) -> Crux<String> {\n    let count: usize = x.step(\"count_words\", || async {\n        Ok(input.split_whitespace().count())\n    }).await?;\n\n    x.step(\"format\", || async move {\n        Ok(format!(\"{count} words\"))\n    }).await\n}\n```\n\nEither way, the returned `Crux<T>` is:\n\n- **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`\n- **Serializable** -- `serde_json::to_string(&crux)`\n- **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash\n\n## Installation\n\nInstall the pipeline CLI:\n\n```bash\ncargo install --git https://github.com/89jobrien/crux --tag v0.3.1 crux-cli\n```\n\nAdd the Rust DSL to a project:\n\n```toml\n[dependencies]\ncrux = { git = \"https://github.com/89jobrien/crux\", tag = \"v0.3.1\" }\n```\n\nRequires Rust 1.89+ (edition 2024).\n\nThe `crux` CLI can discover pipelines, validate or run `.crux` files and\n`Cruxfile` targets, replay saved traces, and generate pipelines from natural\nlanguage goals:\n\n```bash\ncrux list .\ncrux run pipeline.crux --check\ncrux run "
 - name: obfsck
   description: Secret-detection and redaction CLI for pre-commit hooks
   url: https://github.com/89jobrien/obfsck
@@ -810,7 +810,7 @@
   pushed_at: 2026-09-07T18:17:35Z
   version: v0.9.0
   stars: 1
-  downloads: 452
+  downloads: 453
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -1026,7 +1026,7 @@
   pushed_at: 2026-08-26T21:15:59.685804Z
   version: 0.9.0
   stars: null
-  downloads: 204
+  downloads: 205
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -1037,7 +1037,7 @@
   pushed_at: 2026-08-26T21:15:48.824269Z
   version: 0.9.0
   stars: null
-  downloads: 217
+  downloads: 218
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -1048,7 +1048,7 @@
   pushed_at: 2026-08-26T21:15:42.043834Z
   version: 0.9.0
   stars: null
-  downloads: 202
+  downloads: 203
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -1059,7 +1059,7 @@
   pushed_at: 2026-08-26T21:15:36.888035Z
   version: 0.9.0
   stars: null
-  downloads: 261
+  downloads: 262
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -1103,7 +1103,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 267
+  downloads: 268
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -1114,7 +1114,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 404
+  downloads: 405
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
@@ -3287,7 +3287,7 @@
   pushed_at: 2026-07-09T02:11:26.279438Z
   version: 0.3.1
   stars: null
-  downloads: 56
+  downloads: 75
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -3309,7 +3309,7 @@
   pushed_at: 2026-07-09T02:08:45.038550Z
   version: 0.3.1
   stars: null
-  downloads: 80
+  downloads: 99
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -3331,7 +3331,7 @@
   pushed_at: 2026-07-09T02:08:40.675079Z
   version: 0.3.1
   stars: null
-  downloads: 108
+  downloads: 127
   recent_commits: []
 - name: claude-code-statusline
   description: Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance — minimal setup, maximum insight.
@@ -4182,7 +4182,7 @@
   pushed_at: 2026-05-18T09:52:28.834986Z
   version: 0.2.6
   stars: null
-  downloads: 45
+  downloads: 46
   recent_commits: []
 - name: cruxx-improve
   description: Shared vocabulary and bridge types for crux self-improvement
@@ -4292,7 +4292,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 9345
+  downloads: 9409
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4489,7 +4489,7 @@
   pushed_at: 2026-04-23T23:07:16.604202Z
   version: 0.1.0
   stars: null
-  downloads: 77
+  downloads: 78
   recent_commits: []
 - name: slashcrux
   description: Shared vocabulary types for the Slash and Crux agentic Rust ecosystem
@@ -4501,7 +4501,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 2510
+  downloads: 2534
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -5186,7 +5186,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 314
+  downloads: 315
   recent_commits: []
 - name: hand
   description: Session handoff toolkit for Claude Code — start, end, and visualize project state via HANDOFF.yaml
