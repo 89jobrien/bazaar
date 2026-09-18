@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-17T15:30:12Z
+  pushed_at: 2026-09-18T01:11:12Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-09-18T01:11:11Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-17T15:30:09Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-09-13T23:15:10Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-13T11:13:57Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-09-12T23:14:19Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,231 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-09-18T11:42:37Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-18T11:42:36Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-17T06:55:14Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-16T06:54:15Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-15T06:54:20Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-14T07:04:35Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-13T06:52:21Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-12T06:48:05Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-11T06:52:01Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-10T06:52:24Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-09T06:52:51Z
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-18T07:25:01Z
+  version: v0.33.1
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #472 from 89jobrien/issue/250'
+    date: 2026-08-28T18:49:13Z
+  - message: 'merge: sync local Searchbox with Wave 1'
+    date: 2026-08-28T18:41:31Z
+  - message: 'Merge pull request #470 from 89jobrien/issues/wave1-integration'
+    date: 2026-08-28T18:34:44Z
+  - message: 'fix(ci): gate VZ startup path to macOS'
+    date: 2026-08-28T18:29:54Z
+  - message: 'fix(ci): gate VZ dependencies to macOS'
+    date: 2026-08-28T18:23:37Z
+  - message: 'fix(runtime): cover UID mapping in all-feature builds'
+    date: 2026-08-28T18:08:57Z
+  - message: 'chore(protocol): accept Wave 1 contract changes'
+    date: 2026-08-28T18:00:16Z
+  - message: 'merge: issue #231 typed capability matrix'
+    date: 2026-08-28T17:42:57Z
+  - message: 'merge: issue #452 VOLUME-aware commits'
+    date: 2026-08-28T17:37:51Z
+  - message: 'merge: issues #451 #448 #450 Linux isolation and lifecycle'
+    date: 2026-08-28T17:35:54Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
+
+    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
+    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
+    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
+    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
+    lifecycle without shelling out to the CLI.
+
+    **Status:** Active development — `v0.32.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — local `search`, `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `mbx logs <id>` for stored stdout/stderr
+    - Container events — `mbx events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux o
+- name: mcpipe
+  description: Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI
+  url: https://github.com/89jobrien/mcpipe
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-18T04:13:03Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'feat(cli): expose Nushell completions command'
+    date: 2026-09-18T04:12:30Z
+  - message: 'feat: add Nushell completion generation'
+    date: 2026-08-05T18:21:06Z
+  - message: 'docs: add AGENTS.md for Codex CLI agent support'
+    date: 2026-06-28T18:25:40Z
+  - message: 'docs: mark mcpipe-17/18/19 as done in HANDOFF'
+    date: 2026-05-11T04:47:25Z
+  - message: 'docs: expand CLAUDE.md with install, env vars, PathBinaryScanner, integration tests'
+    date: 2026-04-23T03:39:50Z
+  - message: 'fix(mcpipe-19): replace .expect() in into_backend with proper ? error propagation'
+    date: 2026-04-20T22:26:23Z
+  - message: 'fix(mcpipe-18): add 30s timeout to StdioSession::send_request to prevent indefinite hang'
+    date: 2026-04-20T22:24:51Z
+  - message: 'fix(mcpipe-17): add cycle detection to resolve_refs to prevent stack overflow on circular \$ref'
+    date: 2026-04-20T22:24:33Z
+  - message: 'docs: migrate handoff to HANDOFF.<name>.<base>.yaml'
+    date: 2026-04-19T20:25:39Z
+  - message: 'fix(secret): strip CRLF not just LF from file: prefix (#8)'
+    date: 2026-04-18T13:47:34Z
+  tags:
+  - cli
+  readme: |-
+    # mcpipe
+
+    Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI.
+
+    ## Install
+
+    ```bash
+    cargo install --path .
+    ```
+
+    ## Usage
+
+    ```
+    mcpipe --mcp-stdio <cmd> [SUBCOMMAND] [ARGS]
+    mcpipe --mcp <url> [SUBCOMMAND] [ARGS]
+    mcpipe --spec <file-or-url> [SUBCOMMAND] [ARGS]
+    mcpipe --graphql <url> [SUBCOMMAND] [ARGS]
+    mcpipe --cli <cmd> [SUBCOMMAND] [ARGS]
+    mcpipe completions
+    ```
+
+    ### Backends
+
+    | Flag                 | Source                                 |
+    | -------------------- | -------------------------------------- |
+    | `--mcp-stdio <cmd>`  | MCP server over stdio                  |
+    | `--mcp <url>`        | MCP server over HTTP/SSE               |
+    | `--spec <path\|url>` | OpenAPI 3.x spec (JSON or YAML)        |
+    | `--graphql <url>`    | GraphQL endpoint (introspection)       |
+    | `--cli <cmd>`        | Existing shell CLI (help-text parsing) |
+
+    ### Global flags
+
+    ```
+    --list                List available commands and exit
+    --scan                Scan Claude config and workspace for MCP sources
+    --pretty              Pretty-print JSON output
+    --raw                 Output raw string values
+    --jq <expr>           Apply a jq-style filter to the response
+    --head <n>            Limit array output to first n items
+    --search <term>       Filter listed commands by name
+    --refresh             Bypass cache and re-fetch schema
+    --cache-ttl <secs>    Schema cache TTL in seconds (default: 3600)
+    --auth-header <k:v>   Auth header; value may be env:VAR or keychain:ITEM
+    --header <k:v>        Extra request header
+    --base-url <url>      Override base URL for OpenAPI backends
+    --gen-openapi         Generate an OpenAPI spec from a CLI backend
+    --openapi-output <p>  Output path for generated spec
+    ```
+
+    ### Examples
+
+    ```bash
+    # List all operations in a local OpenAPI spec
+    mcpipe --spec ./petstore.json --list
+
+    # Call an MCP server tool
+    mcpipe --mcp-stdio "uvx my-mcp-server" call-tool --arg value
+
+    # Query a GraphQL endpoint
+    mcpipe --graphql https://api.example.com/graphql --list
+
+    # Wrap an existing CLI
+    m
+- name: rx-runner
+  description: Runtime-neutral process execution with bounded streaming output and cancellation
+  url: https://crates.io/crates/rx-runner
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-09-18T03:10:36.702440Z
+  version: 0.1.1
+  stars: null
+  downloads: 23
+  recent_commits: []
 - name: looprs
   description: Just tools in a loop.
   url: https://github.com/89jobrien/looprs
@@ -223,7 +448,7 @@
   pushed_at: 2026-09-17T13:11:18Z
   version: v0.5.5
   stars: 1
-  downloads: 209
+  downloads: 211
   recent_commits:
   - message: 'Merge pull request #39 from 89jobrien/fix/release-auth-header'
     date: 2026-09-10T01:04:17Z
@@ -313,122 +538,6 @@
     - [Braid - Rust Workspace Blueprint](./docs/planning/Braid%20-%20Rust%20Workspace%20Blueprint.md)
     - [Braid - Rust Workspace Spec](./docs/planning/Braid%20-%20Rust%20Workspace%20Spec.md)
     - [Braid - Crate Implementation Checklist](./docs/planning/Braid%20-%20Crate%20Implementation%20Checklist.md)
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-09-17T06:55:15Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-17T06:55:14Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-16T06:54:15Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-15T06:54:20Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-14T07:04:35Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-13T06:52:21Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-12T06:48:05Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-11T06:52:01Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-10T06:52:24Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-09T06:52:51Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-08T06:52:25Z
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-17T02:33:06Z
-  version: v0.33.1
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #472 from 89jobrien/issue/250'
-    date: 2026-08-28T18:49:13Z
-  - message: 'merge: sync local Searchbox with Wave 1'
-    date: 2026-08-28T18:41:31Z
-  - message: 'Merge pull request #470 from 89jobrien/issues/wave1-integration'
-    date: 2026-08-28T18:34:44Z
-  - message: 'fix(ci): gate VZ startup path to macOS'
-    date: 2026-08-28T18:29:54Z
-  - message: 'fix(ci): gate VZ dependencies to macOS'
-    date: 2026-08-28T18:23:37Z
-  - message: 'fix(runtime): cover UID mapping in all-feature builds'
-    date: 2026-08-28T18:08:57Z
-  - message: 'chore(protocol): accept Wave 1 contract changes'
-    date: 2026-08-28T18:00:16Z
-  - message: 'merge: issue #231 typed capability matrix'
-    date: 2026-08-28T17:42:57Z
-  - message: 'merge: issue #452 VOLUME-aware commits'
-    date: 2026-08-28T17:37:51Z
-  - message: 'merge: issues #451 #448 #450 Linux isolation and lifecycle'
-    date: 2026-08-28T17:35:54Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
-
-    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
-    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
-    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
-    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
-    lifecycle without shelling out to the CLI.
-
-    **Status:** Active development — `v0.32.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — local `search`, `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `mbx logs <id>` for stored stdout/stderr
-    - Container events — `mbx events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux o
 - name: crux
   description: Inspectable, serializable, replayable agent execution.
   url: https://github.com/89jobrien/crux
@@ -650,7 +759,7 @@
   pushed_at: 2026-09-13T07:29:23Z
   version: v0.1.0
   stars: null
-  downloads: 145
+  downloads: 147
   recent_commits:
   - message: 'feat(cli): merge feat/unified-obfsck-cli'
     date: 2026-09-12T09:18:07Z
@@ -841,7 +950,7 @@
   pushed_at: 2026-09-10T00:32:30.983491Z
   version: 0.5.4
   stars: null
-  downloads: 66
+  downloads: 67
   recent_commits: []
 - name: looprs-core
   description: Domain types, ports, and macros for looprs
@@ -852,7 +961,7 @@
   pushed_at: 2026-09-10T00:32:24.817094Z
   version: 0.5.4
   stars: null
-  downloads: 224
+  downloads: 227
   recent_commits: []
 - name: looprs-macros
   description: Reusable macro_rules! macros for looprs
@@ -863,7 +972,7 @@
   pushed_at: 2026-09-09T22:39:00.077887Z
   version: 0.5.4
   stars: null
-  downloads: 78
+  downloads: 81
   recent_commits: []
 - name: taskit
   description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
@@ -875,7 +984,7 @@
   pushed_at: 2026-09-07T18:17:35Z
   version: v0.9.0
   stars: 1
-  downloads: 456
+  downloads: 457
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -918,7 +1027,7 @@
   pushed_at: 2026-09-06T09:35:09.342551Z
   version: 0.33.1
   stars: null
-  downloads: 388
+  downloads: 394
   recent_commits: []
 - name: minibox-domain
   description: Pure domain values and ports for the minibox container runtime
@@ -929,7 +1038,7 @@
   pushed_at: 2026-09-06T09:33:53.764918Z
   version: 0.33.1
   stars: null
-  downloads: 82
+  downloads: 87
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -940,7 +1049,7 @@
   pushed_at: 2026-09-06T09:33:20.863262Z
   version: 0.33.1
   stars: null
-  downloads: 552
+  downloads: 560
   recent_commits: []
 - name: coursers
   description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
@@ -1069,7 +1178,7 @@
   pushed_at: 2026-08-26T22:35:58.085752Z
   version: 0.33.0
   stars: null
-  downloads: 32
+  downloads: 33
   recent_commits: []
 - name: minibox-crux-plugin
   description: Crux plugin binary exposing minibox container operations via JSON-RPC stdio
@@ -1091,7 +1200,7 @@
   pushed_at: 2026-08-26T21:15:59.685804Z
   version: 0.9.0
   stars: null
-  downloads: 206
+  downloads: 207
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -1102,7 +1211,7 @@
   pushed_at: 2026-08-26T21:15:48.824269Z
   version: 0.9.0
   stars: null
-  downloads: 219
+  downloads: 221
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -1113,7 +1222,7 @@
   pushed_at: 2026-08-26T21:15:42.043834Z
   version: 0.9.0
   stars: null
-  downloads: 204
+  downloads: 205
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -1124,7 +1233,7 @@
   pushed_at: 2026-08-26T21:15:36.888035Z
   version: 0.9.0
   stars: null
-  downloads: 263
+  downloads: 266
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -1135,7 +1244,7 @@
   pushed_at: 2026-08-26T21:15:30.236606Z
   version: 0.9.0
   stars: null
-  downloads: 86
+  downloads: 88
   recent_commits: []
 - name: taskit-crux
   description: Embedded Cruxfile runner for taskit (behind feature flag)
@@ -1157,7 +1266,7 @@
   pushed_at: 2026-08-26T21:15:23.481347Z
   version: 0.9.0
   stars: null
-  downloads: 151
+  downloads: 156
   recent_commits: []
 - name: taskit-core
   description: Core types and traits for taskit
@@ -1168,7 +1277,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 269
+  downloads: 273
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -1179,7 +1288,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 406
+  downloads: 415
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
@@ -1224,7 +1333,7 @@
   pushed_at: 2026-08-26T19:33:00Z
   version: v0.5.0
   stars: null
-  downloads: 96
+  downloads: 97
   recent_commits:
   - message: 'chore(release): prepare prefixe 0.5.0'
     date: 2026-08-26T19:32:35Z
@@ -1774,7 +1883,7 @@
   pushed_at: 2026-08-22T04:09:53.925880Z
   version: 0.2.2
   stars: null
-  downloads: 51
+  downloads: 52
   recent_commits: []
 - name: trace-lang-core
   description: Core Trace<T> type — reasoning provenance as a first-class value
@@ -1785,7 +1894,7 @@
   pushed_at: 2026-08-22T04:09:49.374662Z
   version: 0.2.2
   stars: null
-  downloads: 76
+  downloads: 79
   recent_commits: []
 - name: nu_libs
   description: A library of Nushell scripts organized by category
@@ -2209,112 +2318,6 @@
     date: 2026-04-29T22:16:07Z
   - message: 'refactor: migrate all tests to integration test suite'
     date: 2026-04-29T21:35:53Z
-- name: mcpipe
-  description: Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI
-  url: https://github.com/89jobrien/mcpipe
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-06T06:42:16Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat: add Nushell completion generation'
-    date: 2026-08-05T18:21:06Z
-  - message: 'docs: add AGENTS.md for Codex CLI agent support'
-    date: 2026-06-28T18:25:40Z
-  - message: 'docs: mark mcpipe-17/18/19 as done in HANDOFF'
-    date: 2026-05-11T04:47:25Z
-  - message: 'docs: expand CLAUDE.md with install, env vars, PathBinaryScanner, integration tests'
-    date: 2026-04-23T03:39:50Z
-  - message: 'fix(mcpipe-19): replace .expect() in into_backend with proper ? error propagation'
-    date: 2026-04-20T22:26:23Z
-  - message: 'fix(mcpipe-18): add 30s timeout to StdioSession::send_request to prevent indefinite hang'
-    date: 2026-04-20T22:24:51Z
-  - message: 'fix(mcpipe-17): add cycle detection to resolve_refs to prevent stack overflow on circular \$ref'
-    date: 2026-04-20T22:24:33Z
-  - message: 'docs: migrate handoff to HANDOFF.<name>.<base>.yaml'
-    date: 2026-04-19T20:25:39Z
-  - message: 'fix(secret): strip CRLF not just LF from file: prefix (#8)'
-    date: 2026-04-18T13:47:34Z
-  - message: Merge branch 'main' of github.com:89jobrien/mcpipe
-    date: 2026-04-18T13:46:58Z
-  tags:
-  - cli
-  readme: |
-    # mcpipe
-
-    Turn any MCP server, OpenAPI spec, or GraphQL endpoint into a shell CLI.
-
-    ## Install
-
-    ```bash
-    cargo install --path .
-    ```
-
-    ## Usage
-
-    ```
-    mcpipe --mcp-stdio <cmd> [SUBCOMMAND] [ARGS]
-    mcpipe --mcp <url> [SUBCOMMAND] [ARGS]
-    mcpipe --spec <file-or-url> [SUBCOMMAND] [ARGS]
-    mcpipe --graphql <url> [SUBCOMMAND] [ARGS]
-    mcpipe --cli <cmd> [SUBCOMMAND] [ARGS]
-    ```
-
-    ### Backends
-
-    | Flag | Source |
-    |------|--------|
-    | `--mcp-stdio <cmd>` | MCP server over stdio |
-    | `--mcp <url>` | MCP server over HTTP/SSE |
-    | `--spec <path\|url>` | OpenAPI 3.x spec (JSON or YAML) |
-    | `--graphql <url>` | GraphQL endpoint (introspection) |
-    | `--cli <cmd>` | Existing shell CLI (help-text parsing) |
-
-    ### Global flags
-
-    ```
-    --list                List available commands and exit
-    --scan                Scan Claude config and workspace for MCP sources
-    --pretty              Pretty-print JSON output
-    --raw                 Output raw string values
-    --jq <expr>           Apply a jq-style filter to the response
-    --head <n>            Limit array output to first n items
-    --search <term>       Filter listed commands by name
-    --refresh             Bypass cache and re-fetch schema
-    --cache-ttl <secs>    Schema cache TTL in seconds (default: 3600)
-    --auth-header <k:v>   Auth header; value may be env:VAR or keychain:ITEM
-    --header <k:v>        Extra request header
-    --base-url <url>      Override base URL for OpenAPI backends
-    --gen-openapi         Generate an OpenAPI spec from a CLI backend
-    --openapi-output <p>  Output path for generated spec
-    ```
-
-    ### Examples
-
-    ```bash
-    # List all operations in a local OpenAPI spec
-    mcpipe --spec ./petstore.json --list
-
-    # Call an MCP server tool
-    mcpipe --mcp-stdio "uvx my-mcp-server" call-tool --arg value
-
-    # Query a GraphQL endpoint
-    mcpipe --graphql https://api.example.com/graphql --list
-
-    # Wrap an existing CLI
-    mcpipe --cli gh --list
-    mcpipe --cli gh issue list
-
-    # Generate an OpenAPI spec from a CLI
-    mcpipe --cli mycli --gen-openapi
-    ```
-
-    ## License
-
-    MIT OR Apache-2.0
 - name: maid
   description: File organiser CLI — sorts, converts, and routes files to Obsidian vaults
   url: https://github.com/89jobrien/maid
@@ -3070,7 +3073,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 94
+  downloads: 95
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -3287,7 +3290,7 @@
   pushed_at: 2026-07-09T02:11:26.279438Z
   version: 0.3.1
   stars: null
-  downloads: 76
+  downloads: 77
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -3309,7 +3312,7 @@
   pushed_at: 2026-07-09T02:08:45.038550Z
   version: 0.3.1
   stars: null
-  downloads: 101
+  downloads: 102
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -3331,7 +3334,7 @@
   pushed_at: 2026-07-09T02:08:40.675079Z
   version: 0.3.1
   stars: null
-  downloads: 129
+  downloads: 130
   recent_commits: []
 - name: claude-code-statusline
   description: Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance — minimal setup, maximum insight.
@@ -4292,7 +4295,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 9925
+  downloads: 10032
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -4434,7 +4437,7 @@
   pushed_at: 2026-04-30T21:51:42.719327Z
   version: 0.1.3
   stars: null
-  downloads: 73
+  downloads: 74
   recent_commits: []
 - name: tailbox
   description: Tailscale-rs network adapter for minibox containers
@@ -4456,7 +4459,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 78
+  downloads: 79
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -4478,7 +4481,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 138
+  downloads: 140
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -4501,7 +4504,7 @@
   pushed_at: 2026-04-23T23:05:09Z
   version: 0.1.2
   stars: null
-  downloads: 2584
+  downloads: 2596
   recent_commits:
   - message: 'feat: add to_json() to ExecutionContext'
     date: 2026-04-23T23:04:40Z
@@ -4656,7 +4659,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 139
+  downloads: 141
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -4778,7 +4781,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 105
+  downloads: 106
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -4789,7 +4792,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 108
+  downloads: 109
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -4800,7 +4803,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 103
+  downloads: 104
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -4811,7 +4814,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 103
+  downloads: 104
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -4822,7 +4825,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 331
+  downloads: 336
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
@@ -5164,7 +5167,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 77
+  downloads: 78
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -5175,7 +5178,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 147
+  downloads: 149
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -5186,7 +5189,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 315
+  downloads: 319
   recent_commits: []
 - name: hand
   description: Session handoff toolkit for Claude Code — start, end, and visualize project state via HANDOFF.yaml
