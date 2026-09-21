@@ -1,3 +1,5 @@
+//! Token and cost usage models compatible with ccusage JSON fields.
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -32,6 +34,7 @@ pub struct UsageSnapshot {
 }
 
 impl UsageSnapshot {
+    /// Returns the day with the highest total cost.
     pub fn peak_day(&self) -> Option<&UsageDay> {
         self.daily
             .iter()

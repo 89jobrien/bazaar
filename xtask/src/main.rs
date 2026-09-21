@@ -1,3 +1,5 @@
+//! Runs repository metadata, usage snapshot, and local archive maintenance tasks.
+
 use anyhow::{Context, Result, bail};
 use chrono::Months;
 use clap::{Parser, Subcommand};

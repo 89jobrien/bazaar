@@ -1,3 +1,5 @@
+//! Data-source adapters for projects, profile details, insights, and usage snapshots.
+
 pub mod crates_io;
 pub mod github;
 pub mod insights;

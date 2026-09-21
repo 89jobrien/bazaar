@@ -12,6 +12,7 @@ GitHub Actions.
 ## Scope
 
 **In scope:**
+
 - Public GitHub repos pushed in the last 6 months (any language)
 - crates.io crates owned by the user
 - PyPI packages listed in a `pypi.toml` config file (no user-listing API exists)
@@ -21,6 +22,7 @@ GitHub Actions.
 - GitHub Actions workflow: runs on push + daily cron, commits updated output files
 
 **Out of scope:**
+
 - Authentication-gated data
 - Interactive filtering/search
 - Any JS framework or external CSS
@@ -33,7 +35,7 @@ Crate: `bazaar-gen` (produces binary named `bz`)
 
 ### Invocation
 
-```
+```text
 bz [--output index.html] [--readme README.md]
 ```
 
@@ -43,14 +45,15 @@ Defaults: writes `index.html` and `README.md` in the current directory.
 
 All user-specific values come from environment variables or config files:
 
-| Source | Variable / File | Purpose |
-|---|---|---|
-| env | `GITHUB_TOKEN` | GitHub API auth (5000 req/hr) |
-| env | `GITHUB_USER` | GitHub login to fetch repos for |
-| env | `CRATES_IO_USER` | crates.io login (may differ from GitHub) |
-| file | `pypi.toml` | List of PyPI package names to include |
+| Source | Variable / File  | Purpose                                  |
+| ------ | ---------------- | ---------------------------------------- |
+| env    | `GITHUB_TOKEN`   | GitHub API auth (5000 req/hr)            |
+| env    | `GITHUB_USER`    | GitHub login to fetch repos for          |
+| env    | `CRATES_IO_USER` | crates.io login (may differ from GitHub) |
+| file   | `pypi.toml`      | List of PyPI package names to include    |
 
 `pypi.toml` format:
+
 ```toml
 packages = ["package-one", "package-two"]
 ```
@@ -61,6 +64,7 @@ warning. If `GITHUB_USER` or `CRATES_IO_USER` are absent, the binary exits with 
 ### Data Sources
 
 **GitHub** (`https://api.github.com`)
+
 - `GET /users/{GITHUB_USER}/repos?type=public&sort=pushed&per_page=100`
 - Filter: `pushed_at` within last 6 months
 - Fields: `name`, `description`, `html_url`, `language`, `pushed_at`, `stargazers_count`,
@@ -68,15 +72,18 @@ warning. If `GITHUB_USER` or `CRATES_IO_USER` are absent, the binary exits with 
 - Latest release: `GET /repos/{owner}/{repo}/releases/latest` (best-effort, 404 = no release)
 
 **crates.io** (`https://crates.io/api/v1`)
+
 - `GET /users/{CRATES_IO_USER}` → extract numeric `id`
 - `GET /crates?user_id={id}&per_page=100` (paginate until exhausted)
 - Fields: `name`, `description`, `updated_at`, `max_version`, `downloads`
 
 **PyPI** (`https://pypi.org/pypi`)
+
 - For each package in `pypi.toml`: `GET /pypi/{name}/json`
 - Fields: `info.name`, `info.version`, `info.summary`, `info.home_page`
 
 **Plugins** (local file)
+
 - Read `.claude-plugin/marketplace.json` from the repo root
 - Fields: `name`, `description`, `source.repo`
 
@@ -111,7 +118,7 @@ Sorted by `pushed_at` descending, `None` last.
 Single self-contained HTML file. No external assets. Inline CSS only (dark theme, monospace
 aesthetic). Structure:
 
-```
+```text
 <header>  name | tagline | GitHub link
 <nav>     All | Plugins | Crates | PyPI | Repos
 <section> Cards grid — one card per Project
@@ -129,8 +136,8 @@ Human-authored header section (pulled from a `README.header.md` file in the repo
 default if absent), followed by a generated project table:
 
 ```markdown
-| Project | Kind | Description | Updated |
-|---|---|---|---|
+| Project     | Kind                  | Description | Updated    |
+| ----------- | --------------------- | ----------- | ---------- |
 | [name](url) | Plugin / Crate / Repo | description | YYYY-MM-DD |
 ```
 
@@ -143,10 +150,12 @@ Sorted same as HTML output.
 File: `.github/workflows/generate.yml`
 
 Triggers:
+
 - `push` to `main`
 - `schedule`: daily at 06:00 UTC
 
 Steps:
+
 1. Checkout repo
 2. Install Rust stable
 3. `cargo build --release -p bazaar-gen`
@@ -160,7 +169,7 @@ GitHub Pages: serve from `main` branch root (`index.html`).
 
 ## Crate Structure
 
-```
+```text
 bazaar-gen/
   Cargo.toml         (binary name = "bz")
   src/

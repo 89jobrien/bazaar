@@ -1,9 +1,12 @@
+//! Defines source-fetching and enrichment boundaries for the generator.
+
 use crate::model::Project;
 use std::path::Path;
 
 /// Port: any data source that yields a list of Projects.
 #[async_trait::async_trait]
 pub trait SourceFetcher: Send + Sync {
+    /// Fetches projects from this source.
     async fn fetch(&self) -> anyhow::Result<Vec<Project>>;
 }
 
@@ -11,5 +14,6 @@ pub trait SourceFetcher: Send + Sync {
 /// JSON input, returning structured JSON output. Abstracts the LLM boundary
 /// so enrichment logic never depends on a concrete subprocess/API call.
 pub trait PipelineRunner: Send + Sync {
+    /// Runs a pipeline specification against JSON input and returns structured output.
     fn run(&self, pipeline: &Path, input_json: &str) -> anyhow::Result<serde_json::Value>;
 }

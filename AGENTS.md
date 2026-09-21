@@ -128,7 +128,7 @@ godmode status                        # counts + next runnable
 
 **Workflow:**
 
-```
+```text
 brainstorming → writing-plans → plan ingest → handon
   → task next → task start → [tdd] → task done → task next
   → dispatch → parallel-agents → verification-before-completion → handoff
@@ -169,7 +169,7 @@ claude plugin install orca-strait@bazaar
 
 **Usage:**
 
-```
+```text
 /orca-strait
 /orca-strait /path/to/repo
 /orca-strait --dry-run

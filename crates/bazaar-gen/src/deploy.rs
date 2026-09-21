@@ -1,3 +1,5 @@
+//! Publishes generated site files through a temporary clone of a GitHub repository.
+
 use anyhow::{Context, Result};
 use obfsck::{ObfuscationLevel, obfuscate_text};
 use std::path::Path;
@@ -50,6 +52,7 @@ fn has_staged_changes(clone_dir: &std::path::Path) -> Result<bool> {
     Ok(!status.success())
 }
 
+/// Syncs site files into a clone, then commits and pushes any changes.
 pub fn deploy(site_dir: &Path, repo: &str, token: Option<&str>) -> Result<()> {
     let tmp = tempfile::tempdir().context("create tempdir")?;
     let clone_dir = tmp.path().join("site");

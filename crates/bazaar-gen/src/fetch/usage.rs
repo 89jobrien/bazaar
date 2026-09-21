@@ -1,3 +1,5 @@
+//! Converts a ccusage JSON snapshot into showcase usage data.
+
 use crate::model::{UsageDay, UsageSnapshot, UsageTotals};
 use anyhow::Result;
 use serde::Deserialize;
@@ -20,6 +22,7 @@ struct RawDay {
     total_cost: f64,
 }
 
+/// Loads a usage snapshot, returning `None` when the file does not exist.
 pub fn load_usage(path: &Path) -> Result<Option<UsageSnapshot>> {
     if !path.exists() {
         return Ok(None);

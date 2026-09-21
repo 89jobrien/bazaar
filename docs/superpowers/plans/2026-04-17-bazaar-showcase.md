@@ -20,7 +20,7 @@ clap, anyhow. Binary name: `bz`. Crate name: `bazaar-gen`.
 
 ## File Map
 
-```
+```text
 Cargo.toml                          workspace root (members = ["crates/bazaar-gen"])
 crates/bazaar-gen/
   Cargo.toml                        [bin] name = "bz"
@@ -52,10 +52,10 @@ README.header.md                    human-authored header for README.md
 ## Task 1: Workspace scaffold
 
 **Files:**
+
 - Modify: `Cargo.toml` (workspace root)
 - Create: `crates/bazaar-gen/Cargo.toml`
 - Create: `crates/bazaar-gen/src/main.rs`
-
 - [ ] **Step 1: Add bazaar-gen to workspace**
 
 If no `Cargo.toml` exists at repo root, create one:
@@ -102,7 +102,7 @@ fn main() {
 
 - [ ] **Step 4: Verify it builds**
 
-```
+```text
 cargo build -p bazaar-gen
 ```
 
@@ -110,7 +110,7 @@ Expected: compiles, `./target/debug/bz` exists, prints "bz ok".
 
 - [ ] **Step 5: Commit**
 
-```
+```text
 git add Cargo.toml crates/bazaar-gen/
 git commit -m "chore: scaffold bazaar-gen crate with bz binary"
 ```
@@ -120,10 +120,10 @@ git commit -m "chore: scaffold bazaar-gen crate with bz binary"
 ## Task 2: Config and error types
 
 **Files:**
+
 - Create: `crates/bazaar-gen/src/config.rs`
 - Create: `crates/bazaar-gen/src/error.rs`
 - Create: `pypi.toml`
-
 - [ ] **Step 1: Write failing tests for config loading**
 
 Create `crates/bazaar-gen/src/config.rs`:
@@ -278,7 +278,7 @@ async fn main() -> anyhow::Result<()> {
 
 - [ ] **Step 5: Run tests**
 
-```
+```text
 cargo test -p bazaar-gen
 ```
 
@@ -293,7 +293,7 @@ packages = []
 
 - [ ] **Step 7: Commit**
 
-```
+```text
 git add crates/bazaar-gen/ pypi.toml
 git commit -m "feat(bz): config loading from env vars and pypi.toml"
 ```
@@ -303,9 +303,9 @@ git commit -m "feat(bz): config loading from env vars and pypi.toml"
 ## Task 3: Domain model and port trait
 
 **Files:**
+
 - Create: `crates/bazaar-gen/src/model.rs`
 - Create: `crates/bazaar-gen/src/port.rs`
-
 - [ ] **Step 1: Write failing model tests**
 
 Create `crates/bazaar-gen/src/model.rs`:
@@ -453,7 +453,7 @@ Add `mod model; mod port;` to `main.rs`.
 
 - [ ] **Step 5: Run tests**
 
-```
+```text
 cargo test -p bazaar-gen
 ```
 
@@ -461,7 +461,7 @@ Expected: 4 tests pass (3 config + 4 model).
 
 - [ ] **Step 6: Commit**
 
-```
+```text
 git add crates/bazaar-gen/src/model.rs crates/bazaar-gen/src/port.rs crates/bazaar-gen/Cargo.toml crates/bazaar-gen/src/main.rs
 git commit -m "feat(bz): domain model and SourceFetcher port trait"
 ```
@@ -471,9 +471,9 @@ git commit -m "feat(bz): domain model and SourceFetcher port trait"
 ## Task 4: GitHub adapter
 
 **Files:**
+
 - Create: `crates/bazaar-gen/src/fetch/mod.rs`
 - Create: `crates/bazaar-gen/src/fetch/github.rs`
-
 - [ ] **Step 1: Create fetch/mod.rs**
 
 ```rust
@@ -579,7 +579,7 @@ impl SourceFetcher for GitHubFetcher {
 
 - [ ] **Step 3: Build to check for errors**
 
-```
+```text
 cargo build -p bazaar-gen
 ```
 
@@ -587,7 +587,7 @@ Expected: compiles cleanly.
 
 - [ ] **Step 4: Commit**
 
-```
+```text
 git add crates/bazaar-gen/src/fetch/
 git commit -m "feat(bz): GitHub adapter — fetches public repos from past 6 months"
 ```
@@ -597,6 +597,7 @@ git commit -m "feat(bz): GitHub adapter — fetches public repos from past 6 mon
 ## Task 5: crates.io adapter
 
 **Files:**
+
 - Create: `crates/bazaar-gen/src/fetch/crates_io.rs`
 
 - [ ] **Step 1: Create fetch/crates_io.rs**
@@ -813,7 +814,7 @@ impl SourceFetcher for CratesIoFetcher {
 
 - [ ] **Step 3: Build**
 
-```
+```text
 cargo build -p bazaar-gen
 ```
 
@@ -821,7 +822,7 @@ Expected: compiles cleanly.
 
 - [ ] **Step 4: Commit**
 
-```
+```text
 git add crates/bazaar-gen/src/fetch/crates_io.rs
 git commit -m "feat(bz): crates.io adapter — user crate listing with pagination"
 ```
@@ -831,9 +832,9 @@ git commit -m "feat(bz): crates.io adapter — user crate listing with paginatio
 ## Task 6: PyPI and plugins adapters
 
 **Files:**
+
 - Create: `crates/bazaar-gen/src/fetch/pypi.rs`
 - Create: `crates/bazaar-gen/src/fetch/plugins.rs`
-
 - [ ] **Step 1: Create fetch/pypi.rs**
 
 ```rust
@@ -953,7 +954,7 @@ impl SourceFetcher for PluginFetcher {
 
 - [ ] **Step 3: Build**
 
-```
+```text
 cargo build -p bazaar-gen
 ```
 
@@ -961,7 +962,7 @@ Expected: compiles cleanly.
 
 - [ ] **Step 4: Commit**
 
-```
+```text
 git add crates/bazaar-gen/src/fetch/pypi.rs crates/bazaar-gen/src/fetch/plugins.rs
 git commit -m "feat(bz): PyPI and Claude plugin adapters"
 ```
@@ -971,10 +972,10 @@ git commit -m "feat(bz): PyPI and Claude plugin adapters"
 ## Task 7: HTML renderer (Askama template)
 
 **Files:**
+
 - Create: `crates/bazaar-gen/src/render/mod.rs`
 - Create: `crates/bazaar-gen/src/render/html.rs`
 - Create: `crates/bazaar-gen/templates/index.html`
-
 - [ ] **Step 1: Create templates/index.html**
 
 Note: Askama looks for templates relative to the crate root by default. Create
@@ -983,76 +984,170 @@ Note: Askama looks for templates relative to the crate root by default. Create
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{{ username }}'s open source</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#0d1117;color:#e6edf3;font-family:'Courier New',monospace;padding:2rem;max-width:1100px;margin:0 auto}
-h1{font-size:1.5rem;margin-bottom:.25rem}
-.sub{color:#8b949e;margin-bottom:2rem;font-size:.9rem}
-nav{display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap}
-nav a{color:#58a6ff;text-decoration:none;font-size:.85rem;padding:.25rem .5rem;border:1px solid #30363d;border-radius:4px}
-nav a:hover{background:#161b22}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
-.card{background:#161b22;border:1px solid #30363d;border-radius:6px;padding:1rem}
-.card-name{font-weight:bold;margin-bottom:.25rem}
-.card-name a{color:#58a6ff;text-decoration:none}
-.card-name a:hover{text-decoration:underline}
-.badges{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.5rem}
-.badge{font-size:.7rem;padding:.1rem .4rem;border-radius:3px;font-weight:bold}
-.badge-gh{background:#21262d;color:#8b949e;border:1px solid #30363d}
-.badge-crate{background:#1a1a2e;color:#f78166;border:1px solid #3d1a1a}
-.badge-pypi{background:#1a2a1a;color:#56d364;border:1px solid #1a3d1a}
-.badge-plugin{background:#1a1a3d;color:#a371f7;border:1px solid #2d1f7a}
-.desc{color:#8b949e;font-size:.85rem;margin-bottom:.5rem;line-height:1.4}
-.meta{font-size:.75rem;color:#6e7681;display:flex;gap:.75rem;flex-wrap:wrap}
-footer{margin-top:3rem;color:#6e7681;font-size:.75rem;text-align:center}
-</style>
-</head>
-<body>
-<h1>{{ username }}'s open source</h1>
-<p class="sub">{{ projects|length }} projects across GitHub, crates.io, PyPI, and Claude plugins</p>
-<nav>
-  <a href="https://github.com/{{ username }}">GitHub</a>
-  <a href="https://crates.io/users/{{ crates_user }}">crates.io</a>
-</nav>
-<div class="grid">
-{% for p in projects %}
-<div class="card">
-  <div class="card-name"><a href="{{ p.url }}" target="_blank" rel="noopener">{{ p.name }}</a></div>
-  <div class="badges">
-    {% for k in p.kinds %}
-    {% match k %}
-    {% when Kind::GitHubRepo %}
-    <span class="badge badge-gh">GitHub</span>
-    {% when Kind::CratesIo %}
-    <span class="badge badge-crate">crate</span>
-    {% when Kind::PyPI %}
-    <span class="badge badge-pypi">PyPI</span>
-    {% when Kind::ClaudePlugin %}
-    <span class="badge badge-plugin">plugin</span>
-    {% endmatch %}
-    {% endfor %}
-    {% if let Some(lang) = p.language %}
-    <span class="badge badge-gh">{{ lang }}</span>
-    {% endif %}
-  </div>
-  {% if let Some(desc) = p.description %}
-  <div class="desc">{{ desc }}</div>
-  {% endif %}
-  <div class="meta">
-    {% if let Some(v) = p.version %}<span>v{{ v }}</span>{% endif %}
-    {% if let Some(s) = p.stars %}<span>★ {{ s }}</span>{% endif %}
-    {% if let Some(d) = p.downloads %}<span>{{ d }} downloads</span>{% endif %}
-    {% if let Some(pushed) = p.pushed_at %}<span>{{ pushed|date("%Y-%m-%d") }}</span>{% endif %}
-  </div>
-</div>
-{% endfor %}
-</div>
-<footer>Generated {{ generated_at }}</footer>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ username }}'s open source</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: #0d1117;
+        color: #e6edf3;
+        font-family: "Courier New", monospace;
+        padding: 2rem;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.25rem;
+      }
+      .sub {
+        color: #8b949e;
+        margin-bottom: 2rem;
+        font-size: 0.9rem;
+      }
+      nav {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+      nav a {
+        color: #58a6ff;
+        text-decoration: none;
+        font-size: 0.85rem;
+        padding: 0.25rem 0.5rem;
+        border: 1px solid #30363d;
+        border-radius: 4px;
+      }
+      nav a:hover {
+        background: #161b22;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1rem;
+      }
+      .card {
+        background: #161b22;
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        padding: 1rem;
+      }
+      .card-name {
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+      }
+      .card-name a {
+        color: #58a6ff;
+        text-decoration: none;
+      }
+      .card-name a:hover {
+        text-decoration: underline;
+      }
+      .badges {
+        display: flex;
+        gap: 0.35rem;
+        flex-wrap: wrap;
+        margin-bottom: 0.5rem;
+      }
+      .badge {
+        font-size: 0.7rem;
+        padding: 0.1rem 0.4rem;
+        border-radius: 3px;
+        font-weight: bold;
+      }
+      .badge-gh {
+        background: #21262d;
+        color: #8b949e;
+        border: 1px solid #30363d;
+      }
+      .badge-crate {
+        background: #1a1a2e;
+        color: #f78166;
+        border: 1px solid #3d1a1a;
+      }
+      .badge-pypi {
+        background: #1a2a1a;
+        color: #56d364;
+        border: 1px solid #1a3d1a;
+      }
+      .badge-plugin {
+        background: #1a1a3d;
+        color: #a371f7;
+        border: 1px solid #2d1f7a;
+      }
+      .desc {
+        color: #8b949e;
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.4;
+      }
+      .meta {
+        font-size: 0.75rem;
+        color: #6e7681;
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+      footer {
+        margin-top: 3rem;
+        color: #6e7681;
+        font-size: 0.75rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>{{ username }}'s open source</h1>
+    <p class="sub">
+      {{ projects|length }} projects across GitHub, crates.io, PyPI, and Claude
+      plugins
+    </p>
+    <nav>
+      <a href="https://github.com/{{ username }}">GitHub</a>
+      <a href="https://crates.io/users/{{ crates_user }}">crates.io</a>
+    </nav>
+    <div class="grid">
+      {% for p in projects %}
+      <div class="card">
+        <div class="card-name">
+          <a href="{{ p.url }}" target="_blank" rel="noopener">{{ p.name }}</a>
+        </div>
+        <div class="badges">
+          {% for k in p.kinds %} {% match k %} {% when Kind::GitHubRepo %}
+          <span class="badge badge-gh">GitHub</span>
+          {% when Kind::CratesIo %}
+          <span class="badge badge-crate">crate</span>
+          {% when Kind::PyPI %}
+          <span class="badge badge-pypi">PyPI</span>
+          {% when Kind::ClaudePlugin %}
+          <span class="badge badge-plugin">plugin</span>
+          {% endmatch %} {% endfor %} {% if let Some(lang) = p.language %}
+          <span class="badge badge-gh">{{ lang }}</span>
+          {% endif %}
+        </div>
+        {% if let Some(desc) = p.description %}
+        <div class="desc">{{ desc }}</div>
+        {% endif %}
+        <div class="meta">
+          {% if let Some(v) = p.version %}<span>v{{ v }}</span>{% endif %} {% if
+          let Some(s) = p.stars %}<span>★ {{ s }}</span>{% endif %} {% if let
+          Some(d) = p.downloads %}<span>{{ d }} downloads</span>{% endif %} {%
+          if let Some(pushed) = p.pushed_at %}<span
+            >{{ pushed|date("%Y-%m-%d") }}</span
+          >{% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <footer>Generated {{ generated_at }}</footer>
+  </body>
 </html>
 ```
 
@@ -1102,7 +1197,7 @@ pub use crate::model::Kind;
 
 - [ ] **Step 4: Build (Askama validates template at compile time)**
 
-```
+```text
 cargo build -p bazaar-gen
 ```
 
@@ -1111,7 +1206,7 @@ Expected: compiles. If Askama reports template errors, fix the template syntax �
 
 - [ ] **Step 5: Commit**
 
-```
+```text
 git add crates/bazaar-gen/src/render/ crates/bazaar-gen/templates/
 git commit -m "feat(bz): Askama HTML renderer with dark monospace theme"
 ```
@@ -1121,9 +1216,9 @@ git commit -m "feat(bz): Askama HTML renderer with dark monospace theme"
 ## Task 8: README renderer
 
 **Files:**
+
 - Create: `crates/bazaar-gen/src/render/markdown.rs`
 - Create: `README.header.md`
-
 - [ ] **Step 1: Create render/markdown.rs**
 
 ```rust
@@ -1176,12 +1271,11 @@ pub fn render_readme(projects: &[Project], header_path: &Path) -> Result<String>
 # bazaar
 
 My open-source software — plugins, crates, tools, and experiments.
-
 ```
 
 - [ ] **Step 3: Build**
 
-```
+```text
 cargo build -p bazaar-gen
 ```
 
@@ -1189,7 +1283,7 @@ Expected: compiles.
 
 - [ ] **Step 4: Commit**
 
-```
+```text
 git add crates/bazaar-gen/src/render/markdown.rs README.header.md
 git commit -m "feat(bz): README markdown renderer"
 ```
@@ -1199,6 +1293,7 @@ git commit -m "feat(bz): README markdown renderer"
 ## Task 9: Wire composition root and run end-to-end
 
 **Files:**
+
 - Modify: `crates/bazaar-gen/src/main.rs`
 
 - [ ] **Step 1: Replace main.rs with full composition root**
@@ -1292,7 +1387,7 @@ async fn main() -> anyhow::Result<()> {
 
 - [ ] **Step 2: Run all tests**
 
-```
+```text
 cargo test -p bazaar-gen
 ```
 
@@ -1300,7 +1395,7 @@ Expected: all pass.
 
 - [ ] **Step 3: Run bz locally (requires GITHUB_USER and CRATES_IO_USER)**
 
-```
+```text
 GITHUB_USER=89jobrien CRATES_IO_USER=89jobrien cargo run -p bazaar-gen -- --output /tmp/index.html --readme /tmp/README.md
 ```
 
@@ -1308,7 +1403,7 @@ Expected: fetches data, writes files, prints project count.
 
 - [ ] **Step 4: Inspect output**
 
-```
+```text
 wc -l /tmp/index.html /tmp/README.md
 ```
 
@@ -1316,7 +1411,7 @@ Expected: non-zero line counts. Open `/tmp/index.html` in a browser to verify la
 
 - [ ] **Step 5: Commit**
 
-```
+```text
 git add crates/bazaar-gen/src/main.rs
 git commit -m "feat(bz): wire composition root — all fetchers, merge, render"
 ```
@@ -1326,6 +1421,7 @@ git commit -m "feat(bz): wire composition root — all fetchers, merge, render"
 ## Task 10: GitHub Actions workflow and Pages
 
 **Files:**
+
 - Create: `.github/workflows/generate.yml`
 
 - [ ] **Step 1: Create workflow using bash heredoc (Edit tool is blocked for workflow files)**
@@ -1384,6 +1480,7 @@ EOF
 - [ ] **Step 2: Set GitHub repo variables**
 
 In the GitHub repo settings → Variables (not secrets):
+
 - `GITHUB_USER` = `89jobrien`
 - `CRATES_IO_USER` = `89jobrien`
 
@@ -1395,7 +1492,7 @@ In repo settings → Pages → Source: Deploy from branch → `main` → `/ (roo
 
 - [ ] **Step 4: Commit workflow**
 
-```
+```text
 git add .github/workflows/generate.yml
 git commit -m "ci: GitHub Actions workflow to generate showcase daily"
 git push
@@ -1403,7 +1500,7 @@ git push
 
 - [ ] **Step 5: Verify workflow runs**
 
-```
+```text
 gh run list --limit 3
 ```
 
@@ -1414,6 +1511,7 @@ Expected: a run triggered by the push, status `completed` / `success`.
 ## Self-Review
 
 **Spec coverage:**
+
 - Public GitHub repos (6 months) → Task 4
 - crates.io packages → Task 5
 - PyPI packages → Task 6
@@ -1427,6 +1525,7 @@ Expected: a run triggered by the push, status `completed` / `success`.
 **Placeholder scan:** None found.
 
 **Type consistency:**
+
 - `Project` and `Kind` defined in Task 3, used identically in Tasks 4–9.
 - `SourceFetcher` trait defined in Task 3, implemented in Tasks 4–6, called in Task 9.
 - `Config` defined in Task 2, consumed in Task 9 (`config.github_user`, `config.crates_io_user`,

@@ -1,3 +1,5 @@
+//! Renders the project catalog as a generated Markdown table.
+
 use crate::model::{Kind, Project};
 use anyhow::Result;
 use chrono::Utc;
@@ -15,6 +17,7 @@ fn kind_label(kinds: &[Kind]) -> String {
         .join(" / ")
 }
 
+/// Renders a dated README containing one table row per project.
 pub fn render_readme(projects: &[Project], title: &str, subtitle: &str) -> Result<String> {
     let mut out = format!("# {title}\n\n{subtitle}\n\n");
     out.push_str(&format!(

@@ -42,7 +42,7 @@ active_projects, workflow_style, stats) when present.
 
 ## Required Environment Variables
 
-```
+```text
 BAZAAR_GITHUB_USER=<github-username>    # required
 BAZAAR_CRATES_IO_USER=<crates-username> # required
 GITHUB_TOKEN=<token>                    # optional; unauthenticated = 60 req/hr

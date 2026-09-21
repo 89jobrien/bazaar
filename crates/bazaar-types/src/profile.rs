@@ -1,3 +1,5 @@
+//! Serializable developer profile, project highlight, statistics, and link models.
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

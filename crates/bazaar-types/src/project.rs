@@ -1,3 +1,5 @@
+//! Project metadata, activity classification, slugging, and source merging.
+
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
@@ -21,6 +23,7 @@ pub enum ProjectStatus {
 }
 
 impl ProjectStatus {
+    /// Classifies project activity from its most recent push timestamp.
     pub fn from_pushed_at(pushed_at: Option<DateTime<Utc>>) -> Self {
         let Some(pushed) = pushed_at else {
             return Self::Dormant;
@@ -82,6 +85,7 @@ pub struct Project {
 }
 
 impl Project {
+    /// Converts the project name into a lowercase, hyphen-delimited slug.
     pub fn slug(&self) -> String {
         self.name
             .to_lowercase()

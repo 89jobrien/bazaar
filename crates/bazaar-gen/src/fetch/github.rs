@@ -1,3 +1,5 @@
+//! Fetches active public GitHub repositories and their release, commit, and README metadata.
+
 use crate::model::{Commit, Kind, Project};
 use crate::port::SourceFetcher;
 use anyhow::Result;

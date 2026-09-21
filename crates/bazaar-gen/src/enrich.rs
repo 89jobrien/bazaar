@@ -1,3 +1,5 @@
+//! Augments project metadata with cached results from Crux enrichment pipelines.
+
 use crate::model::{Project, ProjectStatus};
 use crate::port::PipelineRunner;
 use anyhow::{Context, Result};
@@ -20,6 +22,7 @@ pub struct EnrichEntry {
 }
 
 impl EnrichCache {
+    /// Loads a JSON cache, returning an empty cache when the file is absent or invalid.
     pub fn load(path: &Path) -> Self {
         std::fs::read_to_string(path)
             .ok()
@@ -27,6 +30,7 @@ impl EnrichCache {
             .unwrap_or_default()
     }
 
+    /// Writes the cache as formatted JSON, creating its parent directory when needed.
     pub fn save(&self, path: &Path) -> Result<()> {
         if let Some(parent) = path.parent() {
             std::fs::create_dir_all(parent)?;
@@ -35,10 +39,12 @@ impl EnrichCache {
         Ok(())
     }
 
+    /// Returns the cached enrichment for a project slug.
     pub fn get(&self, slug: &str) -> Option<&EnrichEntry> {
         self.0.get(slug)
     }
 
+    /// Stores enrichment data under a project slug.
     pub fn set(&mut self, slug: String, entry: EnrichEntry) {
         self.0.insert(slug, entry);
     }
@@ -164,6 +170,7 @@ fn enrich_project(
     cache.set(slug, entry);
 }
 
+/// Applies cached and pipeline-generated metadata to each project, then persists the cache.
 pub fn enrich(
     runner: &dyn PipelineRunner,
     projects: &mut [Project],

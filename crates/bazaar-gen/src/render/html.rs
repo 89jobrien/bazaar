@@ -1,3 +1,5 @@
+//! Renders the project index and developer profile with Askama templates.
+
 use crate::model::{Kind, Profile, Project, UsageSnapshot};
 use anyhow::Result;
 use askama::Template;
@@ -104,6 +106,7 @@ struct ProfileTemplate {
     generated_at: String,
 }
 
+/// Renders the project index with display metadata and embedded YAML data.
 #[allow(clippy::too_many_arguments)]
 pub fn render_html(
     username: &str,
@@ -135,6 +138,7 @@ pub fn render_html(
         .map_err(|e| anyhow::anyhow!("template render failed: {e}"))
 }
 
+/// Renders the profile page with optional usage statistics.
 pub fn render_profile_html(profile: &Profile, usage: Option<&UsageSnapshot>) -> Result<String> {
     let tmpl = ProfileTemplate {
         profile: profile.clone(),

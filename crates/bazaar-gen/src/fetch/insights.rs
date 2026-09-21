@@ -1,7 +1,10 @@
+//! Reads optional YAML snapshots of generated developer insights.
+
 use anyhow::{Context, Result};
 use bazaar_types::insights::Insights;
 use std::path::Path;
 
+/// Loads an insights snapshot, returning `None` when the file does not exist.
 pub fn load_insights(path: &Path) -> Result<Option<Insights>> {
     if !path.exists() {
         return Ok(None);

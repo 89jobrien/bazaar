@@ -1,3 +1,5 @@
+//! Loads generator identities, credentials, and configured PyPI packages.
+
 use anyhow::Result;
 use obfsck::{ObfuscationLevel, obfuscate_text};
 use serde::Deserialize;
@@ -33,6 +35,7 @@ struct PypiToml {
 }
 
 impl Config {
+    /// Builds configuration from required identity variables and an optional PyPI TOML file.
     pub fn from_env(pypi_toml_path: &Path) -> Result<Self> {
         let github_user = std::env::var("BAZAAR_GITHUB_USER")
             .map_err(|_| anyhow::anyhow!("BAZAAR_GITHUB_USER env var is required"))?;

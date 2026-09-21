@@ -1,3 +1,5 @@
+//! Fetches metadata for configured PyPI packages as showcase projects.
+
 use crate::model::{Kind, Project};
 use crate::port::SourceFetcher;
 use anyhow::Result;

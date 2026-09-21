@@ -1,3 +1,5 @@
+//! Converts Claude plugin marketplace entries into showcase projects.
+
 use crate::model::{Kind, Project};
 use crate::port::SourceFetcher;
 use anyhow::Result;

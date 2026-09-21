@@ -1,3 +1,5 @@
+//! Aggregates project sources and renders or deploys the Bazaar showcase.
+
 mod config;
 mod deploy;
 mod enrich;

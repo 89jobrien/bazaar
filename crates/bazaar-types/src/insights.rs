@@ -1,3 +1,5 @@
+//! Serializable developer-insight summaries used to update showcase profiles.
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]

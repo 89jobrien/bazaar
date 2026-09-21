@@ -1,3 +1,5 @@
+//! Configures showcase headings, project overrides, tags, and pinned ordering.
+
 use crate::model::Project;
 use anyhow::Result;
 use serde::Deserialize;
@@ -32,6 +34,7 @@ fn default_subtitle() -> String {
 }
 
 impl HeaderConfig {
+    /// Loads YAML configuration, or defaults when the file does not exist.
     pub fn load(path: &Path) -> Result<Self> {
         if !path.exists() {
             return Ok(Self::default());

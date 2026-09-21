@@ -1,3 +1,5 @@
+//! Fetches every crate owned by a crates.io user as showcase project data.
+
 use crate::model::{Kind, Project};
 use crate::port::SourceFetcher;
 use anyhow::Result;
