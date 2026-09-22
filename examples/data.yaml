@@ -4,7 +4,7 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-25T09:52:21Z
+  pushed_at: 2026-08-25T09:56:56Z
   version: v0.4.0
   stars: null
   downloads: null
@@ -219,11 +219,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-08-25T09:51:46Z
+  pushed_at: 2026-08-25T09:55:48Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'fix(ci): install missing taskit toolchain deps'
+    date: 2026-08-25T09:55:46Z
   - message: 'fix(ci): install protoc before taskit bootstrap'
     date: 2026-08-25T09:51:44Z
   - message: 'docs(opavs): record opavs scaffold milestone in progress.md'
@@ -242,8 +244,6 @@
     date: 2026-08-20T23:52:24Z
   - message: 'feat(coursers): opt-in HookChain path via COURSERS_HOOK_CHAIN=1 (hc-d, JOB-475)'
     date: 2026-08-20T23:51:41Z
-  - message: 'feat(coursers-core): PostToolUse output redaction + disable dollar-var pre-expansion'
-    date: 2026-08-20T23:45:51Z
   tags:
   - cli
   readme: |-
@@ -319,6 +319,233 @@
     For Codex, the top-level registry also points at `crs hook --target codex <event>`.
     Those entries dispatch to the existing `$HOME/.codex/hooks/*.crux` backends, which
     still compose `coursers pre/post` and `crs rewrite/filter` i
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-08-25T09:55:42Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(ci): install protoc before taskit bootstrap'
+    date: 2026-08-25T09:55:35Z
+  - message: 'fix(ci): unblock nightly audit and machete checks'
+    date: 2026-08-25T09:51:04Z
+  - message: 'refactor(cli): fold crux check into run --check; fix session_handoff example'
+    date: 2026-08-23T08:35:23Z
+  - message: 'docs: update docs/ for crux-cli extraction and version drift'
+    date: 2026-08-23T06:44:08Z
+  - message: 'refactor: extract crux CLI into dedicated crux-cli crate'
+    date: 2026-08-23T05:06:28Z
+  - message: 'docs: session handoff for GitHub issue triage-and-fix pass'
+    date: 2026-08-22T23:02:02Z
+  - message: 'merge: issue #12 rewire examples/joe ctrl::noop placeholders'
+    date: 2026-08-22T22:33:01Z
+  - message: 'merge: issue #103 fix trim_start_matches double-strip in expr path resolution'
+    date: 2026-08-22T22:32:54Z
+  - message: 'merge: issue #26 consolidate PlanRule into crux-types'
+    date: 2026-08-22T22:32:49Z
+  - message: 'merge: issue #69 verify and test all 9 wired BAML extract functions'
+    date: 2026-08-22T22:32:36Z
+  tags:
+  - agents
+  readme: |-
+    # crux
+
+    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
+
+    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
+      budgets in `.crux` files. The runtime handles execution, tracing,
+      and error recovery.
+    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
+      you can inspect, serialize, or replay after a crash.
+    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
+      logic, typed delegation, and confidence-based routing -- same trace,
+      same runtime.
+
+    ## Quick example
+
+    A pipeline as a `.crux` file:
+
+    ```yaml
+    pipeline: summarize
+    budget: { calls: 2 }
+
+    steps:
+        - step: count_words
+          handler: shell::capture
+          args:
+              cmd: "wc -w < input.txt"
+
+        - step: log_result
+          handler: ctrl::log
+    ```
+
+    The same thing in Rust:
+
+    ```rust
+    use crux::prelude::*;
+
+    #[crux::agent]
+    async fn summarize(input: String) -> Crux<String> {
+        let count: usize = x.step("count_words", || async {
+            Ok(input.split_whitespace().count())
+        }).await?;
+
+        x.step("format", || async move {
+            Ok(format!("{count} words"))
+        }).await
+    }
+    ```
+
+    Either way, the returned `Crux<T>` is:
+
+    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
+    - **Serializable** -- `serde_json::to_string(&crux)`
+    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
+
+    ## Installation
+
+    ```toml
+    [dependencies]
+    crux = "0.2"
+    ```
+
+    Requires Rust 1.88+ (edition 2024).
+
+    ## Crates
+
+    | Crate                                 | Description                                             |
+    | ------------------------------------- | ------------------------------------------------------- |
+    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
+    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
+    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
+    | [`crux-derive`](crates/crux-macros)   | `#[crux::ag
+- name: looprs
+  description: Just tools in a loop.
+  url: https://github.com/89jobrien/looprs
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-08-25T09:55:31Z
+  version: v0.3.2
+  stars: 1
+  downloads: 134
+  recent_commits:
+  - message: 'fix(ci): force stable toolchain for cargo-rail install'
+    date: 2026-08-25T09:55:28Z
+  - message: 'fix(ci): install protoc in all CI jobs'
+    date: 2026-08-25T09:50:42Z
+  - message: 'docs: sync command actions and pre-push docs'
+    date: 2026-08-25T05:41:46Z
+  - message: 'chore(env): centralize secret loading via source_up'
+    date: 2026-08-25T05:40:06Z
+  - message: 'feat(commands): add /models command metadata and help docs'
+    date: 2026-08-25T05:10:19Z
+  - message: 'feat(models): add model catalog listing and bump workspace to 0.5.2'
+    date: 2026-08-25T05:03:25Z
+  - message: 'fix(tui): avoid unreleased looprs transcript APIs in published build'
+    date: 2026-08-25T04:38:18Z
+  - message: 'test(coverage): expand multi-dimensional test coverage across looprs'
+    date: 2026-08-25T04:34:03Z
+  - message: 'fix(ci): correct xtask pre-push invocation in hook and docs'
+    date: 2026-08-25T02:28:33Z
+  - message: 'refactor(context): source session context from git and doob'
+    date: 2026-08-25T02:23:43Z
+  tags:
+  - tools
+  readme: |-
+    # looprs
+
+    A Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.
+
+    ## Install
+
+    ```bash
+    git clone https://github.com/89jobrien/looprs.git
+    cd looprs
+    cargo build --release
+    ./target/release/looprs
+    # or: cargo install --path crates/looprs-cli
+    ```
+
+    ## Local env
+
+    ```bash
+    cp .envrc.example .envrc
+    direnv allow
+    ```
+
+    ## Configure
+
+    Pick a provider:
+
+    ```bash
+    # Anthropic
+    export ANTHROPIC_API_KEY="sk-ant-..."
+    looprs
+
+    # OpenAI
+    export OPENAI_API_KEY="sk-..."
+    export MODEL="gpt-4-turbo"
+    looprs
+
+    # Local (Ollama)
+    ollama serve  # in another terminal
+    export PROVIDER="local"
+    looprs
+
+    # Gemini
+    export GEMINI_API_KEY="..."
+    export PROVIDER="gemini"          # or: google
+    looprs
+
+    # SDK-backed providers
+    export PROVIDER="openai-sdk"      # openai-sdk | anthropic-sdk | claude-sdk
+    looprs
+    ```
+
+    Persistent config: `.looprs/provider.json`. All env options: `.env.example`.
+
+    ## Built-in Tools
+
+    | Tool | Description |
+    |------|-------------|
+    | `/read` | Read files with line pagination |
+    | `/write` | Create or overwrite files |
+    | `/edit` | Replace text in files |
+    | `/glob` | Find files by name pattern (faster with `fd`) |
+    | `/grep` | Search file contents (faster with `rg`) |
+    | `/nu` | Execute a Nushell command |
+    | `/bash` | Execute shell commands |
+
+    Optional speedups (auto-detected, falls back to pure Rust):
+
+    ```bash
+    cargo install ripgrep fd-find
+    ```
+
+    ## File References
+
+    Reference files in prompts with `@filename` syntax — contents are injected into the conversation.
+
+    ```
+    Refactor @crates/looprs-cli/src/main.rs for better error handling
+    Compare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs
+    ```
+
+    ## Extensibility
+
+    The `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.
+
+    ```
+    .looprs/
+    ├── provider.json          # Provider/model settings
+    ├── config.json            # Runtime defaults, file refs, pipeline, ag
 - name: numcp
   description: MCP server that exposes Nushell tool handlers as MCP tools
   url: https://github.com/89jobrien/numcp
@@ -443,233 +670,6 @@
     ## Design
 
     - **MCP transport**: stdio (default), TC
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-08-25T09:51:24Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'fix(ci): unblock nightly audit and machete checks'
-    date: 2026-08-25T09:51:04Z
-  - message: 'refactor(cli): fold crux check into run --check; fix session_handoff example'
-    date: 2026-08-23T08:35:23Z
-  - message: 'docs: update docs/ for crux-cli extraction and version drift'
-    date: 2026-08-23T06:44:08Z
-  - message: 'refactor: extract crux CLI into dedicated crux-cli crate'
-    date: 2026-08-23T05:06:28Z
-  - message: 'docs: session handoff for GitHub issue triage-and-fix pass'
-    date: 2026-08-22T23:02:02Z
-  - message: 'merge: issue #12 rewire examples/joe ctrl::noop placeholders'
-    date: 2026-08-22T22:33:01Z
-  - message: 'merge: issue #103 fix trim_start_matches double-strip in expr path resolution'
-    date: 2026-08-22T22:32:54Z
-  - message: 'merge: issue #26 consolidate PlanRule into crux-types'
-    date: 2026-08-22T22:32:49Z
-  - message: 'merge: issue #69 verify and test all 9 wired BAML extract functions'
-    date: 2026-08-22T22:32:36Z
-  - message: 'merge: issue #70 extend json::jq with pipe/select/map'
-    date: 2026-08-22T22:31:28Z
-  tags:
-  - agents
-  readme: |-
-    # crux
-
-    Agentic workflows as YAML pipelines, backed by a typed Rust runtime.
-
-    - **Write pipelines in YAML.** Define steps, fan-out, piping, and
-      budgets in `.crux` files. The runtime handles execution, tracing,
-      and error recovery.
-    - **Every step is traced.** Each step lands in a typed `Crux<T>` value
-      you can inspect, serialize, or replay after a crash.
-    - **Rust when you need it.** Drop into `#[crux::agent]` for custom
-      logic, typed delegation, and confidence-based routing -- same trace,
-      same runtime.
-
-    ## Quick example
-
-    A pipeline as a `.crux` file:
-
-    ```yaml
-    pipeline: summarize
-    budget: { calls: 2 }
-
-    steps:
-        - step: count_words
-          handler: shell::capture
-          args:
-              cmd: "wc -w < input.txt"
-
-        - step: log_result
-          handler: ctrl::log
-    ```
-
-    The same thing in Rust:
-
-    ```rust
-    use crux::prelude::*;
-
-    #[crux::agent]
-    async fn summarize(input: String) -> Crux<String> {
-        let count: usize = x.step("count_words", || async {
-            Ok(input.split_whitespace().count())
-        }).await?;
-
-        x.step("format", || async move {
-            Ok(format!("{count} words"))
-        }).await
-    }
-    ```
-
-    Either way, the returned `Crux<T>` is:
-
-    - **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`
-    - **Serializable** -- `serde_json::to_string(&crux)`
-    - **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash
-
-    ## Installation
-
-    ```toml
-    [dependencies]
-    crux = "0.2"
-    ```
-
-    Requires Rust 1.88+ (edition 2024).
-
-    ## Crates
-
-    | Crate                                 | Description                                             |
-    | ------------------------------------- | ------------------------------------------------------- |
-    | [`crux`](crates/crux)                 | Facade -- re-exports runtime + macros                   |
-    | [`crux-runtime`](crates/crux-runtime) | Core types, traits, and runtime                         |
-    | [`crux-types`](crates/crux-types)     | Wire-format types (`Crux<T>`, `Step`, `Budget`)         |
-    | [`crux-derive`](crates/crux-macros)   | `#[crux::ag
-- name: looprs
-  description: Just tools in a loop.
-  url: https://github.com/89jobrien/looprs
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-08-25T09:50:46Z
-  version: v0.3.2
-  stars: 1
-  downloads: 134
-  recent_commits:
-  - message: 'fix(ci): install protoc in all CI jobs'
-    date: 2026-08-25T09:50:42Z
-  - message: 'docs: sync command actions and pre-push docs'
-    date: 2026-08-25T05:41:46Z
-  - message: 'chore(env): centralize secret loading via source_up'
-    date: 2026-08-25T05:40:06Z
-  - message: 'feat(commands): add /models command metadata and help docs'
-    date: 2026-08-25T05:10:19Z
-  - message: 'feat(models): add model catalog listing and bump workspace to 0.5.2'
-    date: 2026-08-25T05:03:25Z
-  - message: 'fix(tui): avoid unreleased looprs transcript APIs in published build'
-    date: 2026-08-25T04:38:18Z
-  - message: 'test(coverage): expand multi-dimensional test coverage across looprs'
-    date: 2026-08-25T04:34:03Z
-  - message: 'fix(ci): correct xtask pre-push invocation in hook and docs'
-    date: 2026-08-25T02:28:33Z
-  - message: 'refactor(context): source session context from git and doob'
-    date: 2026-08-25T02:23:43Z
-  - message: 'feat(providers): add BAML tool-calling and real token usage'
-    date: 2026-08-23T13:20:44Z
-  tags:
-  - tools
-  readme: |-
-    # looprs
-
-    A Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.
-
-    ## Install
-
-    ```bash
-    git clone https://github.com/89jobrien/looprs.git
-    cd looprs
-    cargo build --release
-    ./target/release/looprs
-    # or: cargo install --path crates/looprs-cli
-    ```
-
-    ## Local env
-
-    ```bash
-    cp .envrc.example .envrc
-    direnv allow
-    ```
-
-    ## Configure
-
-    Pick a provider:
-
-    ```bash
-    # Anthropic
-    export ANTHROPIC_API_KEY="sk-ant-..."
-    looprs
-
-    # OpenAI
-    export OPENAI_API_KEY="sk-..."
-    export MODEL="gpt-4-turbo"
-    looprs
-
-    # Local (Ollama)
-    ollama serve  # in another terminal
-    export PROVIDER="local"
-    looprs
-
-    # Gemini
-    export GEMINI_API_KEY="..."
-    export PROVIDER="gemini"          # or: google
-    looprs
-
-    # SDK-backed providers
-    export PROVIDER="openai-sdk"      # openai-sdk | anthropic-sdk | claude-sdk
-    looprs
-    ```
-
-    Persistent config: `.looprs/provider.json`. All env options: `.env.example`.
-
-    ## Built-in Tools
-
-    | Tool | Description |
-    |------|-------------|
-    | `/read` | Read files with line pagination |
-    | `/write` | Create or overwrite files |
-    | `/edit` | Replace text in files |
-    | `/glob` | Find files by name pattern (faster with `fd`) |
-    | `/grep` | Search file contents (faster with `rg`) |
-    | `/nu` | Execute a Nushell command |
-    | `/bash` | Execute shell commands |
-
-    Optional speedups (auto-detected, falls back to pure Rust):
-
-    ```bash
-    cargo install ripgrep fd-find
-    ```
-
-    ## File References
-
-    Reference files in prompts with `@filename` syntax — contents are injected into the conversation.
-
-    ```
-    Refactor @crates/looprs-cli/src/main.rs for better error handling
-    Compare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs
-    ```
-
-    ## Extensibility
-
-    The `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.
-
-    ```
-    .looprs/
-    ├── provider.json          # Provider/model settings
-    ├── config.json            # Runtime defaults, file refs, pipeline, ag
 - name: taskit
   description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
   url: https://github.com/89jobrien/taskit
