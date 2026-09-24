@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-23T01:22:55Z
+  pushed_at: 2026-09-23T15:23:52Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-09-23T15:23:49Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-23T01:22:52Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-09-19T14:18:04Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-19T01:05:34Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-09-18T14:54:10Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,45 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: godmode
+  description: Rust-native development methodology for Claude Code, Codex, and OpenCode
+  url: https://github.com/89jobrien/godmode
+  kinds:
+  - GitHubRepo
+  - ClaudePlugin
+  language: Rust
+  pushed_at: 2026-09-23T18:29:36Z
+  version: v0.5.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'merge: issue #112'
+    date: 2026-09-16T05:19:56Z
+  - message: 'merge: issue #113'
+    date: 2026-09-16T05:19:22Z
+  - message: 'merge: issue #108'
+    date: 2026-09-16T05:16:38Z
+  - message: 'merge: issue #109'
+    date: 2026-09-16T05:16:37Z
+  - message: 'merge: issue #111'
+    date: 2026-09-16T05:16:37Z
+  - message: 'merge: issue #107'
+    date: 2026-09-16T05:16:37Z
+  - message: 'merge: issue #106'
+    date: 2026-09-16T05:16:37Z
+  - message: 'merge: issue #110'
+    date: 2026-09-16T05:16:37Z
+  - message: 'merge: issue #104'
+    date: 2026-09-16T05:16:37Z
+  - message: 'merge: issue #102'
+    date: 2026-09-16T05:16:37Z
+  topics:
+  - ai-agents
+  - claude-code
+  - opencode
+  - rust
+  - tdd
+  readme: "# godmode\n\nSelf-contained Rust-native development methodology plugin for Claude Code.\n\n> Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.\n\n## Overview\n\nGodmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all\nstateful operations — skills are thin wrappers that call `godmode` and act on the output.\nTasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal\n`depends_on` chains.\n\n## Install\n\n```bash\ncargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode\nclaude plugin install godmode@bazaar\n```\n\n### Pre-commit hook\n\nInstall the godmode pre-commit hook into any git repo to block commits when tasks are\nstill running and to run cargo gates (fmt-check, clippy, nextest):\n\n```bash\n# From the repo root where you want the hook installed:\nnu /path/to/godmode/hooks/install.nu\n\n# Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:\nnu \"$CLAUDE_PLUGIN_ROOT/hooks/install.nu\"\n```\n\nThe hook:\n\n1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,\n   printing the offending task IDs.\n2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and\n   `cargo nextest run --workspace`.\n3. Blocks the commit on any failure with a clear message.\n\nIf `godmode` is not on PATH, the task-state check is skipped gracefully and only the\ncargo gates run.\n\n## Skills\n\n| Skill                                     | When                                                                  |\n| ----------------------------------------- | --------------------------------------------------------------------- |\n| `godmode:using-godmode`                 "
 - name: 89jobrien.github.io
   description: Personal site
   url: https://github.com/89jobrien/89jobrien.github.io
@@ -529,7 +568,7 @@
   pushed_at: 2026-09-22T13:35:41Z
   version: v0.5.5
   stars: 1
-  downloads: 216
+  downloads: 217
   recent_commits:
   - message: 'Merge pull request #39 from 89jobrien/fix/release-auth-header'
     date: 2026-09-10T01:04:17Z
@@ -1470,7 +1509,7 @@
   pushed_at: 2026-09-22T06:11:21Z
   version: 0.1.2
   stars: null
-  downloads: 2725
+  downloads: 2726
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:21:59Z
@@ -3519,45 +3558,6 @@
     For Codex, the top-level registry also points at `crs hook --target codex <event>`.
     Those entries dispatch to the existing `$HOME/.codex/hooks/*.crux` backends, which
     still compose `coursers pre/post` and `crs rewrite/filter` i
-- name: godmode
-  description: Rust-native development methodology for Claude Code, Codex, and OpenCode
-  url: https://github.com/89jobrien/godmode
-  kinds:
-  - GitHubRepo
-  - ClaudePlugin
-  language: Rust
-  pushed_at: 2026-09-22T06:04:20Z
-  version: v0.5.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'merge: issue #112'
-    date: 2026-09-16T05:19:56Z
-  - message: 'merge: issue #113'
-    date: 2026-09-16T05:19:22Z
-  - message: 'merge: issue #108'
-    date: 2026-09-16T05:16:38Z
-  - message: 'merge: issue #109'
-    date: 2026-09-16T05:16:37Z
-  - message: 'merge: issue #111'
-    date: 2026-09-16T05:16:37Z
-  - message: 'merge: issue #107'
-    date: 2026-09-16T05:16:37Z
-  - message: 'merge: issue #106'
-    date: 2026-09-16T05:16:37Z
-  - message: 'merge: issue #110'
-    date: 2026-09-16T05:16:37Z
-  - message: 'merge: issue #104'
-    date: 2026-09-16T05:16:37Z
-  - message: 'merge: issue #102'
-    date: 2026-09-16T05:16:37Z
-  topics:
-  - ai-agents
-  - claude-code
-  - opencode
-  - rust
-  - tdd
-  readme: "# godmode\n\nSelf-contained Rust-native development methodology plugin for Claude Code.\n\n> Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.\n\n## Overview\n\nGodmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all\nstateful operations — skills are thin wrappers that call `godmode` and act on the output.\nTasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal\n`depends_on` chains.\n\n## Install\n\n```bash\ncargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode\nclaude plugin install godmode@bazaar\n```\n\n### Pre-commit hook\n\nInstall the godmode pre-commit hook into any git repo to block commits when tasks are\nstill running and to run cargo gates (fmt-check, clippy, nextest):\n\n```bash\n# From the repo root where you want the hook installed:\nnu /path/to/godmode/hooks/install.nu\n\n# Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:\nnu \"$CLAUDE_PLUGIN_ROOT/hooks/install.nu\"\n```\n\nThe hook:\n\n1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,\n   printing the offending task IDs.\n2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and\n   `cargo nextest run --workspace`.\n3. Blocks the commit on any failure with a clear message.\n\nIf `godmode` is not on PATH, the task-state check is skipped gracefully and only the\ncargo gates run.\n\n## Skills\n\n| Skill                                     | When                                                                  |\n| ----------------------------------------- | --------------------------------------------------------------------- |\n| `godmode:using-godmode`                 "
 - name: episteme-local
   description: Local-first knowledge ingestion and intelligence workflows
   url: https://crates.io/crates/episteme-local
@@ -3567,7 +3567,7 @@
   pushed_at: 2026-09-20T04:31:23.288140Z
   version: 0.1.1
   stars: null
-  downloads: 13
+  downloads: 14
   recent_commits: []
 - name: crux-planner
   description: Goal-to-pipeline planner for crux-script
@@ -3578,7 +3578,7 @@
   pushed_at: 2026-09-19T23:43:54.599598Z
   version: 0.4.2
   stars: null
-  downloads: 12
+  downloads: 13
   recent_commits: []
 - name: crux-agentic
   description: Built-in step handlers for crux-script pipelines
@@ -3589,7 +3589,7 @@
   pushed_at: 2026-09-19T23:26:25.558102Z
   version: 0.4.2
   stars: null
-  downloads: 198
+  downloads: 199
   recent_commits: []
 - name: crux-plugin
   description: Subprocess plugin host for crux pipelines
@@ -3600,7 +3600,7 @@
   pushed_at: 2026-09-19T23:25:15.417626Z
   version: 0.4.2
   stars: null
-  downloads: 16
+  downloads: 17
   recent_commits: []
 - name: crux-stdlib
   description: Standard library handlers for crux-script pipelines (fs, git, json, text, ctrl)
@@ -3611,7 +3611,7 @@
   pushed_at: 2026-09-19T23:20:09.323383Z
   version: 0.4.2
   stars: null
-  downloads: 15
+  downloads: 16
   recent_commits: []
 - name: crux-baml
   description: BAML-powered LLM handlers for crux-script pipelines (extract, decompose, plan)
@@ -3622,7 +3622,7 @@
   pushed_at: 2026-09-19T23:19:56.029215Z
   version: 0.4.2
   stars: null
-  downloads: 14
+  downloads: 15
   recent_commits: []
 - name: crux-improve
   description: Improvement protocol types for the crux agent runtime
@@ -3633,7 +3633,7 @@
   pushed_at: 2026-09-19T23:19:35.578511Z
   version: 0.4.2
   stars: null
-  downloads: 23
+  downloads: 25
   recent_commits: []
 - name: crux-task
   description: Project task management for crux
@@ -3644,7 +3644,7 @@
   pushed_at: 2026-09-19T23:19:23.782735Z
   version: 0.4.2
   stars: null
-  downloads: 27
+  downloads: 29
   recent_commits: []
 - name: crux-script
   description: YAML-driven pipeline scripting for the crux agentic DSL
@@ -3655,7 +3655,7 @@
   pushed_at: 2026-09-19T23:19:08.831836Z
   version: 0.4.2
   stars: null
-  downloads: 56
+  downloads: 58
   recent_commits: []
 - name: crux-runtime
   description: Core types, traits, and runtime for the crux agentic DSL
@@ -3666,7 +3666,7 @@
   pushed_at: 2026-09-19T23:18:54.809506Z
   version: 0.4.2
   stars: null
-  downloads: 129
+  downloads: 131
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -3677,7 +3677,7 @@
   pushed_at: 2026-09-19T23:18:40.773642Z
   version: 0.4.2
   stars: null
-  downloads: 49
+  downloads: 51
   recent_commits: []
 - name: crux-domain
   description: Pure domain types for the crux agentic DSL — no async, no LLM deps
@@ -3688,7 +3688,7 @@
   pushed_at: 2026-09-19T23:18:31.387415Z
   version: 0.4.2
   stars: null
-  downloads: 158
+  downloads: 160
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -3699,7 +3699,7 @@
   pushed_at: 2026-09-19T23:18:21.615338Z
   version: 0.4.2
   stars: null
-  downloads: 47
+  downloads: 49
   recent_commits: []
 - name: crux-types
   description: Serializable wire-format types for the crux agentic DSL
@@ -3710,7 +3710,7 @@
   pushed_at: 2026-09-19T23:18:09.490195Z
   version: 0.4.2
   stars: null
-  downloads: 195
+  downloads: 197
   recent_commits: []
 - name: rx-runner
   description: Runtime-neutral process execution with bounded streaming output and cancellation
@@ -3721,7 +3721,7 @@
   pushed_at: 2026-09-18T03:10:36.702440Z
   version: 0.1.1
   stars: null
-  downloads: 28
+  downloads: 30
   recent_commits: []
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
@@ -3732,7 +3732,7 @@
   pushed_at: 2026-09-10T00:32:33.580244Z
   version: 0.5.4
   stars: null
-  downloads: 103
+  downloads: 104
   recent_commits: []
 - name: looprs-tui
   description: Interactive terminal menus for looprs (provider/model selection)
@@ -3743,7 +3743,7 @@
   pushed_at: 2026-09-10T00:32:30.983491Z
   version: 0.5.4
   stars: null
-  downloads: 70
+  downloads: 71
   recent_commits: []
 - name: looprs-core
   description: Domain types, ports, and macros for looprs
@@ -3754,7 +3754,7 @@
   pushed_at: 2026-09-10T00:32:24.817094Z
   version: 0.5.4
   stars: null
-  downloads: 234
+  downloads: 235
   recent_commits: []
 - name: looprs-macros
   description: Reusable macro_rules! macros for looprs
@@ -3765,7 +3765,7 @@
   pushed_at: 2026-09-09T22:39:00.077887Z
   version: 0.5.4
   stars: null
-  downloads: 89
+  downloads: 90
   recent_commits: []
 - name: taskit
   description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
@@ -3809,7 +3809,7 @@
   pushed_at: 2026-09-06T09:35:54.805293Z
   version: 0.33.1
   stars: null
-  downloads: 41
+  downloads: 42
   recent_commits: []
 - name: minibox-core
   description: Cross-platform shared types, domain traits, and protocol for the minibox container runtime
@@ -3820,7 +3820,7 @@
   pushed_at: 2026-09-06T09:35:09.342551Z
   version: 0.33.1
   stars: null
-  downloads: 409
+  downloads: 412
   recent_commits: []
 - name: minibox-domain
   description: Pure domain values and ports for the minibox container runtime
@@ -3831,7 +3831,7 @@
   pushed_at: 2026-09-06T09:33:53.764918Z
   version: 0.33.1
   stars: null
-  downloads: 99
+  downloads: 100
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -3842,7 +3842,7 @@
   pushed_at: 2026-09-06T09:33:20.863262Z
   version: 0.33.1
   stars: null
-  downloads: 580
+  downloads: 584
   recent_commits: []
 - name: minibox-cli
   description: User-facing CLI for the minibox container runtime daemon
@@ -4953,7 +4953,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 11091
+  downloads: 11291
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -5117,7 +5117,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 81
+  downloads: 82
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -5139,7 +5139,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 146
+  downloads: 148
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
