@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-27T15:36:06Z
+  pushed_at: 2026-09-28T01:30:51Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-09-28T01:30:49Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-27T15:36:03Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-09-24T01:17:01Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-23T15:23:49Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-09-23T01:22:52Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,148 +213,13 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
-- name: rulery
-  description: Local-first compiler and evaluator for operational rules
-  url: https://github.com/89jobrien/rulery
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-27T22:38:07Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: firsties!!
-    date: 2026-09-17T03:05:34Z
-- name: maid
-  description: File organiser CLI — sorts, converts, and routes files to Obsidian vaults
-  url: https://github.com/89jobrien/maid
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-27T22:34:51Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: checkpoint workspace and Rust documentation'
-    date: 2026-09-21T22:21:46Z
-  - message: 'feat: add Nushell completion generation'
-    date: 2026-08-05T18:09:48Z
-  - message: 'docs: add AGENTS.md for Codex CLI agent support'
-    date: 2026-06-28T18:26:50Z
-  - message: 'feat: add mutool PDF converter, marker is opt-in for OCR-heavy docs'
-    date: 2026-06-15T13:35:42Z
-  - message: 'fix: use marker_single for PDF conversion, handle output directory layout'
-    date: 2026-06-15T12:48:22Z
-  - message: 'feat: note-only action for diagnostics, archive stale files'
-    date: 2026-06-15T08:38:05Z
-  - message: 'feat: initial maid CLI — file organiser with config, conversion, and vault routing'
-    date: 2026-06-15T08:32:31Z
-  readme: |-
-    # neatly
-
-    A clean, fast CLI tool that organises files in a directory by sorting them into subfolders based on their file type. Built with Rust.
-
-    ```text
-    Downloads/
-    ├── invoice.pdf
-    ├── photo.jpg
-    ├── notes.docx
-    └── script.py
-            ↓  neatly run
-    Downloads/
-    ├── documents/
-    │   ├── invoice.pdf
-    │   └── notes.docx
-    ├── images/
-    │   └── photo.jpg
-    └── code/
-        └── script.py
-    ```
-
-    ---
-
-    ## Features
-
-    - **Preview** — see exactly what would happen before any files are moved
-    - **Organise** — sort files into subfolders by type with a single command
-    - **Undo** — restore everything back to its original location and remove the created folders
-    - **Safe** — hidden files and subfolders are never touched
-
-    ---
-
-    ## File Categories
-
-    | Folder       | Extensions                      |
-    | ------------ | ------------------------------- |
-    | `images/`    | jpg, jpeg, png, gif, svg, webp  |
-    | `documents/` | pdf, docx, doc, txt, xlsx, pptx |
-    | `video/`     | mp4, mov, avi, mkv              |
-    | `audio/`     | mp3, wav, flac, aac             |
-    | `code/`      | rs, py, js, ts, html, css, json |
-    | `archives/`  | zip, tar, gz, rar               |
-    | `unknown/`   | everything else                 |
-
-    ---
-
-    ## Installation
-
-    ### Prerequisites
-
-    - [Rust](https://www.rust-lang.org/tools/install) (1.70 or higher)
-
-    ### Build from source
-
-    ```bash
-    # Clone the repository
-    git clone https://github.com/mercy-dapps/neatly.git
-    cd neatly
-
-    # Build release binary
-    cargo build --release
-
-    # Install globally (macOS/Linux)
-    cp target/release/neatly /usr/local/bin/
-    ```
-
-    After installation, `neatly` is available from anywhere in your terminal.
-
-    ---
-
-    ## Usage
-
-    ### Preview
-
-    See what would happen without moving any files:
-
-    ```bash
-    neatly preview ~/Downloads
-    ```
-
-    Example output:
-
-    ```text
-    Preview - no files will be moved:
-
-     invoice.pdf -> documents/
-     photo.jpg -> images/
-     song.mp3 -> audio/
-     script.py -> code/
-
-    4 file(s) would be moved.
-    ```
-
-    ### Organise
-
-    Sort
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-27T18:40:20Z
+  pushed_at: 2026-09-28T17:37:02Z
   version: v0.33.1
   stars: null
   downloads: null
@@ -439,11 +304,13 @@
   kinds:
   - GitHubRepo
   language: HTML
-  pushed_at: 2026-09-27T12:23:10Z
+  pushed_at: 2026-09-28T14:23:53Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-28T14:23:52Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-09-27T12:23:09Z
   - message: 'chore: sync showcase from bazaar'
@@ -462,8 +329,354 @@
     date: 2026-09-20T11:45:56Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-09-19T11:25:12Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-18T11:42:36Z
+- name: hjx
+  description: CLI for handoff state, reconciliation, and handup surveys
+  url: https://crates.io/crates/hjx
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-09-28T11:15:45.318971Z
+  version: 0.1.4
+  stars: null
+  downloads: 26
+  recent_commits: []
+- name: hjlib
+  description: Core library for hj handoff workflows
+  url: https://crates.io/crates/hjlib
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-09-28T11:14:55.567884Z
+  version: 0.1.4
+  stars: null
+  downloads: 92
+  recent_commits: []
+- name: hj
+  description: Handoff state, reconciliation, rendering, and handup surveys
+  url: https://github.com/89jobrien/hj
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-28T11:14:17Z
+  version: v0.1.4
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'release: bump to v0.1.4'
+    date: 2026-09-28T11:12:37Z
+  - message: 'fix(handoff): stop refresh resurrecting resolved items and drop tagged YAML'
+    date: 2026-09-28T10:44:32Z
+  - message: 'chore: checkpoint workspace and Rust documentation'
+    date: 2026-09-21T22:21:40Z
+  - message: 'chore(handoff): session-end update'
+    date: 2026-08-23T09:10:39Z
+  - message: 'fix(handoff): skip duplicate (date, project, commits) in jsonl log'
+    date: 2026-06-27T21:23:25Z
+  - message: 'fix(gitignore): re-ignore HANDOFF.godmode.*.yaml state files'
+    date: 2026-05-14T02:19:57Z
+  - message: Add CommitRef and update log handling
+    date: 2026-05-12T20:15:08Z
+  - message: Change demo repo user email to local address
+    date: 2026-05-03T14:12:42Z
+  - message: Update user email in common.sh
+    date: 2026-05-03T14:12:03Z
+  - message: 'docs: rewrite README with quick start, YAML format, and key flags'
+    date: 2026-04-30T21:56:35Z
+  tags:
+  - agents
+  readme: |-
+    # hj
+
+    `hj` tracks work-in-progress across sessions using structured YAML handoff files. Each repo
+    gets a `.ctx/HANDOFF.<project>.<repo>.yaml` that holds open items, priorities, and a session
+    log. The CLI reads that file to triage at session start, appends log entries at session end,
+    syncs state to SQLite, and renders markdown summaries for humans and agents.
+
+    ## Quick Start
+
+    ```bash
+    # Install via pre-built binary
+    cargo binstall hjx
+
+    # In any git repo: scaffold .ctx/ and .gitignore entries
+    hj refresh
+
+    # Start a session — prints P0/P1/P2 triage from the handoff file
+    hj handon
+
+    # End a session — appends a log entry, writes HANDOFF.md, syncs SQLite
+    hj handoff --log-summary "What you did"
+    ```
+
+    ## Handoff File Format
+
+    Handoff files live at `.ctx/HANDOFF.<project>.<repo>.yaml`:
+
+    ```yaml
+    project: myproject
+    id: myproject
+    updated: 2026-04-30
+    items:
+        - id: mp-1
+          priority: P1
+          status: open
+          title: Wire the render pass
+          description: |
+              Description of what needs doing and why.
+          files:
+              - src/render.rs
+        - id: mp-2
+          priority: P2
+          status: done
+          title: Add conformance tests
+          completed: 2026-04-28
+    log:
+        - date: 20260428:131508
+          summary: Shipped render pass skeleton, all tests pass.
+          commits:
+              - sha: abc1234
+                branch: main
+    ```
+
+    Items have `status: open | blocked | done`. The `log` section grows with each session.
+    Commits accept either bare SHAs (`abc1234`) or `{sha, branch}` maps.
+
+    ## Install
+
+    Install the latest release via [`cargo binstall`](https://github.com/cargo-bins/cargo-binstall)
+    (downloads pre-built binaries from GitHub Releases):
+
+    ```bash
+    cargo binstall hjx
+    ```
+
+    Supported targets: `x86_64-unknown-linux-musl`, `aarch64-unknown-linux-musl`,
+    `x86_64-apple-darwin`, `aarch64-apple-darwin`. Unsupported targets fall back to
+    source compilation.
+
+    Install from the current checkout:
+
+    ```bash
+    hj install
+    ```
+
+    Manual equivalent:
+
+    ```bash
+    env RUSTC_WRAPPER= cargo install --path crates/hj
+- name: rulery
+  description: Local-first compiler and evaluator for operational rules
+  url: https://github.com/89jobrien/rulery
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-28T09:51:49Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(release): enforce gate exit codes with expect clauses'
+    date: 2026-09-28T09:12:28Z
+  - message: 'fix(release): correct the coverage gate and ignore profile litter'
+    date: 2026-09-28T09:03:35Z
+  - message: 'flow: promote develop into main'
+    date: 2026-09-28T08:56:44Z
+  - message: 'build(release): add Cruxfile.release orchestration pipeline'
+    date: 2026-09-28T08:56:17Z
+  - message: 'flow: promote release into main'
+    date: 2026-09-27T23:12:50Z
+  - message: 'flow: sync main into develop'
+    date: 2026-09-27T23:12:50Z
+  - message: 'flow: promote staging into release'
+    date: 2026-09-27T23:12:00Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-09-27T23:11:53Z
+  - message: 'flow: finish release into main'
+    date: 2026-09-27T23:10:20Z
+  - message: 'flow: sync main into develop'
+    date: 2026-09-27T23:10:20Z
+  readme: |-
+    # Rulery
+
+    <!-- markdownlint-disable MD013 -->
+
+    Rulery is a local-first Rust compiler and evaluator for structured operational rules. It turns
+    YAML rule packages into deterministic intermediate representations, evaluates decisions with
+    explicit four-valued truth semantics, records reproducible traces, runs scenarios, performs static
+    analysis, and renders machine- and human-readable artifacts.
+
+    The project is deliberately not an LLM policy engine, workflow executor, remote package registry,
+    or substitute for accountable human judgment. Imports are local and the v0.1 design requires
+    offline operation.
+
+    ## Status
+
+    Rulery is an experimental, pre-release `0.1.0` workspace under active development. The core
+    contracts, parser, compiler passes, evaluator, analysis, scenario, rendering, storage, facade, and
+    conformance fixtures are present. All nine `rulery` subcommands execute: the binary parses
+    arguments, runs the command through the root facade's application service, writes exactly one
+    artifact, and exits with the status the specification's exit-condition matrix names. The Rust APIs
+    and tests remain the implementation reference, and `crates/cli/tests/process_contract.rs` pins the
+    process-level contract by running the real binary.
+
+    The normative target is [the v0.1 core specification](docs/specification.md). A feature described
+    there should not be assumed complete unless it is also implemented in the current source.
+
+    ## Architecture
+
+    The workspace enforces one responsibility per crate and an acyclic dependency direction:
+
+    | Package              | Responsibility                                                               |
+    | -------------------- | ---------------------------------------------------------------------------- |
+    | `rulery`             | Curated public facade, package assembly, embedding workflow, and macros      |
+    | `rulery-contracts`   | IDs, facts, values, outcomes, time, source maps, hashes, and lock contracts  |
+    | `rulery-diagnostics` | Stable diagnostic c
+- name: maid
+  description: File organiser CLI — sorts, converts, and routes files to Obsidian vaults
+  url: https://github.com/89jobrien/maid
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-28T09:33:32Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore(release): exclude internal files from the published tarball'
+    date: 2026-09-28T08:35:04Z
+  - message: 'chore(release): rename crate to filemaid for crates.io availability'
+    date: 2026-09-28T08:31:39Z
+  - message: 'chore(ci): add quality gate pipeline, dependabot, and license'
+    date: 2026-09-28T08:21:28Z
+  - message: 'docs(readme): document collision handling and the journal format'
+    date: 2026-09-28T07:49:35Z
+  - message: 'feat(organiser): print resolved final paths in preview'
+    date: 2026-09-28T07:48:02Z
+  - message: 'fix(organiser): refuse to overwrite when undo restores a file'
+    date: 2026-09-28T07:45:33Z
+  - message: 'fix(organiser): record each move in an append-only journal as it happens'
+    date: 2026-09-28T07:43:34Z
+  - message: 'fix(organiser): resolve destination collisions instead of overwriting'
+    date: 2026-09-28T07:30:27Z
+  - message: 'docs: add collision-safe destination resolution design and plan'
+    date: 2026-09-28T07:24:45Z
+  - message: 'fix(organiser): scan secrets with obfsck redact --audit'
+    date: 2026-09-27T22:34:20Z
+  readme: |-
+    # maid
+
+    A clean, fast CLI tool that organises files in a directory by sorting them into
+    subfolders based on their file type. Built with Rust.
+
+    ```text
+    Downloads/
+    ├── invoice.pdf
+    ├── photo.jpg
+    ├── notes.txt
+    └── script.py
+            ↓  maid run
+    Downloads/
+    ├── documents/
+    │   ├── invoice.pdf
+    │   └── notes.txt
+    ├── images/
+    │   └── photo.jpg
+    └── code/
+        └── script.py
+    ```
+
+    ---
+
+    ## Features
+
+    - **Preview** — see exactly what would happen before any files are moved
+    - **Organise** — sort files into subfolders by type with a single command
+    - **Undo** — reverse the most recent run in a directory
+    - **Convert** — turn documents into markdown and archive the original
+    - **Quarantine** — route files that fail a secret scan out of the vault
+    - **Safe** — hidden files and subdirectories are never touched
+
+    ---
+
+    ## Installation
+
+    ### Prerequisites
+
+    - [Rust](https://www.rust-lang.org/tools/install) (1.88 or higher — the crate
+      uses edition 2024 and a let-chain, stable since 1.88. CI verifies this floor.)
+
+    ### Build from source
+
+    ```bash
+    git clone https://github.com/89jobrien/maid.git
+    cd maid
+    cargo install --path .
+    ```
+
+    After installation, `maid` is available from anywhere in your terminal.
+
+    ### Optional external tools
+
+    Maid shells out to these when your config asks for them. All are optional and
+    detected at call time — if one is missing, the affected step is skipped and a
+    warning is printed.
+
+    | Tool            | Used for                                   |
+    | --------------- | ------------------------------------------ |
+    | `pandoc`        | Document → markdown conversion             |
+    | `marker_single` | OCR-heavy documents → markdown (PDF/image) |
+    | `mutool`        | Fast text extraction from PDFs             |
+    | `obfsck`        | Secret scan gating `.md`/`.mdx` and output |
+
+    ### Secret scanning
+
+    `.md`/`.mdx` files and converted output are scanned with
+    `obfsck redact --audit` before being filed. Maid
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-28T09:16:36Z
+  version: v0.4.2
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Delete .taskit/telemetry/2026/08/22 directory
+    date: 2026-09-20T00:31:18Z
+  - message: Delete .adr-dir
+    date: 2026-09-19T12:43:14Z
+  - message: Delete doc/adr directory
+    date: 2026-09-19T12:42:46Z
+  - message: 'fix(runtime): merge architecture review fixes'
+    date: 2026-09-12T10:20:02Z
+  - message: 'fix(cli): restore readable pipeline output [moa-review]'
+    date: 2026-09-10T16:54:55Z
+  - message: 'fix(review): resolve integration findings [moa-review]'
+    date: 2026-09-10T16:43:05Z
+  - message: 'merge: integrate release documentation fixes'
+    date: 2026-09-10T01:31:29Z
+  - message: 'merge: integrate CLI review fixes'
+    date: 2026-09-10T01:31:19Z
+  - message: 'merge: integrate handler consumer fixes'
+    date: 2026-09-10T01:31:13Z
+  - message: 'merge: integrate execution review fixes'
+    date: 2026-09-10T01:31:05Z
+  tags:
+  - agents
+  readme: "# Crux\n\nAgentic workflows as YAML pipelines and typed Rust agents, with every\nexecution captured as an inspectable, serializable, and replayable trace.\n\n- **Write pipelines in YAML.** Define steps, fan-out, piping, and\n  budgets in `.crux` files. The runtime handles execution, tracing,\n  and error recovery.\n- **Every step is traced.** Each step lands in a typed `Crux<T>` value\n  you can inspect, serialize, or replay after a crash.\n- **Rust when you need it.** Drop into `#[crux::agent]` for custom\n  logic, typed delegation, and confidence-based routing -- same trace,\n  same runtime.\n\n## Quick example\n\nA pipeline as a `.crux` file:\n\n```yaml\npipeline: summarize\nbudget: { calls: 2 }\n\nsteps:\n    - step: count_words\n      handler: shell::capture\n      args:\n          cmd: \"wc -w < input.txt\"\n\n    - step: log_result\n      handler: ctrl::log\n```\n\nRun it with the CLI:\n\n```bash\ncrux run pipeline.crux\n```\n\nThe same thing in Rust:\n\n```rust\nuse crux::prelude::*;\n\n#[crux::agent]\nasync fn summarize(input: String) -> Crux<String> {\n    let count: usize = x.step(\"count_words\", || async {\n        Ok(input.split_whitespace().count())\n    }).await?;\n\n    x.step(\"format\", || async move {\n        Ok(format!(\"{count} words\"))\n    }).await\n}\n```\n\nEither way, the returned `Crux<T>` is:\n\n- **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`\n- **Serializable** -- `serde_json::to_string(&crux)`\n- **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash\n\n## Installation\n\nInstall the pipeline CLI:\n\n```bash\ncargo install --git https://github.com/89jobrien/crux --tag v0.3.1 crux-cli\n```\n\nAdd the Rust DSL to a project:\n\n```toml\n[dependencies]\ncrux = { git = \"https://github.com/89jobrien/crux\", tag = \"v0.3.1\" }\n```\n\nRequires Rust 1.89+ (edition 2024).\n\nThe `crux` CLI can discover pipelines, validate or run `.crux` files and\n`Cruxfile` targets, replay saved traces, and generate pipelines from natural\nlanguage goals:\n\n```bash\ncrux list .\ncrux run pipeline.crux --check\ncrux run "
+- name: filemaid
+  description: A clean, fast CLI tool that organises files into subfolders by type, converts documents to markdown, and routes them to Obsidian vaults
+  url: https://crates.io/crates/filemaid
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-09-28T08:35:22.568944Z
+  version: 0.1.0
+  stars: null
+  downloads: 8
+  recent_commits: []
 - name: opavs
   description: Orient-Plan-Act-Verify-Ship phase discipline CLI
   url: https://github.com/89jobrien/opavs
@@ -659,40 +872,6 @@
     </p>
 
     [![OpenCode Terminal U
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-23T04:15:29Z
-  version: v0.4.2
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Delete .taskit/telemetry/2026/08/22 directory
-    date: 2026-09-20T00:31:18Z
-  - message: Delete .adr-dir
-    date: 2026-09-19T12:43:14Z
-  - message: Delete doc/adr directory
-    date: 2026-09-19T12:42:46Z
-  - message: 'fix(runtime): merge architecture review fixes'
-    date: 2026-09-12T10:20:02Z
-  - message: 'fix(cli): restore readable pipeline output [moa-review]'
-    date: 2026-09-10T16:54:55Z
-  - message: 'fix(review): resolve integration findings [moa-review]'
-    date: 2026-09-10T16:43:05Z
-  - message: 'merge: integrate release documentation fixes'
-    date: 2026-09-10T01:31:29Z
-  - message: 'merge: integrate CLI review fixes'
-    date: 2026-09-10T01:31:19Z
-  - message: 'merge: integrate handler consumer fixes'
-    date: 2026-09-10T01:31:13Z
-  - message: 'merge: integrate execution review fixes'
-    date: 2026-09-10T01:31:05Z
-  tags:
-  - agents
-  readme: "# Crux\n\nAgentic workflows as YAML pipelines and typed Rust agents, with every\nexecution captured as an inspectable, serializable, and replayable trace.\n\n- **Write pipelines in YAML.** Define steps, fan-out, piping, and\n  budgets in `.crux` files. The runtime handles execution, tracing,\n  and error recovery.\n- **Every step is traced.** Each step lands in a typed `Crux<T>` value\n  you can inspect, serialize, or replay after a crash.\n- **Rust when you need it.** Drop into `#[crux::agent]` for custom\n  logic, typed delegation, and confidence-based routing -- same trace,\n  same runtime.\n\n## Quick example\n\nA pipeline as a `.crux` file:\n\n```yaml\npipeline: summarize\nbudget: { calls: 2 }\n\nsteps:\n    - step: count_words\n      handler: shell::capture\n      args:\n          cmd: \"wc -w < input.txt\"\n\n    - step: log_result\n      handler: ctrl::log\n```\n\nRun it with the CLI:\n\n```bash\ncrux run pipeline.crux\n```\n\nThe same thing in Rust:\n\n```rust\nuse crux::prelude::*;\n\n#[crux::agent]\nasync fn summarize(input: String) -> Crux<String> {\n    let count: usize = x.step(\"count_words\", || async {\n        Ok(input.split_whitespace().count())\n    }).await?;\n\n    x.step(\"format\", || async move {\n        Ok(format!(\"{count} words\"))\n    }).await\n}\n```\n\nEither way, the returned `Crux<T>` is:\n\n- **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`\n- **Serializable** -- `serde_json::to_string(&crux)`\n- **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash\n\n## Installation\n\nInstall the pipeline CLI:\n\n```bash\ncargo install --git https://github.com/89jobrien/crux --tag v0.3.1 crux-cli\n```\n\nAdd the Rust DSL to a project:\n\n```toml\n[dependencies]\ncrux = { git = \"https://github.com/89jobrien/crux\", tag = \"v0.3.1\" }\n```\n\nRequires Rust 1.89+ (edition 2024).\n\nThe `crux` CLI can discover pipelines, validate or run `.crux` files and\n`Cruxfile` targets, replay saved traces, and generate pipelines from natural\nlanguage goals:\n\n```bash\ncrux list .\ncrux run pipeline.crux --check\ncrux run "
 - name: looprs
   description: Just tools in a loop.
   url: https://github.com/89jobrien/looprs
@@ -1271,119 +1450,6 @@
     | `--datetime`       | ISO 8601 timestamp for layer dates           |               |
     | `--sde`            | Unix epoch for `SOURCE_DATE_EPOCH`           |               |
     | `--no-cache
-- name: hj
-  description: Handoff state, reconciliation, rendering, and handup surveys
-  url: https://github.com/89jobrien/hj
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-22T06:11:45Z
-  version: v0.1.3
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: checkpoint workspace and Rust documentation'
-    date: 2026-09-21T22:21:40Z
-  - message: 'chore(handoff): session-end update'
-    date: 2026-08-23T09:10:39Z
-  - message: 'fix(handoff): skip duplicate (date, project, commits) in jsonl log'
-    date: 2026-06-27T21:23:25Z
-  - message: 'fix(gitignore): re-ignore HANDOFF.godmode.*.yaml state files'
-    date: 2026-05-14T02:19:57Z
-  - message: Add CommitRef and update log handling
-    date: 2026-05-12T20:15:08Z
-  - message: Change demo repo user email to local address
-    date: 2026-05-03T14:12:42Z
-  - message: Update user email in common.sh
-    date: 2026-05-03T14:12:03Z
-  - message: 'docs: rewrite README with quick start, YAML format, and key flags'
-    date: 2026-04-30T21:56:35Z
-  - message: 'docs: fix stale hj-cli reference in examples README'
-    date: 2026-04-30T21:54:57Z
-  - message: 'chore: update Cargo.lock for v0.1.3'
-    date: 2026-04-30T21:50:43Z
-  tags:
-  - agents
-  readme: |-
-    # hj
-
-    `hj` tracks work-in-progress across sessions using structured YAML handoff files. Each repo
-    gets a `.ctx/HANDOFF.<project>.<repo>.yaml` that holds open items, priorities, and a session
-    log. The CLI reads that file to triage at session start, appends log entries at session end,
-    syncs state to SQLite, and renders markdown summaries for humans and agents.
-
-    ## Quick Start
-
-    ```bash
-    # Install via pre-built binary
-    cargo binstall hjx
-
-    # In any git repo: scaffold .ctx/ and .gitignore entries
-    hj refresh
-
-    # Start a session — prints P0/P1/P2 triage from the handoff file
-    hj handon
-
-    # End a session — appends a log entry, writes HANDOFF.md, syncs SQLite
-    hj handoff --log-summary "What you did"
-    ```
-
-    ## Handoff File Format
-
-    Handoff files live at `.ctx/HANDOFF.<project>.<repo>.yaml`:
-
-    ```yaml
-    project: myproject
-    id: myproject
-    updated: 2026-04-30
-    items:
-        - id: mp-1
-          priority: P1
-          status: open
-          title: Wire the render pass
-          description: |
-              Description of what needs doing and why.
-          files:
-              - src/render.rs
-        - id: mp-2
-          priority: P2
-          status: done
-          title: Add conformance tests
-          completed: 2026-04-28
-    log:
-        - date: 20260428:131508
-          summary: Shipped render pass skeleton, all tests pass.
-          commits:
-              - sha: abc1234
-                branch: main
-    ```
-
-    Items have `status: open | blocked | done`. The `log` section grows with each session.
-    Commits accept either bare SHAs (`abc1234`) or `{sha, branch}` maps.
-
-    ## Install
-
-    Install the latest release via [`cargo binstall`](https://github.com/cargo-bins/cargo-binstall)
-    (downloads pre-built binaries from GitHub Releases):
-
-    ```bash
-    cargo binstall hjx
-    ```
-
-    Supported targets: `x86_64-unknown-linux-musl`, `aarch64-unknown-linux-musl`,
-    `x86_64-apple-darwin`, `aarch64-apple-darwin`. Unsupported targets fall back to
-    source compilation.
-
-    Install from the current checkout:
-
-    ```bash
-    hj install
-    ```
-
-    Manual equivalent:
-
-    ```bash
-    env RUSTC_WRAPPER= cargo install --path crates/hj
 - name: kgx
   description: Three-layer knowledge graph toolkit in Rust
   url: https://github.com/89jobrien/kgx
@@ -1522,7 +1588,7 @@
   pushed_at: 2026-09-22T06:11:21Z
   version: 0.1.2
   stars: null
-  downloads: 2836
+  downloads: 2847
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:21:59Z
@@ -4953,7 +5019,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 12125
+  downloads: 12216
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -5075,28 +5141,6 @@
   - message: 'feat(xtask): add run and install commands'
     date: 2026-05-11T21:39:56Z
   readme: "## About\n\n[Warp](https://www.warp.dev) is an agentic development environment, born out of the terminal. Use Warp's built-in coding agent, or bring your own CLI agent (Claude Code, Codex, Gemini CLI, and others).\n\n## Installation\n\nYou can [download Warp](https://www.warp.dev/download) and [read our docs](https://docs.warp.dev/) for platform-specific instructions.\n\n## Licensing\n\nWarp's UI framework (the `warpui_core` and `warpui` crates) are licensed under the [MIT license](LICENSE-MIT).\n\nThe rest of the code in this repository is licensed under the [AGPL v3](LICENSE-AGPL).\n\n## Open Source & Contributing\n\nWarp's client codebase is open source and lives in this repository. We welcome community contributions and have designed a lightweight workflow to help new contributors get started. For the full contribution flow, read our [CONTRIBUTING.md](CONTRIBUTING.md) guide.\n\n### Issue to PR\n\nBefore filing, [search existing issues](https://github.com/warpdotdev/warp/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc) for your bug or feature request. If nothing exists, [file an issue](https://github.com/warpdotdev/warp/issues/new/choose) using our templates. Security vulnerabilities should be reported privately as described in [CONTRIBUTING.md](CONTRIBUTING.md#reporting-security-issues).\n\nOnce filed, a Warp maintainer reviews the issue and may apply a readiness label: [`ready-to-spec`](https://github.com/warpdotdev/warp/issues?q=is%3Aissue+is%3Aopen+label%3Aready-to-spec) signals the design is open for contributors to spec out, and [`ready-to-implement`](https://github.com/warpdotdev/warp/issues?q=is%3Aissue+is%3Aopen+label%3Aready-to-implement) signals the design is settled and code PRs are welcome. Anyone can pick up a labeled issue — mention **@oss-maintainers** on an issue if you'd like it considered for a readiness label.\n\n### Building the Repo Locally\n\nTo build and run Warp from source:\n\n```bash\n./script/bootstrap   # platform-specific setup\n./script/run         # "
-- name: hjx
-  description: CLI for handoff state, reconciliation, and handup surveys
-  url: https://crates.io/crates/hjx
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-04-30T21:52:33.203814Z
-  version: 0.1.3
-  stars: null
-  downloads: 18
-  recent_commits: []
-- name: hjlib
-  description: Core library for hj handoff workflows
-  url: https://crates.io/crates/hjlib
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-04-30T21:51:42.719327Z
-  version: 0.1.3
-  stars: null
-  downloads: 79
-  recent_commits: []
 - name: tailbox
   description: Tailscale-rs network adapter for minibox containers
   url: https://crates.io/crates/tailbox
