@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-29T16:51:23Z
+  pushed_at: 2026-09-30T01:57:39Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-09-30T01:57:37Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-29T16:51:20Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-09-26T01:24:14Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-25T15:47:00Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-09-25T01:21:18Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,377 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: rulery
+  description: Local-first compiler and evaluator for operational rules
+  url: https://github.com/89jobrien/rulery
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-30T16:05:53Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore(handoff): close out the gap-closeout task graph'
+    date: 2026-09-30T16:05:07Z
+  - message: 'fix(examples): exclude the byte-exact fixtures from prettier'
+    date: 2026-09-30T12:05:33Z
+  - message: 'test(rulery-cli): check in the two fixtures the specification requires'
+    date: 2026-09-30T12:03:06Z
+  - message: 'perf(rulery-analysis): remove two costs the partition benchmark exposed'
+    date: 2026-09-30T12:03:02Z
+  - message: 'bench(rulery-analysis): measure partition scaling before changing it'
+    date: 2026-09-30T11:46:45Z
+  - message: 'test(rulery-emit): pin renderer output as reviewed snapshots'
+    date: 2026-09-30T11:33:48Z
+  - message: 'refactor: derive exhaustive test coverage from one list per enum'
+    date: 2026-09-30T11:30:10Z
+  - message: 'test: add property and doctest suites, and gate both'
+    date: 2026-09-30T10:38:43Z
+  - message: 'docs: drop the stale testing-tool inventory from the agent contract'
+    date: 2026-09-30T10:28:21Z
+  - message: 'feat(xtask): fail conformance when the specification drops a required gate'
+    date: 2026-09-30T09:33:53Z
+  readme: |-
+    # Rulery
+
+    <!-- markdownlint-disable MD013 -->
+
+    Rulery is a local-first Rust compiler and evaluator for structured operational rules. It turns
+    YAML rule packages into deterministic intermediate representations, evaluates decisions with
+    explicit four-valued truth semantics, records reproducible traces, runs scenarios, performs static
+    analysis, and renders machine- and human-readable artifacts.
+
+    The project is deliberately not an LLM policy engine, workflow executor, remote package registry,
+    or substitute for accountable human judgment. Imports are local and the v0.1 design requires
+    offline operation.
+
+    ## Status
+
+    Rulery is an experimental, pre-release `0.1.0` workspace under active development. The core
+    contracts, parser, compiler passes, evaluator, analysis, scenario, rendering, storage, facade, and
+    conformance fixtures are present. All nine `rulery` subcommands execute: the binary parses
+    arguments, runs the command through the root facade's application service, writes exactly one
+    artifact, and exits with the status the specification's exit-condition matrix names. The Rust APIs
+    and tests remain the implementation reference, and `crates/cli/tests/process_contract.rs` pins the
+    process-level contract by running the real binary.
+
+    The normative target is [the v0.1 core specification](docs/specification.md). A feature described
+    there should not be assumed complete unless it is also implemented in the current source.
+
+    ## Architecture
+
+    The workspace enforces one responsibility per crate and an acyclic dependency direction:
+
+    | Package              | Responsibility                                                               |
+    | -------------------- | ---------------------------------------------------------------------------- |
+    | `rulery`             | Curated public facade, package assembly, embedding workflow, and macros      |
+    | `rulery-contracts`   | IDs, facts, values, outcomes, time, source maps, hashes, and lock contracts  |
+    | `rulery-diagnostics` | Stable diagnostic c
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-30T13:18:16Z
+  version: v0.4.2
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #133 from 89jobrien/merge/develop-into-main'
+    date: 2026-09-30T13:18:15Z
+  - message: 'ci: install protoc before mise, drop the baml_client stub'
+    date: 2026-09-30T13:06:45Z
+  - message: 'fix(crux-script): GitCommitRunner must not execute repository hooks'
+    date: 2026-09-30T13:05:09Z
+  - message: 'test(crux-script): make git_commit_runner_creates_commit hermetic'
+    date: 2026-09-30T12:37:36Z
+  - message: 'merge: integrate develop into main'
+    date: 2026-09-30T12:16:28Z
+  - message: 'Merge pull request #132 from 89jobrien/fix/rustls-rustsec-2026-0285'
+    date: 2026-09-30T11:32:31Z
+  - message: 'fix(ci): bump rustls to 0.23.45 for RUSTSEC-2026-0285'
+    date: 2026-09-30T09:15:38Z
+  - message: 'fix(ci): bump rustls to 0.23.45 for RUSTSEC-2026-0285'
+    date: 2026-09-30T09:15:38Z
+  - message: 'refactor(site): move the reference site to site/, make it dark, and render'
+    date: 2026-09-29T21:05:19Z
+  - message: 'feat(crux-task): add --version flag to crux-task CLI'
+    date: 2026-09-29T19:59:43Z
+  tags:
+  - agents
+  readme: |-
+    # Crux
+
+    > **Website** &mdash; <https://89jobrien.github.io/crux/> &middot; source for the site is in [`site/`](site/)
+    > (landing, architecture, CLI reference, crate inventory, status, and FAQ)
+
+    Crux turns agentic execution into a typed Rust value.
+
+    Every run returns `Crux<T>`: a result or error together with the steps,
+    child runs, identity, and timing that produced it. That execution value is
+    inspectable in code, serializable as data, and replayable without
+    reconstructing the run from logs.
+
+    - **Start with YAML.** Define steps, fan-out, piping, and budgets in
+      `.crux` files while the runtime handles execution and recovery.
+    - **Use Rust when you need it.** Drop into `#[crux::agent]` for custom
+      logic, typed delegation, speculation, and confidence-based routing.
+    - **Keep execution as data.** YAML pipelines and Rust agents produce the
+      same `Crux<T>` value through the same runtime.
+
+    ## Why Crux?
+
+    A plain result tells you what happened. A trace helps explain why. A
+    checkpoint records where execution can continue. Crux keeps those concerns
+    connected instead of making callers correlate separate runtime systems:
+
+    ```text
+    Crux<T> = Result<T, CruxErr> + steps + child runs + run metadata
+    ```
+
+    The result remains typed as `T`, failures retain their causal steps,
+    delegations form a tree of child execution values, and snapshots can drive
+    replay. Observability is part of the value returned to the caller, not only
+    a side effect exported elsewhere.
+
+    ## Quick example
+
+    A pipeline as a `.crux` file:
+
+    ```yaml
+    pipeline: summarize
+    budget: { calls: 2 }
+
+    steps:
+      - step: count_words
+        handler: shell::capture
+        args:
+          cmd: "wc -w < input.txt"
+
+      - step: log_result
+        handler: ctrl::log
+    ```
+
+    Run it with the CLI:
+
+    ```bash
+    crux run pipeline.crux
+    ```
+
+    The same thing in Rust:
+
+    ```rust
+    use crux::prelude::*;
+
+    #[crux::agent]
+    async fn summarize(input: String) -> Crux<String> {
+        let count: usize = x.step("count_words", || async {
+            Ok(input.split_whitespace().count())
+        }).awai
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-09-30T12:57:19Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-30T12:57:18Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-29T13:16:24Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-28T14:23:52Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-27T12:23:09Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-26T11:43:45Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-25T12:08:08Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-24T12:08:13Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-23T12:02:26Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-22T12:01:11Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-21T13:14:57Z
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-30T10:33:30Z
+  version: v0.33.1
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #563 from 89jobrien/develop'
+    date: 2026-09-30T10:12:34Z
+  - message: 'docs(site): move the reference site into the shared system'
+    date: 2026-09-30T09:12:56Z
+  - message: 'chore(xtask): refresh protocol-drift lock after the reconciliation merge'
+    date: 2026-09-29T20:17:53Z
+  - message: 'feat(mcp): add --version flag to mcp MCP server'
+    date: 2026-09-29T19:57:03Z
+  - message: 'merge: reconcile main with develop (two parallel Wave lineages)'
+    date: 2026-09-29T19:05:29Z
+  - message: 'fix(taskit): acknowledge protocol surface drift in taskit-protocol.lock'
+    date: 2026-09-29T17:12:48Z
+  - message: 'chore(xtask): acknowledge protocol contract changes from the #451 port'
+    date: 2026-09-29T03:47:59Z
+  - message: 'fix(minibox): drop unused cap-std and cap-fs-ext dependencies'
+    date: 2026-09-29T03:28:50Z
+  - message: 'fix(xtask): clear clippy -D warnings that the CI lint gate flags but xtask lint does not'
+    date: 2026-09-29T02:53:21Z
+  - message: 'fix(runtime): make the rootfs a mount point from the parent, not the child'
+    date: 2026-09-29T02:01:28Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: The stabilization freeze was lifted on 2026-08-18. The standing promotion
+    > gates remain in force; see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
+
+    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
+    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
+    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
+    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
+    lifecycle without shelling out to the CLI.
+
+    **Status:** Active development — `v0.33.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — local `search`, `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `mbx logs <id>` for stored stdout/stderr
+    - Container events — `mbx events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pa
+- name: episteme
+  description: Private local-first document intelligence and research workflow
+  url: https://github.com/89jobrien/episteme
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-29T21:14:58Z
+  version: v0.1.1
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(release): correct stale CLI command name in Cruxfile'
+    date: 2026-09-29T21:14:27Z
+  - message: 'docs: add architecture and API reference, expand agent guide'
+    date: 2026-09-29T18:14:57Z
+  - message: 'docs(release): add release runbook'
+    date: 2026-09-29T18:14:47Z
+  - message: 'fix(godmode): correct task status to a valid schema variant'
+    date: 2026-09-29T18:14:34Z
+  - message: 'fix(release): export the crates.io token instead of using the op shell plugin'
+    date: 2026-09-29T02:57:08Z
+  - message: 'chore(release): episteme-local v0.2.0'
+    date: 2026-09-29T02:44:56Z
+  - message: 'fix(release): drop retry from the non-idempotent publish step'
+    date: 2026-09-29T02:44:27Z
+  - message: 'revert: undo accidental v0.2.0/v0.3.0/v0.4.0 version bumps'
+    date: 2026-09-29T02:42:53Z
+  - message: 'chore(release): episteme-local v0.4.0'
+    date: 2026-09-29T02:41:07Z
+  - message: 'chore(release): episteme-local v0.3.0'
+    date: 2026-09-29T02:40:33Z
+  readme: |-
+    # Episteme
+
+    Episteme is a privacy-preserving, local-first document ingestion pipeline for an Obsidian vault. It uses
+    deterministic extraction tools, typed BAML functions backed by explicitly configured local model
+    endpoints, atomic note persistence, DuckDB provenance, and `zk` indexing.
+
+    Install the `episteme` CLI from crates.io with:
+
+    ```text
+    cargo install episteme-local
+    ```
+
+    The package is named `episteme-local`; the installed executable and library crate remain
+    `episteme`.
+
+    ## Current slice
+
+    Supported inputs:
+
+    - Text and scanned PDFs through Poppler and Tesseract
+    - HTML through Pandoc
+    - PNG, JPEG, TIFF, and WebP images through Tesseract
+
+    The pipeline creates `status: unprocessed` research notes and copies immutable originals into the
+    archive only after a note has been persisted successfully. The inbox copy remains until explicit
+    cleanup. Episteme does not publish, delete user-owned source files, or use cloud model fallbacks.
+
+    ## Current security boundary
+
+    This slice accepts locally trusted documents only. It uses immutable staging copies, shell-free
+    bounded subprocesses, source quote verification, inert Markdown rendering, and symlink-aware vault
+    paths. Poppler, Tesseract, and Pandoc are not yet executed inside a networkless OS sandbox, so
+    automatic public downloads remain disabled.
+
+    ## Configure
+
+    Install Poppler, Tesseract, Pandoc, and `zk`, then ensure a local OpenAI-compatible model endpoint
+    is running on an explicit loopback address. On macOS with Homebrew:
+
+    ```text
+    brew install poppler tesseract pandoc zk
+    ```
+
+    Create `episteme.toml` from the packaged example or repository example. Replace every `/path/to`
+    value and tool path with an absolute local path. Set both model sections to existing
+    OpenAI-compatible endpoints bound to explicit loopback IP addresses. Episteme requires those
+    services to be managed externally. The example uses dedicated port `18181` and intentionally avoids
+    Ollama's conventional `11434` port.
+
+    ## Use
+
+    ```text
+    episteme --config episteme.t
 - name: doob
   description: Modern, agent-first todo CLI built with Rust and SurrealDB
   url: https://github.com/89jobrien/doob
@@ -333,156 +704,6 @@
     ### Roadmap
 
     **Phase 3: Metadata & Repository** (Next
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-29T21:06:05Z
-  version: v0.4.2
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: Delete .taskit/telemetry/2026/08/22 directory
-    date: 2026-09-20T00:31:18Z
-  - message: Delete .adr-dir
-    date: 2026-09-19T12:43:14Z
-  - message: Delete doc/adr directory
-    date: 2026-09-19T12:42:46Z
-  - message: 'fix(runtime): merge architecture review fixes'
-    date: 2026-09-12T10:20:02Z
-  - message: 'fix(cli): restore readable pipeline output [moa-review]'
-    date: 2026-09-10T16:54:55Z
-  - message: 'fix(review): resolve integration findings [moa-review]'
-    date: 2026-09-10T16:43:05Z
-  - message: 'merge: integrate release documentation fixes'
-    date: 2026-09-10T01:31:29Z
-  - message: 'merge: integrate CLI review fixes'
-    date: 2026-09-10T01:31:19Z
-  - message: 'merge: integrate handler consumer fixes'
-    date: 2026-09-10T01:31:13Z
-  - message: 'merge: integrate execution review fixes'
-    date: 2026-09-10T01:31:05Z
-  tags:
-  - agents
-  readme: "# Crux\n\nAgentic workflows as YAML pipelines and typed Rust agents, with every\nexecution captured as an inspectable, serializable, and replayable trace.\n\n- **Write pipelines in YAML.** Define steps, fan-out, piping, and\n  budgets in `.crux` files. The runtime handles execution, tracing,\n  and error recovery.\n- **Every step is traced.** Each step lands in a typed `Crux<T>` value\n  you can inspect, serialize, or replay after a crash.\n- **Rust when you need it.** Drop into `#[crux::agent]` for custom\n  logic, typed delegation, and confidence-based routing -- same trace,\n  same runtime.\n\n## Quick example\n\nA pipeline as a `.crux` file:\n\n```yaml\npipeline: summarize\nbudget: { calls: 2 }\n\nsteps:\n    - step: count_words\n      handler: shell::capture\n      args:\n          cmd: \"wc -w < input.txt\"\n\n    - step: log_result\n      handler: ctrl::log\n```\n\nRun it with the CLI:\n\n```bash\ncrux run pipeline.crux\n```\n\nThe same thing in Rust:\n\n```rust\nuse crux::prelude::*;\n\n#[crux::agent]\nasync fn summarize(input: String) -> Crux<String> {\n    let count: usize = x.step(\"count_words\", || async {\n        Ok(input.split_whitespace().count())\n    }).await?;\n\n    x.step(\"format\", || async move {\n        Ok(format!(\"{count} words\"))\n    }).await\n}\n```\n\nEither way, the returned `Crux<T>` is:\n\n- **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`\n- **Serializable** -- `serde_json::to_string(&crux)`\n- **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash\n\n## Installation\n\nInstall the pipeline CLI:\n\n```bash\ncargo install --git https://github.com/89jobrien/crux --tag v0.3.1 crux-cli\n```\n\nAdd the Rust DSL to a project:\n\n```toml\n[dependencies]\ncrux = { git = \"https://github.com/89jobrien/crux\", tag = \"v0.3.1\" }\n```\n\nRequires Rust 1.89+ (edition 2024).\n\nThe `crux` CLI can discover pipelines, validate or run `.crux` files and\n`Cruxfile` targets, replay saved traces, and generate pipelines from natural\nlanguage goals:\n\n```bash\ncrux list .\ncrux run pipeline.crux --check\ncrux run "
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-29T20:25:22Z
-  version: v0.33.1
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #472 from 89jobrien/issue/250'
-    date: 2026-08-28T18:49:13Z
-  - message: 'merge: sync local Searchbox with Wave 1'
-    date: 2026-08-28T18:41:31Z
-  - message: 'Merge pull request #470 from 89jobrien/issues/wave1-integration'
-    date: 2026-08-28T18:34:44Z
-  - message: 'fix(ci): gate VZ startup path to macOS'
-    date: 2026-08-28T18:29:54Z
-  - message: 'fix(ci): gate VZ dependencies to macOS'
-    date: 2026-08-28T18:23:37Z
-  - message: 'fix(runtime): cover UID mapping in all-feature builds'
-    date: 2026-08-28T18:08:57Z
-  - message: 'chore(protocol): accept Wave 1 contract changes'
-    date: 2026-08-28T18:00:16Z
-  - message: 'merge: issue #231 typed capability matrix'
-    date: 2026-08-28T17:42:57Z
-  - message: 'merge: issue #452 VOLUME-aware commits'
-    date: 2026-08-28T17:37:51Z
-  - message: 'merge: issues #451 #448 #450 Linux isolation and lifecycle'
-    date: 2026-08-28T17:35:54Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: Stabilization freeze active — see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
-
-    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
-    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
-    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
-    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
-    lifecycle without shelling out to the CLI.
-
-    **Status:** Active development — `v0.32.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — local `search`, `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `mbx logs <id>` for stored stdout/stderr
-    - Container events — `mbx events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux o
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-09-29T13:16:28Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-29T13:16:24Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-28T14:23:52Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-27T12:23:09Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-26T11:43:45Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-25T12:08:08Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-24T12:08:13Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-23T12:02:26Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-22T12:01:11Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-21T13:14:57Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-20T11:45:56Z
 - name: episteme-local
   description: Local-first knowledge ingestion and intelligence workflows
   url: https://crates.io/crates/episteme-local
@@ -819,73 +1040,6 @@
 
     ```bash
     env RUSTC_WRAPPER= cargo install --path crates/hj
-- name: rulery
-  description: Local-first compiler and evaluator for operational rules
-  url: https://github.com/89jobrien/rulery
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-28T09:51:49Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'fix(release): enforce gate exit codes with expect clauses'
-    date: 2026-09-28T09:12:28Z
-  - message: 'fix(release): correct the coverage gate and ignore profile litter'
-    date: 2026-09-28T09:03:35Z
-  - message: 'flow: promote develop into main'
-    date: 2026-09-28T08:56:44Z
-  - message: 'build(release): add Cruxfile.release orchestration pipeline'
-    date: 2026-09-28T08:56:17Z
-  - message: 'flow: promote release into main'
-    date: 2026-09-27T23:12:50Z
-  - message: 'flow: sync main into develop'
-    date: 2026-09-27T23:12:50Z
-  - message: 'flow: promote staging into release'
-    date: 2026-09-27T23:12:00Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-09-27T23:11:53Z
-  - message: 'flow: finish release into main'
-    date: 2026-09-27T23:10:20Z
-  - message: 'flow: sync main into develop'
-    date: 2026-09-27T23:10:20Z
-  readme: |-
-    # Rulery
-
-    <!-- markdownlint-disable MD013 -->
-
-    Rulery is a local-first Rust compiler and evaluator for structured operational rules. It turns
-    YAML rule packages into deterministic intermediate representations, evaluates decisions with
-    explicit four-valued truth semantics, records reproducible traces, runs scenarios, performs static
-    analysis, and renders machine- and human-readable artifacts.
-
-    The project is deliberately not an LLM policy engine, workflow executor, remote package registry,
-    or substitute for accountable human judgment. Imports are local and the v0.1 design requires
-    offline operation.
-
-    ## Status
-
-    Rulery is an experimental, pre-release `0.1.0` workspace under active development. The core
-    contracts, parser, compiler passes, evaluator, analysis, scenario, rendering, storage, facade, and
-    conformance fixtures are present. All nine `rulery` subcommands execute: the binary parses
-    arguments, runs the command through the root facade's application service, writes exactly one
-    artifact, and exits with the status the specification's exit-condition matrix names. The Rust APIs
-    and tests remain the implementation reference, and `crates/cli/tests/process_contract.rs` pins the
-    process-level contract by running the real binary.
-
-    The normative target is [the v0.1 core specification](docs/specification.md). A feature described
-    there should not be assumed complete unless it is also implemented in the current source.
-
-    ## Architecture
-
-    The workspace enforces one responsibility per crate and an acyclic dependency direction:
-
-    | Package              | Responsibility                                                               |
-    | -------------------- | ---------------------------------------------------------------------------- |
-    | `rulery`             | Curated public facade, package assembly, embedding workflow, and macros      |
-    | `rulery-contracts`   | IDs, facts, values, outcomes, time, source maps, hashes, and lock contracts  |
-    | `rulery-diagnostics` | Stable diagnostic c
 - name: maid
   description: File organiser CLI — sorts, converts, and routes files to Obsidian vaults
   url: https://github.com/89jobrien/maid
@@ -1827,7 +1981,7 @@
   pushed_at: 2026-09-22T06:11:21Z
   version: 0.1.2
   stars: null
-  downloads: 2934
+  downloads: 2980
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:21:59Z
@@ -3661,7 +3815,7 @@
   language: Rust
   pushed_at: 2026-09-22T06:05:11Z
   version: v0.4.6
-  stars: null
+  stars: 1
   downloads: null
   recent_commits:
   - message: Clarify changes in forked crate description
@@ -3741,7 +3895,7 @@
   pushed_at: 2026-09-19T23:26:25.558102Z
   version: 0.4.2
   stars: null
-  downloads: 200
+  downloads: 202
   recent_commits: []
 - name: crux-plugin
   description: Subprocess plugin host for crux pipelines
@@ -5105,7 +5259,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 12625
+  downloads: 12736
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
