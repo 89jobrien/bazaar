@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-29T02:33:01Z
+  pushed_at: 2026-09-29T16:51:23Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-09-29T16:51:20Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-29T02:32:59Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-09-25T15:47:00Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-25T01:21:18Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-09-24T15:46:51Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,44 +213,167 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
+- name: doob
+  description: Modern, agent-first todo CLI built with Rust and SurrealDB
+  url: https://github.com/89jobrien/doob
   kinds:
   - GitHubRepo
-  language: HTML
-  pushed_at: 2026-09-29T13:16:28Z
-  version: null
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-09-29T21:14:43Z
+  version: 0.1.0
   stars: null
+  downloads: 25
+  recent_commits:
+  - message: 'refactor(site): move the reference site to site/, make it dark, and render (#24)'
+    date: 2026-09-29T21:14:42Z
+  - message: 'docs(site): add a static reference site under assets/ (#23)'
+    date: 2026-09-29T18:13:29Z
+  - message: 'chore: integrate daily orchestration remediation'
+    date: 2026-08-26T17:49:40Z
+  - message: 'fix: use arrays for handoff sync test fixtures'
+    date: 2026-08-26T17:33:05Z
+  - message: 'fix: clean up test lint warnings'
+    date: 2026-08-26T17:28:30Z
+  - message: 'test: isolate sync test fixtures'
+    date: 2026-08-26T17:13:57Z
+  - message: 'test: remove obsolete Beads integration coverage'
+    date: 2026-08-26T17:13:29Z
+  - message: 'fix: satisfy active Clippy checks'
+    date: 2026-08-26T17:12:45Z
+  - message: 'feat(doob): merge chore/cap-current-changes — error context improvements'
+    date: 2026-07-16T02:35:21Z
+  - message: 'chore: improve error context in DB connection and use miette for display'
+    date: 2026-07-16T02:35:17Z
+  tags:
+  - cli
+  readme: |-
+    # doob
+
+    > **Website** &mdash; <https://89jobrien.github.io/doob/> &middot; source for the site is in [`site/`](site/)
+    > (landing, architecture, CLI reference, crate inventory, status, and FAQ)
+
+    Modern, agent-first todo CLI built with Rust and SurrealDB.
+
+    ## Features
+
+    - **Fast** - Rust + SurrealDB embedded
+    - **Agent-First** - JSON output, batch operations, context detection
+    - **Single Binary** - No dependencies
+    - **Context-Aware** - Auto-detects project and file from git
+
+    ## Installation
+
+    ```bash
+    cargo install --path .
+    ```
+
+    ## Commands
+
+    ```bash
+    # Add a todo (auto-detects project/file from git)
+    doob todo add "Fix auth bug"
+
+    # Add with priority and tags
+    doob todo add "Refactor code" --priority 1 --tags refactor,urgent
+
+    # Batch add
+    doob todo add "Task 1" "Task 2" "Task 3"
+
+    # List todos
+    doob todo list
+
+    # Filter by status or project
+    doob todo list --status pending
+    doob todo list --project myproject --limit 10
+
+    # Complete todo(s)
+    doob todo complete <id>
+    doob todo complete <id1> <id2> <id3>
+
+    # Undo completion (mark as pending)
+    doob todo undo <id>
+
+    # Set or clear a due date
+    doob todo due <id> 2026-03-15
+    doob todo due <id> clear
+
+    # Remove todo(s)
+    doob todo remove <id>
+    doob todo remove <id1> <id2>
+    ```
+
+    ## Sync to External Issue Trackers
+
+    **Status:** Foundation Complete (Phase 1 & 2) ✅
+
+    Sync your doob todos to external issue trackers using a plugin architecture.
+
+    ### Supported Providers
+
+    - ✅ **Beads** (bd CLI) - Complete
+    - 🚧 **GitHub Issues** - Planned
+    - 🚧 **Jira** - Planned
+    - 🚧 **Linear** - Planned
+    - 🚧 **kan** - Planned
+
+    ### Architecture
+
+    Built with hexagonal architecture:
+    - **Domain Layer** - Business logic, validation, error handling
+    - **Ports** - `IssueTracker` trait interface
+    - **Adapters** - Provider-specific implementations (CLI delegation)
+    - **Tests** - 19 unit/integration tests (100% passing)
+
+    ### Documentation
+
+    - [Testing Guide](docs/sync/testing.md)
+    - [Beads Provider](docs/sync/providers/beads.md)
+
+    ### Roadmap
+
+    **Phase 3: Metadata & Repository** (Next
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-09-29T21:06:05Z
+  version: v0.4.2
+  stars: 1
   downloads: null
   recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-29T13:16:24Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-28T14:23:52Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-27T12:23:09Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-26T11:43:45Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-25T12:08:08Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-24T12:08:13Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-23T12:02:26Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-22T12:01:11Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-21T13:14:57Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-20T11:45:56Z
+  - message: Delete .taskit/telemetry/2026/08/22 directory
+    date: 2026-09-20T00:31:18Z
+  - message: Delete .adr-dir
+    date: 2026-09-19T12:43:14Z
+  - message: Delete doc/adr directory
+    date: 2026-09-19T12:42:46Z
+  - message: 'fix(runtime): merge architecture review fixes'
+    date: 2026-09-12T10:20:02Z
+  - message: 'fix(cli): restore readable pipeline output [moa-review]'
+    date: 2026-09-10T16:54:55Z
+  - message: 'fix(review): resolve integration findings [moa-review]'
+    date: 2026-09-10T16:43:05Z
+  - message: 'merge: integrate release documentation fixes'
+    date: 2026-09-10T01:31:29Z
+  - message: 'merge: integrate CLI review fixes'
+    date: 2026-09-10T01:31:19Z
+  - message: 'merge: integrate handler consumer fixes'
+    date: 2026-09-10T01:31:13Z
+  - message: 'merge: integrate execution review fixes'
+    date: 2026-09-10T01:31:05Z
+  tags:
+  - agents
+  readme: "# Crux\n\nAgentic workflows as YAML pipelines and typed Rust agents, with every\nexecution captured as an inspectable, serializable, and replayable trace.\n\n- **Write pipelines in YAML.** Define steps, fan-out, piping, and\n  budgets in `.crux` files. The runtime handles execution, tracing,\n  and error recovery.\n- **Every step is traced.** Each step lands in a typed `Crux<T>` value\n  you can inspect, serialize, or replay after a crash.\n- **Rust when you need it.** Drop into `#[crux::agent]` for custom\n  logic, typed delegation, and confidence-based routing -- same trace,\n  same runtime.\n\n## Quick example\n\nA pipeline as a `.crux` file:\n\n```yaml\npipeline: summarize\nbudget: { calls: 2 }\n\nsteps:\n    - step: count_words\n      handler: shell::capture\n      args:\n          cmd: \"wc -w < input.txt\"\n\n    - step: log_result\n      handler: ctrl::log\n```\n\nRun it with the CLI:\n\n```bash\ncrux run pipeline.crux\n```\n\nThe same thing in Rust:\n\n```rust\nuse crux::prelude::*;\n\n#[crux::agent]\nasync fn summarize(input: String) -> Crux<String> {\n    let count: usize = x.step(\"count_words\", || async {\n        Ok(input.split_whitespace().count())\n    }).await?;\n\n    x.step(\"format\", || async move {\n        Ok(format!(\"{count} words\"))\n    }).await\n}\n```\n\nEither way, the returned `Crux<T>` is:\n\n- **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`\n- **Serializable** -- `serde_json::to_string(&crux)`\n- **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash\n\n## Installation\n\nInstall the pipeline CLI:\n\n```bash\ncargo install --git https://github.com/89jobrien/crux --tag v0.3.1 crux-cli\n```\n\nAdd the Rust DSL to a project:\n\n```toml\n[dependencies]\ncrux = { git = \"https://github.com/89jobrien/crux\", tag = \"v0.3.1\" }\n```\n\nRequires Rust 1.89+ (edition 2024).\n\nThe `crux` CLI can discover pipelines, validate or run `.crux` files and\n`Cruxfile` targets, replay saved traces, and generate pipelines from natural\nlanguage goals:\n\n```bash\ncrux list .\ncrux run pipeline.crux --check\ncrux run "
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-29T08:26:38Z
+  pushed_at: 2026-09-29T20:25:22Z
   version: v0.33.1
   stars: null
   downloads: null
@@ -329,6 +452,37 @@
 
     - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
     - **Bridge networking** — veth pairs, NAT via iptables DNAT (`MINIBOX_NETWORK_MODE=bridge`); Linux o
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-09-29T13:16:28Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-29T13:16:24Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-28T14:23:52Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-27T12:23:09Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-26T11:43:45Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-25T12:08:08Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-24T12:08:13Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-23T12:02:26Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-22T12:01:11Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-21T13:14:57Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-20T11:45:56Z
 - name: episteme-local
   description: Local-first knowledge ingestion and intelligence workflows
   url: https://crates.io/crates/episteme-local
@@ -338,7 +492,7 @@
   pushed_at: 2026-09-29T06:18:55.666986Z
   version: 0.2.0
   stars: null
-  downloads: 25
+  downloads: 27
   recent_commits: []
 - name: coursers
   description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
@@ -539,7 +693,7 @@
   pushed_at: 2026-09-28T11:15:45.318971Z
   version: 0.1.4
   stars: null
-  downloads: 28
+  downloads: 29
   recent_commits: []
 - name: hjlib
   description: Core library for hj handoff workflows
@@ -550,7 +704,7 @@
   pushed_at: 2026-09-28T11:14:55.567884Z
   version: 0.1.4
   stars: null
-  downloads: 95
+  downloads: 96
   recent_commits: []
 - name: hj
   description: Handoff state, reconciliation, rendering, and handup surveys
@@ -833,40 +987,6 @@
 
     `.md`/`.mdx` files and converted output are scanned with
     `obfsck redact --audit` before being filed. Maid
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-28T09:16:36Z
-  version: v0.4.2
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Delete .taskit/telemetry/2026/08/22 directory
-    date: 2026-09-20T00:31:18Z
-  - message: Delete .adr-dir
-    date: 2026-09-19T12:43:14Z
-  - message: Delete doc/adr directory
-    date: 2026-09-19T12:42:46Z
-  - message: 'fix(runtime): merge architecture review fixes'
-    date: 2026-09-12T10:20:02Z
-  - message: 'fix(cli): restore readable pipeline output [moa-review]'
-    date: 2026-09-10T16:54:55Z
-  - message: 'fix(review): resolve integration findings [moa-review]'
-    date: 2026-09-10T16:43:05Z
-  - message: 'merge: integrate release documentation fixes'
-    date: 2026-09-10T01:31:29Z
-  - message: 'merge: integrate CLI review fixes'
-    date: 2026-09-10T01:31:19Z
-  - message: 'merge: integrate handler consumer fixes'
-    date: 2026-09-10T01:31:13Z
-  - message: 'merge: integrate execution review fixes'
-    date: 2026-09-10T01:31:05Z
-  tags:
-  - agents
-  readme: "# Crux\n\nAgentic workflows as YAML pipelines and typed Rust agents, with every\nexecution captured as an inspectable, serializable, and replayable trace.\n\n- **Write pipelines in YAML.** Define steps, fan-out, piping, and\n  budgets in `.crux` files. The runtime handles execution, tracing,\n  and error recovery.\n- **Every step is traced.** Each step lands in a typed `Crux<T>` value\n  you can inspect, serialize, or replay after a crash.\n- **Rust when you need it.** Drop into `#[crux::agent]` for custom\n  logic, typed delegation, and confidence-based routing -- same trace,\n  same runtime.\n\n## Quick example\n\nA pipeline as a `.crux` file:\n\n```yaml\npipeline: summarize\nbudget: { calls: 2 }\n\nsteps:\n    - step: count_words\n      handler: shell::capture\n      args:\n          cmd: \"wc -w < input.txt\"\n\n    - step: log_result\n      handler: ctrl::log\n```\n\nRun it with the CLI:\n\n```bash\ncrux run pipeline.crux\n```\n\nThe same thing in Rust:\n\n```rust\nuse crux::prelude::*;\n\n#[crux::agent]\nasync fn summarize(input: String) -> Crux<String> {\n    let count: usize = x.step(\"count_words\", || async {\n        Ok(input.split_whitespace().count())\n    }).await?;\n\n    x.step(\"format\", || async move {\n        Ok(format!(\"{count} words\"))\n    }).await\n}\n```\n\nEither way, the returned `Crux<T>` is:\n\n- **Inspectable** -- `crux.causal_chain()`, `crux.delegations()`\n- **Serializable** -- `serde_json::to_string(&crux)`\n- **Replayable** -- `Crux::replay_from(snapshot)` resumes after a crash\n\n## Installation\n\nInstall the pipeline CLI:\n\n```bash\ncargo install --git https://github.com/89jobrien/crux --tag v0.3.1 crux-cli\n```\n\nAdd the Rust DSL to a project:\n\n```toml\n[dependencies]\ncrux = { git = \"https://github.com/89jobrien/crux\", tag = \"v0.3.1\" }\n```\n\nRequires Rust 1.89+ (edition 2024).\n\nThe `crux` CLI can discover pipelines, validate or run `.crux` files and\n`Cruxfile` targets, replay saved traces, and generate pipelines from natural\nlanguage goals:\n\n```bash\ncrux list .\ncrux run pipeline.crux --check\ncrux run "
 - name: filemaid
   description: A clean, fast CLI tool that organises files into subfolders by type, converts documents to markdown, and routes them to Obsidian vaults
   url: https://crates.io/crates/filemaid
@@ -876,7 +996,7 @@
   pushed_at: 2026-09-28T08:35:22.568944Z
   version: 0.1.0
   stars: null
-  downloads: 9
+  downloads: 10
   recent_commits: []
 - name: godmode
   description: Rust-native development methodology for Claude Code, Codex, and OpenCode
@@ -1707,7 +1827,7 @@
   pushed_at: 2026-09-22T06:11:21Z
   version: 0.1.2
   stars: null
-  downloads: 2909
+  downloads: 2934
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:21:59Z
@@ -3533,41 +3653,6 @@
     Skills in `skills/` invoke the `cnbl` binary and present results interactively.
     The `cannibalizer` skill in `skills/cnbl/SKILL.md` orchestrates the full
     scan-plan-gen-eat pipeline with approval ga
-- name: doob
-  description: Modern, agent-first todo CLI built with Rust and SurrealDB
-  url: https://github.com/89jobrien/doob
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-09-22T06:07:40Z
-  version: 0.1.0
-  stars: null
-  downloads: 25
-  recent_commits:
-  - message: 'chore: integrate daily orchestration remediation'
-    date: 2026-08-26T17:49:40Z
-  - message: 'fix: use arrays for handoff sync test fixtures'
-    date: 2026-08-26T17:33:05Z
-  - message: 'fix: clean up test lint warnings'
-    date: 2026-08-26T17:28:30Z
-  - message: 'test: isolate sync test fixtures'
-    date: 2026-08-26T17:13:57Z
-  - message: 'test: remove obsolete Beads integration coverage'
-    date: 2026-08-26T17:13:29Z
-  - message: 'fix: satisfy active Clippy checks'
-    date: 2026-08-26T17:12:45Z
-  - message: 'feat(doob): merge chore/cap-current-changes — error context improvements'
-    date: 2026-07-16T02:35:21Z
-  - message: 'chore: improve error context in DB connection and use miette for display'
-    date: 2026-07-16T02:35:17Z
-  - message: 'chore: add direnv template'
-    date: 2026-07-15T21:27:41Z
-  - message: 'docs: update handoff'
-    date: 2026-06-29T12:53:29Z
-  tags:
-  - cli
-  readme: "# doob\n\nModern, agent-first todo CLI built with Rust and SurrealDB.\n\n## Features\n\n- **Fast** - Rust + SurrealDB embedded\n- **Agent-First** - JSON output, batch operations, context detection\n- **Single Binary** - No dependencies\n- **Context-Aware** - Auto-detects project and file from git\n\n## Installation\n\n```bash\ncargo install --path .\n```\n\n## Commands\n\n```bash\n# Add a todo (auto-detects project/file from git)\ndoob todo add \"Fix auth bug\"\n\n# Add with priority and tags\ndoob todo add \"Refactor code\" --priority 1 --tags refactor,urgent\n\n# Batch add\ndoob todo add \"Task 1\" \"Task 2\" \"Task 3\"\n\n# List todos\ndoob todo list\n\n# Filter by status or project\ndoob todo list --status pending\ndoob todo list --project myproject --limit 10\n\n# Complete todo(s)\ndoob todo complete <id>\ndoob todo complete <id1> <id2> <id3>\n\n# Undo completion (mark as pending)\ndoob todo undo <id>\n\n# Set or clear a due date\ndoob todo due <id> 2026-03-15\ndoob todo due <id> clear\n\n# Remove todo(s)\ndoob todo remove <id>\ndoob todo remove <id1> <id2>\n```\n\n## Sync to External Issue Trackers\n\n**Status:** Foundation Complete (Phase 1 & 2) ✅\n\nSync your doob todos to external issue trackers using a plugin architecture.\n\n### Supported Providers\n\n- ✅ **Beads** (bd CLI) - Complete\n- 🚧 **GitHub Issues** - Planned\n- 🚧 **Jira** - Planned\n- 🚧 **Linear** - Planned\n- 🚧 **kan** - Planned\n\n### Architecture\n\nBuilt with hexagonal architecture:\n- **Domain Layer** - Business logic, validation, error handling\n- **Ports** - `IssueTracker` trait interface\n- **Adapters** - Provider-specific implementations (CLI delegation)\n- **Tests** - 19 unit/integration tests (100% passing)\n\n### Documentation\n\n- [Testing Guide](docs/sync/testing.md)\n- [Beads Provider](docs/sync/providers/beads.md)\n\n### Roadmap\n\n**Phase 3: Metadata & Repository** (Next)\n- SurrealDB repository for sync metadata\n- Track external IDs, sync timestamps, errors\n- Multi-provider support per todo\n\n**Phase 4: CLI Commands**\n- `doob sync to --provider beads` - "
 - name: langchainx
   description: Rust port of LangChain — LLMs, chains, agents, vector stores, document loaders
   url: https://github.com/89jobrien/langchainx
@@ -3844,7 +3929,7 @@
   pushed_at: 2026-09-07T18:17:35Z
   version: v0.9.0
   stars: 1
-  downloads: 481
+  downloads: 482
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -5020,7 +5105,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 12501
+  downloads: 12625
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -5795,36 +5880,3 @@
   - message: 'feat: initial commit — hand session handoff plugin'
     date: 2026-04-05T17:43:42Z
   readme: "# hand — Session Handoff Plugin\n\nThree skills for structured project handoff across Claude Code sessions.\n\n## Installation\n\n```bash\nclaude plugin add github:89jobrien/hand\n```\n\n## Skills\n\n| Command | When to use |\n|---|---|\n| `/hand:on` | Start of session — orient, sync doob, triage and act on open items |\n| `/hand:off` | End of session — update HANDOFF.yaml, write .ctx/, sync doob, commit |\n| `/hand:over` | On demand — generate visual report + Mermaid diagrams in .ctx/HANDOVER.md |\n\n## File Layout\n\n| File | Location | Committed | Purpose |\n|---|---|---|---|\n| `HANDOFF.<project>.<base>.yaml` | repo root | yes | Tasks, items, log — doob source of truth |\n| `.ctx/HANDOFF.state.yaml` | `.ctx/` | no | Project snapshot (build/tests/branch/notes) |\n| `.ctx/HANDOFF.md` | `.ctx/` | no | Rendered reference doc (table view) |\n| `.ctx/HANDOVER.md` | `.ctx/` | no | Visual report with Mermaid diagrams |\n\n`.ctx/` is fully generated — add it to `.gitignore`. Only `HANDOFF.yaml` is committed.\n\n## Workflow\n\n```\nsession start → /hand:on  → syncs doob, reviews human-edits, triages P0/P1/P2\n during work  →            → edit HANDOFF.yaml directly for human-edit overrides\n  session end → /hand:off → updates yaml, writes .ctx/, syncs doob, commits\n   on demand  → /hand:over → writes .ctx/HANDOVER.md with diagrams\n```\n\n## HANDOFF.yaml Schema\n\n```yaml\nproject: <name>\nid: <prefix>        # first 7 chars, used for item IDs\nupdated: <YYYY-MM-DD>\n\nitems:\n  - id: <prefix>-<n>\n    doob_uuid: <uuid>           # written by doob sync\n    name: <kebab-slug>          # immutable\n    priority: P0 | P1 | P2     # immutable\n    status: open | done | parked | blocked\n    title: <one-line>           # immutable\n    description: <detail>\n    files: [<path>]\n    completed: <YYYY-MM-DD>     # when status: done\n    extra:\n      - date: <YYYY-MM-DD>\n        type: note | blocker | decision | discovery | escalation | human-edit\n        field: <field>          # human-edit only\n        "
-- name: jorts
-  description: null
-  url: https://github.com/89jobrien/jorts
-  kinds:
-  - GitHubRepo
-  language: Shell
-  pushed_at: 2026-04-02T20:43:07Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: add repository guidelines and readme'
-    date: 2026-04-02T20:43:04Z
-  - message: 'chore: add tailscale setup script'
-    date: 2026-04-02T20:42:05Z
-  readme: |
-    # jorts
-
-    Interactive Tailscale setup helper for Linux.
-
-    ## Usage
-
-    ```bash
-    ./tailscale-setup.sh
-    ```
-
-    The script guides you through enabling Tailscale SSH, selecting an exit node,
-    advertising subnet routes, and running basic connectivity checks.
-
-    ## Notes
-
-    - Some steps require `sudo`.
-    - You may need to approve exit nodes and subnet routes in the Tailscale admin console.
