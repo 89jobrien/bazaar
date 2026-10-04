@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-09-30T16:46:12Z
+  pushed_at: 2026-10-01T01:58:03Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-01T01:58:01Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-30T16:46:10Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-09-27T01:17:10Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-26T14:56:50Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-09-26T01:24:14Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -220,31 +220,31 @@
   - GitHubRepo
   - ClaudePlugin
   language: Rust
-  pushed_at: 2026-10-01T01:44:26Z
+  pushed_at: 2026-10-04T01:30:12Z
   version: v0.5.0
   stars: 1
   downloads: null
   recent_commits:
-  - message: 'merge: issue #112'
-    date: 2026-09-16T05:19:56Z
-  - message: 'merge: issue #113'
-    date: 2026-09-16T05:19:22Z
-  - message: 'merge: issue #108'
-    date: 2026-09-16T05:16:38Z
-  - message: 'merge: issue #109'
-    date: 2026-09-16T05:16:37Z
-  - message: 'merge: issue #111'
-    date: 2026-09-16T05:16:37Z
-  - message: 'merge: issue #107'
-    date: 2026-09-16T05:16:37Z
-  - message: 'merge: issue #106'
-    date: 2026-09-16T05:16:37Z
-  - message: 'merge: issue #110'
-    date: 2026-09-16T05:16:37Z
-  - message: 'merge: issue #104'
-    date: 2026-09-16T05:16:37Z
-  - message: 'merge: issue #102'
-    date: 2026-09-16T05:16:37Z
+  - message: 'feat(opencode): merge feat/opencode-parity into main'
+    date: 2026-10-04T01:28:30Z
+  - message: 'chore(release): bump to 0.8.1 for the OpenCode surface'
+    date: 2026-10-04T00:26:05Z
+  - message: 'fix(opencode): honour the block decision in PreToolUse hooks'
+    date: 2026-10-03T12:21:06Z
+  - message: 'feat(opencode): agent and hook parity for OpenCode'
+    date: 2026-10-03T10:10:19Z
+  - message: 'merge: taskit migration, projection regen, and 0.8.0 release prep'
+    date: 2026-10-03T08:16:29Z
+  - message: 'chore(release): prepare 0.8.0 for first crates.io publish'
+    date: 2026-10-03T08:14:49Z
+  - message: 'fix(commands): regenerate OpenCode command projection'
+    date: 2026-10-03T08:14:01Z
+  - message: 'refactor(plugin): route generated agent/skill content through taskit'
+    date: 2026-10-03T08:09:36Z
+  - message: 'fix(skills): repair nu-check parse errors in three helper scripts'
+    date: 2026-10-03T07:38:24Z
+  - message: 'merge: plan relocation correctness and identity docs [moa-review]'
+    date: 2026-10-03T05:58:16Z
   topics:
   - ai-agents
   - claude-code
@@ -252,73 +252,301 @@
   - rust
   - tdd
   readme: "# godmode\n\nSelf-contained Rust-native development methodology plugin for Claude Code.\n\n> Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.\n\n## Overview\n\nGodmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all\nstateful operations — skills are thin wrappers that call `godmode` and act on the output.\nTasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal\n`depends_on` chains.\n\n## Install\n\n```bash\ncargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode\nclaude plugin install godmode@bazaar\n```\n\n### Pre-commit hook\n\nInstall the godmode pre-commit hook into any git repo to block commits when tasks are\nstill running and to run cargo gates (fmt-check, clippy, nextest):\n\n```bash\n# From the repo root where you want the hook installed:\nnu /path/to/godmode/hooks/install.nu\n\n# Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:\nnu \"$CLAUDE_PLUGIN_ROOT/hooks/install.nu\"\n```\n\nThe hook:\n\n1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,\n   printing the offending task IDs.\n2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and\n   `cargo nextest run --workspace`.\n3. Blocks the commit on any failure with a clear message.\n\nIf `godmode` is not on PATH, the task-state check is skipped gracefully and only the\ncargo gates run.\n\n## Skills\n\n| Skill                                     | When                                                                  |\n| ----------------------------------------- | --------------------------------------------------------------------- |\n| `godmode:using-godmode`                 "
-- name: rulery
-  description: Local-first compiler and evaluator for operational rules
-  url: https://github.com/89jobrien/rulery
+- name: godmode-cli
+  description: 'CLI for godmode: task graph management, parallel agent dispatch, session handoff, and release automation.'
+  url: https://crates.io/crates/godmode-cli
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-10-04T00:32:48.696703Z
+  version: 0.8.1
+  stars: null
+  downloads: 0
+  recent_commits: []
+- name: godmode-core
+  description: 'Core library for godmode: task graphs, session state, dispatch, and Claude Code plugin integrations.'
+  url: https://crates.io/crates/godmode-core
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-10-04T00:26:42.198833Z
+  version: 0.8.1
+  stars: null
+  downloads: 7
+  recent_commits: []
+- name: notfiles
+  description: Nix-based dotfiles and system configuration
+  url: https://github.com/89jobrien/notfiles
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-01T01:32:47Z
+  pushed_at: 2026-10-03T12:12:57Z
   version: null
   stars: null
   downloads: null
   recent_commits:
-  - message: 'docs: state the git discipline two-agent work requires'
-    date: 2026-10-01T01:32:30Z
-  - message: 'docs(rulery-analysis): record the root-resolution invariant this crate relies on'
-    date: 2026-10-01T01:26:27Z
-  - message: 'fix(rulery-vocabulary): reject a root nested under another root'
-    date: 2026-10-01T01:24:49Z
-  - message: 'feat(xtask): add the consumer embedding conformance gate'
-    date: 2026-09-30T23:47:13Z
-  - message: 'docs: complete the memory bank with the four missing core files'
-    date: 2026-09-30T21:30:23Z
-  - message: 'docs: capture the gap-closeout session closeout'
-    date: 2026-09-30T17:47:31Z
-  - message: 'chore(handoff): close out the gap-closeout task graph'
-    date: 2026-09-30T16:05:07Z
-  - message: 'fix(examples): exclude the byte-exact fixtures from prettier'
-    date: 2026-09-30T12:05:33Z
-  - message: 'test(rulery-cli): check in the two fixtures the specification requires'
-    date: 2026-09-30T12:03:06Z
-  - message: 'perf(rulery-analysis): remove two costs the partition benchmark exposed'
-    date: 2026-09-30T12:03:02Z
+  - message: 'chore(repo): remove nested agent worktree marker'
+    date: 2026-07-12T03:53:42Z
+  - message: 'Merge pull request #20 from 89jobrien/chore/sort-cargo-manifests'
+    date: 2026-07-12T03:49:24Z
+  - message: 'fix(ci): install nushell for integration tests'
+    date: 2026-07-12T03:44:04Z
+  - message: 'feat(notforge): add Gitea API foundation'
+    date: 2026-07-12T03:33:24Z
+  - message: 'chore(repo): stop tracking macOS artifacts'
+    date: 2026-07-12T03:33:04Z
+  - message: 'chore(manifests): sort Cargo.toml dependencies'
+    date: 2026-07-12T02:10:48Z
+  - message: 'docs(handoff): log 2026-07-08 — hexagonal architecture refactor, adapters, integration tests, notsecrets cleanup'
+    date: 2026-07-08T19:22:59Z
+  - message: 'chore(nushell): move config payload out of tool repo'
+    date: 2026-07-08T17:28:57Z
+  - message: 'feat(notfiles): hexagonal architecture refactor with adapters, integration tests, and notsecrets cleanup'
+    date: 2026-07-08T17:07:42Z
+  - message: 'feat(nushell): add x alias for cargo xtask'
+    date: 2026-07-07T09:43:59Z
+  tags:
+  - cli
+  - infra
   readme: |-
-    # Rulery
+    # notfiles
 
-    <!-- markdownlint-disable MD013 -->
+    A pure-Rust dotfiles manager — and eventually, a complete new-machine bootstrap system.
 
-    Rulery is a local-first Rust compiler and evaluator for structured operational rules. It turns
-    YAML rule packages into deterministic intermediate representations, evaluates decisions with
-    explicit four-valued truth semantics, records reproducible traces, runs scenarios, performs static
-    analysis, and renders machine- and human-readable artifacts.
+    `notfiles` started as a Rust replacement for [GNU Stow](https://www.gnu.org/software/stow/). It's growing into a **Cargo workspace** of focused crates that together replace an entire shell-script-based dotfiles ecosystem.
 
-    The project is deliberately not an LLM policy engine, workflow executor, remote package registry,
-    or substitute for accountable human judgment. Imports are local and the v0.1 design requires
-    offline operation.
+    ---
+
+    ## Quick Start
+
+    ```bash
+    # Symlink your dotfiles
+    notfiles link
+
+    # Check status
+    notfiles status
+
+    # Validate config without changes (CI-friendly)
+    notfiles check
+
+    # Show copy-method divergence
+    notfiles diff
+
+    # Move an existing file into a package
+    notfiles adopt git .gitconfig
+
+    # Remove symlinks
+    notfiles unlink
+
+    # Generate shell completions
+    notfiles completions bash > ~/.bash_completion.d/notfiles
+    ```
+
+    All commands support `--dry-run`, `--verbose`, and `--json` flags.
+
+    On a new machine (once `notstrap` ships):
+
+    ```bash
+    cargo install notstrap
+    notstrap run
+    ```
+
+    ---
+
+    ## Workspace Architecture
+
+    ```
+    notfiles/
+    ├── crates/
+    │   ├── notcore/        # shared types, config, paths, errors, Reporter trait
+    │   ├── notfiles/       # symlink engine (stow replacement)  ← you are here
+    │   ├── notsecrets/     # multi-provider secret resolution + age crypto
+    │   ├── nothooks/       # hook execution engine
+    │   ├── notnet/         # network utilities (Tailscale, Yubikey)
+    │   ├── notstrap/       # new-machine bootstrap orchestrator
+    │   └── notgraph/       # Rust dependency graph visualizer
+    ├── notfiles.toml       # symlink package config
+    └── notstrap.toml       # bootstrap hook/phase config
+    ```
+
+    ### Crate responsibilities
+
+    | Crate | Type | Does |
+    |-------|------|------|
+    | `notcore` | lib | Shared types, config, paths, errors, Reporter trait — no deps on other crates |
+    | `notfiles` | lib + bin | Symlink/copy packages into `$HOME`, track state, adopt/diff/check |
+    | `notsecrets` | lib | Multi-provider secret resolution, native age encryption/decryption |
+    | `nothooks` | lib + bin | Run bootstrap h
+- name: evidra
+  description: Local-first operational intelligence. Append-only observation ledger plus validated, idempotent persistence for redacted agent-harness evidence.
+  url: https://github.com/89jobrien/evidra
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-03T08:32:21Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs: add architecture, conventions, operations, and schema guides'
+    date: 2026-10-03T08:32:06Z
+  - message: 'fix(adapters): give AgentHarnessJsonlSource a redacted Debug'
+    date: 2026-10-03T06:12:34Z
+  - message: 'ci: run the workspace gate through taskit check ci'
+    date: 2026-10-03T06:12:16Z
+  - message: 'docs: sync agent guide, readme, and roadmap to current state'
+    date: 2026-10-03T06:11:57Z
+  - message: 'feat(evidra-engine): add band tables and facet projection'
+    date: 2026-10-03T04:41:41Z
+  - message: 'feat(evidra-store): add schema v3 and the derived tables'
+    date: 2026-10-03T03:45:35Z
+  - message: 'chore: ignore the agent scratch directory'
+    date: 2026-10-02T22:32:08Z
+  - message: 'feat(evidra-core): add the derived facet and relationship domain'
+    date: 2026-10-02T22:27:34Z
+  - message: 'build: raise the workspace MSRV to 1.98'
+    date: 2026-10-02T21:42:29Z
+  - message: 'docs: add PRD, roadmap, four ADRs, and the derived-layer implementation plan'
+    date: 2026-10-02T21:22:19Z
+  readme: |-
+    # Evidra
+
+    **Evidence into controls.**
+
+    Evidra is a local-first operational intelligence system. It preserves operational evidence and
+    turns recurring interventions, failed automation, stale assumptions, and incidents into explicit,
+    reviewable system knowledge.
+
+    The current foundation provides an append-only SQLite observation ledger plus validated,
+    idempotent persistence for redacted agent-harness evidence.
 
     ## Status
 
-    Rulery is an experimental, pre-release `0.1.0` workspace under active development. The core
-    contracts, parser, compiler passes, evaluator, analysis, scenario, rendering, storage, facade, and
-    conformance fixtures are present. All nine `rulery` subcommands execute: the binary parses
-    arguments, runs the command through the root facade's application service, writes exactly one
-    artifact, and exits with the status the specification's exit-condition matrix names. The Rust APIs
-    and tests remain the implementation reference, and `crates/cli/tests/process_contract.rs` pins the
-    process-level contract by running the real binary.
+    Evidra is at the start of version `0.1.0`. The implemented scope is intentionally narrow:
 
-    The normative target is [the v0.1 core specification](docs/specification.md). A feature described
-    there should not be assumed complete unless it is also implemented in the current source.
+    - Initialize repository-local storage.
+    - Record manual intervention observations.
+    - List observations as a table or JSON.
+    - Preserve source, subject, provenance, timestamps, and integrity metadata.
+    - Normalize bounded, redaction-attested agent-harness JSONL into validated in-memory events.
+    - Persist typed harness observations with semantic digests and append-only identity receipts.
+    - Atomically claim, ingest, and quarantine repository-local harness event files.
 
-    ## Architecture
+    Harness-specific hook installation, Git/Cargo/CI/filesystem importers, inference, governed
+    assumptions, controls, policy enforcement, and entropy analysis remain future work.
 
-    The workspace enforces one responsibility per crate and an acyclic dependency direction:
+    ## Quickstart
 
-    | Package              | Responsibility                                                               |
-    | -------------------- | ---------------------------------------------------------------------------- |
-    | `rulery`             | Curated public facade, package assembly, embedding workflow, and macros      |
-    | `rulery-contracts`   | IDs, facts, values, outcomes, time, source maps, hashes, and lock contracts  |
-    | `rulery-diagnostics` | Stable diagnostic c
+    ```bash
+    cargo run -p evidra-cli -- init
+    cargo run -p evidra-cli -- note --summary "Removed stale generated artifacts"
+    cargo run -p evidra-cli -- observation list
+    cargo run -p evidra-cli -- observation list --json
+    cargo run -p evidra-cli -- ingest
+    cargo run -p evidra-cli -- ingest --json
+    ```
+
+    ## Changelog
+
+    The repository uses `git-cliff` with conventional commits:
+
+    ```bash
+    git cliff --unreleased
+    git cliff --tag v0.1.0 --prepend CHANGELOG.md
+    ```
+
+    Release entries are grouped by commit type and contain no decorative symbols.
+
+    Repository-local state is stored in `.evidra/evidra.db` and is ignored by Git.
+
+    The current database schema is v3. Re-run `evidra init` to migrate a v1 or v2 repository explicitly;
+    ordinary commands do not migrate storage. Before migration, stop Evidra writers and create a
+    WAL-safe SQLite backup rat
+- name: devobs
+  description: Public Obsidian vault for open-source project tracking
+  url: https://github.com/89jobrien/devobs
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-03T07:50:21Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Update Complexity Theory.md
+    date: 2026-10-03T07:50:21Z
+  - message: 'docs: refresh devobs knowledge graph'
+    date: 2026-06-01T23:33:24Z
+  - message: 'feat: consolidate 6 Python scripts into single rust-script with ASCII graphs'
+    date: 2026-05-25T17:05:49Z
+  - message: Replace machine notes with agentic infrastructure docs
+    date: 2026-05-24T21:29:35Z
+  - message: Populate vault directories with initial content
+    date: 2026-05-24T21:22:51Z
+  - message: 'chore: update plan status to complete, fix enrich pipeline to use dotenvx'
+    date: 2026-05-24T19:54:14Z
+  - message: 'feat: Phase 3+4 — lint pipeline + LLM-enriched relationships'
+    date: 2026-05-24T19:48:05Z
+  - message: 'feat: working lint pipeline — frontmatter validation + obfsck scan'
+    date: 2026-05-24T19:40:47Z
+  - message: 'feat: populate kgx wiki — 36 summaries + 35 topic pages'
+    date: 2026-05-24T14:00:51Z
+  - message: 'feat: add cross-project relationships and build plan'
+    date: 2026-05-24T13:52:02Z
+  readme: |
+    # devobs
+
+    Public Obsidian vault for tracking open-source projects under [89jobrien](https://github.com/89jobrien). Automated with [crux](https://github.com/89jobrien/crux) pipelines and [kgx](https://github.com/89jobrien/kgx) knowledge graphs.
+
+    ## Structure
+
+    Full project [[index]]
+
+    | Folder              | Purpose                                       |
+    | ------------------- | --------------------------------------------- |
+    | `00_Inbox`          | Unsorted captures                             |
+    | `01_Daily`          | Daily notes                                   |
+    | `02_Projects`       | One PROJECT note per public repo              |
+    | `03_Area-Systems`   | Ongoing systems context                       |
+    | `04_Research`       | Analysis and design docs                      |
+    | `05_Knowledge`      | Generated graphs, maps, reports               |
+    | `06_Experiments`    | Experiment logs                               |
+    | `07_Infrastructure` | Machine and toolchain docs                    |
+    | `08_Templates`      | Note templates                                |
+    | `09_Archive`        | Inactive content                              |
+    | `schemas`           | JSON schemas for frontmatter and kgx payloads |
+    | `pipelines`         | Crux pipeline definitions                     |
+
+    ## Pipelines
+
+    ```bash
+    # Ingest all PROJECT notes into the kgx knowledge graph
+    crux run pipelines/devobs_ingest.crux
+
+    # Run quality gates (obfsck, agentlint, schema validation)
+    crux run pipelines/devobs_lint.crux
+
+    # LLM-assisted relationship discovery
+    crux run pipelines/devobs_enrich.crux
+
+    # Full CI: lint + ingest
+    crux run Cruxfile
+    ```
+
+    ## Schemas
+
+    - `schemas/project.schema.json` — PROJECT note frontmatter contract
+    - `schemas/kgx-ingest.schema.json` — kgx ingest payload format
+
+    ## Scope
+
+    Only public repos with local clones in `~/dev/` are tracked.
+    Private repos, employer projects, and repos without local clones
+    are excluded.
+
+    ## License
+
+    MIT
 - name: coursers
   description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
   url: https://github.com/89jobrien/coursers
@@ -326,31 +554,31 @@
   - GitHubRepo
   - CratesIo
   language: Rust
-  pushed_at: 2026-10-01T01:27:49Z
+  pushed_at: 2026-10-03T05:47:08Z
   version: v0.1.0
   stars: null
   downloads: 13
   recent_commits:
+  - message: 'merge: opencode harness support + nu POSIX operator correction design'
+    date: 2026-10-01T10:34:36Z
+  - message: 'docs(coursers): design nu POSIX operator correction, track two blockers'
+    date: 2026-10-01T03:28:09Z
+  - message: 'chore(taskit): sync todo markers after scanner fix'
+    date: 2026-10-01T03:04:54Z
+  - message: 'fix(hook): merge redact output with notify messages in one response'
+    date: 2026-10-01T01:25:41Z
+  - message: 'chore(taskit): track TODO markers in taskit-todo-sync.lock'
+    date: 2026-09-30T12:16:16Z
+  - message: 'feat(coursers/crs): add --version flag to coursers and crs CLI'
+    date: 2026-09-29T19:06:13Z
+  - message: 'fix(hooks): forward hook payload to run-action child stdin'
+    date: 2026-09-29T04:15:53Z
+  - message: 'fix(hooks): evaluate rewrites before block rules'
+    date: 2026-09-29T04:15:46Z
+  - message: 'chore: checkpoint workspace and Rust documentation'
+    date: 2026-09-21T22:26:48Z
   - message: 'feat(opencode): merge feat/opencode-harness-support'
     date: 2026-09-06T07:54:02Z
-  - message: 'fix(rules): keep scanning after task overrides'
-    date: 2026-09-06T07:28:38Z
-  - message: 'fix(ci): use current taskit CI subcommand'
-    date: 2026-09-06T00:34:48Z
-  - message: 'merge: issues #66 and #65 consolidate enrichment scripts'
-    date: 2026-09-05T23:17:09Z
-  - message: 'merge: issue #58 clarify hook ordering'
-    date: 2026-09-05T23:16:47Z
-  - message: 'merge: issue #47 propagate suggestion persistence errors'
-    date: 2026-09-05T23:16:11Z
-  - message: 'test: cover enrichment scripts fixes #65'
-    date: 2026-09-05T23:14:55Z
-  - message: 'fix: propagate suggestion persistence errors fixes #47'
-    date: 2026-09-05T23:14:15Z
-  - message: 'docs: clarify hook short-circuit ordering fixes #58'
-    date: 2026-09-05T23:03:24Z
-  - message: 'refactor: consolidate enrichment scripts fixes #66'
-    date: 2026-09-05T23:03:22Z
   tags:
   - cli
   readme: |-
@@ -426,17 +654,220 @@
     For Codex, the top-level registry also points at `crs hook --target codex <event>`.
     Those entries dispatch to the existing `$HOME/.codex/hooks/*.crux` backends, which
     still compose `coursers pre/post` and `crs rewrite/filter` i
+- name: hooklings
+  description: YAML-driven developer preflight checks via crux pipelines
+  url: https://github.com/89jobrien/hooklings
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-03T03:08:02Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'feat(checkpoint): coalesce agent edits into turn-boundary commits'
+    date: 2026-10-03T03:05:32Z
+  - message: 'feat(hooklings): add --version flag to hooklings CLI'
+    date: 2026-09-29T19:05:47Z
+  - message: 'chore: checkpoint workspace and Rust documentation'
+    date: 2026-09-21T22:34:19Z
+  - message: 'chore(handoff): session-end update'
+    date: 2026-08-23T09:11:16Z
+  - message: 'feat: add Nushell completion generation'
+    date: 2026-08-05T18:10:01Z
+  - message: 'fix: update stale cruxx-* deps to match current crux crate names'
+    date: 2026-06-03T22:17:22Z
+  - message: 'docs: update handoff — feature-complete and production-ready'
+    date: 2026-04-23T02:09:17Z
+  - message: 'refactor: drop doob handler — use sqlite::query_many directly; default emit path to .ctx/'
+    date: 2026-04-23T01:22:09Z
+  - message: 'fix: doob uses SurrealDB not SQLite — invoke CLI with graceful skip if not on PATH; fix pipeline step-in-arms parse error; check_tools default tool list'
+    date: 2026-04-23T01:17:42Z
+  - message: 'fix(hooklings): clippy clean — derive Default, remove unused imports'
+    date: 2026-04-23T01:02:16Z
+  readme: "# hooklings\n\nYAML-driven developer preflight checks via [crux](https://github.com/89jobrien/crux) pipelines.\n\n## Install\n\n```bash\ncargo install --path crates/hooklings\n```\n\n## Usage\n\n```bash\nhooklings preflight              # run all checks, emit JSON + markdown table\nhooklings preflight --emit table # markdown table only\nhooklings check detect_shell     # run a single check\nhooklings config show            # print merged config\nhooklings record <path>...       # record paths an agent harness just touched\nhooklings checkpoint             # commit everything recorded since the last one\nhooklings status                 # show the recorded checkpoint state\n```\n\n## Checkpoint\n\nCoalesced commits for agent-driven edits. A harness records each path it touches\nwhile it works; nothing is committed at that point. At a turn boundary, one\ncheckpoint commit collects everything recorded since the last commit, so a\nfive-file refactor lands as one coherent commit instead of five broken ones.\n\n```toml\n# .hooklings.toml — opt-in per repo\n[checkpoint]\nenabled = true\n```\n\n```bash\nhooklings record src/a.rs src/b.rs   # or: hooklings record --stdin < hook.json\nhooklings checkpoint --dry-run       # preview without committing\nhooklings checkpoint                 # commit\n```\n\nCommits carry an inferred Conventional Commit subject plus a per-file stat body:\n\n```text\nfeat(src): add 2 files\n\nFiles:\n  A src/alpha.rs  +1 -0\n  M src/beta.rs   +8 -2\n\nCoalesced checkpoint: 14 edit(s) since 2026-10-02T21:37:00Z.\n```\n\nType inference is deliberately conservative. A single-file changeset classifies by\nthat file's role (tests, docs, manifests, lockfiles); all-added becomes `feat`,\nall-removed or renamed becomes `refactor`. Everything else is `chore`. `fix` is\n**never** inferred, because nothing in a diff distinguishes a repair from any other\nedit — pass `--type fix --message \"fix(parser): handle empty input\"` when it matters.\n\n### Guardrails\n\nA checkpoint refuses rather than guesses:\n\n| Refusal    "
+- name: sitex
+  description: 'Personal site: project write-ups and blog, built with Zola from a zk notebook'
+  url: https://github.com/89jobrien/sitex
+  kinds:
+  - GitHubRepo
+  language: JavaScript
+  pushed_at: 2026-10-02T21:30:48Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Merge branch 'fix/graph-resolve-zk-wiki-links'
+    date: 2026-10-02T21:30:35Z
+  - message: 'fix(graph): resolve zk wiki links so cross-references become edges'
+    date: 2026-10-02T21:30:25Z
+  - message: Merge branch 'fix/external-link-gate-flakiness'
+    date: 2026-10-02T09:31:19Z
+  - message: 'fix(links): stop rate-limiting github into reddening the link gate'
+    date: 2026-10-02T09:31:10Z
+  - message: Merge branch 'docs/sitex-page-skill'
+    date: 2026-10-02T07:53:50Z
+  - message: 'docs(skills): add sitex page authoring skill'
+    date: 2026-10-02T07:49:11Z
+  - message: Merge branch chore/untrack-ctx
+    date: 2026-10-01T14:00:54Z
+  - message: 'chore(repo): stop tracking the ignored .ctx directory'
+    date: 2026-10-01T13:59:37Z
+  - message: Merge branch 'feat/graph-node-tooltip'
+    date: 2026-10-01T10:20:21Z
+  - message: 'feat(graph): lead the home page with the graph and add node tooltips'
+    date: 2026-10-01T10:19:54Z
+  readme: |-
+    # sitex
+
+    Personal site: project write-ups + blog, built with [Zola](https://www.getzola.org)
+    from a [zk](https://github.com/zk-org/zk) notebook. Content lives under `content/`
+    as plain markdown with YAML frontmatter — zk manages it as notes (search, links,
+    tags), Zola builds it as pages. Kept intentionally separate from
+    `89jobrien.github.io`, which is generated output from the `bazaar` repo.
+
+    ## Requirements
+
+    - Zola `0.23.3`, matching validation and deployment.
+    - zk `0.15.6` or newer for note creation and listing.
+    - Rust `1.89` or newer and `crux-agentic` `0.3.1` for the `crux` workflow runner.
+    - Nushell `0.111.0` for zk rendering and editorial contract checks.
+    - lychee `0.24.2` for concurrent external-link validation.
+    - Node.js `22.22.1` and Bun `1.3.10`; `bun install --frozen-lockfile` installs the exact
+      top-level tool versions from `package.json`.
+
+    Bootstrap the repository-owned tools with:
+
+    ```text
+    cargo install --git https://github.com/89jobrien/crux.git --rev 8d54a65df7696ec01b1ef27a5c0972422020efc1 crux-agentic --locked
+    cargo install lychee --version 0.24.2 --locked
+    bun install --frozen-lockfile
+    ```
+
+    Install Zola `0.23.3` from its release artifacts. GitHub Actions uses
+    `taiki-e/install-action` for the same version. zk is editorial tooling and is not needed to
+    build the site; CI checks its templates directly.
+
+    ## Writing
+
+    ```text
+    zk new-project --title "Some Project"   # content/projects/some-project.md
+    zk new-post --title "Some Post"         # content/blog/some-post.md
+    zk new-idea --title "Some Idea"         # ideas/queue/some-idea.md
+    zk list-projects
+    zk list-posts
+    zk list-ideas
+    ```
+
+    The private editorial queue stores local pitches that zk indexes and Zola does not publish
+    because they live outside `content/`. Here, private means unpublished, not confidential. The
+    `ideas/` directory is gitignored; do not store the only copy of valuable research there. Each pitch has `title`, `date`, `status`,
+    `priority`, `theme`, and `effort` metadata plus Hook, Thesis, R
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-02T18:55:17Z
+  version: v0.33.1
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #564 from 89jobrien/develop'
+    date: 2026-09-30T18:15:26Z
+  - message: 'fix(filesystem): re-validate bind mount target before unmount'
+    date: 2026-09-30T17:16:43Z
+  - message: 'fix(colima): close shell injection and rootfs escape in bind mount snippet'
+    date: 2026-09-30T17:16:36Z
+  - message: 'refactor(site): replace 11 hand-drawn arch SVGs with Mermaid sources'
+    date: 2026-09-30T10:53:26Z
+  - message: 'fix(ci): pin the crux install to the tested git revision'
+    date: 2026-09-30T10:33:17Z
+  - message: 'Merge pull request #563 from 89jobrien/develop'
+    date: 2026-09-30T10:12:34Z
+  - message: 'docs(site): move the reference site into the shared system'
+    date: 2026-09-30T09:12:56Z
+  - message: 'chore(xtask): refresh protocol-drift lock after the reconciliation merge'
+    date: 2026-09-29T20:17:53Z
+  - message: 'feat(mcp): add --version flag to mcp MCP server'
+    date: 2026-09-29T19:57:03Z
+  - message: 'merge: reconcile main with develop (two parallel Wave lineages)'
+    date: 2026-09-29T19:05:29Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: The stabilization freeze was lifted on 2026-08-18. The standing promotion
+    > gates remain in force; see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
+
+    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
+    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
+    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
+    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
+    lifecycle without shelling out to the CLI.
+
+    **Status:** Active development — `v0.33.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — local `search`, `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `mbx logs <id>` for stored stdout/stderr
+    - Container events — `mbx events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pa
 - name: sparkfile
   description: YAML-backed project scaffolder
   url: https://github.com/89jobrien/sparkfile
   kinds:
   - GitHubRepo
-  language: CSS
-  pushed_at: 2026-10-01T01:21:51Z
+  language: Rust
+  pushed_at: 2026-10-02T09:45:44Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'feat(site): capture the CLI surface by running each binary'
+    date: 2026-10-02T03:20:54Z
+  - message: 'feat(site): render shell examples as terminal components'
+    date: 2026-10-01T21:15:41Z
+  - message: 'feat(site): derive site sections from the codebase and the README'
+    date: 2026-10-01T21:06:39Z
+  - message: 'feat(cli): tell repo-site users to enable Pages'
+    date: 2026-10-01T10:43:29Z
   - message: 'feat(site): add the missing Pages deploy workflow'
     date: 2026-10-01T01:21:46Z
   - message: 'fix(site): add the missing nav class across every page'
@@ -449,14 +880,6 @@
     date: 2026-07-14T15:23:37Z
   - message: 'test(scaffold): add coverage for error paths and preset interpolation [moa-review]'
     date: 2026-07-14T15:23:37Z
-  - message: 'docs: add AGENTS.md for Codex CLI agent support'
-    date: 2026-06-28T18:26:00Z
-  - message: 'chore: remove release workflow (registry is Tailscale-only)'
-    date: 2026-05-31T21:32:17Z
-  - message: 'chore: add autobump = "patch" to promote.toml'
-    date: 2026-05-31T21:25:22Z
-  - message: 'ci: add cratebox publish pipeline and release workflow'
-    date: 2026-05-31T21:16:42Z
   readme: |
     # sparkfile
 
@@ -489,6 +912,647 @@
     - `just lint`: run `cargo clippy --all-targets -- -D warnings`
     - `just test`: run `cargo test`
     - `just gate`: run the local validation gate
+- name: taskit
+  description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
+  url: https://github.com/89jobrien/taskit
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-10-02T04:26:14Z
+  version: v0.9.0
+  stars: 1
+  downloads: 483
+  recent_commits:
+  - message: Delete .claude/settings.local.json
+    date: 2026-08-25T09:28:08Z
+  - message: Delete HANDOFF.local.md
+    date: 2026-08-25T09:27:45Z
+  - message: 'flow: finish release into main'
+    date: 2026-07-12T05:14:53Z
+  - message: 'flow: stage staging into release'
+    date: 2026-07-12T05:14:47Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-07-12T05:14:47Z
+  - message: 'fix(test): use ''true'' instead of ''sh --version'' in tool_exists_cmd test'
+    date: 2026-07-12T05:14:42Z
+  - message: 'flow: finish release into main'
+    date: 2026-07-12T05:10:06Z
+  - message: 'flow: sync main into develop'
+    date: 2026-07-12T05:10:06Z
+  - message: 'flow: stage staging into release'
+    date: 2026-07-12T05:10:01Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-07-12T05:10:01Z
+  readme: "# taskit\n\nConfig-driven CI pipeline runner with affected-crate detection, protocol-drift tracking,\nand pipeline orchestration for Rust workspaces.\n\n## Install\n\n```bash\ncargo install taskit\n```\n\n## Quick start\n\nRun from the root of any Rust workspace:\n\n```bash\ntaskit fmt          # format all crates\ntaskit lint         # clippy on all crates\ntaskit test         # nextest on all crates\ntaskit ci           # full local CI pipeline\ntaskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)\n```\n\nAdd `--dry-run` to any command to print the commands that would run without executing them.\n\n## Configuration\n\nCreate `taskit.toml` at the workspace root to customise behaviour. Every field is optional —\ntaskit works without any configuration by discovering crates via `cargo metadata`.\n\n```toml\n[workspace]\n# Ordered list of crates for affected-crate detection.\n# 'dir' is the directory name relative to workspace root.\n# 'pkg' is the Cargo package name (defaults to dir if omitted).\n[[workspace.crates]]\ndir = \"my-common\"\n\n[[workspace.crates]]\ndir = \"my-api\"\n\n# If 'source' changes, 'dependents' are also treated as affected.\n[[workspace.propagation]]\nsource = \"my-common\"\ndependents = [\"my-api\", \"my-cli\"]\n\n# Protocol-drift: files whose content hash is tracked in a lockfile.\n# CI fails when any surface changes without updating the lock.\n[[protocol.surfaces]]\nname = \"api-types\"\npath = \"my-api/src/types.rs\"\n\n[[protocol.surfaces]]\nname = \"cli-commands\"\npath = \"my-cli/src/commands/mod.rs\"\n\n[protocol]\nlockfile = \"taskit-protocol.lock\"   # default\n\n# Custom CI pipeline. When omitted, a built-in default pipeline is used.\n[[ci.steps]]\nname  = \"fmt-check\"\ncmd   = \"fmt --check\"\ngate  = true            # blocks subsequent steps on failure\n\n[[ci.steps]]\nname = \"lint\"\ncmd  = \"lint\"\n\n[[ci.steps]]\nname = \"test\"\ncmd  = \"test\"\n\n[[ci.steps]]\nname = \"protocol-drift\"\ncmd  = \"check-protocol-drift\"\n```\n\n## Subcommands\n\n| Command                                                  "
+- name: crux
+  description: Inspectable, serializable, replayable agent execution.
+  url: https://github.com/89jobrien/crux
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-02T04:16:20Z
+  version: v0.4.2
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #133 from 89jobrien/merge/develop-into-main'
+    date: 2026-09-30T13:18:15Z
+  - message: 'ci: install protoc before mise, drop the baml_client stub'
+    date: 2026-09-30T13:06:45Z
+  - message: 'fix(crux-script): GitCommitRunner must not execute repository hooks'
+    date: 2026-09-30T13:05:09Z
+  - message: 'test(crux-script): make git_commit_runner_creates_commit hermetic'
+    date: 2026-09-30T12:37:36Z
+  - message: 'merge: integrate develop into main'
+    date: 2026-09-30T12:16:28Z
+  - message: 'Merge pull request #132 from 89jobrien/fix/rustls-rustsec-2026-0285'
+    date: 2026-09-30T11:32:31Z
+  - message: 'fix(ci): bump rustls to 0.23.45 for RUSTSEC-2026-0285'
+    date: 2026-09-30T09:15:38Z
+  - message: 'fix(ci): bump rustls to 0.23.45 for RUSTSEC-2026-0285'
+    date: 2026-09-30T09:15:38Z
+  - message: 'refactor(site): move the reference site to site/, make it dark, and render'
+    date: 2026-09-29T21:05:19Z
+  - message: 'feat(crux-task): add --version flag to crux-task CLI'
+    date: 2026-09-29T19:59:43Z
+  tags:
+  - agents
+  readme: |-
+    # Crux
+
+    > **Website** &mdash; <https://89jobrien.github.io/crux/> &middot; source for the site is in [`site/`](site/)
+    > (landing, architecture, CLI reference, crate inventory, status, and FAQ)
+
+    Crux turns agentic execution into a typed Rust value.
+
+    Every run returns `Crux<T>`: a result or error together with the steps,
+    child runs, identity, and timing that produced it. That execution value is
+    inspectable in code, serializable as data, and replayable without
+    reconstructing the run from logs.
+
+    - **Start with YAML.** Define steps, fan-out, piping, and budgets in
+      `.crux` files while the runtime handles execution and recovery.
+    - **Use Rust when you need it.** Drop into `#[crux::agent]` for custom
+      logic, typed delegation, speculation, and confidence-based routing.
+    - **Keep execution as data.** YAML pipelines and Rust agents produce the
+      same `Crux<T>` value through the same runtime.
+
+    ## Why Crux?
+
+    A plain result tells you what happened. A trace helps explain why. A
+    checkpoint records where execution can continue. Crux keeps those concerns
+    connected instead of making callers correlate separate runtime systems:
+
+    ```text
+    Crux<T> = Result<T, CruxErr> + steps + child runs + run metadata
+    ```
+
+    The result remains typed as `T`, failures retain their causal steps,
+    delegations form a tree of child execution values, and snapshots can drive
+    replay. Observability is part of the value returned to the caller, not only
+    a side effect exported elsewhere.
+
+    ## Quick example
+
+    A pipeline as a `.crux` file:
+
+    ```yaml
+    pipeline: summarize
+    budget: { calls: 2 }
+
+    steps:
+      - step: count_words
+        handler: shell::capture
+        args:
+          cmd: "wc -w < input.txt"
+
+      - step: log_result
+        handler: ctrl::log
+    ```
+
+    Run it with the CLI:
+
+    ```bash
+    crux run pipeline.crux
+    ```
+
+    The same thing in Rust:
+
+    ```rust
+    use crux::prelude::*;
+
+    #[crux::agent]
+    async fn summarize(input: String) -> Crux<String> {
+        let count: usize = x.step("count_words", || async {
+            Ok(input.split_whitespace().count())
+        }).awai
+- name: doob
+  description: Modern, agent-first todo CLI built with Rust and SurrealDB
+  url: https://github.com/89jobrien/doob
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-10-02T04:15:49Z
+  version: 0.1.0
+  stars: null
+  downloads: 25
+  recent_commits:
+  - message: 'refactor(site): move the reference site to site/, make it dark, and render (#24)'
+    date: 2026-09-29T21:14:42Z
+  - message: 'docs(site): add a static reference site under assets/ (#23)'
+    date: 2026-09-29T18:13:29Z
+  - message: 'chore: integrate daily orchestration remediation'
+    date: 2026-08-26T17:49:40Z
+  - message: 'fix: use arrays for handoff sync test fixtures'
+    date: 2026-08-26T17:33:05Z
+  - message: 'fix: clean up test lint warnings'
+    date: 2026-08-26T17:28:30Z
+  - message: 'test: isolate sync test fixtures'
+    date: 2026-08-26T17:13:57Z
+  - message: 'test: remove obsolete Beads integration coverage'
+    date: 2026-08-26T17:13:29Z
+  - message: 'fix: satisfy active Clippy checks'
+    date: 2026-08-26T17:12:45Z
+  - message: 'feat(doob): merge chore/cap-current-changes — error context improvements'
+    date: 2026-07-16T02:35:21Z
+  - message: 'chore: improve error context in DB connection and use miette for display'
+    date: 2026-07-16T02:35:17Z
+  tags:
+  - cli
+  readme: |-
+    # doob
+
+    > **Website** &mdash; <https://89jobrien.github.io/doob/> &middot; source for the site is in [`site/`](site/)
+    > (landing, architecture, CLI reference, crate inventory, status, and FAQ)
+
+    Modern, agent-first todo CLI built with Rust and SurrealDB.
+
+    ## Features
+
+    - **Fast** - Rust + SurrealDB embedded
+    - **Agent-First** - JSON output, batch operations, context detection
+    - **Single Binary** - No dependencies
+    - **Context-Aware** - Auto-detects project and file from git
+
+    ## Installation
+
+    ```bash
+    cargo install --path .
+    ```
+
+    ## Commands
+
+    ```bash
+    # Add a todo (auto-detects project/file from git)
+    doob todo add "Fix auth bug"
+
+    # Add with priority and tags
+    doob todo add "Refactor code" --priority 1 --tags refactor,urgent
+
+    # Batch add
+    doob todo add "Task 1" "Task 2" "Task 3"
+
+    # List todos
+    doob todo list
+
+    # Filter by status or project
+    doob todo list --status pending
+    doob todo list --project myproject --limit 10
+
+    # Complete todo(s)
+    doob todo complete <id>
+    doob todo complete <id1> <id2> <id3>
+
+    # Undo completion (mark as pending)
+    doob todo undo <id>
+
+    # Set or clear a due date
+    doob todo due <id> 2026-03-15
+    doob todo due <id> clear
+
+    # Remove todo(s)
+    doob todo remove <id>
+    doob todo remove <id1> <id2>
+    ```
+
+    ## Sync to External Issue Trackers
+
+    **Status:** Foundation Complete (Phase 1 & 2) ✅
+
+    Sync your doob todos to external issue trackers using a plugin architecture.
+
+    ### Supported Providers
+
+    - ✅ **Beads** (bd CLI) - Complete
+    - 🚧 **GitHub Issues** - Planned
+    - 🚧 **Jira** - Planned
+    - 🚧 **Linear** - Planned
+    - 🚧 **kan** - Planned
+
+    ### Architecture
+
+    Built with hexagonal architecture:
+    - **Domain Layer** - Business logic, validation, error handling
+    - **Ports** - `IssueTracker` trait interface
+    - **Adapters** - Provider-specific implementations (CLI delegation)
+    - **Tests** - 19 unit/integration tests (100% passing)
+
+    ### Documentation
+
+    - [Testing Guide](docs/sync/testing.md)
+    - [Beads Provider](docs/sync/providers/beads.md)
+
+    ### Roadmap
+
+    **Phase 3: Metadata & Repository** (Next
+- name: braid
+  description: Personal agent platform — Rust workspace
+  url: https://github.com/89jobrien/braid
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-02T04:13:27Z
+  version: v0.3.0
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: integrate crates.io release preparation'
+    date: 2026-08-26T19:08:31Z
+  - message: 'chore(release): prepare crates for 0.3.0'
+    date: 2026-08-26T19:01:04Z
+  - message: 'feat: add Nushell completion generation'
+    date: 2026-08-05T18:09:52Z
+  - message: 'fix: scope unwrap_used clippy lint to non-test code in braid'
+    date: 2026-07-22T08:45:29Z
+  - message: 'feat(braid-tui): split monolithic app.rs into focused modules + harness UI'
+    date: 2026-07-14T01:38:48Z
+  - message: 'chore: unify workspace dependencies via cargo-rail'
+    date: 2026-07-13T07:46:18Z
+  - message: 'chore: rename braid-core -> braid-engine (name taken on crates.io)'
+    date: 2026-07-13T07:39:22Z
+  - message: 'chore: add crates.io publish metadata to workspace'
+    date: 2026-07-13T07:32:10Z
+  - message: 'chore: add version to all intra-workspace path dependencies (required for crates.io publish)'
+    date: 2026-07-13T07:09:33Z
+  - message: 'docs: fix post-v0.3.0 doc issues'
+    date: 2026-07-13T06:47:06Z
+  readme: |
+    # Braid
+
+    Rust-first workspace for the Braid personal agent platform.
+
+    ## Crates
+
+    **Phase 1 — Core**
+    - `braid-model`: canonical domain types (messages, tool calls, transcripts, context)
+    - `braid-ports`: inner-ring port traits (`Provider`, `ToolExecutor`, `EventSink`, `SessionStorage`, `ContextProvider`)
+    - `braid-core`: runtime engine (`Engine<P, T, S, R, C>`), `SimpleLoopPlanner`, tool registry
+    - `braid-providers`: provider adapters (`MockProvider`, `OpenAiProvider`)
+    - `braid-cli`: thin operator entrypoint for local runs
+
+    **Phase 2 — Safety**
+    - `braid-redact`: `RedactionPipeline` with ordered rule chain (secrets, env vars, home paths)
+    - `braid-hooks`: `HookedExecutor` wrapping any `ToolExecutor` with pre/post hook gating
+    - `braid-mcp`: MCP server over stdio (JSON-RPC), tool registration and dispatch
+    - `braid-observe`: session event store; persists `Event` stream to disk
+
+    **Phase 3 — Context**
+    - `braid-context`: context assembly from `DoobSource` (todos) and `RepoSource` (git diff/log); two-stage compaction (staleness filter + token budget with rolling LLM summarization); injected into engine at session start via `ContextProvider` port
+
+    **UI**
+    - `braid-tui`: multi-pane session inspector (Ratatui)
+
+    ## Docs
+
+    - [Planning Docs](./docs/planning/README.md)
+    - [Workspace Overview](./docs/architecture/workspace-overview.md)
+    - [Braid](./docs/planning/Braid.md)
+    - [Braid - Rust Workspace Blueprint](./docs/planning/Braid%20-%20Rust%20Workspace%20Blueprint.md)
+    - [Braid - Rust Workspace Spec](./docs/planning/Braid%20-%20Rust%20Workspace%20Spec.md)
+    - [Braid - Crate Implementation Checklist](./docs/planning/Braid%20-%20Crate%20Implementation%20Checklist.md)
+- name: episteme
+  description: Private local-first document intelligence and research workflow
+  url: https://github.com/89jobrien/episteme
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-02T02:12:16Z
+  version: v0.1.1
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(release): correct resume guidance after root-cause finding'
+    date: 2026-10-02T02:12:07Z
+  - message: 'fix(release): correct stale CLI command name in Cruxfile'
+    date: 2026-09-29T21:14:27Z
+  - message: 'docs: add architecture and API reference, expand agent guide'
+    date: 2026-09-29T18:14:57Z
+  - message: 'docs(release): add release runbook'
+    date: 2026-09-29T18:14:47Z
+  - message: 'fix(godmode): correct task status to a valid schema variant'
+    date: 2026-09-29T18:14:34Z
+  - message: 'fix(release): export the crates.io token instead of using the op shell plugin'
+    date: 2026-09-29T02:57:08Z
+  - message: 'chore(release): episteme-local v0.2.0'
+    date: 2026-09-29T02:44:56Z
+  - message: 'fix(release): drop retry from the non-idempotent publish step'
+    date: 2026-09-29T02:44:27Z
+  - message: 'revert: undo accidental v0.2.0/v0.3.0/v0.4.0 version bumps'
+    date: 2026-09-29T02:42:53Z
+  - message: 'chore(release): episteme-local v0.4.0'
+    date: 2026-09-29T02:41:07Z
+  readme: |-
+    # Episteme
+
+    Episteme is a privacy-preserving, local-first document ingestion pipeline for an Obsidian vault. It uses
+    deterministic extraction tools, typed BAML functions backed by explicitly configured local model
+    endpoints, atomic note persistence, DuckDB provenance, and `zk` indexing.
+
+    Install the `episteme` CLI from crates.io with:
+
+    ```text
+    cargo install episteme-local
+    ```
+
+    The package is named `episteme-local`; the installed executable and library crate remain
+    `episteme`.
+
+    ## Current slice
+
+    Supported inputs:
+
+    - Text and scanned PDFs through Poppler and Tesseract
+    - HTML through Pandoc
+    - PNG, JPEG, TIFF, and WebP images through Tesseract
+
+    The pipeline creates `status: unprocessed` research notes and copies immutable originals into the
+    archive only after a note has been persisted successfully. The inbox copy remains until explicit
+    cleanup. Episteme does not publish, delete user-owned source files, or use cloud model fallbacks.
+
+    ## Current security boundary
+
+    This slice accepts locally trusted documents only. It uses immutable staging copies, shell-free
+    bounded subprocesses, source quote verification, inert Markdown rendering, and symlink-aware vault
+    paths. Poppler, Tesseract, and Pandoc are not yet executed inside a networkless OS sandbox, so
+    automatic public downloads remain disabled.
+
+    ## Configure
+
+    Install Poppler, Tesseract, Pandoc, and `zk`, then ensure a local OpenAI-compatible model endpoint
+    is running on an explicit loopback address. On macOS with Homebrew:
+
+    ```text
+    brew install poppler tesseract pandoc zk
+    ```
+
+    Create `episteme.toml` from the packaged example or repository example. Replace every `/path/to`
+    value and tool path with an absolute local path. Set both model sections to existing
+    OpenAI-compatible endpoints bound to explicit loopback IP addresses. Episteme requires those
+    services to be managed externally. The example uses dedicated port `18181` and intentionally avoids
+    Ollama's conventional `11434` port.
+
+    ## Use
+
+    ```text
+    episteme --config episteme.t
+- name: nu_libs
+  description: A library of Nushell scripts organized by category
+  url: https://github.com/89jobrien/nu_libs
+  kinds:
+  - GitHubRepo
+  language: Nushell
+  pushed_at: 2026-10-01T13:38:59Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs: document the sys and workspace categories'
+    date: 2026-10-01T13:38:45Z
+  - message: 'refactor(scripts): drop the orphaned nu completions generator'
+    date: 2026-09-30T22:55:38Z
+  - message: 'feat(completions): guard the carapace specs against silent drift'
+    date: 2026-09-30T21:31:25Z
+  - message: 'feat(completions): add carapace completers for fraude and inflection'
+    date: 2026-09-30T21:23:54Z
+  - message: 'refactor(completions): drop the -cli suffix from module names'
+    date: 2026-09-30T10:22:34Z
+  - message: 'feat(workspace): add the workspace category to lib/mod.nu'
+    date: 2026-09-29T18:58:10Z
+  - message: 'Merge feat/sys-audit: home disk bloat audit'
+    date: 2026-09-29T18:16:14Z
+  - message: 'fix(sys): classify .mbx as a VM alongside .minibox'
+    date: 2026-09-29T03:41:33Z
+  - message: 'fix(sys): resolve the sys-audit home default via home-dir'
+    date: 2026-09-29T03:34:03Z
+  - message: 'docs(sys): document the home audit workflow'
+    date: 2026-09-29T03:27:02Z
+  readme: |-
+    # nu_libs
+
+    A library of Nushell modules organized by category.
+
+    ## Structure
+
+    ```text
+    lib/
+      mod.nu      top-level re-export of all categories
+      git/        Git helpers: log stats, branch age/cleanup, gone branches, hooks
+      net/        Network: SSH, sockets, remoting, HTTP, netcat, proxy, SSL
+      fs/         Filesystem: tree traversal, file ops, disk, navigation (up/cdpath/autojump/zoxide)
+      data/       Data transforms: typeof, JSON schema, ini, env, number format, base64, indent
+      ui/         UI/shell: bar, progress meter, completions, aliases (bat/eza), clipboard, notify
+      std/        Nu ecosystem: config, init, modules, deps, release tooling, dynamic loading
+      task/       Productivity: task runner, todo, history, bookmarks, just completions, hosts/path
+      rust/       Rust/Cargo: cargo search, rust AST, coverage
+      doob/       Doob wrappers: repo-scoped todos, search, notes, handoff sync
+      misc/       Misc tools: asciinema, zellij, rustic, rbw, website builder
+      sys/        macOS system inspection: process memory, swap pressure, disk bloat
+      workspace/  Multi-repo workspace introspection (proj-index)
+
+    scripts/      Standalone scripts (not modules — contain top-level executable code)
+    ai_nu/        Separate repo: AI/LLM agent primitives (OpenAI, Gemini, Ollama)
+    ```
+
+    ## Usage
+
+    ```nu
+    # Load a whole category
+    use lib/git *
+
+    # Load a single file
+    use lib/data/typeof.nu *
+
+    # Load everything
+    use lib/mod.nu *
+    ```
+
+    ## CLI completions
+
+    `completions/*.nu` contains native Nushell extern definitions emitted by local CLIs.
+    `completions/carapace/*.yaml` covers active local CLIs that do not emit Nushell completions.
+
+    Carapace is already used as Nushell's external completer. Install or refresh the tracked specs:
+
+    ```nu
+    sync-carapace-specs
+    ```
+
+    The command honors an absolute `XDG_CONFIG_HOME`, uses
+    `~/Library/Application Support/carapace/specs` on macOS, `%APPDATA%/carapace/specs` on
+    Windows, and `~/.config/carapace/specs` elsewhere. It updates tracked specs without removing
+    unrelated u
+- name: rulery
+  description: Local-first compiler and evaluator for operational rules
+  url: https://github.com/89jobrien/rulery
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-01T13:28:30Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #1 from 89jobrien/fix/msrv-1.98'
+    date: 2026-10-01T13:28:29Z
+  - message: 'Merge pull request #2 from 89jobrien/docs/first-publish-bootstrap'
+    date: 2026-10-01T13:28:24Z
+  - message: 'docs: work out the first-publish bootstrap'
+    date: 2026-10-01T12:44:09Z
+  - message: 'docs(memory): record the session closeout and three new mistake patterns'
+    date: 2026-10-01T12:24:36Z
+  - message: 'fix(build): declare the MSRV the workspace actually compiles on'
+    date: 2026-10-01T10:31:52Z
+  - message: 'docs: state the git discipline two-agent work requires'
+    date: 2026-10-01T01:32:30Z
+  - message: 'docs(rulery-analysis): record the root-resolution invariant this crate relies on'
+    date: 2026-10-01T01:26:27Z
+  - message: 'fix(rulery-vocabulary): reject a root nested under another root'
+    date: 2026-10-01T01:24:49Z
+  - message: 'feat(xtask): add the consumer embedding conformance gate'
+    date: 2026-09-30T23:47:13Z
+  - message: 'docs: complete the memory bank with the four missing core files'
+    date: 2026-09-30T21:30:23Z
+  readme: |-
+    # Rulery
+
+    <!-- markdownlint-disable MD013 -->
+
+    Rulery is a local-first Rust compiler and evaluator for structured operational rules. It turns
+    YAML rule packages into deterministic intermediate representations, evaluates decisions with
+    explicit four-valued truth semantics, records reproducible traces, runs scenarios, performs static
+    analysis, and renders machine- and human-readable artifacts.
+
+    The project is deliberately not an LLM policy engine, workflow executor, remote package registry,
+    or substitute for accountable human judgment. Imports are local and the v0.1 design requires
+    offline operation.
+
+    ## Status
+
+    Rulery is an experimental, pre-release `0.1.0` workspace under active development. The core
+    contracts, parser, compiler passes, evaluator, analysis, scenario, rendering, storage, facade, and
+    conformance fixtures are present. All nine `rulery` subcommands execute: the binary parses
+    arguments, runs the command through the root facade's application service, writes exactly one
+    artifact, and exits with the status the specification's exit-condition matrix names. The Rust APIs
+    and tests remain the implementation reference, and `crates/cli/tests/process_contract.rs` pins the
+    process-level contract by running the real binary.
+
+    The normative target is [the v0.1 core specification](docs/specification.md). A feature described
+    there should not be assumed complete unless it is also implemented in the current source.
+
+    ## Architecture
+
+    The workspace enforces one responsibility per crate and an acyclic dependency direction:
+
+    | Package              | Responsibility                                                               |
+    | -------------------- | ---------------------------------------------------------------------------- |
+    | `rulery`             | Curated public facade, package assembly, embedding workflow, and macros      |
+    | `rulery-contracts`   | IDs, facts, values, outcomes, time, source maps, hashes, and lock contracts  |
+    | `rulery-diagnostics` | Stable diagnostic c
+- name: opavs
+  description: Orient-Plan-Act-Verify-Ship phase discipline CLI
+  url: https://github.com/89jobrien/opavs
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-01T11:28:40Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'flow: finish release into main'
+    date: 2026-09-28T13:21:42Z
+  - message: 'flow: stage staging into release'
+    date: 2026-09-28T13:21:38Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-09-28T13:21:38Z
+  - message: 'chore: ignore .taskit local state dir'
+    date: 2026-09-28T13:20:02Z
+  - message: 'flow: finish release into main'
+    date: 2026-09-27T15:14:43Z
+  - message: 'flow: sync main into develop'
+    date: 2026-09-27T15:14:43Z
+  - message: 'flow: stage staging into release'
+    date: 2026-09-27T15:14:38Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-09-27T15:14:37Z
+  - message: 'feat(uninstall): remove client integrations and repo scaffolding'
+    date: 2026-09-27T15:14:10Z
+  - message: 'docs(readme): state which shell effects require ACT'
+    date: 2026-09-27T01:06:06Z
+  readme: |+
+    # opavs
+
+    Orient → Plan → Act → Verify → Ship. A workflow-phasing CLI: it gates what an
+    agent (or a person) is allowed to do based on which phase a repo is in —
+    read-only exploration, then a written plan, then edits, then verification,
+    then commit/push — each with a wider blast radius than the last. The point is
+    enforcement, not ceremony: a `PreToolUse` hook denies file mutations and
+    unapproved shell commands outside `ACT`, and denies `git commit`/`git push`
+    outside `SHIP`. The discipline is real state on disk, not just a convention.
+
+    Reimplements (in Rust) the shell-based `opavs-phase.sh` / `opavs-guard.sh`
+    pair from the `opavs` Claude Code plugin, for any repo using the
+    `.ctx/opavs/` state directory convention.
+
+    A lightweight task-graph companion rides alongside the phase machinery, for
+    repos that want to track what's runnable inside a phase — but the phase gate
+    is what this tool is _for_.
+
+    ## Install
+
+    Install from a source checkout, then install the agent integrations you use:
+
+    ```text
+    git clone https://github.com/89jobrien/opavs.git
+    cargo install --path opavs
+    opavs plugin install all
+    ```
+
+    ## Commands
+
+    ### Phase discipline (core)
+
+    ```text
+    opavs init [repo_root]     # scaffold OPAVS state and update instruction files
+    opavs phase get            # print current phase (defaults to ORIENT)
+    opavs phase set <PHASE>    # ORIENT | PLAN | ACT | VERIFY | SHIP
+
+    opavs guard                # PreToolUse hook entrypoint: reads Claude Code hook
+                                # JSON on stdin, emits an allow/deny
+                                # permissionDecision on stdout
+
+    opavs plugin install <target> [--home /path/to/home]
+                                # install OPAVS integration for one target:
+                                # claude | codex | gemini | opencode | all
+
+    opavs doctor [repo_root] [--home /path/to/home]
+                                # diagnose repository and client integration state
+
+    opavs upgrade               # download and install the newest GitHub release
+    ```
+
 - name: rx
   description: installs compatible scripts from local paths or remote URLs into a local command directory and records what it installed in a JSON registry.
   url: https://github.com/89jobrien/rx
@@ -622,92 +1686,6 @@
 
     `.md`/`.mdx` files and converted output are scanned with
     `obfsck redact --audit` before being filed. Maid
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-30T23:46:50Z
-  version: v0.33.1
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #564 from 89jobrien/develop'
-    date: 2026-09-30T18:15:26Z
-  - message: 'fix(filesystem): re-validate bind mount target before unmount'
-    date: 2026-09-30T17:16:43Z
-  - message: 'fix(colima): close shell injection and rootfs escape in bind mount snippet'
-    date: 2026-09-30T17:16:36Z
-  - message: 'refactor(site): replace 11 hand-drawn arch SVGs with Mermaid sources'
-    date: 2026-09-30T10:53:26Z
-  - message: 'fix(ci): pin the crux install to the tested git revision'
-    date: 2026-09-30T10:33:17Z
-  - message: 'Merge pull request #563 from 89jobrien/develop'
-    date: 2026-09-30T10:12:34Z
-  - message: 'docs(site): move the reference site into the shared system'
-    date: 2026-09-30T09:12:56Z
-  - message: 'chore(xtask): refresh protocol-drift lock after the reconciliation merge'
-    date: 2026-09-29T20:17:53Z
-  - message: 'feat(mcp): add --version flag to mcp MCP server'
-    date: 2026-09-29T19:57:03Z
-  - message: 'merge: reconcile main with develop (two parallel Wave lineages)'
-    date: 2026-09-29T19:05:29Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: The stabilization freeze was lifted on 2026-08-18. The standing promotion
-    > gates remain in force; see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
-
-    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
-    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
-    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
-    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
-    lifecycle without shelling out to the CLI.
-
-    **Status:** Active development — `v0.33.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — local `search`, `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `mbx logs <id>` for stored stdout/stderr
-    - Container events — `mbx events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pa
 - name: repo-reference-site
   description: Build, validate, and publish per-repo reference sites on GitHub Pages
   url: https://github.com/89jobrien/repo-reference-site
@@ -769,141 +1747,6 @@
     - `just lint`: run `cargo clippy --all-targets -- -D warnings`
     - `just test`: run `cargo test`
     - `just gate`: run format, lint, and test gates
-- name: taskit
-  description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
-  url: https://github.com/89jobrien/taskit
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-09-30T21:11:39Z
-  version: v0.9.0
-  stars: 1
-  downloads: 483
-  recent_commits:
-  - message: Delete .claude/settings.local.json
-    date: 2026-08-25T09:28:08Z
-  - message: Delete HANDOFF.local.md
-    date: 2026-08-25T09:27:45Z
-  - message: 'flow: finish release into main'
-    date: 2026-07-12T05:14:53Z
-  - message: 'flow: stage staging into release'
-    date: 2026-07-12T05:14:47Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-07-12T05:14:47Z
-  - message: 'fix(test): use ''true'' instead of ''sh --version'' in tool_exists_cmd test'
-    date: 2026-07-12T05:14:42Z
-  - message: 'flow: finish release into main'
-    date: 2026-07-12T05:10:06Z
-  - message: 'flow: sync main into develop'
-    date: 2026-07-12T05:10:06Z
-  - message: 'flow: stage staging into release'
-    date: 2026-07-12T05:10:01Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-07-12T05:10:01Z
-  readme: "# taskit\n\nConfig-driven CI pipeline runner with affected-crate detection, protocol-drift tracking,\nand pipeline orchestration for Rust workspaces.\n\n## Install\n\n```bash\ncargo install taskit\n```\n\n## Quick start\n\nRun from the root of any Rust workspace:\n\n```bash\ntaskit fmt          # format all crates\ntaskit lint         # clippy on all crates\ntaskit test         # nextest on all crates\ntaskit ci           # full local CI pipeline\ntaskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)\n```\n\nAdd `--dry-run` to any command to print the commands that would run without executing them.\n\n## Configuration\n\nCreate `taskit.toml` at the workspace root to customise behaviour. Every field is optional —\ntaskit works without any configuration by discovering crates via `cargo metadata`.\n\n```toml\n[workspace]\n# Ordered list of crates for affected-crate detection.\n# 'dir' is the directory name relative to workspace root.\n# 'pkg' is the Cargo package name (defaults to dir if omitted).\n[[workspace.crates]]\ndir = \"my-common\"\n\n[[workspace.crates]]\ndir = \"my-api\"\n\n# If 'source' changes, 'dependents' are also treated as affected.\n[[workspace.propagation]]\nsource = \"my-common\"\ndependents = [\"my-api\", \"my-cli\"]\n\n# Protocol-drift: files whose content hash is tracked in a lockfile.\n# CI fails when any surface changes without updating the lock.\n[[protocol.surfaces]]\nname = \"api-types\"\npath = \"my-api/src/types.rs\"\n\n[[protocol.surfaces]]\nname = \"cli-commands\"\npath = \"my-cli/src/commands/mod.rs\"\n\n[protocol]\nlockfile = \"taskit-protocol.lock\"   # default\n\n# Custom CI pipeline. When omitted, a built-in default pipeline is used.\n[[ci.steps]]\nname  = \"fmt-check\"\ncmd   = \"fmt --check\"\ngate  = true            # blocks subsequent steps on failure\n\n[[ci.steps]]\nname = \"lint\"\ncmd  = \"lint\"\n\n[[ci.steps]]\nname = \"test\"\ncmd  = \"test\"\n\n[[ci.steps]]\nname = \"protocol-drift\"\ncmd  = \"check-protocol-drift\"\n```\n\n## Subcommands\n\n| Command                                                  "
-- name: crux
-  description: Inspectable, serializable, replayable agent execution.
-  url: https://github.com/89jobrien/crux
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-30T13:18:16Z
-  version: v0.4.2
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #133 from 89jobrien/merge/develop-into-main'
-    date: 2026-09-30T13:18:15Z
-  - message: 'ci: install protoc before mise, drop the baml_client stub'
-    date: 2026-09-30T13:06:45Z
-  - message: 'fix(crux-script): GitCommitRunner must not execute repository hooks'
-    date: 2026-09-30T13:05:09Z
-  - message: 'test(crux-script): make git_commit_runner_creates_commit hermetic'
-    date: 2026-09-30T12:37:36Z
-  - message: 'merge: integrate develop into main'
-    date: 2026-09-30T12:16:28Z
-  - message: 'Merge pull request #132 from 89jobrien/fix/rustls-rustsec-2026-0285'
-    date: 2026-09-30T11:32:31Z
-  - message: 'fix(ci): bump rustls to 0.23.45 for RUSTSEC-2026-0285'
-    date: 2026-09-30T09:15:38Z
-  - message: 'fix(ci): bump rustls to 0.23.45 for RUSTSEC-2026-0285'
-    date: 2026-09-30T09:15:38Z
-  - message: 'refactor(site): move the reference site to site/, make it dark, and render'
-    date: 2026-09-29T21:05:19Z
-  - message: 'feat(crux-task): add --version flag to crux-task CLI'
-    date: 2026-09-29T19:59:43Z
-  tags:
-  - agents
-  readme: |-
-    # Crux
-
-    > **Website** &mdash; <https://89jobrien.github.io/crux/> &middot; source for the site is in [`site/`](site/)
-    > (landing, architecture, CLI reference, crate inventory, status, and FAQ)
-
-    Crux turns agentic execution into a typed Rust value.
-
-    Every run returns `Crux<T>`: a result or error together with the steps,
-    child runs, identity, and timing that produced it. That execution value is
-    inspectable in code, serializable as data, and replayable without
-    reconstructing the run from logs.
-
-    - **Start with YAML.** Define steps, fan-out, piping, and budgets in
-      `.crux` files while the runtime handles execution and recovery.
-    - **Use Rust when you need it.** Drop into `#[crux::agent]` for custom
-      logic, typed delegation, speculation, and confidence-based routing.
-    - **Keep execution as data.** YAML pipelines and Rust agents produce the
-      same `Crux<T>` value through the same runtime.
-
-    ## Why Crux?
-
-    A plain result tells you what happened. A trace helps explain why. A
-    checkpoint records where execution can continue. Crux keeps those concerns
-    connected instead of making callers correlate separate runtime systems:
-
-    ```text
-    Crux<T> = Result<T, CruxErr> + steps + child runs + run metadata
-    ```
-
-    The result remains typed as `T`, failures retain their causal steps,
-    delegations form a tree of child execution values, and snapshots can drive
-    replay. Observability is part of the value returned to the caller, not only
-    a side effect exported elsewhere.
-
-    ## Quick example
-
-    A pipeline as a `.crux` file:
-
-    ```yaml
-    pipeline: summarize
-    budget: { calls: 2 }
-
-    steps:
-      - step: count_words
-        handler: shell::capture
-        args:
-          cmd: "wc -w < input.txt"
-
-      - step: log_result
-        handler: ctrl::log
-    ```
-
-    Run it with the CLI:
-
-    ```bash
-    crux run pipeline.crux
-    ```
-
-    The same thing in Rust:
-
-    ```rust
-    use crux::prelude::*;
-
-    #[crux::agent]
-    async fn summarize(input: String) -> Crux<String> {
-        let count: usize = x.step("count_words", || async {
-            Ok(input.split_whitespace().count())
-        }).awai
 - name: 89jobrien.github.io
   description: Personal site
   url: https://github.com/89jobrien/89jobrien.github.io
@@ -935,211 +1778,6 @@
     date: 2026-09-22T12:01:11Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-09-21T13:14:57Z
-- name: episteme
-  description: Private local-first document intelligence and research workflow
-  url: https://github.com/89jobrien/episteme
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-29T21:14:58Z
-  version: v0.1.1
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'fix(release): correct stale CLI command name in Cruxfile'
-    date: 2026-09-29T21:14:27Z
-  - message: 'docs: add architecture and API reference, expand agent guide'
-    date: 2026-09-29T18:14:57Z
-  - message: 'docs(release): add release runbook'
-    date: 2026-09-29T18:14:47Z
-  - message: 'fix(godmode): correct task status to a valid schema variant'
-    date: 2026-09-29T18:14:34Z
-  - message: 'fix(release): export the crates.io token instead of using the op shell plugin'
-    date: 2026-09-29T02:57:08Z
-  - message: 'chore(release): episteme-local v0.2.0'
-    date: 2026-09-29T02:44:56Z
-  - message: 'fix(release): drop retry from the non-idempotent publish step'
-    date: 2026-09-29T02:44:27Z
-  - message: 'revert: undo accidental v0.2.0/v0.3.0/v0.4.0 version bumps'
-    date: 2026-09-29T02:42:53Z
-  - message: 'chore(release): episteme-local v0.4.0'
-    date: 2026-09-29T02:41:07Z
-  - message: 'chore(release): episteme-local v0.3.0'
-    date: 2026-09-29T02:40:33Z
-  readme: |-
-    # Episteme
-
-    Episteme is a privacy-preserving, local-first document ingestion pipeline for an Obsidian vault. It uses
-    deterministic extraction tools, typed BAML functions backed by explicitly configured local model
-    endpoints, atomic note persistence, DuckDB provenance, and `zk` indexing.
-
-    Install the `episteme` CLI from crates.io with:
-
-    ```text
-    cargo install episteme-local
-    ```
-
-    The package is named `episteme-local`; the installed executable and library crate remain
-    `episteme`.
-
-    ## Current slice
-
-    Supported inputs:
-
-    - Text and scanned PDFs through Poppler and Tesseract
-    - HTML through Pandoc
-    - PNG, JPEG, TIFF, and WebP images through Tesseract
-
-    The pipeline creates `status: unprocessed` research notes and copies immutable originals into the
-    archive only after a note has been persisted successfully. The inbox copy remains until explicit
-    cleanup. Episteme does not publish, delete user-owned source files, or use cloud model fallbacks.
-
-    ## Current security boundary
-
-    This slice accepts locally trusted documents only. It uses immutable staging copies, shell-free
-    bounded subprocesses, source quote verification, inert Markdown rendering, and symlink-aware vault
-    paths. Poppler, Tesseract, and Pandoc are not yet executed inside a networkless OS sandbox, so
-    automatic public downloads remain disabled.
-
-    ## Configure
-
-    Install Poppler, Tesseract, Pandoc, and `zk`, then ensure a local OpenAI-compatible model endpoint
-    is running on an explicit loopback address. On macOS with Homebrew:
-
-    ```text
-    brew install poppler tesseract pandoc zk
-    ```
-
-    Create `episteme.toml` from the packaged example or repository example. Replace every `/path/to`
-    value and tool path with an absolute local path. Set both model sections to existing
-    OpenAI-compatible endpoints bound to explicit loopback IP addresses. Episteme requires those
-    services to be managed externally. The example uses dedicated port `18181` and intentionally avoids
-    Ollama's conventional `11434` port.
-
-    ## Use
-
-    ```text
-    episteme --config episteme.t
-- name: doob
-  description: Modern, agent-first todo CLI built with Rust and SurrealDB
-  url: https://github.com/89jobrien/doob
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-09-29T21:14:43Z
-  version: 0.1.0
-  stars: null
-  downloads: 25
-  recent_commits:
-  - message: 'refactor(site): move the reference site to site/, make it dark, and render (#24)'
-    date: 2026-09-29T21:14:42Z
-  - message: 'docs(site): add a static reference site under assets/ (#23)'
-    date: 2026-09-29T18:13:29Z
-  - message: 'chore: integrate daily orchestration remediation'
-    date: 2026-08-26T17:49:40Z
-  - message: 'fix: use arrays for handoff sync test fixtures'
-    date: 2026-08-26T17:33:05Z
-  - message: 'fix: clean up test lint warnings'
-    date: 2026-08-26T17:28:30Z
-  - message: 'test: isolate sync test fixtures'
-    date: 2026-08-26T17:13:57Z
-  - message: 'test: remove obsolete Beads integration coverage'
-    date: 2026-08-26T17:13:29Z
-  - message: 'fix: satisfy active Clippy checks'
-    date: 2026-08-26T17:12:45Z
-  - message: 'feat(doob): merge chore/cap-current-changes — error context improvements'
-    date: 2026-07-16T02:35:21Z
-  - message: 'chore: improve error context in DB connection and use miette for display'
-    date: 2026-07-16T02:35:17Z
-  tags:
-  - cli
-  readme: |-
-    # doob
-
-    > **Website** &mdash; <https://89jobrien.github.io/doob/> &middot; source for the site is in [`site/`](site/)
-    > (landing, architecture, CLI reference, crate inventory, status, and FAQ)
-
-    Modern, agent-first todo CLI built with Rust and SurrealDB.
-
-    ## Features
-
-    - **Fast** - Rust + SurrealDB embedded
-    - **Agent-First** - JSON output, batch operations, context detection
-    - **Single Binary** - No dependencies
-    - **Context-Aware** - Auto-detects project and file from git
-
-    ## Installation
-
-    ```bash
-    cargo install --path .
-    ```
-
-    ## Commands
-
-    ```bash
-    # Add a todo (auto-detects project/file from git)
-    doob todo add "Fix auth bug"
-
-    # Add with priority and tags
-    doob todo add "Refactor code" --priority 1 --tags refactor,urgent
-
-    # Batch add
-    doob todo add "Task 1" "Task 2" "Task 3"
-
-    # List todos
-    doob todo list
-
-    # Filter by status or project
-    doob todo list --status pending
-    doob todo list --project myproject --limit 10
-
-    # Complete todo(s)
-    doob todo complete <id>
-    doob todo complete <id1> <id2> <id3>
-
-    # Undo completion (mark as pending)
-    doob todo undo <id>
-
-    # Set or clear a due date
-    doob todo due <id> 2026-03-15
-    doob todo due <id> clear
-
-    # Remove todo(s)
-    doob todo remove <id>
-    doob todo remove <id1> <id2>
-    ```
-
-    ## Sync to External Issue Trackers
-
-    **Status:** Foundation Complete (Phase 1 & 2) ✅
-
-    Sync your doob todos to external issue trackers using a plugin architecture.
-
-    ### Supported Providers
-
-    - ✅ **Beads** (bd CLI) - Complete
-    - 🚧 **GitHub Issues** - Planned
-    - 🚧 **Jira** - Planned
-    - 🚧 **Linear** - Planned
-    - 🚧 **kan** - Planned
-
-    ### Architecture
-
-    Built with hexagonal architecture:
-    - **Domain Layer** - Business logic, validation, error handling
-    - **Ports** - `IssueTracker` trait interface
-    - **Adapters** - Provider-specific implementations (CLI delegation)
-    - **Tests** - 19 unit/integration tests (100% passing)
-
-    ### Documentation
-
-    - [Testing Guide](docs/sync/testing.md)
-    - [Beads Provider](docs/sync/providers/beads.md)
-
-    ### Roadmap
-
-    **Phase 3: Metadata & Repository** (Next
 - name: episteme-local
   description: Local-first knowledge ingestion and intelligence workflows
   url: https://crates.io/crates/episteme-local
@@ -1151,89 +1789,6 @@
   stars: null
   downloads: 27
   recent_commits: []
-- name: opavs
-  description: Orient-Plan-Act-Verify-Ship phase discipline CLI
-  url: https://github.com/89jobrien/opavs
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-29T02:03:24Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'flow: finish release into main'
-    date: 2026-09-28T13:21:42Z
-  - message: 'flow: stage staging into release'
-    date: 2026-09-28T13:21:38Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-09-28T13:21:38Z
-  - message: 'chore: ignore .taskit local state dir'
-    date: 2026-09-28T13:20:02Z
-  - message: 'flow: finish release into main'
-    date: 2026-09-27T15:14:43Z
-  - message: 'flow: sync main into develop'
-    date: 2026-09-27T15:14:43Z
-  - message: 'flow: stage staging into release'
-    date: 2026-09-27T15:14:38Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-09-27T15:14:37Z
-  - message: 'feat(uninstall): remove client integrations and repo scaffolding'
-    date: 2026-09-27T15:14:10Z
-  - message: 'docs(readme): state which shell effects require ACT'
-    date: 2026-09-27T01:06:06Z
-  readme: |+
-    # opavs
-
-    Orient → Plan → Act → Verify → Ship. A workflow-phasing CLI: it gates what an
-    agent (or a person) is allowed to do based on which phase a repo is in —
-    read-only exploration, then a written plan, then edits, then verification,
-    then commit/push — each with a wider blast radius than the last. The point is
-    enforcement, not ceremony: a `PreToolUse` hook denies file mutations and
-    unapproved shell commands outside `ACT`, and denies `git commit`/`git push`
-    outside `SHIP`. The discipline is real state on disk, not just a convention.
-
-    Reimplements (in Rust) the shell-based `opavs-phase.sh` / `opavs-guard.sh`
-    pair from the `opavs` Claude Code plugin, for any repo using the
-    `.ctx/opavs/` state directory convention.
-
-    A lightweight task-graph companion rides alongside the phase machinery, for
-    repos that want to track what's runnable inside a phase — but the phase gate
-    is what this tool is _for_.
-
-    ## Install
-
-    Install from a source checkout, then install the agent integrations you use:
-
-    ```text
-    git clone https://github.com/89jobrien/opavs.git
-    cargo install --path opavs
-    opavs plugin install all
-    ```
-
-    ## Commands
-
-    ### Phase discipline (core)
-
-    ```text
-    opavs init [repo_root]     # scaffold OPAVS state and update instruction files
-    opavs phase get            # print current phase (defaults to ORIENT)
-    opavs phase set <PHASE>    # ORIENT | PLAN | ACT | VERIFY | SHIP
-
-    opavs guard                # PreToolUse hook entrypoint: reads Claude Code hook
-                                # JSON on stdin, emits an allow/deny
-                                # permissionDecision on stdout
-
-    opavs plugin install <target> [--home /path/to/home]
-                                # install OPAVS integration for one target:
-                                # claude | codex | gemini | opencode | all
-
-    opavs doctor [repo_root] [--home /path/to/home]
-                                # diagnose repository and client integration state
-
-    opavs upgrade               # download and install the newest GitHub release
-    ```
-
 - name: hjx
   description: CLI for handoff state, reconciliation, and handup surveys
   url: https://crates.io/crates/hjx
@@ -1254,7 +1809,7 @@
   pushed_at: 2026-09-28T11:14:55.567884Z
   version: 0.1.4
   stars: null
-  downloads: 96
+  downloads: 98
   recent_commits: []
 - name: hj
   description: Handoff state, reconciliation, rendering, and handup surveys
@@ -1464,7 +2019,7 @@
   pushed_at: 2026-09-22T13:35:41Z
   version: v0.5.5
   stars: 1
-  downloads: 223
+  downloads: 227
   recent_commits:
   - message: 'Merge pull request #39 from 89jobrien/fix/release-auth-header'
     date: 2026-09-10T01:04:17Z
@@ -1489,109 +2044,6 @@
   tags:
   - tools
   readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Local env\n\n```bash\ncp .envrc.example .envrc\ndirenv allow\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# Gemini\nexport GEMINI_API_KEY=\"...\"\nexport PROVIDER=\"gemini\"          # or: google\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\nThese are tool capabilities exposed to the model during a session (not slash commands typed at the REPL).\n\n| Tool | Description |\n|------|-------------|\n| `read` | Read files with line pagination |\n| `write` | Create or overwrite files |\n| `edit` | Replace text in files |\n| `glob` | Find files by name pattern (faster with `fd`) |\n| `grep` | Search file contents (faster with `rg`) |\n| `nu` | Execute a Nushell command |\n| `bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # "
-- name: notfiles
-  description: Nix-based dotfiles and system configuration
-  url: https://github.com/89jobrien/notfiles
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-22T06:17:52Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore(repo): remove nested agent worktree marker'
-    date: 2026-07-12T03:53:42Z
-  - message: 'Merge pull request #20 from 89jobrien/chore/sort-cargo-manifests'
-    date: 2026-07-12T03:49:24Z
-  - message: 'fix(ci): install nushell for integration tests'
-    date: 2026-07-12T03:44:04Z
-  - message: 'feat(notforge): add Gitea API foundation'
-    date: 2026-07-12T03:33:24Z
-  - message: 'chore(repo): stop tracking macOS artifacts'
-    date: 2026-07-12T03:33:04Z
-  - message: 'chore(manifests): sort Cargo.toml dependencies'
-    date: 2026-07-12T02:10:48Z
-  - message: 'docs(handoff): log 2026-07-08 — hexagonal architecture refactor, adapters, integration tests, notsecrets cleanup'
-    date: 2026-07-08T19:22:59Z
-  - message: 'chore(nushell): move config payload out of tool repo'
-    date: 2026-07-08T17:28:57Z
-  - message: 'feat(notfiles): hexagonal architecture refactor with adapters, integration tests, and notsecrets cleanup'
-    date: 2026-07-08T17:07:42Z
-  - message: 'feat(nushell): add x alias for cargo xtask'
-    date: 2026-07-07T09:43:59Z
-  tags:
-  - cli
-  - infra
-  readme: |-
-    # notfiles
-
-    A pure-Rust dotfiles manager — and eventually, a complete new-machine bootstrap system.
-
-    `notfiles` started as a Rust replacement for [GNU Stow](https://www.gnu.org/software/stow/). It's growing into a **Cargo workspace** of focused crates that together replace an entire shell-script-based dotfiles ecosystem.
-
-    ---
-
-    ## Quick Start
-
-    ```bash
-    # Symlink your dotfiles
-    notfiles link
-
-    # Check status
-    notfiles status
-
-    # Validate config without changes (CI-friendly)
-    notfiles check
-
-    # Show copy-method divergence
-    notfiles diff
-
-    # Move an existing file into a package
-    notfiles adopt git .gitconfig
-
-    # Remove symlinks
-    notfiles unlink
-
-    # Generate shell completions
-    notfiles completions bash > ~/.bash_completion.d/notfiles
-    ```
-
-    All commands support `--dry-run`, `--verbose`, and `--json` flags.
-
-    On a new machine (once `notstrap` ships):
-
-    ```bash
-    cargo install notstrap
-    notstrap run
-    ```
-
-    ---
-
-    ## Workspace Architecture
-
-    ```
-    notfiles/
-    ├── crates/
-    │   ├── notcore/        # shared types, config, paths, errors, Reporter trait
-    │   ├── notfiles/       # symlink engine (stow replacement)  ← you are here
-    │   ├── notsecrets/     # multi-provider secret resolution + age crypto
-    │   ├── nothooks/       # hook execution engine
-    │   ├── notnet/         # network utilities (Tailscale, Yubikey)
-    │   ├── notstrap/       # new-machine bootstrap orchestrator
-    │   └── notgraph/       # Rust dependency graph visualizer
-    ├── notfiles.toml       # symlink package config
-    └── notstrap.toml       # bootstrap hook/phase config
-    ```
-
-    ### Crate responsibilities
-
-    | Crate | Type | Does |
-    |-------|------|------|
-    | `notcore` | lib | Shared types, config, paths, errors, Reporter trait — no deps on other crates |
-    | `notfiles` | lib + bin | Symlink/copy packages into `$HOME`, track state, adopt/diff/check |
-    | `notsecrets` | lib | Multi-provider secret resolution, native age encryption/decryption |
-    | `nothooks` | lib + bin | Run bootstrap h
 - name: neusym
   description: MCP server bridging Jira and Linear for bidirectional issue sync
   url: https://github.com/89jobrien/neusym
@@ -1679,94 +2131,6 @@
 
     Credentials are read from the environment (see `EnvCredentialResolver`):
 
-- name: nu_libs
-  description: A library of Nushell scripts organized by category
-  url: https://github.com/89jobrien/nu_libs
-  kinds:
-  - GitHubRepo
-  language: Nushell
-  pushed_at: 2026-09-22T06:12:29Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: checkpoint workspace and Rust documentation'
-    date: 2026-09-21T22:29:06Z
-  - message: 'chore(handoff): session-end update'
-    date: 2026-08-23T09:10:39Z
-  - message: 'docs: prefix all command descriptions with [nu_lib]'
-    date: 2026-08-06T09:19:32Z
-  - message: 'docs: complete lib/ai description-comment pass'
-    date: 2026-08-06T07:49:53Z
-  - message: 'docs: add description comments to lib/ai base/call/openai/common/completion'
-    date: 2026-08-06T07:44:32Z
-  - message: 'docs: add missing description comments across lib/ (excluding lib/ai)'
-    date: 2026-08-06T07:41:45Z
-  - message: Add generated Nushell completion scripts for workspace CLIs
-    date: 2026-08-05T18:09:54Z
-  - message: 'fix(pick.nu): handle string and list<string> input, not just tables'
-    date: 2026-08-05T17:00:44Z
-  - message: 'Add pick.nu: fuzzy-select wrapper around external pick'
-    date: 2026-08-05T16:28:08Z
-  - message: 'docs: add missing export-def-main files to collision table'
-    date: 2026-08-04T21:45:07Z
-  readme: |-
-    # nu_libs
-
-    A library of Nushell modules organized by category.
-
-    ## Structure
-
-    ```text
-    lib/
-      mod.nu      top-level re-export of all categories
-      git/        Git helpers: log stats, branch age/cleanup, gone branches, hooks
-      net/        Network: SSH, sockets, remoting, HTTP, netcat, proxy, SSL
-      fs/         Filesystem: tree traversal, file ops, disk, navigation (up/cdpath/autojump/zoxide)
-      data/       Data transforms: typeof, JSON schema, ini, env, number format, base64, indent
-      ui/         UI/shell: bar, progress meter, completions, aliases (bat/eza), clipboard, notify
-      std/        Nu ecosystem: config, init, modules, deps, release tooling, dynamic loading
-      task/       Productivity: task runner, todo, history, bookmarks, just completions, hosts/path
-      rust/       Rust/Cargo: cargo search, rust AST, coverage
-      doob/       Doob wrappers: repo-scoped todos, search, notes, handoff sync
-      misc/       Misc tools: asciinema, zellij, rustic, rbw, website builder
-
-    scripts/      Standalone scripts (not modules — contain top-level executable code)
-    ai_nu/        Separate repo: AI/LLM agent primitives (OpenAI, Gemini, Ollama)
-    ```
-
-    ## Usage
-
-    ```nu
-    # Load a whole category
-    use lib/git *
-
-    # Load a single file
-    use lib/data/typeof.nu *
-
-    # Load everything
-    use lib/mod.nu *
-    ```
-
-    ## CLI completions
-
-    `completions/*.nu` contains native Nushell extern definitions emitted by local CLIs.
-    `completions/carapace/*.yaml` covers active local CLIs that do not emit Nushell completions.
-
-    Carapace is already used as Nushell's external completer. Install or refresh the tracked specs:
-
-    ```nu
-    sync-carapace-specs
-    ```
-
-    The command honors an absolute `XDG_CONFIG_HOME`, uses
-    `~/Library/Application Support/carapace/specs` on macOS, `%APPDATA%/carapace/specs` on
-    Windows, and `~/.config/carapace/specs` elsewhere. It updates tracked specs without removing
-    unrelated user specs. Use `sync-carapace-specs --dry-run` to preview destinations.
-
-    ### Files with `export def main`
-
-    These conflict when glob-re-exported
 - name: numcp
   description: MCP server that exposes Nushell tool handlers as MCP tools
   url: https://github.com/89jobrien/numcp
@@ -2096,7 +2460,7 @@
   pushed_at: 2026-09-22T06:11:21Z
   version: 0.1.2
   stars: null
-  downloads: 3037
+  downloads: 3118
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:21:59Z
@@ -2157,89 +2521,6 @@
     ```
 
     To cons
-- name: hooklings
-  description: YAML-driven developer preflight checks via crux pipelines
-  url: https://github.com/89jobrien/hooklings
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-22T06:11:09Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: checkpoint workspace and Rust documentation'
-    date: 2026-09-21T22:34:19Z
-  - message: 'chore(handoff): session-end update'
-    date: 2026-08-23T09:11:16Z
-  - message: 'feat: add Nushell completion generation'
-    date: 2026-08-05T18:10:01Z
-  - message: 'fix: update stale cruxx-* deps to match current crux crate names'
-    date: 2026-06-03T22:17:22Z
-  - message: 'docs: update handoff — feature-complete and production-ready'
-    date: 2026-04-23T02:09:17Z
-  - message: 'refactor: drop doob handler — use sqlite::query_many directly; default emit path to .ctx/'
-    date: 2026-04-23T01:22:09Z
-  - message: 'fix: doob uses SurrealDB not SQLite — invoke CLI with graceful skip if not on PATH; fix pipeline step-in-arms parse error; check_tools default tool list'
-    date: 2026-04-23T01:17:42Z
-  - message: 'fix(hooklings): clippy clean — derive Default, remove unused imports'
-    date: 2026-04-23T01:02:16Z
-  - message: 'test(hooklings): fuzz targets for config parsing and emit table'
-    date: 2026-04-23T01:01:42Z
-  - message: 'docs: default pipeline and README'
-    date: 2026-04-23T00:59:54Z
-  readme: |
-    # hooklings
-
-    YAML-driven developer preflight checks via [crux](https://github.com/89jobrien/crux) pipelines.
-
-    ## Install
-
-    ```bash
-    cargo install --path crates/hooklings
-    ```
-
-    ## Usage
-
-    ```bash
-    hooklings preflight              # run all checks, emit JSON + markdown table
-    hooklings preflight --emit table # markdown table only
-    hooklings check detect_shell     # run a single check
-    hooklings config show            # print merged config
-    ```
-
-    ## Config
-
-    Global: `~/.config/hooklings/hooklings.toml`
-    Project: `.hooklings.toml` in repo root (merged over global)
-
-    ```toml
-    [checks.op_auth]
-    enabled = true
-
-    [checks.ssh_reachable]
-    enabled = true
-    host = "minibox"
-
-    [checks.doob_pending]
-    db = "~/.local/share/doob/doob.db"
-    ```
-
-    ## Pipeline
-
-    Checks are defined as `.crux` YAML pipelines. The default pipeline runs at:
-    `~/.config/hooklings/default.crux`
-
-    Override per-project:
-
-    ```toml
-    [pipeline]
-    default = ".hooklings/ci.crux"
-    ```
-
-    ## atelier Integration
-
-    atelier's SessionStart hook calls `hooklings preflight --emit both` when hooklings is on PATH.
 - name: tracers
   description: 'trace:: — Trace<T> as a first-class value: Rust crates for execution provenance, task graphs with checkpointing, and escalating multi-agent runtimes'
   url: https://github.com/89jobrien/tracers
@@ -2615,71 +2896,6 @@
     `shell.register_builtin(impl Builtin)`.
 
     ## Ca
-- name: braid
-  description: Personal agent platform — Rust workspace
-  url: https://github.com/89jobrien/braid
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-09-22T06:09:10Z
-  version: v0.3.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: integrate crates.io release preparation'
-    date: 2026-08-26T19:08:31Z
-  - message: 'chore(release): prepare crates for 0.3.0'
-    date: 2026-08-26T19:01:04Z
-  - message: 'feat: add Nushell completion generation'
-    date: 2026-08-05T18:09:52Z
-  - message: 'fix: scope unwrap_used clippy lint to non-test code in braid'
-    date: 2026-07-22T08:45:29Z
-  - message: 'feat(braid-tui): split monolithic app.rs into focused modules + harness UI'
-    date: 2026-07-14T01:38:48Z
-  - message: 'chore: unify workspace dependencies via cargo-rail'
-    date: 2026-07-13T07:46:18Z
-  - message: 'chore: rename braid-core -> braid-engine (name taken on crates.io)'
-    date: 2026-07-13T07:39:22Z
-  - message: 'chore: add crates.io publish metadata to workspace'
-    date: 2026-07-13T07:32:10Z
-  - message: 'chore: add version to all intra-workspace path dependencies (required for crates.io publish)'
-    date: 2026-07-13T07:09:33Z
-  - message: 'docs: fix post-v0.3.0 doc issues'
-    date: 2026-07-13T06:47:06Z
-  readme: |
-    # Braid
-
-    Rust-first workspace for the Braid personal agent platform.
-
-    ## Crates
-
-    **Phase 1 — Core**
-    - `braid-model`: canonical domain types (messages, tool calls, transcripts, context)
-    - `braid-ports`: inner-ring port traits (`Provider`, `ToolExecutor`, `EventSink`, `SessionStorage`, `ContextProvider`)
-    - `braid-core`: runtime engine (`Engine<P, T, S, R, C>`), `SimpleLoopPlanner`, tool registry
-    - `braid-providers`: provider adapters (`MockProvider`, `OpenAiProvider`)
-    - `braid-cli`: thin operator entrypoint for local runs
-
-    **Phase 2 — Safety**
-    - `braid-redact`: `RedactionPipeline` with ordered rule chain (secrets, env vars, home paths)
-    - `braid-hooks`: `HookedExecutor` wrapping any `ToolExecutor` with pre/post hook gating
-    - `braid-mcp`: MCP server over stdio (JSON-RPC), tool registration and dispatch
-    - `braid-observe`: session event store; persists `Event` stream to disk
-
-    **Phase 3 — Context**
-    - `braid-context`: context assembly from `DoobSource` (todos) and `RepoSource` (git diff/log); two-stage compaction (staleness filter + token budget with rolling LLM summarization); injected into engine at session start via `ContextProvider` port
-
-    **UI**
-    - `braid-tui`: multi-pane session inspector (Ratatui)
-
-    ## Docs
-
-    - [Planning Docs](./docs/planning/README.md)
-    - [Workspace Overview](./docs/architecture/workspace-overview.md)
-    - [Braid](./docs/planning/Braid.md)
-    - [Braid - Rust Workspace Blueprint](./docs/planning/Braid%20-%20Rust%20Workspace%20Blueprint.md)
-    - [Braid - Rust Workspace Spec](./docs/planning/Braid%20-%20Rust%20Workspace%20Spec.md)
-    - [Braid - Crate Implementation Checklist](./docs/planning/Braid%20-%20Crate%20Implementation%20Checklist.md)
 - name: harvestrs
   description: Polyglot data harvester — syncs Claude memory, git, Obsidian, Pieces to JSONL
   url: https://github.com/89jobrien/harvestrs
@@ -2973,7 +3189,7 @@
   pushed_at: 2026-09-22T06:08:21Z
   version: v0.1.0
   stars: null
-  downloads: 158
+  downloads: 160
   recent_commits:
   - message: 'feat(cli): merge feat/unified-obfsck-cli'
     date: 2026-09-12T09:18:07Z
@@ -3332,7 +3548,7 @@
   pushed_at: 2026-09-22T06:08:02Z
   version: v0.5.0
   stars: null
-  downloads: 113
+  downloads: 116
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:20:58Z
@@ -4010,7 +4226,7 @@
   pushed_at: 2026-09-19T23:26:25.558102Z
   version: 0.4.2
   stars: null
-  downloads: 203
+  downloads: 204
   recent_commits: []
 - name: crux-plugin
   description: Subprocess plugin host for crux pipelines
@@ -4021,7 +4237,7 @@
   pushed_at: 2026-09-19T23:25:15.417626Z
   version: 0.4.2
   stars: null
-  downloads: 20
+  downloads: 22
   recent_commits: []
 - name: crux-stdlib
   description: Standard library handlers for crux-script pipelines (fs, git, json, text, ctrl)
@@ -4032,7 +4248,7 @@
   pushed_at: 2026-09-19T23:20:09.323383Z
   version: 0.4.2
   stars: null
-  downloads: 19
+  downloads: 21
   recent_commits: []
 - name: crux-baml
   description: BAML-powered LLM handlers for crux-script pipelines (extract, decompose, plan)
@@ -4043,7 +4259,7 @@
   pushed_at: 2026-09-19T23:19:56.029215Z
   version: 0.4.2
   stars: null
-  downloads: 18
+  downloads: 20
   recent_commits: []
 - name: crux-improve
   description: Improvement protocol types for the crux agent runtime
@@ -4065,7 +4281,7 @@
   pushed_at: 2026-09-19T23:19:23.782735Z
   version: 0.4.2
   stars: null
-  downloads: 33
+  downloads: 35
   recent_commits: []
 - name: crux-script
   description: YAML-driven pipeline scripting for the crux agentic DSL
@@ -4076,7 +4292,7 @@
   pushed_at: 2026-09-19T23:19:08.831836Z
   version: 0.4.2
   stars: null
-  downloads: 64
+  downloads: 69
   recent_commits: []
 - name: crux-runtime
   description: Core types, traits, and runtime for the crux agentic DSL
@@ -4087,7 +4303,7 @@
   pushed_at: 2026-09-19T23:18:54.809506Z
   version: 0.4.2
   stars: null
-  downloads: 148
+  downloads: 158
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -4109,7 +4325,7 @@
   pushed_at: 2026-09-19T23:18:31.387415Z
   version: 0.4.2
   stars: null
-  downloads: 181
+  downloads: 192
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -4120,7 +4336,7 @@
   pushed_at: 2026-09-19T23:18:21.615338Z
   version: 0.4.2
   stars: null
-  downloads: 53
+  downloads: 55
   recent_commits: []
 - name: crux-types
   description: Serializable wire-format types for the crux agentic DSL
@@ -4131,7 +4347,7 @@
   pushed_at: 2026-09-19T23:18:09.490195Z
   version: 0.4.2
   stars: null
-  downloads: 219
+  downloads: 231
   recent_commits: []
 - name: rx-runner
   description: Runtime-neutral process execution with bounded streaming output and cancellation
@@ -4164,7 +4380,7 @@
   pushed_at: 2026-09-10T00:32:30.983491Z
   version: 0.5.4
   stars: null
-  downloads: 74
+  downloads: 76
   recent_commits: []
 - name: looprs-core
   description: Domain types, ports, and macros for looprs
@@ -4175,7 +4391,7 @@
   pushed_at: 2026-09-10T00:32:24.817094Z
   version: 0.5.4
   stars: null
-  downloads: 243
+  downloads: 248
   recent_commits: []
 - name: looprs-macros
   description: Reusable macro_rules! macros for looprs
@@ -4186,7 +4402,7 @@
   pushed_at: 2026-09-09T22:39:00.077887Z
   version: 0.5.4
   stars: null
-  downloads: 100
+  downloads: 106
   recent_commits: []
 - name: minibox-mcp
   description: MCP stdio server exposing minibox daemon operations
@@ -4208,7 +4424,7 @@
   pushed_at: 2026-09-06T09:35:09.342551Z
   version: 0.33.1
   stars: null
-  downloads: 429
+  downloads: 439
   recent_commits: []
 - name: minibox-domain
   description: Pure domain values and ports for the minibox container runtime
@@ -4219,7 +4435,7 @@
   pushed_at: 2026-09-06T09:33:53.764918Z
   version: 0.33.1
   stars: null
-  downloads: 114
+  downloads: 123
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -4230,7 +4446,7 @@
   pushed_at: 2026-09-06T09:33:20.863262Z
   version: 0.33.1
   stars: null
-  downloads: 607
+  downloads: 623
   recent_commits: []
 - name: minibox-cli
   description: User-facing CLI for the minibox container runtime daemon
@@ -4252,7 +4468,7 @@
   pushed_at: 2026-08-26T22:35:58.085752Z
   version: 0.33.0
   stars: null
-  downloads: 38
+  downloads: 40
   recent_commits: []
 - name: minibox-crux-plugin
   description: Crux plugin binary exposing minibox container operations via JSON-RPC stdio
@@ -4274,7 +4490,7 @@
   pushed_at: 2026-08-26T21:15:59.685804Z
   version: 0.9.0
   stars: null
-  downloads: 226
+  downloads: 227
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -4285,7 +4501,7 @@
   pushed_at: 2026-08-26T21:15:48.824269Z
   version: 0.9.0
   stars: null
-  downloads: 245
+  downloads: 247
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -4296,7 +4512,7 @@
   pushed_at: 2026-08-26T21:15:42.043834Z
   version: 0.9.0
   stars: null
-  downloads: 224
+  downloads: 225
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -4307,7 +4523,7 @@
   pushed_at: 2026-08-26T21:15:36.888035Z
   version: 0.9.0
   stars: null
-  downloads: 294
+  downloads: 297
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -4318,7 +4534,7 @@
   pushed_at: 2026-08-26T21:15:30.236606Z
   version: 0.9.0
   stars: null
-  downloads: 98
+  downloads: 100
   recent_commits: []
 - name: taskit-crux
   description: Embedded Cruxfile runner for taskit (behind feature flag)
@@ -4340,7 +4556,7 @@
   pushed_at: 2026-08-26T21:15:23.481347Z
   version: 0.9.0
   stars: null
-  downloads: 181
+  downloads: 186
   recent_commits: []
 - name: taskit-core
   description: Core types and traits for taskit
@@ -4351,7 +4567,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 306
+  downloads: 310
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -4362,7 +4578,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 467
+  downloads: 475
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
@@ -4373,7 +4589,7 @@
   pushed_at: 2026-08-26T20:14:35.927497Z
   version: 0.1.0
   stars: null
-  downloads: 27
+  downloads: 28
   recent_commits: []
 - name: coursers-types
   description: Domain types and port traits for the coursers workspace
@@ -4384,7 +4600,7 @@
   pushed_at: 2026-08-26T20:14:08.806708Z
   version: 0.1.0
   stars: null
-  downloads: 39
+  downloads: 41
   recent_commits: []
 - name: prefixe-cli
   description: CLI binary for the prefixe command-rewriting system
@@ -4525,7 +4741,7 @@
   pushed_at: 2026-08-22T04:09:53.925880Z
   version: 0.2.2
   stars: null
-  downloads: 57
+  downloads: 58
   recent_commits: []
 - name: trace-lang-core
   description: Core Trace<T> type — reasoning provenance as a first-class value
@@ -4536,7 +4752,7 @@
   pushed_at: 2026-08-22T04:09:49.374662Z
   version: 0.2.2
   stars: null
-  downloads: 92
+  downloads: 95
   recent_commits: []
 - name: fraude
   description: Fraude — Rust port of the claw-code agent runtime
@@ -4689,7 +4905,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 107
+  downloads: 109
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -4788,7 +5004,7 @@
   pushed_at: 2026-07-13T07:35:29.534149Z
   version: 0.3.0
   stars: null
-  downloads: 30
+  downloads: 31
   recent_commits: []
 - name: braid-ports
   description: Port traits for the braid agent platform (Provider, ToolExecutor, EventSink, ComponentRegistry)
@@ -4799,7 +5015,7 @@
   pushed_at: 2026-07-13T07:34:30.277211Z
   version: 0.3.0
   stars: null
-  downloads: 174
+  downloads: 181
   recent_commits: []
 - name: braid-model
   description: Canonical domain types for the braid agent platform
@@ -4810,7 +5026,7 @@
   pushed_at: 2026-07-13T07:33:22.653887Z
   version: 0.3.0
   stars: null
-  downloads: 224
+  downloads: 233
   recent_commits: []
 - name: claude-code-statusline
   description: Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance — minimal setup, maximum insight.
@@ -5076,7 +5292,7 @@
   pushed_at: 2026-06-08T05:39:24.236954Z
   version: 0.1.0
   stars: null
-  downloads: 72
+  downloads: 73
   recent_commits: []
 - name: disyn-memory
   description: Memory store implementation for the disyn agent pipeline
@@ -5087,7 +5303,7 @@
   pushed_at: 2026-06-08T05:26:27.409395Z
   version: 0.1.0
   stars: null
-  downloads: 71
+  downloads: 72
   recent_commits: []
 - name: disyn-neural
   description: Neural proposal engine and fact extractor for the disyn agent pipeline
@@ -5098,7 +5314,7 @@
   pushed_at: 2026-06-08T05:26:18.193930Z
   version: 0.1.0
   stars: null
-  downloads: 70
+  downloads: 71
   recent_commits: []
 - name: disyn-symbolic
   description: Symbolic verifier and repair engine for the disyn agent pipeline
@@ -5109,7 +5325,7 @@
   pushed_at: 2026-06-08T05:26:07.254857Z
   version: 0.1.0
   stars: null
-  downloads: 71
+  downloads: 72
   recent_commits: []
 - name: disyn-core
   description: Domain types, port traits, and errors for the disyn agent pipeline
@@ -5120,7 +5336,7 @@
   pushed_at: 2026-06-08T05:25:56.523924Z
   version: 0.1.0
   stars: null
-  downloads: 240
+  downloads: 244
   recent_commits: []
 - name: surgeon
   description: Agentic code analysis and improvement tool for Rust
@@ -5137,91 +5353,6 @@
     date: 2026-06-02T08:43:45Z
   - message: 'Initial commit: surgeon — agentic code analysis CLI'
     date: 2026-06-01T12:50:54Z
-- name: devobs
-  description: Public Obsidian vault for open-source project tracking
-  url: https://github.com/89jobrien/devobs
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-06-01T23:33:34Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: refresh devobs knowledge graph'
-    date: 2026-06-01T23:33:24Z
-  - message: 'feat: consolidate 6 Python scripts into single rust-script with ASCII graphs'
-    date: 2026-05-25T17:05:49Z
-  - message: Replace machine notes with agentic infrastructure docs
-    date: 2026-05-24T21:29:35Z
-  - message: Populate vault directories with initial content
-    date: 2026-05-24T21:22:51Z
-  - message: 'chore: update plan status to complete, fix enrich pipeline to use dotenvx'
-    date: 2026-05-24T19:54:14Z
-  - message: 'feat: Phase 3+4 — lint pipeline + LLM-enriched relationships'
-    date: 2026-05-24T19:48:05Z
-  - message: 'feat: working lint pipeline — frontmatter validation + obfsck scan'
-    date: 2026-05-24T19:40:47Z
-  - message: 'feat: populate kgx wiki — 36 summaries + 35 topic pages'
-    date: 2026-05-24T14:00:51Z
-  - message: 'feat: add cross-project relationships and build plan'
-    date: 2026-05-24T13:52:02Z
-  - message: 'feat: replace shell/jq ingest with Python script + populate kgx graph'
-    date: 2026-05-24T13:12:56Z
-  readme: |
-    # devobs
-
-    Public Obsidian vault for tracking open-source projects under [89jobrien](https://github.com/89jobrien). Automated with [crux](https://github.com/89jobrien/crux) pipelines and [kgx](https://github.com/89jobrien/kgx) knowledge graphs.
-
-    ## Structure
-
-    Full project [[index]]
-
-    | Folder              | Purpose                                       |
-    | ------------------- | --------------------------------------------- |
-    | `00_Inbox`          | Unsorted captures                             |
-    | `01_Daily`          | Daily notes                                   |
-    | `02_Projects`       | One PROJECT note per public repo              |
-    | `03_Area-Systems`   | Ongoing systems context                       |
-    | `04_Research`       | Analysis and design docs                      |
-    | `05_Knowledge`      | Generated graphs, maps, reports               |
-    | `06_Experiments`    | Experiment logs                               |
-    | `07_Infrastructure` | Machine and toolchain docs                    |
-    | `08_Templates`      | Note templates                                |
-    | `09_Archive`        | Inactive content                              |
-    | `schemas`           | JSON schemas for frontmatter and kgx payloads |
-    | `pipelines`         | Crux pipeline definitions                     |
-
-    ## Pipelines
-
-    ```bash
-    # Ingest all PROJECT notes into the kgx knowledge graph
-    crux run pipelines/devobs_ingest.crux
-
-    # Run quality gates (obfsck, agentlint, schema validation)
-    crux run pipelines/devobs_lint.crux
-
-    # LLM-assisted relationship discovery
-    crux run pipelines/devobs_enrich.crux
-
-    # Full CI: lint + ingest
-    crux run Cruxfile
-    ```
-
-    ## Schemas
-
-    - `schemas/project.schema.json` — PROJECT note frontmatter contract
-    - `schemas/kgx-ingest.schema.json` — kgx ingest payload format
-
-    ## Scope
-
-    Only public repos with local clones in `~/dev/` are tracked.
-    Private repos, employer projects, and repos without local clones
-    are excluded.
-
-    ## License
-
-    MIT
 - name: cruxx
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
   url: https://crates.io/crates/cruxx
@@ -5253,7 +5384,7 @@
   pushed_at: 2026-05-18T05:22:46.040541Z
   version: 0.2.6
   stars: null
-  downloads: 104
+  downloads: 105
   recent_commits: []
 - name: cruxx-agentic
   description: Built-in step handlers for cruxx-script pipelines
@@ -5264,7 +5395,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 162
+  downloads: 164
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -5275,7 +5406,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 230
+  downloads: 233
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -5286,7 +5417,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 343
+  downloads: 348
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -5297,7 +5428,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 488
+  downloads: 494
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -5308,7 +5439,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 364
+  downloads: 371
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -5319,7 +5450,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 229
+  downloads: 232
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -5330,7 +5461,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 116
+  downloads: 117
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -5341,7 +5472,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 12917
+  downloads: 13659
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -5352,7 +5483,7 @@
   pushed_at: 2026-05-16T04:04:45.475950Z
   version: 0.3.0
   stars: null
-  downloads: 110
+  downloads: 111
   recent_commits: []
 - name: agentlint-pi
   description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
@@ -5363,7 +5494,7 @@
   pushed_at: 2026-05-16T04:04:23.718026Z
   version: 0.3.0
   stars: null
-  downloads: 112
+  downloads: 113
   recent_commits: []
 - name: agentlint-gemini
   description: agentlint validator for Google Gemini GEMINI.md files
@@ -5374,7 +5505,7 @@
   pushed_at: 2026-05-16T04:04:00.508658Z
   version: 0.3.0
   stars: null
-  downloads: 133
+  downloads: 134
   recent_commits: []
 - name: agentlint-codex
   description: agentlint validator for OpenAI Codex AGENTS.md files
@@ -5385,7 +5516,7 @@
   pushed_at: 2026-05-16T04:03:38.113837Z
   version: 0.3.0
   stars: null
-  downloads: 131
+  downloads: 132
   recent_commits: []
 - name: agentlint-cursor
   description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
@@ -5396,7 +5527,7 @@
   pushed_at: 2026-05-16T04:03:15.391246Z
   version: 0.3.0
   stars: null
-  downloads: 132
+  downloads: 133
   recent_commits: []
 - name: agentlint-claude
   description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
@@ -5407,7 +5538,7 @@
   pushed_at: 2026-05-16T04:02:52.382445Z
   version: 0.3.0
   stars: null
-  downloads: 109
+  downloads: 110
   recent_commits: []
 - name: agentlint-frontmatter
   description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
@@ -5418,7 +5549,7 @@
   pushed_at: 2026-05-16T04:02:28.958456Z
   version: 0.3.0
   stars: null
-  downloads: 251
+  downloads: 254
   recent_commits: []
 - name: agentlint-core
   description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
@@ -5429,7 +5560,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 486
+  downloads: 492
   recent_commits: []
 - name: warpx
   description: 'Warp terminal fork: agentic dev environment, custom UI, MCP, skills'
@@ -5483,7 +5614,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 85
+  downloads: 86
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -5505,7 +5636,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 154
+  downloads: 157
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -5516,7 +5647,7 @@
   pushed_at: 2026-04-23T23:07:16.604202Z
   version: 0.1.0
   stars: null
-  downloads: 84
+  downloads: 85
   recent_commits: []
 - name: mlrs-core
   description: Core RLM engine — recursive LLM inference via Rhai scripting
@@ -5560,7 +5691,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 152
+  downloads: 153
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -5582,7 +5713,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 312
+  downloads: 313
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -5593,7 +5724,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 141
+  downloads: 142
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -5604,7 +5735,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 380
+  downloads: 382
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
@@ -5682,7 +5813,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 112
+  downloads: 114
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -5693,7 +5824,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 115
+  downloads: 117
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -5704,7 +5835,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 110
+  downloads: 112
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -5715,7 +5846,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 110
+  downloads: 112
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -5726,7 +5857,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 365
+  downloads: 374
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
@@ -6068,7 +6199,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 84
+  downloads: 85
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -6079,7 +6210,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 160
+  downloads: 162
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -6090,29 +6221,5 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 346
+  downloads: 350
   recent_commits: []
-- name: hand
-  description: Session handoff toolkit for Claude Code — start, end, and visualize project state via HANDOFF.yaml
-  url: https://github.com/89jobrien/hand
-  kinds:
-  - GitHubRepo
-  language: Shell
-  pushed_at: 2026-04-05T22:42:51Z
-  version: null
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'fix: auto-bump version in pre-commit — patch on modify, minor on new files'
-    date: 2026-04-05T22:42:31Z
-  - message: 'feat: add justfile init, .githooks, and onboard skill'
-    date: 2026-04-05T20:53:55Z
-  - message: 'feat: initial commit — hand session handoff plugin'
-    date: 2026-04-05T20:27:00Z
-  - message: 'fix: author must be object not string'
-    date: 2026-04-05T17:52:14Z
-  - message: 'docs: add installation instructions'
-    date: 2026-04-05T17:51:01Z
-  - message: 'feat: initial commit — hand session handoff plugin'
-    date: 2026-04-05T17:43:42Z
-  readme: "# hand — Session Handoff Plugin\n\nThree skills for structured project handoff across Claude Code sessions.\n\n## Installation\n\n```bash\nclaude plugin add github:89jobrien/hand\n```\n\n## Skills\n\n| Command | When to use |\n|---|---|\n| `/hand:on` | Start of session — orient, sync doob, triage and act on open items |\n| `/hand:off` | End of session — update HANDOFF.yaml, write .ctx/, sync doob, commit |\n| `/hand:over` | On demand — generate visual report + Mermaid diagrams in .ctx/HANDOVER.md |\n\n## File Layout\n\n| File | Location | Committed | Purpose |\n|---|---|---|---|\n| `HANDOFF.<project>.<base>.yaml` | repo root | yes | Tasks, items, log — doob source of truth |\n| `.ctx/HANDOFF.state.yaml` | `.ctx/` | no | Project snapshot (build/tests/branch/notes) |\n| `.ctx/HANDOFF.md` | `.ctx/` | no | Rendered reference doc (table view) |\n| `.ctx/HANDOVER.md` | `.ctx/` | no | Visual report with Mermaid diagrams |\n\n`.ctx/` is fully generated — add it to `.gitignore`. Only `HANDOFF.yaml` is committed.\n\n## Workflow\n\n```\nsession start → /hand:on  → syncs doob, reviews human-edits, triages P0/P1/P2\n during work  →            → edit HANDOFF.yaml directly for human-edit overrides\n  session end → /hand:off → updates yaml, writes .ctx/, syncs doob, commits\n   on demand  → /hand:over → writes .ctx/HANDOVER.md with diagrams\n```\n\n## HANDOFF.yaml Schema\n\n```yaml\nproject: <name>\nid: <prefix>        # first 7 chars, used for item IDs\nupdated: <YYYY-MM-DD>\n\nitems:\n  - id: <prefix>-<n>\n    doob_uuid: <uuid>           # written by doob sync\n    name: <kebab-slug>          # immutable\n    priority: P0 | P1 | P2     # immutable\n    status: open | done | parked | blocked\n    title: <one-line>           # immutable\n    description: <detail>\n    files: [<path>]\n    completed: <YYYY-MM-DD>     # when status: done\n    extra:\n      - date: <YYYY-MM-DD>\n        type: note | blocker | decision | discovery | escalation | human-edit\n        field: <field>          # human-edit only\n        "
