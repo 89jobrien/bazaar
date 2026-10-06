@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-05T23:17:48Z
+  pushed_at: 2026-10-06T11:17:50Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-06T11:17:48Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-05T23:17:46Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-09-30T01:57:37Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-09-29T16:51:20Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-09-29T02:32:59Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,263 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: evidra
+  description: Local-first operational intelligence. Append-only observation ledger plus validated, idempotent persistence for redacted agent-harness evidence.
+  url: https://github.com/89jobrien/evidra
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-06T19:44:30Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs: add architecture, conventions, operations, and schema guides'
+    date: 2026-10-03T08:32:06Z
+  - message: 'fix(adapters): give AgentHarnessJsonlSource a redacted Debug'
+    date: 2026-10-03T06:12:34Z
+  - message: 'ci: run the workspace gate through taskit check ci'
+    date: 2026-10-03T06:12:16Z
+  - message: 'docs: sync agent guide, readme, and roadmap to current state'
+    date: 2026-10-03T06:11:57Z
+  - message: 'feat(evidra-engine): add band tables and facet projection'
+    date: 2026-10-03T04:41:41Z
+  - message: 'feat(evidra-store): add schema v3 and the derived tables'
+    date: 2026-10-03T03:45:35Z
+  - message: 'chore: ignore the agent scratch directory'
+    date: 2026-10-02T22:32:08Z
+  - message: 'feat(evidra-core): add the derived facet and relationship domain'
+    date: 2026-10-02T22:27:34Z
+  - message: 'build: raise the workspace MSRV to 1.98'
+    date: 2026-10-02T21:42:29Z
+  - message: 'docs: add PRD, roadmap, four ADRs, and the derived-layer implementation plan'
+    date: 2026-10-02T21:22:19Z
+  readme: |-
+    # Evidra
+
+    **Evidence into controls.**
+
+    Evidra is a local-first operational intelligence system. It preserves operational evidence and
+    turns recurring interventions, failed automation, stale assumptions, and incidents into explicit,
+    reviewable system knowledge.
+
+    The current foundation provides an append-only SQLite observation ledger plus validated,
+    idempotent persistence for redacted agent-harness evidence.
+
+    ## Status
+
+    Evidra is at the start of version `0.1.0`. The implemented scope is intentionally narrow:
+
+    - Initialize repository-local storage.
+    - Record manual intervention observations.
+    - List observations as a table or JSON.
+    - Preserve source, subject, provenance, timestamps, and integrity metadata.
+    - Normalize bounded, redaction-attested agent-harness JSONL into validated in-memory events.
+    - Persist typed harness observations with semantic digests and append-only identity receipts.
+    - Atomically claim, ingest, and quarantine repository-local harness event files.
+
+    Harness-specific hook installation, Git/Cargo/CI/filesystem importers, inference, governed
+    assumptions, controls, policy enforcement, and entropy analysis remain future work.
+
+    ## Quickstart
+
+    ```bash
+    cargo run -p evidra-cli -- init
+    cargo run -p evidra-cli -- note --summary "Removed stale generated artifacts"
+    cargo run -p evidra-cli -- observation list
+    cargo run -p evidra-cli -- observation list --json
+    cargo run -p evidra-cli -- ingest
+    cargo run -p evidra-cli -- ingest --json
+    ```
+
+    ## Changelog
+
+    The repository uses `git-cliff` with conventional commits:
+
+    ```bash
+    git cliff --unreleased
+    git cliff --tag v0.1.0 --prepend CHANGELOG.md
+    ```
+
+    Release entries are grouped by commit type and contain no decorative symbols.
+
+    Repository-local state is stored in `.evidra/evidra.db` and is ignored by Git.
+
+    The current database schema is v3. Re-run `evidra init` to migrate a v1 or v2 repository explicitly;
+    ordinary commands do not migrate storage. Before migration, stop Evidra writers and create a
+    WAL-safe SQLite backup rat
+- name: obfsck
+  description: Secret-detection and redaction CLI for pre-commit hooks
+  url: https://github.com/89jobrien/obfsck
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-10-06T19:42:15Z
+  version: v0.1.0
+  stars: null
+  downloads: 164
+  recent_commits:
+  - message: 'feat(cli): add immutable model-ingress redaction policy'
+    date: 2026-10-06T18:17:23Z
+  - message: Merge branch 'docs/session-closeout-2026-09-13'
+    date: 2026-10-06T00:15:55Z
+  - message: 'feat(obfsck): support inline obfsck:ignore suppression marker'
+    date: 2026-10-06T00:12:15Z
+  - message: 'feat(obfsck): add --version flag to obfsck CLI binaries'
+    date: 2026-09-29T19:57:33Z
+  - message: 'feat(obfsck): add --version flag to obfsck CLI binaries'
+    date: 2026-09-29T19:57:33Z
+  - message: 'chore: checkpoint workspace and Rust documentation'
+    date: 2026-09-21T22:20:54Z
+  - message: 'docs(context): record blocked filtering prerequisites'
+    date: 2026-09-17T13:20:55Z
+  - message: 'docs(roadmap): complete shared pattern engine'
+    date: 2026-09-17T13:18:21Z
+  - message: 'refactor(patterns): unify scanner and MCP consumers'
+    date: 2026-09-17T13:15:08Z
+  - message: 'refactor(cli): use shared pattern engine'
+    date: 2026-09-17T13:06:30Z
+  tags:
+  - cli
+  readme: |-
+    # obfsck
+
+    Redacts secrets and PII from log lines and structured text.
+
+    ## Install
+
+    ```bash
+    cargo install --path .
+    ```
+
+    ## What it does
+
+    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
+    - Obfuscates identifiers with stable mappings (same input => same token)
+    - Supports privacy levels based on how aggressive redaction should be
+
+    ## Obfuscation levels
+
+    - `Minimal`: secret pattern redaction only
+    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
+    - `Paranoid`: adds path, hostname, and high-entropy token redaction
+
+    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
+    Sensitive system paths are preserved.
+
+    Preserved path segments include common roots like `home`, `usr`, `etc`,
+    `windows`, `users`, and `programdata`.
+
+    ### What each level redacts
+
+    | Pattern category | minimal | standard | paranoid |
+    |-----------------|---------|----------|----------|
+    | API keys, tokens, passwords | yes | yes | yes |
+    | IPs, emails, container IDs, usernames | — | yes | yes |
+    | PII (names, SSN, phone, credit card) | — | yes | yes |
+    | Paths, hostnames, high-entropy strings | — | — | yes |
+    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
+
+    `standard` is the privacy-forward default for sharing logs externally.
+    `minimal` is safe for internal tooling where structural identifiers are useful.
+
+    ## obfsck CLI
+
+    Redact secrets and PII from a file or stdin.
+
+    ```bash
+    # Stdin -> stdout (default level: minimal — secrets only)
+    echo "key=sk-ant-api03-ABCDEF..." | obfsck redact
+
+    # File input
+    obfsck redact path/to/logfile.txt
+
+    # Write to output file
+    obfsck redact input.txt --output redacted.txt
+
+    # Increase level
+    obfsck redact input.txt --level standard   # + IPs, emails, usernames, PII
+    obfsck redact input.txt --level paranoid   # + paths, hostnames, high-entropy
+
+    # Audit mode — report findings to stderr while writing redacted output
+    obfsck redact input.txt --audit
+
+    # Custom secrets config (adds a runtime pattern pass; bundled pattern
+- name: godmode
+  description: Rust-native development methodology for Claude Code, Codex, and OpenCode
+  url: https://github.com/89jobrien/godmode
+  kinds:
+  - GitHubRepo
+  - ClaudePlugin
+  language: Rust
+  pushed_at: 2026-10-06T17:00:40Z
+  version: v0.5.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'flow: finish release into main'
+    date: 2026-10-05T04:44:41Z
+  - message: 'flow: stage staging into release'
+    date: 2026-10-05T04:43:10Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-10-05T04:43:10Z
+  - message: 'chore(cliff): point the postprocessor at this repo and drop emoji headings'
+    date: 2026-10-05T04:42:54Z
+  - message: 'docs(plan): merge docs/plan-identity-followup'
+    date: 2026-10-05T03:10:46Z
+  - message: 'flow: sync main into develop'
+    date: 2026-10-05T03:05:00Z
+  - message: 'flow: finish release into main'
+    date: 2026-10-05T03:05:00Z
+  - message: 'flow: stage staging into release'
+    date: 2026-10-05T03:02:33Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-10-05T03:02:32Z
+  - message: 'chore(handoff): refresh session state after OpenCode parity merge'
+    date: 2026-10-05T03:02:24Z
+  topics:
+  - ai-agents
+  - claude-code
+  - opencode
+  - rust
+  - tdd
+  readme: "# godmode\n\nSelf-contained Rust-native development methodology plugin for Claude Code.\n\n> Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.\n\n## Overview\n\nGodmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all\nstateful operations — skills are thin wrappers that call `godmode` and act on the output.\nTasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal\n`depends_on` chains.\n\n## Install\n\n```bash\ncargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode\nclaude plugin install godmode@bazaar\n```\n\n### Pre-commit hook\n\nInstall the godmode pre-commit hook into any git repo to block commits when tasks are\nstill running and to run cargo gates (fmt-check, clippy, nextest):\n\n```bash\n# From the repo root where you want the hook installed:\nnu /path/to/godmode/hooks/install.nu\n\n# Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:\nnu \"$CLAUDE_PLUGIN_ROOT/hooks/install.nu\"\n```\n\nThe hook:\n\n1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,\n   printing the offending task IDs.\n2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and\n   `cargo nextest run --workspace`.\n3. Blocks the commit on any failure with a clear message.\n\nIf `godmode` is not on PATH, the task-state check is skipped gracefully and only the\ncargo gates run.\n\n## Skills\n\n| Skill                                     | When                                                                  |\n| ----------------------------------------- | --------------------------------------------------------------------- |\n| `godmode:using-godmode`                 "
+- name: looprs
+  description: Just tools in a loop.
+  url: https://github.com/89jobrien/looprs
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-10-06T15:53:52Z
+  version: v0.5.5
+  stars: 1
+  downloads: 229
+  recent_commits:
+  - message: 'Merge pull request #39 from 89jobrien/fix/release-auth-header'
+    date: 2026-09-10T01:04:17Z
+  - message: 'fix(release): prevent wrapped tag auth headers'
+    date: 2026-09-10T00:52:28Z
+  - message: 'Merge pull request #38 from 89jobrien/fix/release-registry-visibility'
+    date: 2026-09-09T22:58:46Z
+  - message: 'fix(release): use registry index for visibility checks'
+    date: 2026-09-09T22:47:17Z
+  - message: 'Merge pull request #37 from 89jobrien/release-v0.5.4'
+    date: 2026-09-09T22:03:35Z
+  - message: 'fix(release): preserve unreleased changelog section'
+    date: 2026-09-09T21:52:37Z
+  - message: 'docs(changelog): prepare 0.5.4 release notes'
+    date: 2026-09-09T21:36:28Z
+  - message: 'chore(release): bump workspace to 0.5.4'
+    date: 2026-09-09T21:28:03Z
+  - message: 'Merge pull request #36 from 89jobrien/fix/nightly-fuzz-target'
+    date: 2026-09-09T03:34:20Z
+  - message: 'fix(ci): target glibc for address sanitizer fuzzing'
+    date: 2026-09-09T03:31:30Z
+  tags:
+  - tools
+  readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Local env\n\n```bash\ncp .envrc.example .envrc\ndirenv allow\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# Gemini\nexport GEMINI_API_KEY=\"...\"\nexport PROVIDER=\"gemini\"          # or: google\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\nThese are tool capabilities exposed to the model during a session (not slash commands typed at the REPL).\n\n| Tool | Description |\n|------|-------------|\n| `read` | Read files with line pagination |\n| `write` | Create or overwrite files |\n| `edit` | Replace text in files |\n| `glob` | Find files by name pattern (faster with `fd`) |\n| `grep` | Search file contents (faster with `rg`) |\n| `nu` | Execute a Nushell command |\n| `bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # "
 - name: 89jobrien.github.io
   description: Personal site
   url: https://github.com/89jobrien/89jobrien.github.io
@@ -330,104 +587,6 @@
 
     - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
     - **Bridge networking** — veth pa
-- name: obfsck
-  description: Secret-detection and redaction CLI for pre-commit hooks
-  url: https://github.com/89jobrien/obfsck
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-10-06T00:19:19Z
-  version: v0.1.0
-  stars: null
-  downloads: 162
-  recent_commits:
-  - message: Merge branch 'docs/session-closeout-2026-09-13'
-    date: 2026-10-06T00:15:55Z
-  - message: 'feat(obfsck): support inline obfsck:ignore suppression marker'
-    date: 2026-10-06T00:12:15Z
-  - message: 'feat(obfsck): add --version flag to obfsck CLI binaries'
-    date: 2026-09-29T19:57:33Z
-  - message: 'feat(obfsck): add --version flag to obfsck CLI binaries'
-    date: 2026-09-29T19:57:33Z
-  - message: 'chore: checkpoint workspace and Rust documentation'
-    date: 2026-09-21T22:20:54Z
-  - message: 'docs(context): record blocked filtering prerequisites'
-    date: 2026-09-17T13:20:55Z
-  - message: 'docs(roadmap): complete shared pattern engine'
-    date: 2026-09-17T13:18:21Z
-  - message: 'refactor(patterns): unify scanner and MCP consumers'
-    date: 2026-09-17T13:15:08Z
-  - message: 'refactor(cli): use shared pattern engine'
-    date: 2026-09-17T13:06:30Z
-  - message: 'feat(patterns): inject pattern sets into obfuscator'
-    date: 2026-09-17T13:01:26Z
-  tags:
-  - cli
-  readme: |-
-    # obfsck
-
-    Redacts secrets and PII from log lines and structured text.
-
-    ## Install
-
-    ```bash
-    cargo install --path .
-    ```
-
-    ## What it does
-
-    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
-    - Obfuscates identifiers with stable mappings (same input => same token)
-    - Supports privacy levels based on how aggressive redaction should be
-
-    ## Obfuscation levels
-
-    - `Minimal`: secret pattern redaction only
-    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
-    - `Paranoid`: adds path, hostname, and high-entropy token redaction
-
-    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
-    Sensitive system paths are preserved.
-
-    Preserved path segments include common roots like `home`, `usr`, `etc`,
-    `windows`, `users`, and `programdata`.
-
-    ### What each level redacts
-
-    | Pattern category | minimal | standard | paranoid |
-    |-----------------|---------|----------|----------|
-    | API keys, tokens, passwords | yes | yes | yes |
-    | IPs, emails, container IDs, usernames | — | yes | yes |
-    | PII (names, SSN, phone, credit card) | — | yes | yes |
-    | Paths, hostnames, high-entropy strings | — | — | yes |
-    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
-
-    `standard` is the privacy-forward default for sharing logs externally.
-    `minimal` is safe for internal tooling where structural identifiers are useful.
-
-    ## obfsck CLI
-
-    Redact secrets and PII from a file or stdin.
-
-    ```bash
-    # Stdin -> stdout (default level: minimal — secrets only)
-    echo "key=sk-ant-api03-ABCDEF..." | obfsck redact
-
-    # File input
-    obfsck redact path/to/logfile.txt
-
-    # Write to output file
-    obfsck redact input.txt --output redacted.txt
-
-    # Increase level
-    obfsck redact input.txt --level standard   # + IPs, emails, usernames, PII
-    obfsck redact input.txt --level paranoid   # + paths, hostnames, high-entropy
-
-    # Audit mode — report findings to stderr while writing redacted output
-    obfsck redact input.txt --audit
-
-    # Custom secrets config (adds a runtime pattern pass; bundled pattern
 - name: taskit
   description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
   url: https://github.com/89jobrien/taskit
@@ -438,7 +597,7 @@
   pushed_at: 2026-10-06T00:01:34Z
   version: v0.9.0
   stars: 1
-  downloads: 489
+  downloads: 496
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -461,91 +620,6 @@
   - message: 'flow: promote develop into staging'
     date: 2026-07-12T05:10:01Z
   readme: "# taskit\n\nConfig-driven CI pipeline runner with affected-crate detection, protocol-drift tracking,\nand pipeline orchestration for Rust workspaces.\n\n## Install\n\n```bash\ncargo install taskit\n```\n\n## Quick start\n\nRun from the root of any Rust workspace:\n\n```bash\ntaskit fmt          # format all crates\ntaskit lint         # clippy on all crates\ntaskit test         # nextest on all crates\ntaskit ci           # full local CI pipeline\ntaskit quick        # fast feedback: fmt-check + lint + test (affected crates, offline)\n```\n\nAdd `--dry-run` to any command to print the commands that would run without executing them.\n\n## Configuration\n\nCreate `taskit.toml` at the workspace root to customise behaviour. Every field is optional —\ntaskit works without any configuration by discovering crates via `cargo metadata`.\n\n```toml\n[workspace]\n# Ordered list of crates for affected-crate detection.\n# 'dir' is the directory name relative to workspace root.\n# 'pkg' is the Cargo package name (defaults to dir if omitted).\n[[workspace.crates]]\ndir = \"my-common\"\n\n[[workspace.crates]]\ndir = \"my-api\"\n\n# If 'source' changes, 'dependents' are also treated as affected.\n[[workspace.propagation]]\nsource = \"my-common\"\ndependents = [\"my-api\", \"my-cli\"]\n\n# Protocol-drift: files whose content hash is tracked in a lockfile.\n# CI fails when any surface changes without updating the lock.\n[[protocol.surfaces]]\nname = \"api-types\"\npath = \"my-api/src/types.rs\"\n\n[[protocol.surfaces]]\nname = \"cli-commands\"\npath = \"my-cli/src/commands/mod.rs\"\n\n[protocol]\nlockfile = \"taskit-protocol.lock\"   # default\n\n# Custom CI pipeline. When omitted, a built-in default pipeline is used.\n[[ci.steps]]\nname  = \"fmt-check\"\ncmd   = \"fmt --check\"\ngate  = true            # blocks subsequent steps on failure\n\n[[ci.steps]]\nname = \"lint\"\ncmd  = \"lint\"\n\n[[ci.steps]]\nname = \"test\"\ncmd  = \"test\"\n\n[[ci.steps]]\nname = \"protocol-drift\"\ncmd  = \"check-protocol-drift\"\n```\n\n## Subcommands\n\n| Command                                                  "
-- name: evidra
-  description: Local-first operational intelligence. Append-only observation ledger plus validated, idempotent persistence for redacted agent-harness evidence.
-  url: https://github.com/89jobrien/evidra
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-10-05T07:43:38Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: add architecture, conventions, operations, and schema guides'
-    date: 2026-10-03T08:32:06Z
-  - message: 'fix(adapters): give AgentHarnessJsonlSource a redacted Debug'
-    date: 2026-10-03T06:12:34Z
-  - message: 'ci: run the workspace gate through taskit check ci'
-    date: 2026-10-03T06:12:16Z
-  - message: 'docs: sync agent guide, readme, and roadmap to current state'
-    date: 2026-10-03T06:11:57Z
-  - message: 'feat(evidra-engine): add band tables and facet projection'
-    date: 2026-10-03T04:41:41Z
-  - message: 'feat(evidra-store): add schema v3 and the derived tables'
-    date: 2026-10-03T03:45:35Z
-  - message: 'chore: ignore the agent scratch directory'
-    date: 2026-10-02T22:32:08Z
-  - message: 'feat(evidra-core): add the derived facet and relationship domain'
-    date: 2026-10-02T22:27:34Z
-  - message: 'build: raise the workspace MSRV to 1.98'
-    date: 2026-10-02T21:42:29Z
-  - message: 'docs: add PRD, roadmap, four ADRs, and the derived-layer implementation plan'
-    date: 2026-10-02T21:22:19Z
-  readme: |-
-    # Evidra
-
-    **Evidence into controls.**
-
-    Evidra is a local-first operational intelligence system. It preserves operational evidence and
-    turns recurring interventions, failed automation, stale assumptions, and incidents into explicit,
-    reviewable system knowledge.
-
-    The current foundation provides an append-only SQLite observation ledger plus validated,
-    idempotent persistence for redacted agent-harness evidence.
-
-    ## Status
-
-    Evidra is at the start of version `0.1.0`. The implemented scope is intentionally narrow:
-
-    - Initialize repository-local storage.
-    - Record manual intervention observations.
-    - List observations as a table or JSON.
-    - Preserve source, subject, provenance, timestamps, and integrity metadata.
-    - Normalize bounded, redaction-attested agent-harness JSONL into validated in-memory events.
-    - Persist typed harness observations with semantic digests and append-only identity receipts.
-    - Atomically claim, ingest, and quarantine repository-local harness event files.
-
-    Harness-specific hook installation, Git/Cargo/CI/filesystem importers, inference, governed
-    assumptions, controls, policy enforcement, and entropy analysis remain future work.
-
-    ## Quickstart
-
-    ```bash
-    cargo run -p evidra-cli -- init
-    cargo run -p evidra-cli -- note --summary "Removed stale generated artifacts"
-    cargo run -p evidra-cli -- observation list
-    cargo run -p evidra-cli -- observation list --json
-    cargo run -p evidra-cli -- ingest
-    cargo run -p evidra-cli -- ingest --json
-    ```
-
-    ## Changelog
-
-    The repository uses `git-cliff` with conventional commits:
-
-    ```bash
-    git cliff --unreleased
-    git cliff --tag v0.1.0 --prepend CHANGELOG.md
-    ```
-
-    Release entries are grouped by commit type and contain no decorative symbols.
-
-    Repository-local state is stored in `.evidra/evidra.db` and is ignored by Git.
-
-    The current database schema is v3. Re-run `evidra init` to migrate a v1 or v2 repository explicitly;
-    ordinary commands do not migrate storage. Before migration, stop Evidra writers and create a
-    WAL-safe SQLite backup rat
 - name: maid
   description: File organiser CLI — sorts, converts, and routes files to Obsidian vaults
   url: https://github.com/89jobrien/maid
@@ -647,45 +721,6 @@
 
     `.md`/`.mdx` files and converted output are scanned with
     `obfsck redact --audit` before being filed. Maid
-- name: godmode
-  description: Rust-native development methodology for Claude Code, Codex, and OpenCode
-  url: https://github.com/89jobrien/godmode
-  kinds:
-  - GitHubRepo
-  - ClaudePlugin
-  language: Rust
-  pushed_at: 2026-10-05T04:44:53Z
-  version: v0.5.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'flow: finish release into main'
-    date: 2026-10-05T04:44:41Z
-  - message: 'flow: stage staging into release'
-    date: 2026-10-05T04:43:10Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-10-05T04:43:10Z
-  - message: 'chore(cliff): point the postprocessor at this repo and drop emoji headings'
-    date: 2026-10-05T04:42:54Z
-  - message: 'docs(plan): merge docs/plan-identity-followup'
-    date: 2026-10-05T03:10:46Z
-  - message: 'flow: sync main into develop'
-    date: 2026-10-05T03:05:00Z
-  - message: 'flow: finish release into main'
-    date: 2026-10-05T03:05:00Z
-  - message: 'flow: stage staging into release'
-    date: 2026-10-05T03:02:33Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-10-05T03:02:32Z
-  - message: 'chore(handoff): refresh session state after OpenCode parity merge'
-    date: 2026-10-05T03:02:24Z
-  topics:
-  - ai-agents
-  - claude-code
-  - opencode
-  - rust
-  - tdd
-  readme: "# godmode\n\nSelf-contained Rust-native development methodology plugin for Claude Code.\n\n> Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.\n\n## Overview\n\nGodmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all\nstateful operations — skills are thin wrappers that call `godmode` and act on the output.\nTasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal\n`depends_on` chains.\n\n## Install\n\n```bash\ncargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode\nclaude plugin install godmode@bazaar\n```\n\n### Pre-commit hook\n\nInstall the godmode pre-commit hook into any git repo to block commits when tasks are\nstill running and to run cargo gates (fmt-check, clippy, nextest):\n\n```bash\n# From the repo root where you want the hook installed:\nnu /path/to/godmode/hooks/install.nu\n\n# Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:\nnu \"$CLAUDE_PLUGIN_ROOT/hooks/install.nu\"\n```\n\nThe hook:\n\n1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,\n   printing the offending task IDs.\n2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and\n   `cargo nextest run --workspace`.\n3. Blocks the commit on any failure with a clear message.\n\nIf `godmode` is not on PATH, the task-state check is skipped gracefully and only the\ncargo gates run.\n\n## Skills\n\n| Skill                                     | When                                                                  |\n| ----------------------------------------- | --------------------------------------------------------------------- |\n| `godmode:using-godmode`                 "
 - name: episteme
   description: Private local-first document intelligence and research workflow
   url: https://github.com/89jobrien/episteme
@@ -2170,41 +2205,6 @@
     </p>
 
     [![OpenCode Terminal U
-- name: looprs
-  description: Just tools in a loop.
-  url: https://github.com/89jobrien/looprs
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-09-22T13:35:41Z
-  version: v0.5.5
-  stars: 1
-  downloads: 229
-  recent_commits:
-  - message: 'Merge pull request #39 from 89jobrien/fix/release-auth-header'
-    date: 2026-09-10T01:04:17Z
-  - message: 'fix(release): prevent wrapped tag auth headers'
-    date: 2026-09-10T00:52:28Z
-  - message: 'Merge pull request #38 from 89jobrien/fix/release-registry-visibility'
-    date: 2026-09-09T22:58:46Z
-  - message: 'fix(release): use registry index for visibility checks'
-    date: 2026-09-09T22:47:17Z
-  - message: 'Merge pull request #37 from 89jobrien/release-v0.5.4'
-    date: 2026-09-09T22:03:35Z
-  - message: 'fix(release): preserve unreleased changelog section'
-    date: 2026-09-09T21:52:37Z
-  - message: 'docs(changelog): prepare 0.5.4 release notes'
-    date: 2026-09-09T21:36:28Z
-  - message: 'chore(release): bump workspace to 0.5.4'
-    date: 2026-09-09T21:28:03Z
-  - message: 'Merge pull request #36 from 89jobrien/fix/nightly-fuzz-target'
-    date: 2026-09-09T03:34:20Z
-  - message: 'fix(ci): target glibc for address sanitizer fuzzing'
-    date: 2026-09-09T03:31:30Z
-  tags:
-  - tools
-  readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Local env\n\n```bash\ncp .envrc.example .envrc\ndirenv allow\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# Gemini\nexport GEMINI_API_KEY=\"...\"\nexport PROVIDER=\"gemini\"          # or: google\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\nThese are tool capabilities exposed to the model during a session (not slash commands typed at the REPL).\n\n| Tool | Description |\n|------|-------------|\n| `read` | Read files with line pagination |\n| `write` | Create or overwrite files |\n| `edit` | Replace text in files |\n| `glob` | Find files by name pattern (faster with `fd`) |\n| `grep` | Search file contents (faster with `rg`) |\n| `nu` | Execute a Nushell command |\n| `bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # "
 - name: neusym
   description: MCP server bridging Jira and Linear for bidirectional issue sync
   url: https://github.com/89jobrien/neusym
@@ -2621,7 +2621,7 @@
   pushed_at: 2026-09-22T06:11:21Z
   version: 0.1.2
   stars: null
-  downloads: 3183
+  downloads: 3188
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:21:59Z
@@ -3610,7 +3610,7 @@
   pushed_at: 2026-09-22T06:08:02Z
   version: v0.5.0
   stars: null
-  downloads: 119
+  downloads: 120
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:20:58Z
@@ -4486,7 +4486,7 @@
   pushed_at: 2026-09-06T09:35:09.342551Z
   version: 0.33.1
   stars: null
-  downloads: 440
+  downloads: 446
   recent_commits: []
 - name: minibox-domain
   description: Pure domain values and ports for the minibox container runtime
@@ -4497,7 +4497,7 @@
   pushed_at: 2026-09-06T09:33:53.764918Z
   version: 0.33.1
   stars: null
-  downloads: 123
+  downloads: 128
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -4508,7 +4508,7 @@
   pushed_at: 2026-09-06T09:33:20.863262Z
   version: 0.33.1
   stars: null
-  downloads: 624
+  downloads: 632
   recent_commits: []
 - name: minibox-cli
   description: User-facing CLI for the minibox container runtime daemon
@@ -4530,7 +4530,7 @@
   pushed_at: 2026-08-26T22:35:58.085752Z
   version: 0.33.0
   stars: null
-  downloads: 40
+  downloads: 41
   recent_commits: []
 - name: minibox-crux-plugin
   description: Crux plugin binary exposing minibox container operations via JSON-RPC stdio
@@ -4552,7 +4552,7 @@
   pushed_at: 2026-08-26T21:15:59.685804Z
   version: 0.9.0
   stars: null
-  downloads: 233
+  downloads: 241
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -4563,7 +4563,7 @@
   pushed_at: 2026-08-26T21:15:48.824269Z
   version: 0.9.0
   stars: null
-  downloads: 253
+  downloads: 262
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -4574,7 +4574,7 @@
   pushed_at: 2026-08-26T21:15:42.043834Z
   version: 0.9.0
   stars: null
-  downloads: 231
+  downloads: 239
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -4585,7 +4585,7 @@
   pushed_at: 2026-08-26T21:15:36.888035Z
   version: 0.9.0
   stars: null
-  downloads: 303
+  downloads: 313
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -4596,7 +4596,7 @@
   pushed_at: 2026-08-26T21:15:30.236606Z
   version: 0.9.0
   stars: null
-  downloads: 100
+  downloads: 102
   recent_commits: []
 - name: taskit-crux
   description: Embedded Cruxfile runner for taskit (behind feature flag)
@@ -4618,7 +4618,7 @@
   pushed_at: 2026-08-26T21:15:23.481347Z
   version: 0.9.0
   stars: null
-  downloads: 186
+  downloads: 191
   recent_commits: []
 - name: taskit-core
   description: Core types and traits for taskit
@@ -4629,7 +4629,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 316
+  downloads: 326
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -4640,7 +4640,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 481
+  downloads: 496
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
@@ -4803,7 +4803,7 @@
   pushed_at: 2026-08-22T04:09:53.925880Z
   version: 0.2.2
   stars: null
-  downloads: 58
+  downloads: 59
   recent_commits: []
 - name: trace-lang-core
   description: Core Trace<T> type — reasoning provenance as a first-class value
@@ -4814,7 +4814,7 @@
   pushed_at: 2026-08-22T04:09:49.374662Z
   version: 0.2.2
   stars: null
-  downloads: 95
+  downloads: 98
   recent_commits: []
 - name: fraude
   description: Fraude — Rust port of the claw-code agent runtime
@@ -4967,7 +4967,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 110
+  downloads: 111
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -5534,7 +5534,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 14023
+  downloads: 14286
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -5676,7 +5676,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 87
+  downloads: 88
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -5698,7 +5698,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 158
+  downloads: 160
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -5753,7 +5753,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 155
+  downloads: 157
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -6261,7 +6261,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 86
+  downloads: 87
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -6272,7 +6272,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 164
+  downloads: 166
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -6283,5 +6283,5 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 355
+  downloads: 359
   recent_commits: []
