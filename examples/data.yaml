@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-08T11:19:04Z
+  pushed_at: 2026-10-08T23:18:07Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-08T23:18:05Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-08T11:19:03Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-04T23:16:53Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-04T12:57:36Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-04T02:30:59Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,13 +213,44 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-10-09T07:01:48Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-09T07:01:47Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-08T07:02:33Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-07T06:59:41Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-06T06:59:43Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-05T07:17:13Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-04T12:48:25Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-30T12:57:18Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-29T13:16:24Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-28T14:23:52Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-27T12:23:09Z
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-08T22:48:50Z
+  pushed_at: 2026-10-09T02:41:24Z
   version: v0.33.1
   stars: 1
   downloads: null
@@ -368,68 +399,6 @@
   tags:
   - tools
   readme: "# looprs\n\nA Rust LLM agent loop CLI. Tools, loops, and conditions — no convoluted markdown parsing system.\n\n## Install\n\n```bash\ngit clone https://github.com/89jobrien/looprs.git\ncd looprs\ncargo build --release\n./target/release/looprs\n# or: cargo install --path crates/looprs-cli\n```\n\n## Local env\n\n```bash\ncp .envrc.example .envrc\ndirenv allow\n```\n\n## Configure\n\nPick a provider:\n\n```bash\n# Anthropic\nexport ANTHROPIC_API_KEY=\"sk-ant-...\"\nlooprs\n\n# OpenAI\nexport OPENAI_API_KEY=\"sk-...\"\nexport MODEL=\"gpt-4-turbo\"\nlooprs\n\n# Local (Ollama)\nollama serve  # in another terminal\nexport PROVIDER=\"local\"\nlooprs\n\n# Gemini\nexport GEMINI_API_KEY=\"...\"\nexport PROVIDER=\"gemini\"          # or: google\nlooprs\n\n# SDK-backed providers\nexport PROVIDER=\"openai-sdk\"      # openai-sdk | anthropic-sdk | claude-sdk\nlooprs\n```\n\nPersistent config: `.looprs/provider.json`. All env options: `.env.example`.\n\n## Built-in Tools\n\nThese are tool capabilities exposed to the model during a session (not slash commands typed at the REPL).\n\n| Tool | Description |\n|------|-------------|\n| `read` | Read files with line pagination |\n| `write` | Create or overwrite files |\n| `edit` | Replace text in files |\n| `glob` | Find files by name pattern (faster with `fd`) |\n| `grep` | Search file contents (faster with `rg`) |\n| `nu` | Execute a Nushell command |\n| `bash` | Execute shell commands |\n\nOptional speedups (auto-detected, falls back to pure Rust):\n\n```bash\ncargo install ripgrep fd-find\n```\n\n## File References\n\nReference files in prompts with `@filename` syntax — contents are injected into the conversation.\n\n```\nRefactor @crates/looprs-cli/src/main.rs for better error handling\nCompare @crates/looprs/src/agent.rs and @crates/looprs/src/api.rs\n```\n\n## Extensibility\n\nThe `.looprs/` directory defines repo-local agent configuration. All extension points support dual-source loading: user-level (`~/.looprs/`) and repo-level (`.looprs/`), with repo taking precedence.\n\n```\n.looprs/\n├── provider.json          # "
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-10-08T07:02:34Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-08T07:02:33Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-07T06:59:41Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-06T06:59:43Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-05T07:17:13Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-04T12:48:25Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-30T12:57:18Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-29T13:16:24Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-28T14:23:52Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-27T12:23:09Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-26T11:43:45Z
-- name: autojoe
-  description: Review -> fix -> test -> publish -> merge agent pipeline applying Joseph O'Brien's own Rust/engineering conventions to other repos (Claude Code plugin).
-  url: https://github.com/89jobrien/autojoe
-  kinds:
-  - GitHubRepo
-  language: Nushell
-  pushed_at: 2026-10-08T04:05:32Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: Delete evals/results/2026-10-06T04-18-00-144Z directory
-    date: 2026-10-08T04:05:31Z
-  - message: 'flow: promote release into main'
-    date: 2026-10-07T05:34:09Z
-  - message: 'flow: promote staging into release'
-    date: 2026-10-07T05:34:06Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-10-07T05:34:03Z
-  - message: Bump plugin version to 0.10.0 for reinstall
-    date: 2026-10-07T05:33:41Z
-  - message: 'flow: promote release into main'
-    date: 2026-10-07T05:28:35Z
-  - message: 'flow: sync main into develop'
-    date: 2026-10-07T05:28:35Z
-  - message: 'flow: stage staging into release'
-    date: 2026-10-07T05:26:16Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-10-07T05:26:16Z
-  - message: Add /pipeline slash command and taskit flow setup
-    date: 2026-10-07T05:21:05Z
 - name: taskit
   description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
   url: https://github.com/89jobrien/taskit
@@ -2070,7 +2039,7 @@
   pushed_at: 2026-09-28T11:14:55.567884Z
   version: 0.1.4
   stars: null
-  downloads: 99
+  downloads: 100
   recent_commits: []
 - name: hj
   description: Handoff state, reconciliation, rendering, and handup surveys
@@ -2686,7 +2655,7 @@
   pushed_at: 2026-09-22T06:11:21Z
   version: 0.1.2
   stars: null
-  downloads: 3202
+  downloads: 3254
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:21:59Z
@@ -3675,7 +3644,7 @@
   pushed_at: 2026-09-22T06:08:02Z
   version: v0.5.0
   stars: null
-  downloads: 120
+  downloads: 122
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:20:58Z
@@ -4353,7 +4322,7 @@
   pushed_at: 2026-09-19T23:26:25.558102Z
   version: 0.4.2
   stars: null
-  downloads: 205
+  downloads: 206
   recent_commits: []
 - name: crux-plugin
   description: Subprocess plugin host for crux pipelines
@@ -4364,7 +4333,7 @@
   pushed_at: 2026-09-19T23:25:15.417626Z
   version: 0.4.2
   stars: null
-  downloads: 24
+  downloads: 26
   recent_commits: []
 - name: crux-stdlib
   description: Standard library handlers for crux-script pipelines (fs, git, json, text, ctrl)
@@ -4375,7 +4344,7 @@
   pushed_at: 2026-09-19T23:20:09.323383Z
   version: 0.4.2
   stars: null
-  downloads: 23
+  downloads: 25
   recent_commits: []
 - name: crux-baml
   description: BAML-powered LLM handlers for crux-script pipelines (extract, decompose, plan)
@@ -4386,7 +4355,7 @@
   pushed_at: 2026-09-19T23:19:56.029215Z
   version: 0.4.2
   stars: null
-  downloads: 22
+  downloads: 24
   recent_commits: []
 - name: crux-improve
   description: Improvement protocol types for the crux agent runtime
@@ -4408,7 +4377,7 @@
   pushed_at: 2026-09-19T23:19:23.782735Z
   version: 0.4.2
   stars: null
-  downloads: 37
+  downloads: 39
   recent_commits: []
 - name: crux-script
   description: YAML-driven pipeline scripting for the crux agentic DSL
@@ -4419,7 +4388,7 @@
   pushed_at: 2026-09-19T23:19:08.831836Z
   version: 0.4.2
   stars: null
-  downloads: 72
+  downloads: 77
   recent_commits: []
 - name: crux-runtime
   description: Core types, traits, and runtime for the crux agentic DSL
@@ -4430,7 +4399,7 @@
   pushed_at: 2026-09-19T23:18:54.809506Z
   version: 0.4.2
   stars: null
-  downloads: 185
+  downloads: 192
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -4452,7 +4421,7 @@
   pushed_at: 2026-09-19T23:18:31.387415Z
   version: 0.4.2
   stars: null
-  downloads: 220
+  downloads: 228
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -4463,7 +4432,7 @@
   pushed_at: 2026-09-19T23:18:21.615338Z
   version: 0.4.2
   stars: null
-  downloads: 57
+  downloads: 59
   recent_commits: []
 - name: crux-types
   description: Serializable wire-format types for the crux agentic DSL
@@ -4474,7 +4443,7 @@
   pushed_at: 2026-09-19T23:18:09.490195Z
   version: 0.4.2
   stars: null
-  downloads: 260
+  downloads: 269
   recent_commits: []
 - name: rx-runner
   description: Runtime-neutral process execution with bounded streaming output and cancellation
@@ -4716,7 +4685,7 @@
   pushed_at: 2026-08-26T20:14:35.927497Z
   version: 0.1.0
   stars: null
-  downloads: 29
+  downloads: 30
   recent_commits: []
 - name: coursers-types
   description: Domain types and port traits for the coursers workspace
@@ -4727,7 +4696,7 @@
   pushed_at: 2026-08-26T20:14:08.806708Z
   version: 0.1.0
   stars: null
-  downloads: 43
+  downloads: 45
   recent_commits: []
 - name: prefixe-cli
   description: CLI binary for the prefixe command-rewriting system
@@ -5032,7 +5001,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 112
+  downloads: 113
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -5131,7 +5100,7 @@
   pushed_at: 2026-07-13T07:35:29.534149Z
   version: 0.3.0
   stars: null
-  downloads: 32
+  downloads: 33
   recent_commits: []
 - name: braid-ports
   description: Port traits for the braid agent platform (Provider, ToolExecutor, EventSink, ComponentRegistry)
@@ -5142,7 +5111,7 @@
   pushed_at: 2026-07-13T07:34:30.277211Z
   version: 0.3.0
   stars: null
-  downloads: 186
+  downloads: 193
   recent_commits: []
 - name: braid-model
   description: Canonical domain types for the braid agent platform
@@ -5153,7 +5122,7 @@
   pushed_at: 2026-07-13T07:33:22.653887Z
   version: 0.3.0
   stars: null
-  downloads: 240
+  downloads: 249
   recent_commits: []
 - name: claude-code-statusline
   description: Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance — minimal setup, maximum insight.
@@ -5419,7 +5388,7 @@
   pushed_at: 2026-06-08T05:39:24.236954Z
   version: 0.1.0
   stars: null
-  downloads: 74
+  downloads: 75
   recent_commits: []
 - name: disyn-memory
   description: Memory store implementation for the disyn agent pipeline
@@ -5430,7 +5399,7 @@
   pushed_at: 2026-06-08T05:26:27.409395Z
   version: 0.1.0
   stars: null
-  downloads: 73
+  downloads: 74
   recent_commits: []
 - name: disyn-neural
   description: Neural proposal engine and fact extractor for the disyn agent pipeline
@@ -5441,7 +5410,7 @@
   pushed_at: 2026-06-08T05:26:18.193930Z
   version: 0.1.0
   stars: null
-  downloads: 72
+  downloads: 73
   recent_commits: []
 - name: disyn-symbolic
   description: Symbolic verifier and repair engine for the disyn agent pipeline
@@ -5452,7 +5421,7 @@
   pushed_at: 2026-06-08T05:26:07.254857Z
   version: 0.1.0
   stars: null
-  downloads: 73
+  downloads: 74
   recent_commits: []
 - name: disyn-core
   description: Domain types, port traits, and errors for the disyn agent pipeline
@@ -5463,7 +5432,7 @@
   pushed_at: 2026-06-08T05:25:56.523924Z
   version: 0.1.0
   stars: null
-  downloads: 249
+  downloads: 253
   recent_commits: []
 - name: surgeon
   description: Agentic code analysis and improvement tool for Rust
@@ -5511,7 +5480,7 @@
   pushed_at: 2026-05-18T05:22:46.040541Z
   version: 0.2.6
   stars: null
-  downloads: 106
+  downloads: 107
   recent_commits: []
 - name: cruxx-agentic
   description: Built-in step handlers for cruxx-script pipelines
@@ -5522,7 +5491,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 166
+  downloads: 168
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -5533,7 +5502,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 236
+  downloads: 239
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -5544,7 +5513,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 353
+  downloads: 357
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -5555,7 +5524,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 500
+  downloads: 505
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -5566,7 +5535,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 378
+  downloads: 384
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -5577,7 +5546,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 235
+  downloads: 238
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -5588,7 +5557,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 118
+  downloads: 119
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -5599,7 +5568,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 14843
+  downloads: 14952
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -5610,7 +5579,7 @@
   pushed_at: 2026-05-16T04:04:45.475950Z
   version: 0.3.0
   stars: null
-  downloads: 112
+  downloads: 113
   recent_commits: []
 - name: agentlint-pi
   description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
@@ -5621,7 +5590,7 @@
   pushed_at: 2026-05-16T04:04:23.718026Z
   version: 0.3.0
   stars: null
-  downloads: 114
+  downloads: 115
   recent_commits: []
 - name: agentlint-gemini
   description: agentlint validator for Google Gemini GEMINI.md files
@@ -5632,7 +5601,7 @@
   pushed_at: 2026-05-16T04:04:00.508658Z
   version: 0.3.0
   stars: null
-  downloads: 135
+  downloads: 136
   recent_commits: []
 - name: agentlint-codex
   description: agentlint validator for OpenAI Codex AGENTS.md files
@@ -5643,7 +5612,7 @@
   pushed_at: 2026-05-16T04:03:38.113837Z
   version: 0.3.0
   stars: null
-  downloads: 133
+  downloads: 134
   recent_commits: []
 - name: agentlint-cursor
   description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
@@ -5654,7 +5623,7 @@
   pushed_at: 2026-05-16T04:03:15.391246Z
   version: 0.3.0
   stars: null
-  downloads: 134
+  downloads: 135
   recent_commits: []
 - name: agentlint-claude
   description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
@@ -5665,7 +5634,7 @@
   pushed_at: 2026-05-16T04:02:52.382445Z
   version: 0.3.0
   stars: null
-  downloads: 111
+  downloads: 112
   recent_commits: []
 - name: agentlint-frontmatter
   description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
@@ -5676,7 +5645,7 @@
   pushed_at: 2026-05-16T04:02:28.958456Z
   version: 0.3.0
   stars: null
-  downloads: 257
+  downloads: 260
   recent_commits: []
 - name: agentlint-core
   description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
@@ -5687,7 +5656,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 500
+  downloads: 508
   recent_commits: []
 - name: warpx
   description: 'Warp terminal fork: agentic dev environment, custom UI, MCP, skills'
@@ -5840,7 +5809,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 314
+  downloads: 315
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -5851,7 +5820,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 143
+  downloads: 144
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -5862,7 +5831,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 384
+  downloads: 386
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
@@ -5940,7 +5909,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 115
+  downloads: 116
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -5951,7 +5920,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 118
+  downloads: 119
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -5962,7 +5931,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 113
+  downloads: 114
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -5973,7 +5942,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 113
+  downloads: 114
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -5984,7 +5953,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 378
+  downloads: 383
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
