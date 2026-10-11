@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-10T23:17:24Z
+  pushed_at: 2026-10-11T11:16:39Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-11T11:16:37Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-10T23:17:22Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-07T11:17:37Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-06T23:18:13Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-06T11:17:48Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -569,7 +569,7 @@
   pushed_at: 2026-10-07T08:02:45Z
   version: v0.9.0
   stars: 1
-  downloads: 514
+  downloads: 515
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -3648,7 +3648,7 @@
   pushed_at: 2026-09-22T06:08:02Z
   version: v0.5.0
   stars: null
-  downloads: 123
+  downloads: 124
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:20:58Z
@@ -5585,7 +5585,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 15233
+  downloads: 15256
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -5983,171 +5983,6 @@
   stars: null
   downloads: 19
   recent_commits: []
-- name: peeprs
-  description: Claude Code session logs dashboard
-  url: https://github.com/89jobrien/peeprs
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-04-14T12:55:18Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: add README'
-    date: 2026-04-14T12:55:18Z
-  - message: 'feat: add 7 new dashboard components for token, tool, duration, timeline, cache, error, and hook analytics'
-    date: 2026-03-01T23:47:03Z
-  - message: 'chore: stop ignoring AGENTS.md, CLAUDE.md, and *.public.md'
-    date: 2026-03-01T22:37:31Z
-  - message: 'feat: add multi-agent log source support'
-    date: 2026-03-01T22:36:17Z
-  - message: Ignore all markdown files except README.md
-    date: 2026-03-01T20:46:22Z
-  - message: 'Tighten .gitignore: add editor swap files, .DS_Store, .env'
-    date: 2026-03-01T20:46:05Z
-  - message: 'Initial commit: Claude logs dashboard'
-    date: 2026-03-01T20:43:46Z
-  tags:
-  - tools
-  readme: |
-    # peeprs
-
-    Claude Code session logs dashboard — Axum web server that scans agent log directories and serves a high-density summary UI.
-
-    ## Install
-
-    ```bash
-    cargo install --path .
-    ```
-
-    ## Usage
-
-    ```
-    peeprs [OPTIONS]
-    ```
-
-    ### Options
-
-    ```
-        --root <PATH>           Log root directory (default: ~/logs/agents)
-        --host <HOST>           Bind address (default: 127.0.0.1)
-        --port <PORT>           Listen port (default: 8765)
-        --refresh-seconds <N>   Dashboard auto-refresh interval (default: 10)
-        --cache-seconds <N>     In-memory summary cache TTL (default: 5)
-        --cache-db <PATH>       SQLite scan cache path (default: <root>/.peeprs.db)
-    ```
-
-    ### Endpoints
-
-    | Route | Description |
-    |-------|-------------|
-    | `GET /` | HTML dashboard |
-    | `GET /api/summary` | JSON summary of all scanned logs |
-    | `GET /healthz` | Health check |
-
-    ### What it displays
-
-    - Totals: files, events, bytes
-    - Events by type and day
-    - Top sessions by event count
-    - Recent events with preview text
-    - Per-agent stats
-    - Token usage (input, output, cache read/write)
-    - Tool usage frequency
-    - Turn duration distribution
-    - Session timeline
-    - Hook performance
-    - Cache efficiency and error rates
-
-    Logs are expected in a structured directory layout: `<root>/<agent>/<day>/<session>/<channel>.*`. Files may be plain JSONL or gzip-compressed.
-
-    ### Examples
-
-    ```bash
-    # Start with defaults
-    peeprs
-
-    # Custom log root and port
-    peeprs --root ~/dev/logs --port 9000
-
-    # Faster refresh, persistent scan cache
-    peeprs --refresh-seconds 5 --cache-db ~/.peeprs/cache.db
-    ```
-
-    ## License
-
-    MIT
-- name: rascal
-  description: Rust Semantic Code Linter
-  url: https://github.com/89jobrien/rascal
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-04-14T12:54:33Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'docs: standardize README'
-    date: 2026-04-14T12:54:33Z
-  - message: Enhance README with features section
-    date: 2026-04-13T19:29:38Z
-  - message: Initialize README with project overview
-    date: 2026-04-13T19:26:23Z
-  - message: 'docs: add handoff'
-    date: 2026-04-13T16:55:43Z
-  - message: 'feat: initial rascal implementation'
-    date: 2026-04-13T16:50:04Z
-  - message: 'chore: initial scaffold'
-    date: 2026-04-13T02:28:41Z
-  tags:
-  - tools
-  readme: |
-    # rascal
-
-    Semantic code linter for Rust. Parses `.rs` files into chunks via tree-sitter, scores each chunk against a corpus of golden idiomatic examples using cosine similarity, and flags anything below the configured threshold.
-
-    > Note: `StubEmbedder` is active until issue #1 (OpenAI-compatible embedder) lands — all scores are currently 0.0 / passing.
-
-    ## Install
-
-    ```bash
-    cargo install --path .
-    ```
-
-    ## Usage
-
-    ```bash
-    rascal check <file>           # score all chunks in a file
-    rascal check <file> --json    # machine-readable output
-    rascal index <file>           # add a file to the corpus
-    rascal index --from <dir>     # add all .rs files in a directory tree
-    rascal corpus list            # list corpus entries
-    rascal corpus clear           # remove all corpus entries
-    ```
-
-    `check` exits 0 if all chunks pass, 1 if any fail.
-
-    ## Configuration
-
-    `~/.config/rascal/config.toml` — all fields are optional.
-
-    ```toml
-    api_url   = "https://api.openai.com/v1"
-    api_key   = "sk-..."
-    model     = "text-embedding-3-small"
-    threshold = 0.75   # cosine similarity cutoff (default: 0.75)
-
-    # chunk kinds scored during check (default: function, impl_block, trait)
-    check_kinds = ["function", "impl_block", "trait", "struct", "enum"]
-    ```
-
-    The corpus is stored at `~/.local/share/rascal/corpus.db` (SQLite).
-
-    ## License
-
-    MIT OR Apache-2.0
 - name: rusty-hooks
   description: PostToolUse validation hook for Claude Code — blocks Edit/Write when on-disk content diverges from expected
   url: https://crates.io/crates/rusty-hooks
