@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-11T23:18:01Z
+  pushed_at: 2026-10-12T11:20:06Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-12T11:20:04Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-11T23:17:59Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-08T11:19:03Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-07T23:16:40Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-07T11:17:37Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,68 +213,37 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-10-12T07:19:58Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-12T07:19:57Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-11T06:57:31Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-10T06:56:23Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-09T07:01:47Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-08T07:02:33Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-07T06:59:41Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-06T06:59:43Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-05T07:17:13Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-04T12:48:25Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-30T12:57:18Z
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-12T02:51:31Z
+  pushed_at: 2026-10-12T16:27:00Z
   version: v0.33.1
   stars: 1
   downloads: null
   recent_commits:
-  - message: 'Merge pull request #564 from 89jobrien/develop'
-    date: 2026-09-30T18:15:26Z
-  - message: 'fix(filesystem): re-validate bind mount target before unmount'
-    date: 2026-09-30T17:16:43Z
-  - message: 'fix(colima): close shell injection and rootfs escape in bind mount snippet'
-    date: 2026-09-30T17:16:36Z
-  - message: 'refactor(site): replace 11 hand-drawn arch SVGs with Mermaid sources'
-    date: 2026-09-30T10:53:26Z
-  - message: 'fix(ci): pin the crux install to the tested git revision'
-    date: 2026-09-30T10:33:17Z
-  - message: 'Merge pull request #563 from 89jobrien/develop'
-    date: 2026-09-30T10:12:34Z
-  - message: 'docs(site): move the reference site into the shared system'
-    date: 2026-09-30T09:12:56Z
-  - message: 'chore(xtask): refresh protocol-drift lock after the reconciliation merge'
-    date: 2026-09-29T20:17:53Z
-  - message: 'feat(mcp): add --version flag to mcp MCP server'
-    date: 2026-09-29T19:57:03Z
-  - message: 'merge: reconcile main with develop (two parallel Wave lineages)'
-    date: 2026-09-29T19:05:29Z
+  - message: 'Merge pull request #592 from 89jobrien/release'
+    date: 2026-10-12T16:26:56Z
+  - message: Merge branch 'staging' into release
+    date: 2026-10-12T15:43:40Z
+  - message: Merge branch 'develop' into staging
+    date: 2026-10-12T14:59:32Z
+  - message: 'fix(tests): fix third instance of overlay rstest-fixture-ordering bug'
+    date: 2026-10-12T13:58:21Z
+  - message: 'fix(tests): stop overlay mount tests from running before capability gate'
+    date: 2026-10-12T13:52:18Z
+  - message: 'fix(xtask): surface the real cargo-llvm-cov nextest failure in coverage-check'
+    date: 2026-10-12T13:17:49Z
+  - message: 'ci: drop native-macos/native-windows cloud runners from context snapshot'
+    date: 2026-10-12T13:13:14Z
+  - message: 'fix(ci): update protocol-drift lock, install llvm-tools for coverage gate'
+    date: 2026-10-12T13:01:49Z
+  - message: 'fix(ci): regenerate protocol-drift lock and gate OwnedFd import for Windows'
+    date: 2026-10-12T12:50:55Z
+  - message: Merge branch 'staging' into release
+    date: 2026-10-12T12:32:47Z
   tags:
   - infra
   topics:
@@ -330,6 +299,37 @@
 
     - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
     - **Bridge networking** — veth pa
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-10-12T07:19:58Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-12T07:19:57Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-11T06:57:31Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-10T06:56:23Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-09T07:01:47Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-08T07:02:33Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-07T06:59:41Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-06T06:59:43Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-05T07:17:13Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-04T12:48:25Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-09-30T12:57:18Z
 - name: testes
   description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
   url: https://github.com/89jobrien/testes
@@ -374,7 +374,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 3325
+  downloads: 3571
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -569,7 +569,7 @@
   pushed_at: 2026-10-07T08:02:45Z
   version: v0.9.0
   stars: 1
-  downloads: 515
+  downloads: 516
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -4403,7 +4403,7 @@
   pushed_at: 2026-09-19T23:18:54.809506Z
   version: 0.4.2
   stars: null
-  downloads: 194
+  downloads: 197
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -4425,7 +4425,7 @@
   pushed_at: 2026-09-19T23:18:31.387415Z
   version: 0.4.2
   stars: null
-  downloads: 230
+  downloads: 233
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -4447,7 +4447,7 @@
   pushed_at: 2026-09-19T23:18:09.490195Z
   version: 0.4.2
   stars: null
-  downloads: 271
+  downloads: 274
   recent_commits: []
 - name: rx-runner
   description: Runtime-neutral process execution with bounded streaming output and cancellation
@@ -5585,7 +5585,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 15288
+  downloads: 15516
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
