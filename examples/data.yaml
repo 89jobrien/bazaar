@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-12T11:20:06Z
+  pushed_at: 2026-10-12T23:18:31Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-12T23:18:28Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-12T11:20:04Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-08T23:18:05Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-08T11:19:03Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-07T23:16:40Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,31 +219,31 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-12T16:27:00Z
-  version: v0.33.1
+  pushed_at: 2026-10-13T08:18:35Z
+  version: v0.34.0
   stars: 1
   downloads: null
   recent_commits:
+  - message: 'Merge pull request #596 from 89jobrien/release'
+    date: 2026-10-13T02:49:09Z
+  - message: Merge branch 'staging' into release
+    date: 2026-10-13T02:30:30Z
+  - message: Merge branch 'develop' into staging
+    date: 2026-10-13T02:30:16Z
+  - message: 'chore: update Cargo.lock for 0.34.0 bump and refresh handoff snapshot'
+    date: 2026-10-13T02:30:01Z
+  - message: 'chore(release): bump workspace version to 0.34.0'
+    date: 2026-10-13T02:02:03Z
+  - message: 'docs(handoff): update memory-bank and handoff state after release cascade'
+    date: 2026-10-13T01:52:46Z
+  - message: 'fix(xtask): tail-truncate context-snapshot diagnostics instead of head-truncating'
+    date: 2026-10-13T01:41:59Z
   - message: 'Merge pull request #592 from 89jobrien/release'
     date: 2026-10-12T16:26:56Z
   - message: Merge branch 'staging' into release
     date: 2026-10-12T15:43:40Z
   - message: Merge branch 'develop' into staging
     date: 2026-10-12T14:59:32Z
-  - message: 'fix(tests): fix third instance of overlay rstest-fixture-ordering bug'
-    date: 2026-10-12T13:58:21Z
-  - message: 'fix(tests): stop overlay mount tests from running before capability gate'
-    date: 2026-10-12T13:52:18Z
-  - message: 'fix(xtask): surface the real cargo-llvm-cov nextest failure in coverage-check'
-    date: 2026-10-12T13:17:49Z
-  - message: 'ci: drop native-macos/native-windows cloud runners from context snapshot'
-    date: 2026-10-12T13:13:14Z
-  - message: 'fix(ci): update protocol-drift lock, install llvm-tools for coverage gate'
-    date: 2026-10-12T13:01:49Z
-  - message: 'fix(ci): regenerate protocol-drift lock and gate OwnedFd import for Windows'
-    date: 2026-10-12T12:50:55Z
-  - message: Merge branch 'staging' into release
-    date: 2026-10-12T12:32:47Z
   tags:
   - infra
   topics:
@@ -305,11 +305,13 @@
   kinds:
   - GitHubRepo
   language: HTML
-  pushed_at: 2026-10-12T07:19:58Z
+  pushed_at: 2026-10-13T07:05:03Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-13T07:05:02Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-10-12T07:19:57Z
   - message: 'chore: sync showcase from bazaar'
@@ -328,8 +330,6 @@
     date: 2026-10-05T07:17:13Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-10-04T12:48:25Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-09-30T12:57:18Z
 - name: testes
   description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
   url: https://github.com/89jobrien/testes
@@ -374,7 +374,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 3571
+  downloads: 3609
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -5585,7 +5585,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 15516
+  downloads: 15542
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
