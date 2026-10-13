@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-12T23:18:31Z
+  pushed_at: 2026-10-13T11:19:10Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-13T11:19:07Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-12T23:18:28Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-09T11:17:57Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-08T23:18:05Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-08T11:19:03Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -374,7 +374,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 3609
+  downloads: 3620
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -569,7 +569,7 @@
   pushed_at: 2026-10-07T08:02:45Z
   version: v0.9.0
   stars: 1
-  downloads: 516
+  downloads: 517
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -1089,7 +1089,7 @@
   pushed_at: 2026-10-04T00:32:48.696703Z
   version: 0.8.1
   stars: null
-  downloads: 7
+  downloads: 8
   recent_commits: []
 - name: godmode-core
   description: 'Core library for godmode: task graphs, session state, dispatch, and Claude Code plugin integrations.'
@@ -1100,7 +1100,7 @@
   pushed_at: 2026-10-04T00:26:42.198833Z
   version: 0.8.1
   stars: null
-  downloads: 27
+  downloads: 29
   recent_commits: []
 - name: notfiles
   description: Nix-based dotfiles and system configuration
@@ -5585,7 +5585,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 15542
+  downloads: 15549
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
