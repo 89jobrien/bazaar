@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-15T23:14:58Z
+  pushed_at: 2026-10-16T11:17:24Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-16T11:17:22Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-15T23:14:56Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-12T11:20:04Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-11T23:17:59Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-11T11:16:37Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,40 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: testes
+  description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
+  url: https://github.com/89jobrien/testes
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-16T12:32:53Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore(release): merge v0.2.0 from develop to main'
+    date: 2026-10-16T06:27:05Z
+  - message: 'chore(release): v0.2.0'
+    date: 2026-10-16T06:18:03Z
+  - message: 'feat: implement property! macro for property-based testing'
+    date: 2026-10-16T06:11:30Z
+  - message: 'test: add regression coverage for unit! macro evidence recording and shape validation'
+    date: 2026-10-16T05:03:48Z
+  - message: 'feat: implement unit! macro for native test evidence recording'
+    date: 2026-10-16T04:56:42Z
+  - message: 'refactor: split testes into a 9-crate workspace, one crate per dimension'
+    date: 2026-10-08T23:06:09Z
+  - message: 'refactor: split testes into a 9-crate workspace, one crate per dimension'
+    date: 2026-10-08T23:06:09Z
+  - message: 'docs: supersede ADR-0001 with the full layered-dependencies ADR'
+    date: 2026-10-08T22:38:07Z
+  - message: 'docs: correct CLAUDE.md for miette/thiserror dependency, drop stale std-only claims'
+    date: 2026-10-08T22:25:45Z
+  - message: 'feat: derive miette::Diagnostic + thiserror::Error for core error enums'
+    date: 2026-10-08T22:21:38Z
+  readme: |
+    # testes
+    Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
 - name: evidra
   description: Local-first operational intelligence. Append-only observation ledger plus validated, idempotent persistence for redacted agent-harness evidence.
   url: https://github.com/89jobrien/evidra
@@ -420,40 +454,6 @@
     | `insights` | Analyze session facets enriched with git context |
     | `audit` | Show rx prefix learning state |
     | `suggest` | Suggest new rules from unhandled co
-- name: testes
-  description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
-  url: https://github.com/89jobrien/testes
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-10-16T06:27:27Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore(release): merge v0.2.0 from develop to main'
-    date: 2026-10-16T06:27:05Z
-  - message: 'chore(release): v0.2.0'
-    date: 2026-10-16T06:18:03Z
-  - message: 'feat: implement property! macro for property-based testing'
-    date: 2026-10-16T06:11:30Z
-  - message: 'test: add regression coverage for unit! macro evidence recording and shape validation'
-    date: 2026-10-16T05:03:48Z
-  - message: 'feat: implement unit! macro for native test evidence recording'
-    date: 2026-10-16T04:56:42Z
-  - message: 'refactor: split testes into a 9-crate workspace, one crate per dimension'
-    date: 2026-10-08T23:06:09Z
-  - message: 'refactor: split testes into a 9-crate workspace, one crate per dimension'
-    date: 2026-10-08T23:06:09Z
-  - message: 'docs: supersede ADR-0001 with the full layered-dependencies ADR'
-    date: 2026-10-08T22:38:07Z
-  - message: 'docs: correct CLAUDE.md for miette/thiserror dependency, drop stale std-only claims'
-    date: 2026-10-08T22:25:45Z
-  - message: 'feat: derive miette::Diagnostic + thiserror::Error for core error enums'
-    date: 2026-10-08T22:21:38Z
-  readme: |
-    # testes
-    Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
@@ -648,7 +648,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 3717
+  downloads: 3726
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -758,7 +758,7 @@
   pushed_at: 2026-10-07T08:02:45Z
   version: v0.9.0
   stars: 1
-  downloads: 519
+  downloads: 523
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -4574,7 +4574,7 @@
   pushed_at: 2026-08-26T21:15:59.685804Z
   version: 0.9.0
   stars: null
-  downloads: 260
+  downloads: 264
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -4585,7 +4585,7 @@
   pushed_at: 2026-08-26T21:15:48.824269Z
   version: 0.9.0
   stars: null
-  downloads: 283
+  downloads: 287
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -4596,7 +4596,7 @@
   pushed_at: 2026-08-26T21:15:42.043834Z
   version: 0.9.0
   stars: null
-  downloads: 258
+  downloads: 262
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -4607,7 +4607,7 @@
   pushed_at: 2026-08-26T21:15:36.888035Z
   version: 0.9.0
   stars: null
-  downloads: 337
+  downloads: 341
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -4651,7 +4651,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 352
+  downloads: 356
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -4662,7 +4662,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 532
+  downloads: 536
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
