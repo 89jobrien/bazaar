@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-16T23:14:39Z
+  pushed_at: 2026-10-17T11:14:42Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-17T11:14:41Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-16T23:14:37Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-13T11:19:07Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-12T23:18:28Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-12T11:20:04Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,192 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: coursers
+  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
+  url: https://github.com/89jobrien/coursers
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-10-17T17:22:40Z
+  version: v0.1.0
+  stars: null
+  downloads: 13
+  recent_commits:
+  - message: 'merge: feat/rule-conformance-fuzz-harness'
+    date: 2026-10-17T16:58:00Z
+  - message: 'test: table-driven rule conformance + rewrite-engine fuzz harness'
+    date: 2026-10-17T16:57:56Z
+  - message: 'merge: chore/pre-release-quality'
+    date: 2026-10-16T06:52:11Z
+  - message: 'merge: worktree-wf_41601a10-2c4-5'
+    date: 2026-10-16T06:46:26Z
+  - message: 'merge: worktree-wf_41601a10-2c4-4'
+    date: 2026-10-16T06:46:26Z
+  - message: 'merge: worktree-wf_41601a10-2c4-3'
+    date: 2026-10-16T06:46:13Z
+  - message: 'merge: worktree-wf_41601a10-2c4-2'
+    date: 2026-10-16T06:44:34Z
+  - message: 'merge: worktree-wf_41601a10-2c4-1'
+    date: 2026-10-16T06:44:23Z
+  - message: 'merge: issue/64'
+    date: 2026-10-16T06:42:53Z
+  - message: 'merge: issue/62'
+    date: 2026-10-16T06:42:45Z
+  tags:
+  - cli
+  readme: |-
+    # coursers
+
+    Claude Code hook pipeline for course-correcting AI-generated Bash commands.
+
+    Two tools:
+
+    - **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures
+    - **`crs`** — front controller, output filter, command rewriter, and hook validator
+
+    ---
+
+    ## Quick Start
+
+    ```bash
+    # Install both binaries
+    just install
+
+    # Check the rules compile and the examples fire as expected
+    coursers validate
+
+    # See what a rule would do to a command before running it
+    echo 'git commit -am "wip"' | crs probe
+
+    # Rewrite a command into its prefixed equivalent, or exit 1 if blocked
+    crs rewrite
+
+    # Review what the hooks have blocked and learned
+    crs log --limit 20
+    ```
+
+    `coursers` and `crs` are wired into `~/.claude/settings.json` as `PreToolUse`
+    and `PostToolUse` hooks. Once installed, a matching command is denied before
+    it runs, and a command that keeps failing is denied on its Nth attempt even
+    with no rule written for it.
+
+    ---
+
+    ## Commands
+
+    All 20 subcommands, in the order `coursers --help` lists them. `crs` exposes
+    the same model. The sections below go deeper on the ones that carry the
+    design.
+
+    | Command | Effect |
+    | --- | --- |
+    | `pre` | PreToolUse hook — reads JSON payload from stdin, writes hook response to stdout |
+    | `post` | PostToolUse hook — reads JSON payload from stdin, records failures |
+    | `filter` | Filter PostToolUse output — reads hook JSON from stdin, emits hook response to stdout |
+    | `rewrite` | Rewrite a PreToolUse command — reads hook JSON from stdin, emits rewritten command or exits 1 |
+    | `discover` | Discover missed savings from Claude Code session history |
+    | `validate` | Validate rules: check patterns compile, examples fire, exceptions work |
+    | `probe` | Probe a command against all rules — reads command from stdin |
+    | `stats` | Show cumulative block counts by rule |
+    | `insights` | Analyze session facets enriched with git context |
+    | `audit` | Show rx prefix learning state |
+    | `suggest` | Suggest new rules from unhandled co
+- name: obfsck
+  description: Secret-detection and redaction CLI for pre-commit hooks
+  url: https://github.com/89jobrien/obfsck
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-10-17T16:57:33Z
+  version: v0.1.0
+  stars: 1
+  downloads: 166
+  recent_commits:
+  - message: Merge branch 'docs/session-closeout-2026-09-13'
+    date: 2026-10-17T16:56:42Z
+  - message: 'ci(site): gate documentation drift in CI, just ci, and pre-push'
+    date: 2026-10-17T16:56:37Z
+  - message: Merge branch 'docs/session-closeout-2026-09-13'
+    date: 2026-10-17T15:09:59Z
+  - message: 'fix(site): correct help output and behavioural claims on the reference site'
+    date: 2026-10-17T15:09:53Z
+  - message: 'feat(cli): add obfsck scan subcommand; scan binary becomes a shim'
+    date: 2026-10-17T15:05:37Z
+  - message: Merge branch 'docs/session-closeout-2026-09-13'
+    date: 2026-10-16T06:22:30Z
+  - message: 'docs(site): add public reference site and GitHub Pages deploy'
+    date: 2026-10-16T06:22:26Z
+  - message: Merge branch 'docs/session-closeout-2026-09-13'
+    date: 2026-10-15T15:09:31Z
+  - message: 'feat(suppression): let a standalone obfsck:ignore cover the line below'
+    date: 2026-10-15T15:08:04Z
+  - message: 'feat(cli): add immutable model-ingress redaction policy'
+    date: 2026-10-06T18:17:23Z
+  tags:
+  - cli
+  readme: |-
+    # obfsck
+
+    Redacts secrets and PII from log lines and structured text.
+
+    ## Install
+
+    ```bash
+    cargo install --path .
+    ```
+
+    ## What it does
+
+    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
+    - Obfuscates identifiers with stable mappings (same input => same token)
+    - Supports privacy levels based on how aggressive redaction should be
+
+    ## Obfuscation levels
+
+    - `Minimal`: secret pattern redaction only
+    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
+    - `Paranoid`: adds path, hostname, and high-entropy token redaction
+
+    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
+    Sensitive system paths are preserved.
+
+    Preserved path segments include common roots like `home`, `usr`, `etc`,
+    `windows`, `users`, and `programdata`.
+
+    ### What each level redacts
+
+    | Pattern category | minimal | standard | paranoid |
+    |-----------------|---------|----------|----------|
+    | Prefixed API keys & tokens (AWS, GitHub, Stripe, …) | yes | yes | yes |
+    | Generic `password = …` / `api_key = …` in source | — | — | — |
+    | IPs, emails, container IDs, usernames | — | yes | yes |
+    | PII (names, SSN, phone, credit card) | — | yes | yes |
+    | Paths, hostnames, high-entropy strings | — | — | yes |
+    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
+
+    `standard` is the privacy-forward default for sharing logs externally.
+    `minimal` is safe for internal tooling where structural identifiers are useful.
+
+    Generic keyword-anchored patterns (`password = …`, `api_key = …`) live in the
+    `code_context` group, which is disabled by default because it false-positives
+    heavily on source code. Enable it in a custom config when scanning `.env`
+    files, config dumps, or log output rather than code.
+
+    ## obfsck CLI
+
+    Redact secrets and PII from a file or stdin.
+
+    ```bash
+    # Stdin -> stdout (default level: minimal — secrets only)
+    echo "key=sk-ant-api03-ABCDEF..." | obfsck redact
+
+    # File input
+    obfsck redact path/to/logfile.txt
+
+    # Write to output file
+    obfs
 - name: 89jobrien.github.io
   description: Personal site
   url: https://github.com/89jobrien/89jobrien.github.io
@@ -449,195 +635,6 @@
     The current database schema is v3. Re-run `evidra init` to migrate a v1 or v2 repository explicitly;
     ordinary commands do not migrate storage. Before migration, stop Evidra writers and create a
     WAL-safe SQLite backup rat
-- name: coursers
-  description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
-  url: https://github.com/89jobrien/coursers
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-10-16T06:52:53Z
-  version: v0.1.0
-  stars: null
-  downloads: 13
-  recent_commits:
-  - message: 'merge: chore/pre-release-quality'
-    date: 2026-10-16T06:52:11Z
-  - message: 'merge: worktree-wf_41601a10-2c4-5'
-    date: 2026-10-16T06:46:26Z
-  - message: 'merge: worktree-wf_41601a10-2c4-4'
-    date: 2026-10-16T06:46:26Z
-  - message: 'merge: worktree-wf_41601a10-2c4-3'
-    date: 2026-10-16T06:46:13Z
-  - message: 'merge: worktree-wf_41601a10-2c4-2'
-    date: 2026-10-16T06:44:34Z
-  - message: 'merge: worktree-wf_41601a10-2c4-1'
-    date: 2026-10-16T06:44:23Z
-  - message: 'merge: issue/64'
-    date: 2026-10-16T06:42:53Z
-  - message: 'merge: issue/62'
-    date: 2026-10-16T06:42:45Z
-  - message: 'merge: issue/59'
-    date: 2026-10-16T06:31:17Z
-  - message: 'merge: issue/56'
-    date: 2026-10-16T06:31:11Z
-  tags:
-  - cli
-  readme: |-
-    # coursers
-
-    Claude Code hook pipeline for course-correcting AI-generated Bash commands.
-
-    Two tools:
-
-    - **`coursers`** — PreToolUse/PostToolUse hooks that block bad commands and learn from failures
-    - **`crs`** — front controller, output filter, command rewriter, and hook validator
-
-    ---
-
-    ## Quick Start
-
-    ```bash
-    # Install both binaries
-    just install
-
-    # Check the rules compile and the examples fire as expected
-    coursers validate
-
-    # See what a rule would do to a command before running it
-    echo 'git commit -am "wip"' | crs probe
-
-    # Rewrite a command into its prefixed equivalent, or exit 1 if blocked
-    crs rewrite
-
-    # Review what the hooks have blocked and learned
-    crs log --limit 20
-    ```
-
-    `coursers` and `crs` are wired into `~/.claude/settings.json` as `PreToolUse`
-    and `PostToolUse` hooks. Once installed, a matching command is denied before
-    it runs, and a command that keeps failing is denied on its Nth attempt even
-    with no rule written for it.
-
-    ---
-
-    ## Commands
-
-    All 20 subcommands, in the order `coursers --help` lists them. `crs` exposes
-    the same model. The sections below go deeper on the ones that carry the
-    design.
-
-    | Command | Effect |
-    | --- | --- |
-    | `pre` | PreToolUse hook — reads JSON payload from stdin, writes hook response to stdout |
-    | `post` | PostToolUse hook — reads JSON payload from stdin, records failures |
-    | `filter` | Filter PostToolUse output — reads hook JSON from stdin, emits hook response to stdout |
-    | `rewrite` | Rewrite a PreToolUse command — reads hook JSON from stdin, emits rewritten command or exits 1 |
-    | `discover` | Discover missed savings from Claude Code session history |
-    | `validate` | Validate rules: check patterns compile, examples fire, exceptions work |
-    | `probe` | Probe a command against all rules — reads command from stdin |
-    | `stats` | Show cumulative block counts by rule |
-    | `insights` | Analyze session facets enriched with git context |
-    | `audit` | Show rx prefix learning state |
-    | `suggest` | Suggest new rules from unhandled co
-- name: obfsck
-  description: Secret-detection and redaction CLI for pre-commit hooks
-  url: https://github.com/89jobrien/obfsck
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-10-16T06:23:11Z
-  version: v0.1.0
-  stars: 1
-  downloads: 166
-  recent_commits:
-  - message: Merge branch 'docs/session-closeout-2026-09-13'
-    date: 2026-10-16T06:22:30Z
-  - message: 'docs(site): add public reference site and GitHub Pages deploy'
-    date: 2026-10-16T06:22:26Z
-  - message: Merge branch 'docs/session-closeout-2026-09-13'
-    date: 2026-10-15T15:09:31Z
-  - message: 'feat(suppression): let a standalone obfsck:ignore cover the line below'
-    date: 2026-10-15T15:08:04Z
-  - message: 'feat(cli): add immutable model-ingress redaction policy'
-    date: 2026-10-06T18:17:23Z
-  - message: Merge branch 'docs/session-closeout-2026-09-13'
-    date: 2026-10-06T00:15:55Z
-  - message: 'feat(obfsck): support inline obfsck:ignore suppression marker'
-    date: 2026-10-06T00:12:15Z
-  - message: 'feat(obfsck): add --version flag to obfsck CLI binaries'
-    date: 2026-09-29T19:57:33Z
-  - message: 'feat(obfsck): add --version flag to obfsck CLI binaries'
-    date: 2026-09-29T19:57:33Z
-  - message: 'chore: checkpoint workspace and Rust documentation'
-    date: 2026-09-21T22:20:54Z
-  tags:
-  - cli
-  readme: |-
-    # obfsck
-
-    Redacts secrets and PII from log lines and structured text.
-
-    ## Install
-
-    ```bash
-    cargo install --path .
-    ```
-
-    ## What it does
-
-    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
-    - Obfuscates identifiers with stable mappings (same input => same token)
-    - Supports privacy levels based on how aggressive redaction should be
-
-    ## Obfuscation levels
-
-    - `Minimal`: secret pattern redaction only
-    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
-    - `Paranoid`: adds path, hostname, and high-entropy token redaction
-
-    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
-    Sensitive system paths are preserved.
-
-    Preserved path segments include common roots like `home`, `usr`, `etc`,
-    `windows`, `users`, and `programdata`.
-
-    ### What each level redacts
-
-    | Pattern category | minimal | standard | paranoid |
-    |-----------------|---------|----------|----------|
-    | API keys, tokens, passwords | yes | yes | yes |
-    | IPs, emails, container IDs, usernames | — | yes | yes |
-    | PII (names, SSN, phone, credit card) | — | yes | yes |
-    | Paths, hostnames, high-entropy strings | — | — | yes |
-    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
-
-    `standard` is the privacy-forward default for sharing logs externally.
-    `minimal` is safe for internal tooling where structural identifiers are useful.
-
-    ## obfsck CLI
-
-    Redact secrets and PII from a file or stdin.
-
-    ```bash
-    # Stdin -> stdout (default level: minimal — secrets only)
-    echo "key=sk-ant-api03-ABCDEF..." | obfsck redact
-
-    # File input
-    obfsck redact path/to/logfile.txt
-
-    # Write to output file
-    obfsck redact input.txt --output redacted.txt
-
-    # Increase level
-    obfsck redact input.txt --level standard   # + IPs, emails, usernames, PII
-    obfsck redact input.txt --level paranoid   # + paths, hostnames, high-entropy
-
-    # Audit mode — report findings to stderr while writing redacted output
-    obfsck redact input.txt --audit
-
-    # Custom secrets config (adds a runtime pattern pass; bundled pattern
 - name: slashcrux
   description: Shared vocabulary types for the Slash and Crux agentic Rust ecosystem
   url: https://github.com/89jobrien/slashcrux
@@ -648,7 +645,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 3732
+  downloads: 3748
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -758,7 +755,7 @@
   pushed_at: 2026-10-07T08:02:45Z
   version: v0.9.0
   stars: 1
-  downloads: 523
+  downloads: 525
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -1191,7 +1188,7 @@
   pushed_at: 2026-10-04T00:26:42.198833Z
   version: 0.8.1
   stars: null
-  downloads: 29
+  downloads: 30
   recent_commits: []
 - name: notfiles
   description: Nix-based dotfiles and system configuration
@@ -3632,7 +3629,7 @@
   pushed_at: 2026-09-22T06:08:02Z
   version: v0.5.0
   stars: null
-  downloads: 126
+  downloads: 128
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:20:58Z
@@ -4310,7 +4307,7 @@
   pushed_at: 2026-09-19T23:26:25.558102Z
   version: 0.4.2
   stars: null
-  downloads: 207
+  downloads: 208
   recent_commits: []
 - name: crux-plugin
   description: Subprocess plugin host for crux pipelines
@@ -4321,7 +4318,7 @@
   pushed_at: 2026-09-19T23:25:15.417626Z
   version: 0.4.2
   stars: null
-  downloads: 28
+  downloads: 30
   recent_commits: []
 - name: crux-stdlib
   description: Standard library handlers for crux-script pipelines (fs, git, json, text, ctrl)
@@ -4332,7 +4329,7 @@
   pushed_at: 2026-09-19T23:20:09.323383Z
   version: 0.4.2
   stars: null
-  downloads: 27
+  downloads: 29
   recent_commits: []
 - name: crux-baml
   description: BAML-powered LLM handlers for crux-script pipelines (extract, decompose, plan)
@@ -4343,7 +4340,7 @@
   pushed_at: 2026-09-19T23:19:56.029215Z
   version: 0.4.2
   stars: null
-  downloads: 26
+  downloads: 28
   recent_commits: []
 - name: crux-improve
   description: Improvement protocol types for the crux agent runtime
@@ -4365,7 +4362,7 @@
   pushed_at: 2026-09-19T23:19:23.782735Z
   version: 0.4.2
   stars: null
-  downloads: 41
+  downloads: 43
   recent_commits: []
 - name: crux-script
   description: YAML-driven pipeline scripting for the crux agentic DSL
@@ -4376,7 +4373,7 @@
   pushed_at: 2026-09-19T23:19:08.831836Z
   version: 0.4.2
   stars: null
-  downloads: 82
+  downloads: 87
   recent_commits: []
 - name: crux-runtime
   description: Core types, traits, and runtime for the crux agentic DSL
@@ -4387,7 +4384,7 @@
   pushed_at: 2026-09-19T23:18:54.809506Z
   version: 0.4.2
   stars: null
-  downloads: 205
+  downloads: 214
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -4409,7 +4406,7 @@
   pushed_at: 2026-09-19T23:18:31.387415Z
   version: 0.4.2
   stars: null
-  downloads: 242
+  downloads: 252
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -4420,7 +4417,7 @@
   pushed_at: 2026-09-19T23:18:21.615338Z
   version: 0.4.2
   stars: null
-  downloads: 61
+  downloads: 63
   recent_commits: []
 - name: crux-types
   description: Serializable wire-format types for the crux agentic DSL
@@ -4431,7 +4428,7 @@
   pushed_at: 2026-09-19T23:18:09.490195Z
   version: 0.4.2
   stars: null
-  downloads: 284
+  downloads: 294
   recent_commits: []
 - name: rx-runner
   description: Runtime-neutral process execution with bounded streaming output and cancellation
@@ -4574,7 +4571,7 @@
   pushed_at: 2026-08-26T21:15:59.685804Z
   version: 0.9.0
   stars: null
-  downloads: 264
+  downloads: 266
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -4585,7 +4582,7 @@
   pushed_at: 2026-08-26T21:15:48.824269Z
   version: 0.9.0
   stars: null
-  downloads: 287
+  downloads: 289
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -4596,7 +4593,7 @@
   pushed_at: 2026-08-26T21:15:42.043834Z
   version: 0.9.0
   stars: null
-  downloads: 262
+  downloads: 264
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -4607,7 +4604,7 @@
   pushed_at: 2026-08-26T21:15:36.888035Z
   version: 0.9.0
   stars: null
-  downloads: 341
+  downloads: 343
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -4651,7 +4648,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 356
+  downloads: 358
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -4662,7 +4659,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 536
+  downloads: 538
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
@@ -4673,7 +4670,7 @@
   pushed_at: 2026-08-26T20:14:35.927497Z
   version: 0.1.0
   stars: null
-  downloads: 31
+  downloads: 32
   recent_commits: []
 - name: coursers-types
   description: Domain types and port traits for the coursers workspace
@@ -4684,7 +4681,7 @@
   pushed_at: 2026-08-26T20:14:08.806708Z
   version: 0.1.0
   stars: null
-  downloads: 47
+  downloads: 49
   recent_commits: []
 - name: prefixe-cli
   description: CLI binary for the prefixe command-rewriting system
@@ -5002,7 +4999,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 115
+  downloads: 116
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -5101,7 +5098,7 @@
   pushed_at: 2026-07-13T07:35:29.534149Z
   version: 0.3.0
   stars: null
-  downloads: 34
+  downloads: 35
   recent_commits: []
 - name: braid-ports
   description: Port traits for the braid agent platform (Provider, ToolExecutor, EventSink, ComponentRegistry)
@@ -5112,7 +5109,7 @@
   pushed_at: 2026-07-13T07:34:30.277211Z
   version: 0.3.0
   stars: null
-  downloads: 200
+  downloads: 207
   recent_commits: []
 - name: braid-model
   description: Canonical domain types for the braid agent platform
@@ -5123,7 +5120,7 @@
   pushed_at: 2026-07-13T07:33:22.653887Z
   version: 0.3.0
   stars: null
-  downloads: 258
+  downloads: 267
   recent_commits: []
 - name: claude-code-statusline
   description: Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance — minimal setup, maximum insight.
@@ -5389,7 +5386,7 @@
   pushed_at: 2026-06-08T05:39:24.236954Z
   version: 0.1.0
   stars: null
-  downloads: 75
+  downloads: 76
   recent_commits: []
 - name: disyn-memory
   description: Memory store implementation for the disyn agent pipeline
@@ -5400,7 +5397,7 @@
   pushed_at: 2026-06-08T05:26:27.409395Z
   version: 0.1.0
   stars: null
-  downloads: 74
+  downloads: 75
   recent_commits: []
 - name: disyn-neural
   description: Neural proposal engine and fact extractor for the disyn agent pipeline
@@ -5411,7 +5408,7 @@
   pushed_at: 2026-06-08T05:26:18.193930Z
   version: 0.1.0
   stars: null
-  downloads: 73
+  downloads: 74
   recent_commits: []
 - name: disyn-symbolic
   description: Symbolic verifier and repair engine for the disyn agent pipeline
@@ -5422,7 +5419,7 @@
   pushed_at: 2026-06-08T05:26:07.254857Z
   version: 0.1.0
   stars: null
-  downloads: 74
+  downloads: 75
   recent_commits: []
 - name: disyn-core
   description: Domain types, port traits, and errors for the disyn agent pipeline
@@ -5433,7 +5430,7 @@
   pushed_at: 2026-06-08T05:25:56.523924Z
   version: 0.1.0
   stars: null
-  downloads: 253
+  downloads: 258
   recent_commits: []
 - name: surgeon
   description: Agentic code analysis and improvement tool for Rust
@@ -5481,7 +5478,7 @@
   pushed_at: 2026-05-18T05:22:46.040541Z
   version: 0.2.6
   stars: null
-  downloads: 107
+  downloads: 108
   recent_commits: []
 - name: cruxx-agentic
   description: Built-in step handlers for cruxx-script pipelines
@@ -5492,7 +5489,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 168
+  downloads: 170
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -5503,7 +5500,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 239
+  downloads: 242
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -5514,7 +5511,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 357
+  downloads: 362
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -5525,7 +5522,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 507
+  downloads: 513
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -5536,7 +5533,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 385
+  downloads: 392
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -5547,7 +5544,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 238
+  downloads: 241
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -5558,7 +5555,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 119
+  downloads: 120
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -5569,7 +5566,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 15552
+  downloads: 15560
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -5580,7 +5577,7 @@
   pushed_at: 2026-05-16T04:04:45.475950Z
   version: 0.3.0
   stars: null
-  downloads: 114
+  downloads: 115
   recent_commits: []
 - name: agentlint-pi
   description: agentlint validator for Pi AGENTS.md and SYSTEM.md files
@@ -5591,7 +5588,7 @@
   pushed_at: 2026-05-16T04:04:23.718026Z
   version: 0.3.0
   stars: null
-  downloads: 116
+  downloads: 117
   recent_commits: []
 - name: agentlint-gemini
   description: agentlint validator for Google Gemini GEMINI.md files
@@ -5602,7 +5599,7 @@
   pushed_at: 2026-05-16T04:04:00.508658Z
   version: 0.3.0
   stars: null
-  downloads: 137
+  downloads: 138
   recent_commits: []
 - name: agentlint-codex
   description: agentlint validator for OpenAI Codex AGENTS.md files
@@ -5613,7 +5610,7 @@
   pushed_at: 2026-05-16T04:03:38.113837Z
   version: 0.3.0
   stars: null
-  downloads: 135
+  downloads: 136
   recent_commits: []
 - name: agentlint-cursor
   description: agentlint validator for Cursor rule files (.mdc, .md, .cursorrules)
@@ -5624,7 +5621,7 @@
   pushed_at: 2026-05-16T04:03:15.391246Z
   version: 0.3.0
   stars: null
-  downloads: 136
+  downloads: 137
   recent_commits: []
 - name: agentlint-claude
   description: agentlint validator for Claude Code agent harness files (agents, skills, commands, hooks, settings)
@@ -5635,7 +5632,7 @@
   pushed_at: 2026-05-16T04:02:52.382445Z
   version: 0.3.0
   stars: null
-  downloads: 113
+  downloads: 114
   recent_commits: []
 - name: agentlint-frontmatter
   description: YAML frontmatter parser for agentlint — shared by Claude Code and Cursor validators
@@ -5646,7 +5643,7 @@
   pushed_at: 2026-05-16T04:02:28.958456Z
   version: 0.3.0
   stars: null
-  downloads: 263
+  downloads: 266
   recent_commits: []
 - name: agentlint-core
   description: 'Core primitives for agentlint: Diagnostic, Validator trait, file runner, and output formatters'
@@ -5657,7 +5654,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 515
+  downloads: 522
   recent_commits: []
 - name: warpx
   description: 'Warp terminal fork: agentic dev environment, custom UI, MCP, skills'
@@ -5810,7 +5807,7 @@
   pushed_at: 2026-04-17T20:22:19.898003Z
   version: 0.2.1
   stars: null
-  downloads: 316
+  downloads: 317
   recent_commits: []
 - name: cruxai-macros
   description: Proc macros for the cruxai agentic DSL
@@ -5821,7 +5818,7 @@
   pushed_at: 2026-04-17T20:22:07.564880Z
   version: 0.2.1
   stars: null
-  downloads: 145
+  downloads: 146
   recent_commits: []
 - name: cruxai-core
   description: Core types, traits, and runtime for the cruxai agentic DSL
@@ -5832,7 +5829,7 @@
   pushed_at: 2026-04-17T20:21:56.223989Z
   version: 0.2.1
   stars: null
-  downloads: 388
+  downloads: 390
   recent_commits: []
 - name: hj-cli
   description: CLI for handoff state, reconciliation, and handup surveys
