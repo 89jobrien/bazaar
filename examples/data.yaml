@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-17T11:14:42Z
+  pushed_at: 2026-10-17T23:13:34Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-17T23:13:32Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-17T11:14:41Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-13T23:14:50Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-13T11:19:07Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-12T23:18:28Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,123 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-10-18T06:51:50Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-18T06:51:49Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-17T06:51:28Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-16T06:56:35Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-15T06:56:43Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-14T06:56:26Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-13T07:05:02Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-12T07:19:57Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-11T06:57:31Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-10T06:56:23Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-09T07:01:47Z
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-18T02:31:24Z
+  version: v0.34.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #599 from 89jobrien/release'
+    date: 2026-10-15T16:30:52Z
+  - message: 'chore(release): update protocol drift lock for v0.34.1'
+    date: 2026-10-15T16:22:09Z
+  - message: Merge branch staging into release
+    date: 2026-10-15T16:11:24Z
+  - message: Merge branch develop into staging
+    date: 2026-10-15T16:11:24Z
+  - message: 'fix(minibox-tui): resolve clippy warnings in test module'
+    date: 2026-10-15T16:07:20Z
+  - message: Merge branch 'staging' of github.com:89jobrien/minibox into staging
+    date: 2026-10-15T15:56:51Z
+  - message: Merge branch 'staging' into release
+    date: 2026-10-15T15:56:27Z
+  - message: Merge branch 'develop' into staging
+    date: 2026-10-15T15:56:11Z
+  - message: 'refactor(ops): simplify e2e-local.nu daemon lifecycle with scoped with-env blocks'
+    date: 2026-10-15T15:55:54Z
+  - message: 'fix(minibox-signpost): suppress missing-const-for-fn clippy lint on cfg-gated functions'
+    date: 2026-10-15T15:48:37Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: The stabilization freeze was lifted on 2026-08-18. The standing promotion
+    > gates remain in force; see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
+
+    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
+    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
+    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
+    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
+    lifecycle without shelling out to the CLI.
+
+    **Status:** Active development — `v0.33.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — local `search`, `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `mbx logs <id>` for stored stdout/stderr
+    - Container events — `mbx events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pa
 - name: coursers
   description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
   url: https://github.com/89jobrien/coursers
@@ -314,7 +431,7 @@
   pushed_at: 2026-10-17T16:57:33Z
   version: v0.1.0
   stars: 1
-  downloads: 166
+  downloads: 168
   recent_commits:
   - message: Merge branch 'docs/session-closeout-2026-09-13'
     date: 2026-10-17T16:56:42Z
@@ -399,123 +516,6 @@
 
     # Write to output file
     obfs
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-10-17T06:51:29Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-17T06:51:28Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-16T06:56:35Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-15T06:56:43Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-14T06:56:26Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-13T07:05:02Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-12T07:19:57Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-11T06:57:31Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-10T06:56:23Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-09T07:01:47Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-08T07:02:33Z
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-10-17T02:34:44Z
-  version: v0.34.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #599 from 89jobrien/release'
-    date: 2026-10-15T16:30:52Z
-  - message: 'chore(release): update protocol drift lock for v0.34.1'
-    date: 2026-10-15T16:22:09Z
-  - message: Merge branch staging into release
-    date: 2026-10-15T16:11:24Z
-  - message: Merge branch develop into staging
-    date: 2026-10-15T16:11:24Z
-  - message: 'fix(minibox-tui): resolve clippy warnings in test module'
-    date: 2026-10-15T16:07:20Z
-  - message: Merge branch 'staging' of github.com:89jobrien/minibox into staging
-    date: 2026-10-15T15:56:51Z
-  - message: Merge branch 'staging' into release
-    date: 2026-10-15T15:56:27Z
-  - message: Merge branch 'develop' into staging
-    date: 2026-10-15T15:56:11Z
-  - message: 'refactor(ops): simplify e2e-local.nu daemon lifecycle with scoped with-env blocks'
-    date: 2026-10-15T15:55:54Z
-  - message: 'fix(minibox-signpost): suppress missing-const-for-fn clippy lint on cfg-gated functions'
-    date: 2026-10-15T15:48:37Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: The stabilization freeze was lifted on 2026-08-18. The standing promotion
-    > gates remain in force; see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
-
-    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
-    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
-    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
-    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
-    lifecycle without shelling out to the CLI.
-
-    **Status:** Active development — `v0.33.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — local `search`, `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `mbx logs <id>` for stored stdout/stderr
-    - Container events — `mbx events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pa
 - name: testes
   description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
   url: https://github.com/89jobrien/testes
@@ -645,7 +645,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 3748
+  downloads: 3766
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -720,7 +720,7 @@
   pushed_at: 2026-10-08T07:20:03Z
   version: v0.5.5
   stars: 1
-  downloads: 231
+  downloads: 233
   recent_commits:
   - message: 'Merge pull request #65 from 89jobrien/release'
     date: 2026-10-08T07:20:02Z
@@ -2095,7 +2095,7 @@
   pushed_at: 2026-09-28T11:14:55.567884Z
   version: 0.1.4
   stars: null
-  downloads: 101
+  downloads: 102
   recent_commits: []
 - name: hj
   description: Handoff state, reconciliation, rendering, and handup surveys
@@ -3629,7 +3629,7 @@
   pushed_at: 2026-09-22T06:08:02Z
   version: v0.5.0
   stars: null
-  downloads: 128
+  downloads: 129
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:20:58Z
@@ -4461,7 +4461,7 @@
   pushed_at: 2026-09-10T00:32:30.983491Z
   version: 0.5.4
   stars: null
-  downloads: 78
+  downloads: 79
   recent_commits: []
 - name: looprs-core
   description: Domain types, ports, and macros for looprs
@@ -4472,7 +4472,7 @@
   pushed_at: 2026-09-10T00:32:24.817094Z
   version: 0.5.4
   stars: null
-  downloads: 254
+  downloads: 257
   recent_commits: []
 - name: looprs-macros
   description: Reusable macro_rules! macros for looprs
@@ -4483,7 +4483,7 @@
   pushed_at: 2026-09-09T22:39:00.077887Z
   version: 0.5.4
   stars: null
-  downloads: 114
+  downloads: 118
   recent_commits: []
 - name: minibox-mcp
   description: MCP stdio server exposing minibox daemon operations
@@ -4505,7 +4505,7 @@
   pushed_at: 2026-09-06T09:35:09.342551Z
   version: 0.33.1
   stars: null
-  downloads: 453
+  downloads: 459
   recent_commits: []
 - name: minibox-domain
   description: Pure domain values and ports for the minibox container runtime
@@ -4516,7 +4516,7 @@
   pushed_at: 2026-09-06T09:33:53.764918Z
   version: 0.33.1
   stars: null
-  downloads: 135
+  downloads: 140
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -4527,7 +4527,7 @@
   pushed_at: 2026-09-06T09:33:20.863262Z
   version: 0.33.1
   stars: null
-  downloads: 643
+  downloads: 651
   recent_commits: []
 - name: minibox-cli
   description: User-facing CLI for the minibox container runtime daemon
@@ -4549,7 +4549,7 @@
   pushed_at: 2026-08-26T22:35:58.085752Z
   version: 0.33.0
   stars: null
-  downloads: 43
+  downloads: 44
   recent_commits: []
 - name: minibox-crux-plugin
   description: Crux plugin binary exposing minibox container operations via JSON-RPC stdio
@@ -4571,7 +4571,7 @@
   pushed_at: 2026-08-26T21:15:59.685804Z
   version: 0.9.0
   stars: null
-  downloads: 266
+  downloads: 267
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -4582,7 +4582,7 @@
   pushed_at: 2026-08-26T21:15:48.824269Z
   version: 0.9.0
   stars: null
-  downloads: 289
+  downloads: 291
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -4593,7 +4593,7 @@
   pushed_at: 2026-08-26T21:15:42.043834Z
   version: 0.9.0
   stars: null
-  downloads: 264
+  downloads: 265
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -4604,7 +4604,7 @@
   pushed_at: 2026-08-26T21:15:36.888035Z
   version: 0.9.0
   stars: null
-  downloads: 343
+  downloads: 346
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -4615,7 +4615,7 @@
   pushed_at: 2026-08-26T21:15:30.236606Z
   version: 0.9.0
   stars: null
-  downloads: 107
+  downloads: 109
   recent_commits: []
 - name: taskit-crux
   description: Embedded Cruxfile runner for taskit (behind feature flag)
@@ -4637,7 +4637,7 @@
   pushed_at: 2026-08-26T21:15:23.481347Z
   version: 0.9.0
   stars: null
-  downloads: 201
+  downloads: 204
   recent_commits: []
 - name: taskit-core
   description: Core types and traits for taskit
@@ -4648,7 +4648,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 358
+  downloads: 361
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -4659,7 +4659,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 538
+  downloads: 544
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
@@ -4822,7 +4822,7 @@
   pushed_at: 2026-08-22T04:09:53.925880Z
   version: 0.2.2
   stars: null
-  downloads: 61
+  downloads: 62
   recent_commits: []
 - name: trace-lang-core
   description: Core Trace<T> type — reasoning provenance as a first-class value
@@ -4833,7 +4833,7 @@
   pushed_at: 2026-08-22T04:09:49.374662Z
   version: 0.2.2
   stars: null
-  downloads: 104
+  downloads: 107
   recent_commits: []
 - name: fraude
   description: Fraude — Rust port of the claw-code agent runtime
@@ -4999,7 +4999,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 116
+  downloads: 117
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -5120,7 +5120,7 @@
   pushed_at: 2026-07-13T07:33:22.653887Z
   version: 0.3.0
   stars: null
-  downloads: 267
+  downloads: 268
   recent_commits: []
 - name: claude-code-statusline
   description: Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance — minimal setup, maximum insight.
@@ -5533,7 +5533,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 392
+  downloads: 393
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -5566,7 +5566,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 15560
+  downloads: 15561
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -5708,7 +5708,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 89
+  downloads: 90
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -5730,7 +5730,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 162
+  downloads: 164
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -5785,7 +5785,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 161
+  downloads: 163
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -5851,7 +5851,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 116
+  downloads: 117
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -5862,7 +5862,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 119
+  downloads: 120
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -5873,7 +5873,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 114
+  downloads: 115
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -5884,7 +5884,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 114
+  downloads: 115
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -5895,7 +5895,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 384
+  downloads: 388
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
@@ -5939,7 +5939,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 88
+  downloads: 89
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -5950,7 +5950,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 168
+  downloads: 170
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -5961,7 +5961,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 367
+  downloads: 371
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
