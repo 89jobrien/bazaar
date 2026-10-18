@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-17T23:13:34Z
+  pushed_at: 2026-10-18T11:14:09Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-18T11:14:07Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-17T23:13:32Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-14T11:18:02Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-13T23:14:50Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-13T11:19:07Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,40 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: testes
+  description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
+  url: https://github.com/89jobrien/testes
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-18T19:36:20Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore(release): merge v0.2.0 from develop to main'
+    date: 2026-10-16T06:27:05Z
+  - message: 'chore(release): v0.2.0'
+    date: 2026-10-16T06:18:03Z
+  - message: 'feat: implement property! macro for property-based testing'
+    date: 2026-10-16T06:11:30Z
+  - message: 'test: add regression coverage for unit! macro evidence recording and shape validation'
+    date: 2026-10-16T05:03:48Z
+  - message: 'feat: implement unit! macro for native test evidence recording'
+    date: 2026-10-16T04:56:42Z
+  - message: 'refactor: split testes into a 9-crate workspace, one crate per dimension'
+    date: 2026-10-08T23:06:09Z
+  - message: 'refactor: split testes into a 9-crate workspace, one crate per dimension'
+    date: 2026-10-08T23:06:09Z
+  - message: 'docs: supersede ADR-0001 with the full layered-dependencies ADR'
+    date: 2026-10-08T22:38:07Z
+  - message: 'docs: correct CLAUDE.md for miette/thiserror dependency, drop stale std-only claims'
+    date: 2026-10-08T22:25:45Z
+  - message: 'feat: derive miette::Diagnostic + thiserror::Error for core error enums'
+    date: 2026-10-08T22:21:38Z
+  readme: |
+    # testes
+    Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
 - name: 89jobrien.github.io
   description: Personal site
   url: https://github.com/89jobrien/89jobrien.github.io
@@ -431,7 +465,7 @@
   pushed_at: 2026-10-17T16:57:33Z
   version: v0.1.0
   stars: 1
-  downloads: 168
+  downloads: 170
   recent_commits:
   - message: Merge branch 'docs/session-closeout-2026-09-13'
     date: 2026-10-17T16:56:42Z
@@ -516,40 +550,6 @@
 
     # Write to output file
     obfs
-- name: testes
-  description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
-  url: https://github.com/89jobrien/testes
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-10-16T12:32:53Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore(release): merge v0.2.0 from develop to main'
-    date: 2026-10-16T06:27:05Z
-  - message: 'chore(release): v0.2.0'
-    date: 2026-10-16T06:18:03Z
-  - message: 'feat: implement property! macro for property-based testing'
-    date: 2026-10-16T06:11:30Z
-  - message: 'test: add regression coverage for unit! macro evidence recording and shape validation'
-    date: 2026-10-16T05:03:48Z
-  - message: 'feat: implement unit! macro for native test evidence recording'
-    date: 2026-10-16T04:56:42Z
-  - message: 'refactor: split testes into a 9-crate workspace, one crate per dimension'
-    date: 2026-10-08T23:06:09Z
-  - message: 'refactor: split testes into a 9-crate workspace, one crate per dimension'
-    date: 2026-10-08T23:06:09Z
-  - message: 'docs: supersede ADR-0001 with the full layered-dependencies ADR'
-    date: 2026-10-08T22:38:07Z
-  - message: 'docs: correct CLAUDE.md for miette/thiserror dependency, drop stale std-only claims'
-    date: 2026-10-08T22:25:45Z
-  - message: 'feat: derive miette::Diagnostic + thiserror::Error for core error enums'
-    date: 2026-10-08T22:21:38Z
-  readme: |
-    # testes
-    Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
 - name: evidra
   description: Local-first operational intelligence. Append-only observation ledger plus validated, idempotent persistence for redacted agent-harness evidence.
   url: https://github.com/89jobrien/evidra
@@ -645,7 +645,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 3766
+  downloads: 3777
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -720,7 +720,7 @@
   pushed_at: 2026-10-08T07:20:03Z
   version: v0.5.5
   stars: 1
-  downloads: 233
+  downloads: 236
   recent_commits:
   - message: 'Merge pull request #65 from 89jobrien/release'
     date: 2026-10-08T07:20:02Z
@@ -755,7 +755,7 @@
   pushed_at: 2026-10-07T08:02:45Z
   version: v0.9.0
   stars: 1
-  downloads: 525
+  downloads: 526
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -1188,7 +1188,7 @@
   pushed_at: 2026-10-04T00:26:42.198833Z
   version: 0.8.1
   stars: null
-  downloads: 30
+  downloads: 31
   recent_commits: []
 - name: notfiles
   description: Nix-based dotfiles and system configuration
@@ -3629,7 +3629,7 @@
   pushed_at: 2026-09-22T06:08:02Z
   version: v0.5.0
   stars: null
-  downloads: 129
+  downloads: 130
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:20:58Z
@@ -4384,7 +4384,7 @@
   pushed_at: 2026-09-19T23:18:54.809506Z
   version: 0.4.2
   stars: null
-  downloads: 214
+  downloads: 216
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -4406,7 +4406,7 @@
   pushed_at: 2026-09-19T23:18:31.387415Z
   version: 0.4.2
   stars: null
-  downloads: 252
+  downloads: 254
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -4428,7 +4428,7 @@
   pushed_at: 2026-09-19T23:18:09.490195Z
   version: 0.4.2
   stars: null
-  downloads: 294
+  downloads: 296
   recent_commits: []
 - name: rx-runner
   description: Runtime-neutral process execution with bounded streaming output and cancellation
@@ -4461,7 +4461,7 @@
   pushed_at: 2026-09-10T00:32:30.983491Z
   version: 0.5.4
   stars: null
-  downloads: 79
+  downloads: 80
   recent_commits: []
 - name: looprs-core
   description: Domain types, ports, and macros for looprs
@@ -4472,7 +4472,7 @@
   pushed_at: 2026-09-10T00:32:24.817094Z
   version: 0.5.4
   stars: null
-  downloads: 257
+  downloads: 261
   recent_commits: []
 - name: looprs-macros
   description: Reusable macro_rules! macros for looprs
@@ -4483,7 +4483,7 @@
   pushed_at: 2026-09-09T22:39:00.077887Z
   version: 0.5.4
   stars: null
-  downloads: 118
+  downloads: 123
   recent_commits: []
 - name: minibox-mcp
   description: MCP stdio server exposing minibox daemon operations
@@ -4505,7 +4505,7 @@
   pushed_at: 2026-09-06T09:35:09.342551Z
   version: 0.33.1
   stars: null
-  downloads: 459
+  downloads: 462
   recent_commits: []
 - name: minibox-domain
   description: Pure domain values and ports for the minibox container runtime
@@ -4516,7 +4516,7 @@
   pushed_at: 2026-09-06T09:33:53.764918Z
   version: 0.33.1
   stars: null
-  downloads: 140
+  downloads: 142
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -4527,7 +4527,7 @@
   pushed_at: 2026-09-06T09:33:20.863262Z
   version: 0.33.1
   stars: null
-  downloads: 651
+  downloads: 654
   recent_commits: []
 - name: minibox-cli
   description: User-facing CLI for the minibox container runtime daemon
@@ -4571,7 +4571,7 @@
   pushed_at: 2026-08-26T21:15:59.685804Z
   version: 0.9.0
   stars: null
-  downloads: 267
+  downloads: 268
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -4582,7 +4582,7 @@
   pushed_at: 2026-08-26T21:15:48.824269Z
   version: 0.9.0
   stars: null
-  downloads: 291
+  downloads: 292
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -4593,7 +4593,7 @@
   pushed_at: 2026-08-26T21:15:42.043834Z
   version: 0.9.0
   stars: null
-  downloads: 265
+  downloads: 266
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -4604,7 +4604,7 @@
   pushed_at: 2026-08-26T21:15:36.888035Z
   version: 0.9.0
   stars: null
-  downloads: 346
+  downloads: 347
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -4648,7 +4648,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 361
+  downloads: 362
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -4659,7 +4659,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 544
+  downloads: 545
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
@@ -4999,7 +4999,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 117
+  downloads: 118
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -5386,7 +5386,7 @@
   pushed_at: 2026-06-08T05:39:24.236954Z
   version: 0.1.0
   stars: null
-  downloads: 76
+  downloads: 77
   recent_commits: []
 - name: disyn-memory
   description: Memory store implementation for the disyn agent pipeline
@@ -5397,7 +5397,7 @@
   pushed_at: 2026-06-08T05:26:27.409395Z
   version: 0.1.0
   stars: null
-  downloads: 75
+  downloads: 76
   recent_commits: []
 - name: disyn-neural
   description: Neural proposal engine and fact extractor for the disyn agent pipeline
@@ -5408,7 +5408,7 @@
   pushed_at: 2026-06-08T05:26:18.193930Z
   version: 0.1.0
   stars: null
-  downloads: 74
+  downloads: 75
   recent_commits: []
 - name: disyn-symbolic
   description: Symbolic verifier and repair engine for the disyn agent pipeline
@@ -5419,7 +5419,7 @@
   pushed_at: 2026-06-08T05:26:07.254857Z
   version: 0.1.0
   stars: null
-  downloads: 75
+  downloads: 76
   recent_commits: []
 - name: disyn-core
   description: Domain types, port traits, and errors for the disyn agent pipeline
@@ -5430,7 +5430,7 @@
   pushed_at: 2026-06-08T05:25:56.523924Z
   version: 0.1.0
   stars: null
-  downloads: 258
+  downloads: 261
   recent_commits: []
 - name: surgeon
   description: Agentic code analysis and improvement tool for Rust
@@ -5478,7 +5478,7 @@
   pushed_at: 2026-05-18T05:22:46.040541Z
   version: 0.2.6
   stars: null
-  downloads: 108
+  downloads: 109
   recent_commits: []
 - name: cruxx-agentic
   description: Built-in step handlers for cruxx-script pipelines
@@ -5489,7 +5489,7 @@
   pushed_at: 2026-05-18T05:22:28.264138Z
   version: 0.2.6
   stars: null
-  downloads: 170
+  downloads: 172
   recent_commits: []
 - name: cruxx-plugin
   description: Subprocess plugin host for cruxx pipelines
@@ -5500,7 +5500,7 @@
   pushed_at: 2026-05-18T05:21:57.540178Z
   version: 0.2.6
   stars: null
-  downloads: 242
+  downloads: 245
   recent_commits: []
 - name: cruxx-script
   description: YAML-driven pipeline scripting for the cruxx agentic DSL
@@ -5511,7 +5511,7 @@
   pushed_at: 2026-05-18T05:21:50.865259Z
   version: 0.2.6
   stars: null
-  downloads: 362
+  downloads: 367
   recent_commits: []
 - name: cruxx-core
   description: Core types, traits, and runtime for the cruxx agentic DSL
@@ -5522,7 +5522,7 @@
   pushed_at: 2026-05-18T05:18:38.899927Z
   version: 0.2.6
   stars: null
-  downloads: 513
+  downloads: 518
   recent_commits: []
 - name: cruxx-domain
   description: Pure domain types for the cruxx agentic DSL — no async, no LLM deps
@@ -5533,7 +5533,7 @@
   pushed_at: 2026-05-18T05:12:27.135394Z
   version: 0.2.6
   stars: null
-  downloads: 393
+  downloads: 399
   recent_commits: []
 - name: cruxx-model
   description: Canonical model ID types and provider-specific parsers for cruxx
@@ -5544,7 +5544,7 @@
   pushed_at: 2026-05-18T05:11:58.442747Z
   version: 0.2.6
   stars: null
-  downloads: 241
+  downloads: 244
   recent_commits: []
 - name: cruxx-macros
   description: Proc macros for the cruxx agentic DSL
@@ -5555,7 +5555,7 @@
   pushed_at: 2026-05-18T05:11:55.864725Z
   version: 0.2.6
   stars: null
-  downloads: 120
+  downloads: 121
   recent_commits: []
 - name: cruxx-types
   description: Serializable wire-format types for the cruxx agentic DSL
@@ -5566,7 +5566,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 15561
+  downloads: 15567
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
@@ -5730,7 +5730,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 164
+  downloads: 165
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -5851,7 +5851,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 117
+  downloads: 118
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -5862,7 +5862,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 120
+  downloads: 121
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -5873,7 +5873,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 115
+  downloads: 116
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -5884,7 +5884,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 115
+  downloads: 116
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -5895,7 +5895,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 388
+  downloads: 390
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
@@ -5939,7 +5939,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 89
+  downloads: 90
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -5950,7 +5950,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 170
+  downloads: 172
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -5961,7 +5961,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 371
+  downloads: 375
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
