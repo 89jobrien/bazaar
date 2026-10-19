@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-18T23:14:19Z
+  pushed_at: 2026-10-19T11:17:37Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-19T11:17:34Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-18T23:14:17Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-15T11:17:13Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-14T23:16:05Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-14T11:18:02Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -645,7 +645,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 3784
+  downloads: 3787
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -755,7 +755,7 @@
   pushed_at: 2026-10-07T08:02:45Z
   version: v0.9.0
   stars: 1
-  downloads: 526
+  downloads: 527
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -4384,7 +4384,7 @@
   pushed_at: 2026-09-19T23:18:54.809506Z
   version: 0.4.2
   stars: null
-  downloads: 216
+  downloads: 219
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -4406,7 +4406,7 @@
   pushed_at: 2026-09-19T23:18:31.387415Z
   version: 0.4.2
   stars: null
-  downloads: 254
+  downloads: 257
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -4428,7 +4428,7 @@
   pushed_at: 2026-09-19T23:18:09.490195Z
   version: 0.4.2
   stars: null
-  downloads: 296
+  downloads: 299
   recent_commits: []
 - name: rx-runner
   description: Runtime-neutral process execution with bounded streaming output and cancellation
@@ -4571,7 +4571,7 @@
   pushed_at: 2026-08-26T21:15:59.685804Z
   version: 0.9.0
   stars: null
-  downloads: 269
+  downloads: 270
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -4582,7 +4582,7 @@
   pushed_at: 2026-08-26T21:15:48.824269Z
   version: 0.9.0
   stars: null
-  downloads: 294
+  downloads: 295
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -4593,7 +4593,7 @@
   pushed_at: 2026-08-26T21:15:42.043834Z
   version: 0.9.0
   stars: null
-  downloads: 267
+  downloads: 268
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -4604,7 +4604,7 @@
   pushed_at: 2026-08-26T21:15:36.888035Z
   version: 0.9.0
   stars: null
-  downloads: 349
+  downloads: 350
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -4648,7 +4648,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 365
+  downloads: 366
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -4659,7 +4659,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 550
+  downloads: 551
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
@@ -4999,7 +4999,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 118
+  downloads: 119
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -5109,7 +5109,7 @@
   pushed_at: 2026-07-13T07:34:30.277211Z
   version: 0.3.0
   stars: null
-  downloads: 209
+  downloads: 212
   recent_commits: []
 - name: braid-model
   description: Canonical domain types for the braid agent platform
@@ -5120,7 +5120,7 @@
   pushed_at: 2026-07-13T07:33:22.653887Z
   version: 0.3.0
   stars: null
-  downloads: 270
+  downloads: 273
   recent_commits: []
 - name: claude-code-statusline
   description: Supercharge your Claude Code CLI experience with a powerful statusline that displays key session metrics (Git state, context usage, model info and cost) at a glance — minimal setup, maximum insight.
