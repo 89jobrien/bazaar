@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-21T23:16:04Z
+  pushed_at: 2026-10-22T11:17:22Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-22T11:17:20Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-21T23:16:02Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-18T11:14:07Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-17T23:13:32Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-17T11:14:41Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,44 +213,13 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-10-22T06:57:34Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-22T06:57:33Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-21T06:58:00Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-20T06:56:08Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-19T07:09:52Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-18T06:51:49Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-17T06:51:28Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-16T06:56:35Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-15T06:56:43Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-14T06:56:26Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-13T07:05:02Z
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-22T02:32:45Z
+  pushed_at: 2026-10-22T21:30:00Z
   version: v0.34.0
   stars: 1
   downloads: null
@@ -330,6 +299,37 @@
 
     - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
     - **Bridge networking** — veth pa
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-10-22T06:57:34Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-22T06:57:33Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-21T06:58:00Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-20T06:56:08Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-19T07:09:52Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-18T06:51:49Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-17T06:51:28Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-16T06:56:35Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-15T06:56:43Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-14T06:56:26Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-13T07:05:02Z
 - name: praxis
   description: Self-improving agent runtime for the cruxx agentic DSL
   url: https://github.com/89jobrien/praxis
@@ -1016,7 +1016,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 3920
+  downloads: 3929
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -1126,7 +1126,7 @@
   pushed_at: 2026-10-07T08:02:45Z
   version: v0.9.0
   stars: 1
-  downloads: 529
+  downloads: 530
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -4575,7 +4575,7 @@
   pushed_at: 2026-08-26T21:15:59.685804Z
   version: 0.9.0
   stars: null
-  downloads: 274
+  downloads: 275
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -4586,7 +4586,7 @@
   pushed_at: 2026-08-26T21:15:48.824269Z
   version: 0.9.0
   stars: null
-  downloads: 300
+  downloads: 301
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -4597,7 +4597,7 @@
   pushed_at: 2026-08-26T21:15:42.043834Z
   version: 0.9.0
   stars: null
-  downloads: 272
+  downloads: 273
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -4608,7 +4608,7 @@
   pushed_at: 2026-08-26T21:15:36.888035Z
   version: 0.9.0
   stars: null
-  downloads: 356
+  downloads: 357
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -4652,7 +4652,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 372
+  downloads: 373
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -4663,7 +4663,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 560
+  downloads: 561
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
