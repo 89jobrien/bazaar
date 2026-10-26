@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-25T23:15:19Z
+  pushed_at: 2026-10-26T11:20:43Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-26T11:20:42Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-25T23:15:17Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-22T11:17:20Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-21T23:16:02Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-21T11:17:28Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -1119,7 +1119,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 4028
+  downloads: 4029
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -4509,7 +4509,7 @@
   pushed_at: 2026-09-06T09:35:09.342551Z
   version: 0.33.1
   stars: null
-  downloads: 481
+  downloads: 482
   recent_commits: []
 - name: minibox-domain
   description: Pure domain values and ports for the minibox container runtime
@@ -4520,7 +4520,7 @@
   pushed_at: 2026-09-06T09:33:53.764918Z
   version: 0.33.1
   stars: null
-  downloads: 158
+  downloads: 159
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -4531,7 +4531,7 @@
   pushed_at: 2026-09-06T09:33:20.863262Z
   version: 0.33.1
   stars: null
-  downloads: 678
+  downloads: 679
   recent_commits: []
 - name: minibox-cli
   description: User-facing CLI for the minibox container runtime daemon
