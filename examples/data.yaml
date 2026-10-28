@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-27T23:11:16Z
+  pushed_at: 2026-10-28T11:13:12Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-28T11:13:09Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-27T23:11:14Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-24T11:14:47Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-23T23:15:54Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-23T11:17:59Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,128 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: praxis
+  description: Self-improving agent runtime for the cruxx agentic DSL
+  url: https://github.com/89jobrien/praxis
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-10-28T20:27:34Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs(praxis): add 8 Architecture Decision Records'
+    date: 2026-10-28T20:27:28Z
+  - message: 'fix(praxis): use clean ledger filename (strategy.ingested.json instead of strategy.json.ingested.json)'
+    date: 2026-10-28T20:06:52Z
+  - message: 'chore: remove unnecessary [[bin]] section from praxis Cargo.toml'
+    date: 2026-10-28T19:58:09Z
+  - message: 'chore: remove tracked memory.mcpmem database files'
+    date: 2026-10-28T19:35:40Z
+  - message: 'docs(praxis): add doc comments to praxis-core public API (#14)'
+    date: 2026-10-28T19:35:18Z
+  - message: 'docs(praxis): update cruxx-* references to crux-* crate names'
+    date: 2026-10-28T19:33:48Z
+  - message: 'feat(praxis): make CliApprovalGate reachable from CLI (#12)'
+    date: 2026-10-24T17:22:26Z
+  - message: 'refactor(praxis): inline demo functions, fix clippy unused imports'
+    date: 2026-10-24T15:06:47Z
+  - message: 'feat(praxis): add pipeline_version to LoopConfig and propagate to traces (#13, #18)'
+    date: 2026-10-24T13:52:29Z
+  - message: 'fix(praxis): add --locked to CI build, clippy, and test commands'
+    date: 2026-10-21T19:53:09Z
+  readme: |-
+    # praxis
+
+    Self-improving agent runtime for the [crux](https://github.com/89jobrien/crux) agentic DSL.
+    Closes the loop between execution traces, evaluation, and strategy evolution so agents get better at their job across sessions.
+
+    ```text
+    RUN -> TRACE -> EVALUATE -> PROPOSE -> VALIDATE -> APPLY
+     ^                                                   |
+     +---------------------------------------------------+
+    ```
+
+    ## What it does
+
+    Every time an agent runs, crux captures a `Crux<T>` trace — a full causal record of every step, delegation, and speculation. Praxis takes that trace and:
+
+    1. **Evaluates** it — extracts metrics (success rate, confidence, error distribution, delegation depth, speculation hit rate) and generates findings
+    2. **Records** the reward score and computes trend direction over time
+    3. **Proposes** strategy improvements backed by evidence
+    4. **Validates** each proposal against a safety policy (auto-approve low-risk, defer high-risk for human approval)
+    5. **Applies** accepted changes to the agent's strategy
+    6. **Compares** the new trace against the previous one and detects regressions
+
+    If a strategy change causes a regression, it can be rolled back.
+
+    ## Demo
+
+    ```text
+    $ cargo xtask demo
+
+    praxis -- self-improving agent runtime demo
+
+    === Sequential improvement loop ===
+
+    --- session-1: struggling agent ---
+      score: 0.28  |  success_rate: 33%  |  avg_confidence: 0.20
+      [applied] ConfidenceThreshold -> demo-agent (confidence: 0.70)
+      strategy v1: 0 tool prefs, 1 thresholds
+
+    --- session-2: partial recovery ---
+      score: 0.56  |  success_rate: 67%  |  avg_confidence: 0.40
+      [applied] ConfidenceThreshold -> demo-agent (confidence: 0.70)
+      ^^ IMPROVED (delta: +0.280)
+      strategy v2: 0 tool prefs, 1 thresholds
+
+    --- session-3: getting better ---
+      score: 0.84  |  success_rate: 100%  |  avg_confidence: 0.60
+      ^^ IMPROVED (delta: +0.280)
+      strategy v2: 0 tool prefs, 1 thresholds
+
+    --- session-4: confident execution ---
+      score: 0.93  |  success_rate: 100%  |  avg_confide
+- name: godmode
+  description: Rust-native development methodology for Claude Code, Codex, and OpenCode
+  url: https://github.com/89jobrien/godmode
+  kinds:
+  - GitHubRepo
+  - ClaudePlugin
+  language: Rust
+  pushed_at: 2026-10-28T19:43:44Z
+  version: v0.5.0
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'flow: promote release into main'
+    date: 2026-10-28T19:43:36Z
+  - message: 'flow: promote staging into release'
+    date: 2026-10-28T19:43:35Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-10-28T19:43:35Z
+  - message: 'flow: sync main into develop'
+    date: 2026-10-28T19:42:50Z
+  - message: 'flow: promote release into main'
+    date: 2026-10-28T19:42:49Z
+  - message: 'flow: promote staging into release'
+    date: 2026-10-28T19:42:48Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-10-28T19:42:46Z
+  - message: 'test(godmode-cli): guard scratch_repo config writes against a pinned GIT_DIR'
+    date: 2026-10-28T19:42:36Z
+  - message: 'flow: promote release into main'
+    date: 2026-10-27T02:47:07Z
+  - message: 'flow: sync main into develop'
+    date: 2026-10-27T02:47:07Z
+  topics:
+  - ai-agents
+  - claude-code
+  - opencode
+  - rust
+  - tdd
+  readme: "# godmode\n\nSelf-contained Rust-native development methodology plugin for Claude Code.\n\n> Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.\n\n## Overview\n\nGodmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all\nstateful operations — skills are thin wrappers that call `godmode` and act on the output.\nTasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal\n`depends_on` chains.\n\n## Install\n\n```bash\ncargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode\nclaude plugin install godmode@bazaar\n```\n\n### Pre-commit hook\n\nInstall the godmode pre-commit hook into any git repo to block commits when tasks are\nstill running and to run cargo gates (fmt-check, clippy, nextest):\n\n```bash\n# From the repo root where you want the hook installed:\nnu /path/to/godmode/hooks/install.nu\n\n# Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:\nnu \"$CLAUDE_PLUGIN_ROOT/hooks/install.nu\"\n```\n\nThe hook:\n\n1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,\n   printing the offending task IDs.\n2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and\n   `cargo nextest run --workspace`.\n3. Blocks the commit on any failure with a clear message.\n\nIf `godmode` is not on PATH, the task-state check is skipped gracefully and only the\ncargo gates run.\n\n## Skills\n\n| Skill                                     | When                                                                  |\n| ----------------------------------------- | --------------------------------------------------------------------- |\n| `godmode:using-godmode`                 "
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
@@ -330,77 +452,6 @@
     date: 2026-10-20T06:56:08Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-10-19T07:09:52Z
-- name: godmode
-  description: Rust-native development methodology for Claude Code, Codex, and OpenCode
-  url: https://github.com/89jobrien/godmode
-  kinds:
-  - GitHubRepo
-  - ClaudePlugin
-  language: Rust
-  pushed_at: 2026-10-27T02:47:53Z
-  version: v0.5.0
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'flow: promote release into main'
-    date: 2026-10-27T02:47:07Z
-  - message: 'flow: promote staging into release'
-    date: 2026-10-27T02:47:01Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-10-27T02:46:44Z
-  - message: 'test: strip git repository pins in every integration-test spawn'
-    date: 2026-10-21T00:28:56Z
-  - message: 'test(conformance): isolate the tracked-command check from an inherited git pin'
-    date: 2026-10-21T00:21:46Z
-  - message: 'fix(godmode-cli): strip git repository pins in the CLI test helpers'
-    date: 2026-10-21T00:18:42Z
-  - message: 'flow: sync main into develop'
-    date: 2026-10-21T00:14:18Z
-  - message: 'flow: finish release into main'
-    date: 2026-10-21T00:14:14Z
-  - message: 'flow: stage staging into release'
-    date: 2026-10-21T00:13:11Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-10-21T00:13:10Z
-  topics:
-  - ai-agents
-  - claude-code
-  - opencode
-  - rust
-  - tdd
-  readme: "# godmode\n\nSelf-contained Rust-native development methodology plugin for Claude Code.\n\n> Inspired by and built on the ideas in [superpowers](https://github.com/obra/superpowers) by [obra](https://github.com/obra) — the original agentic skills framework for Claude Code. Godmode replaces the superpowers runtime with a Rust-backed CLI and task graph, but the methodology, skill structure, and session ritual are directly descended from that work.\n\n## Overview\n\nGodmode combines a Claude Code skill set with a CLI-backed task graph. The binary owns all\nstateful operations — skills are thin wrappers that call `godmode` and act on the output.\nTasks persist in `.ctx/godmode/tasks.yaml` (gitignored) across sessions via causal\n`depends_on` chains.\n\n## Install\n\n```bash\ncargo build --release -p godmode-cli && cp target/release/godmode ~/.cargo/bin/godmode\nclaude plugin install godmode@bazaar\n```\n\n### Pre-commit hook\n\nInstall the godmode pre-commit hook into any git repo to block commits when tasks are\nstill running and to run cargo gates (fmt-check, clippy, nextest):\n\n```bash\n# From the repo root where you want the hook installed:\nnu /path/to/godmode/hooks/install.nu\n\n# Or, if godmode is installed as a plugin and $CLAUDE_PLUGIN_ROOT is set:\nnu \"$CLAUDE_PLUGIN_ROOT/hooks/install.nu\"\n```\n\nThe hook:\n\n1. Runs `godmode handoff --json` — exits non-zero if any task is in `running` state,\n   printing the offending task IDs.\n2. Runs `cargo fmt --all --check`, `cargo clippy --workspace -- -D warnings`, and\n   `cargo nextest run --workspace`.\n3. Blocks the commit on any failure with a clear message.\n\nIf `godmode` is not on PATH, the task-state check is skipped gracefully and only the\ncargo gates run.\n\n## Skills\n\n| Skill                                     | When                                                                  |\n| ----------------------------------------- | --------------------------------------------------------------------- |\n| `godmode:using-godmode`                 "
-- name: praxis
-  description: Self-improving agent runtime for the cruxx agentic DSL
-  url: https://github.com/89jobrien/praxis
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-10-24T17:22:49Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat(praxis): make CliApprovalGate reachable from CLI (#12)'
-    date: 2026-10-24T17:22:26Z
-  - message: 'refactor(praxis): inline demo functions, fix clippy unused imports'
-    date: 2026-10-24T15:06:47Z
-  - message: 'feat(praxis): add pipeline_version to LoopConfig and propagate to traces (#13, #18)'
-    date: 2026-10-24T13:52:29Z
-  - message: 'fix(praxis): add --locked to CI build, clippy, and test commands'
-    date: 2026-10-21T19:53:09Z
-  - message: 'feat(praxis): wire up orphaned LLM evaluator and SQLite reward store'
-    date: 2026-10-21T19:50:07Z
-  - message: 'feat(praxis): restore auto-rollback on regression detection (#3)'
-    date: 2026-10-21T19:35:28Z
-  - message: 'fix(praxis): pin CI toolchain to 1.89 matching workspace MSRV'
-    date: 2026-10-21T19:11:52Z
-  - message: 'fix(praxis): satisfy cargo deny license checks'
-    date: 2026-10-21T19:07:33Z
-  - message: 'fix(praxis): switch to published crux-improve from crates.io'
-    date: 2026-10-21T15:22:45Z
-  - message: 'fix(praxis): unblock the build and record audit findings as TODOs'
-    date: 2026-10-21T12:05:22Z
-  readme: "# praxis\n\n<!-- TODO(docs): this README still uses the pre-rename `cruxx-*` crate names, and the\n`cruxx-planner` crate no longer exists in the crux workspace. Update the references. (#15) -->\n\nSelf-improving agent runtime for the [cruxx](https://github.com/89jobrien/cruxx) agentic DSL.\nCloses the loop between execution traces, evaluation, and strategy evolution so agents get better at their job across sessions.\n\n```text\nRUN -> TRACE -> EVALUATE -> PROPOSE -> VALIDATE -> APPLY\n ^                                                   |\n +---------------------------------------------------+\n```\n\n## What it does\n\nEvery time an agent runs, cruxx captures a `Crux<T>` trace — a full causal record of every step, delegation, and speculation. Praxis takes that trace and:\n\n1. **Evaluates** it — extracts metrics (success rate, confidence, error distribution, delegation depth, speculation hit rate) and generates findings\n2. **Records** the reward score and computes trend direction over time\n3. **Proposes** strategy improvements backed by evidence\n4. **Validates** each proposal against a safety policy (auto-approve low-risk, defer high-risk for human approval)\n5. **Applies** accepted changes to the agent's strategy\n6. **Compares** the new trace against the previous one and detects regressions\n\nIf a strategy change causes a regression, it can be rolled back.\n\n## Demo\n\n```text\n$ cargo xtask demo\n\npraxis -- self-improving agent runtime demo\n\n=== Sequential improvement loop ===\n\n--- session-1: struggling agent ---\n  score: 0.28  |  success_rate: 33%  |  avg_confidence: 0.20\n  [applied] ConfidenceThreshold -> demo-agent (confidence: 0.70)\n  strategy v1: 0 tool prefs, 1 thresholds\n\n--- session-2: partial recovery ---\n  score: 0.56  |  success_rate: 67%  |  avg_confidence: 0.40\n  [applied] ConfidenceThreshold -> demo-agent (confidence: 0.70)\n  ^^ IMPROVED (delta: +0.280)\n  strategy v2: 0 tool prefs, 1 thresholds\n\n--- session-3: getting better ---\n  score: 0.84  |  success_rate: 100%  |  "
 - name: notfiles
   description: Nix-based dotfiles and system configuration
   url: https://github.com/89jobrien/notfiles
@@ -714,7 +765,7 @@
   pushed_at: 2026-10-21T15:11:14.640357Z
   version: 0.5.0
   stars: null
-  downloads: 69
+  downloads: 70
   recent_commits: []
 - name: crux-task
   description: Project task management for crux
@@ -939,7 +990,7 @@
   pushed_at: 2026-10-17T16:57:33Z
   version: v0.1.0
   stars: 1
-  downloads: 175
+  downloads: 177
   recent_commits:
   - message: Merge branch 'docs/session-closeout-2026-09-13'
     date: 2026-10-17T16:56:42Z
@@ -1119,7 +1170,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 4074
+  downloads: 4079
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -1194,7 +1245,7 @@
   pushed_at: 2026-10-08T07:20:03Z
   version: v0.5.5
   stars: 1
-  downloads: 242
+  downloads: 244
   recent_commits:
   - message: 'Merge pull request #65 from 89jobrien/release'
     date: 2026-10-08T07:20:02Z
@@ -1229,7 +1280,7 @@
   pushed_at: 2026-10-07T08:02:45Z
   version: v0.9.0
   stars: 1
-  downloads: 535
+  downloads: 536
   recent_commits:
   - message: Delete .claude/settings.local.json
     date: 2026-08-25T09:28:08Z
@@ -3859,7 +3910,7 @@
   pushed_at: 2026-09-22T06:08:02Z
   version: v0.5.0
   stars: null
-  downloads: 144
+  downloads: 145
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:20:58Z
@@ -4465,7 +4516,7 @@
   pushed_at: 2026-09-10T00:32:30.983491Z
   version: 0.5.4
   stars: null
-  downloads: 83
+  downloads: 84
   recent_commits: []
 - name: looprs-core
   description: Domain types, ports, and macros for looprs
@@ -4476,7 +4527,7 @@
   pushed_at: 2026-09-10T00:32:24.817094Z
   version: 0.5.4
   stars: null
-  downloads: 269
+  downloads: 271
   recent_commits: []
 - name: looprs-macros
   description: Reusable macro_rules! macros for looprs
@@ -4487,7 +4538,7 @@
   pushed_at: 2026-09-09T22:39:00.077887Z
   version: 0.5.4
   stars: null
-  downloads: 134
+  downloads: 137
   recent_commits: []
 - name: minibox-mcp
   description: MCP stdio server exposing minibox daemon operations
@@ -4509,7 +4560,7 @@
   pushed_at: 2026-09-06T09:35:09.342551Z
   version: 0.33.1
   stars: null
-  downloads: 482
+  downloads: 488
   recent_commits: []
 - name: minibox-domain
   description: Pure domain values and ports for the minibox container runtime
@@ -4520,7 +4571,7 @@
   pushed_at: 2026-09-06T09:33:53.764918Z
   version: 0.33.1
   stars: null
-  downloads: 159
+  downloads: 164
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -4531,7 +4582,7 @@
   pushed_at: 2026-09-06T09:33:20.863262Z
   version: 0.33.1
   stars: null
-  downloads: 679
+  downloads: 687
   recent_commits: []
 - name: minibox-cli
   description: User-facing CLI for the minibox container runtime daemon
@@ -4553,7 +4604,7 @@
   pushed_at: 2026-08-26T22:35:58.085752Z
   version: 0.33.0
   stars: null
-  downloads: 46
+  downloads: 47
   recent_commits: []
 - name: minibox-crux-plugin
   description: Crux plugin binary exposing minibox container operations via JSON-RPC stdio
@@ -4575,7 +4626,7 @@
   pushed_at: 2026-08-26T21:15:59.685804Z
   version: 0.9.0
   stars: null
-  downloads: 282
+  downloads: 284
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -4586,7 +4637,7 @@
   pushed_at: 2026-08-26T21:15:48.824269Z
   version: 0.9.0
   stars: null
-  downloads: 309
+  downloads: 312
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -4597,7 +4648,7 @@
   pushed_at: 2026-08-26T21:15:42.043834Z
   version: 0.9.0
   stars: null
-  downloads: 280
+  downloads: 282
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -4608,7 +4659,7 @@
   pushed_at: 2026-08-26T21:15:36.888035Z
   version: 0.9.0
   stars: null
-  downloads: 367
+  downloads: 371
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -4619,7 +4670,7 @@
   pushed_at: 2026-08-26T21:15:30.236606Z
   version: 0.9.0
   stars: null
-  downloads: 116
+  downloads: 118
   recent_commits: []
 - name: taskit-crux
   description: Embedded Cruxfile runner for taskit (behind feature flag)
@@ -4641,7 +4692,7 @@
   pushed_at: 2026-08-26T21:15:23.481347Z
   version: 0.9.0
   stars: null
-  downloads: 219
+  downloads: 224
   recent_commits: []
 - name: taskit-core
   description: Core types and traits for taskit
@@ -4652,7 +4703,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 385
+  downloads: 390
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -4663,7 +4714,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 580
+  downloads: 590
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
@@ -4826,7 +4877,7 @@
   pushed_at: 2026-08-22T04:09:53.925880Z
   version: 0.2.2
   stars: null
-  downloads: 67
+  downloads: 68
   recent_commits: []
 - name: trace-lang-core
   description: Core Trace<T> type — reasoning provenance as a first-class value
@@ -4837,7 +4888,7 @@
   pushed_at: 2026-08-22T04:09:49.374662Z
   version: 0.2.2
   stars: null
-  downloads: 120
+  downloads: 122
   recent_commits: []
 - name: fraude
   description: Fraude — Rust port of the claw-code agent runtime
@@ -5003,7 +5054,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 126
+  downloads: 127
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -5658,7 +5709,7 @@
   pushed_at: 2026-05-16T04:02:06.365522Z
   version: 0.3.0
   stars: null
-  downloads: 555
+  downloads: 556
   recent_commits: []
 - name: warpx
   description: 'Warp terminal fork: agentic dev environment, custom UI, MCP, skills'
@@ -5712,7 +5763,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 94
+  downloads: 95
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -5734,7 +5785,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 171
+  downloads: 173
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -5789,7 +5840,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 169
+  downloads: 171
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -5943,7 +5994,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 92
+  downloads: 93
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -5954,7 +6005,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 177
+  downloads: 178
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -5965,7 +6016,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 390
+  downloads: 393
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
