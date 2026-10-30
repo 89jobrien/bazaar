@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-29T11:12:36Z
+  pushed_at: 2026-10-29T23:12:20Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-10-29T23:12:18Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-29T11:12:34Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-25T23:15:17Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-25T11:14:57Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-24T23:14:15Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,7 +219,7 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-10-29T20:03:13Z
+  pushed_at: 2026-10-30T09:03:30Z
   version: v0.34.0
   stars: 1
   downloads: null
@@ -299,6 +299,37 @@
 
     - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
     - **Bridge networking** — veth pa
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-10-30T06:46:24Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-30T06:46:23Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-29T06:46:01Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-28T06:45:35Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-27T06:59:03Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-26T07:11:21Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-25T06:53:01Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-24T06:53:09Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-23T06:57:33Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-22T06:57:33Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-21T06:58:00Z
 - name: ltmx
   description: Local-first activity retrieval over Claude transcripts, git history, and notes.
   url: https://github.com/89jobrien/ltmx
@@ -331,37 +362,6 @@
   - message: 'fix: remove 5 unused dependencies flagged by cargo-machete'
     date: 2026-10-29T02:11:28Z
   readme: "# ltmx\n\nReconstruct what you actually worked on, and answer questions about it.\n\nltmx is a local-first replacement for Pieces LTM (\"Long-Term Memory\"), the\nWorkstream Pattern Engine that Pieces shipped and then disabled for users. It\nreads the durable traces already on your machine and serves them back over an\nMCP server.\n\n## The spike question\n\nBefore building anything further, this repository answers one question:\n\n> **Can local traces alone -- agent transcripts, git, notes -- answer the\n> questions Pieces LTM used to answer?**\n\nRun it against your own data:\n\n```sh\ncargo run -p ltmx-probe --release -- stats\ncargo run -p ltmx-probe --release -- eval\ncargo run -p ltmx-probe --release -- ask \"why did we switch to colima\"\n```\n\n`eval` runs the four query categories from the `pieces-ltm` skill -- temporal,\ndecision archaeology, prior art, and current-project context -- because those\nare the acceptance criteria, not a guess.\n\n## Source tiers\n\nSourcing capability is layered by cost, and each tier is behind a feature flag.\nBuild only the tier you need.\n\n| Tier | Sources                                                   | Cost                       | Feature              |\n| ---- | --------------------------------------------------------- | -------------------------- | -------------------- |\n| 0    | Claude Code transcripts (`~/.claude/projects/**/*.jsonl`) | none                       | `claude-transcripts` |\n| 0    | git history                                               | shells out to `git`        | _planned_            |\n| 0    | notes (Obsidian vault)                                    | none                       | _planned_            |\n| 1    | screen capture + OCR via `screencapture` / `tesseract`    | one `brew install`, no FFI | _planned_            |\n| 2    | Vision.framework OCR, accessibility tree                  | `objc2` bindings           | _planned_            |\n\nTier 2 is Objective-C. There is no pure-Rust path to it, so it stays optional.\nMost text "
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-10-29T06:46:02Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-29T06:46:01Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-28T06:45:35Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-27T06:59:03Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-26T07:11:21Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-25T06:53:01Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-24T06:53:09Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-23T06:57:33Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-22T06:57:33Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-21T06:58:00Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-20T06:56:08Z
 - name: praxis
   description: Self-improving agent runtime for the cruxx agentic DSL
   url: https://github.com/89jobrien/praxis
@@ -1202,7 +1202,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 4092
+  downloads: 4098
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -4735,7 +4735,7 @@
   pushed_at: 2026-08-26T21:15:20.288461Z
   version: 0.9.0
   stars: null
-  downloads: 391
+  downloads: 392
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -4746,7 +4746,7 @@
   pushed_at: 2026-08-26T21:15:17.129916Z
   version: 0.9.0
   stars: null
-  downloads: 591
+  downloads: 592
   recent_commits: []
 - name: coursers-core
   description: Shared config, rules, and state for the coursers workspace
@@ -4920,7 +4920,7 @@
   pushed_at: 2026-08-22T04:09:49.374662Z
   version: 0.2.2
   stars: null
-  downloads: 122
+  downloads: 123
   recent_commits: []
 - name: fraude
   description: Fraude — Rust port of the claw-code agent runtime
