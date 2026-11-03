@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-11-02T23:10:51Z
+  pushed_at: 2026-11-03T11:11:21Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-11-03T11:11:19Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-02T23:10:49Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-30T11:11:36Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-29T23:12:18Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-29T11:12:34Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -220,31 +220,31 @@
   - GitHubRepo
   - CratesIo
   language: Rust
-  pushed_at: 2026-11-03T08:51:25Z
+  pushed_at: 2026-11-03T20:34:08Z
   version: v0.10.0
   stars: 1
-  downloads: 555
+  downloads: 556
   recent_commits:
+  - message: 'flow: promote release into main'
+    date: 2026-11-03T20:11:52Z
+  - message: 'flow: promote staging into release'
+    date: 2026-11-03T16:17:54Z
+  - message: 'flow: promote develop into staging'
+    date: 2026-11-03T08:51:24Z
+  - message: 'fix(ci): discard Cargo.lock drift from CI gate before promoting develop'
+    date: 2026-11-03T08:45:57Z
+  - message: 'feat(ci): automate develop -> staging -> release promotion with docs and publish'
+    date: 2026-11-03T08:37:12Z
+  - message: 'chore: ignore local mcpmem database files'
+    date: 2026-11-03T07:56:56Z
+  - message: 'feat(taskit-engine): add --features passthrough to check lint and test run'
+    date: 2026-11-03T07:50:21Z
   - message: Merge branch 'develop'
     date: 2026-11-01T05:59:10Z
   - message: 'chore(release): taskit v0.10.0'
     date: 2026-11-01T05:51:03Z
   - message: 'fix(ci): revert Cargo.lock after release gates'
     date: 2026-11-01T05:46:20Z
-  - message: 'chore(deny): ignore rustls advisories in build-time deps'
-    date: 2026-11-01T05:45:56Z
-  - message: 'chore(deny): ignore rustls advisories in build-time deps'
-    date: 2026-11-01T05:45:56Z
-  - message: 'style: apply rustfmt formatting to baml generated clients'
-    date: 2026-11-01T05:37:04Z
-  - message: 'fix(macros): remove trailing semicolon for expression-position use'
-    date: 2026-11-01T05:31:46Z
-  - message: 'fix(macros): remove trailing semicolon for expression-position use'
-    date: 2026-11-01T05:31:46Z
-  - message: Merge branch 'develop'
-    date: 2026-11-01T05:28:31Z
-  - message: 'chore: align develop version to last released 0.9.0'
-    date: 2026-11-01T05:25:43Z
   readme: |-
     # taskit
 
@@ -314,11 +314,21 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-11-03T08:44:37Z
+  pushed_at: 2026-11-03T17:51:53Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'config: make handoff db path approachable with default_db() helper'
+    date: 2026-11-03T17:13:15Z
+  - message: 'feat: add CLI subcommands for checkpoint coalesce and handoff limit management'
+    date: 2026-11-03T16:54:14Z
+  - message: 'feat(checkpoint-coalesced-commits): add coalesced commit support with default limits and cap enforcement'
+    date: 2026-11-03T16:36:01Z
+  - message: 'feat(hooklings): add resolve-push-range subcommand'
+    date: 2026-11-03T14:04:00Z
+  - message: 'feat(templates): add reusable pre-push range-resolution snippet'
+    date: 2026-11-03T08:44:29Z
   - message: 'feat(checkpoint): coalesce agent edits into turn-boundary commits'
     date: 2026-10-03T03:05:32Z
   - message: 'feat(hooklings): add --version flag to hooklings CLI'
@@ -329,16 +339,6 @@
     date: 2026-08-23T09:11:16Z
   - message: 'feat: add Nushell completion generation'
     date: 2026-08-05T18:10:01Z
-  - message: 'fix: update stale cruxx-* deps to match current crux crate names'
-    date: 2026-06-03T22:17:22Z
-  - message: 'docs: update handoff — feature-complete and production-ready'
-    date: 2026-04-23T02:09:17Z
-  - message: 'refactor: drop doob handler — use sqlite::query_many directly; default emit path to .ctx/'
-    date: 2026-04-23T01:22:09Z
-  - message: 'fix: doob uses SurrealDB not SQLite — invoke CLI with graceful skip if not on PATH; fix pipeline step-in-arms parse error; check_tools default tool list'
-    date: 2026-04-23T01:17:42Z
-  - message: 'fix(hooklings): clippy clean — derive Default, remove unused imports'
-    date: 2026-04-23T01:02:16Z
   readme: "# hooklings\n\nYAML-driven developer preflight checks via [crux](https://github.com/89jobrien/crux) pipelines.\n\n## Install\n\n```bash\ncargo install --path crates/hooklings\n```\n\n## Usage\n\n```bash\nhooklings preflight              # run all checks, emit JSON + markdown table\nhooklings preflight --emit table # markdown table only\nhooklings check detect_shell     # run a single check\nhooklings config show            # print merged config\nhooklings record <path>...       # record paths an agent harness just touched\nhooklings checkpoint             # commit everything recorded since the last one\nhooklings status                 # show the recorded checkpoint state\n```\n\n## Checkpoint\n\nCoalesced commits for agent-driven edits. A harness records each path it touches\nwhile it works; nothing is committed at that point. At a turn boundary, one\ncheckpoint commit collects everything recorded since the last commit, so a\nfive-file refactor lands as one coherent commit instead of five broken ones.\n\n```toml\n# .hooklings.toml — opt-in per repo\n[checkpoint]\nenabled = true\n```\n\n```bash\nhooklings record src/a.rs src/b.rs   # or: hooklings record --stdin < hook.json\nhooklings checkpoint --dry-run       # preview without committing\nhooklings checkpoint                 # commit\n```\n\nCommits carry an inferred Conventional Commit subject plus a per-file stat body:\n\n```text\nfeat(src): add 2 files\n\nFiles:\n  A src/alpha.rs  +1 -0\n  M src/beta.rs   +8 -2\n\nCoalesced checkpoint: 14 edit(s) since 2026-10-02T21:37:00Z.\n```\n\nType inference is deliberately conservative. A single-file changeset classifies by\nthat file's role (tests, docs, manifests, lockfiles); all-added becomes `feat`,\nall-removed or renamed becomes `refactor`. Everything else is `chore`. `fix` is\n**never** inferred, because nothing in a diff distinguishes a repair from any other\nedit — pass `--type fix --message \"fix(parser): handle empty input\"` when it matters.\n\n### Guardrails\n\nA checkpoint refuses rather than guesses:\n\n| Refusal    "
 - name: notfiles
   description: Nix-based dotfiles and system configuration
@@ -569,7 +569,7 @@
   pushed_at: 2026-11-01T05:58:09.373384Z
   version: 0.10.0
   stars: null
-  downloads: 316
+  downloads: 317
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -580,7 +580,7 @@
   pushed_at: 2026-11-01T05:58:02.169257Z
   version: 0.10.0
   stars: null
-  downloads: 355
+  downloads: 356
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -591,7 +591,7 @@
   pushed_at: 2026-11-01T05:57:54.516883Z
   version: 0.10.0
   stars: null
-  downloads: 311
+  downloads: 312
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -602,7 +602,7 @@
   pushed_at: 2026-11-01T05:57:48.279273Z
   version: 0.10.0
   stars: null
-  downloads: 423
+  downloads: 424
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -646,7 +646,7 @@
   pushed_at: 2026-11-01T05:57:24.108567Z
   version: 0.10.0
   stars: null
-  downloads: 456
+  downloads: 457
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -657,7 +657,7 @@
   pushed_at: 2026-11-01T05:57:20.105763Z
   version: 0.10.0
   stars: null
-  downloads: 696
+  downloads: 697
   recent_commits: []
 - name: ltmx
   description: Local-first activity retrieval over Claude transcripts, git history, and notes.
@@ -1056,7 +1056,7 @@
   pushed_at: 2026-10-21T15:10:33.227638Z
   version: 0.5.0
   stars: null
-  downloads: 361
+  downloads: 363
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -1078,7 +1078,7 @@
   pushed_at: 2026-10-21T15:10:15.307838Z
   version: 0.5.0
   stars: null
-  downloads: 410
+  downloads: 412
   recent_commits: []
 - name: crux-schema
   description: Runtime-independent trace schema and combinators for Crux
@@ -1111,7 +1111,7 @@
   pushed_at: 2026-10-21T15:09:52.246550Z
   version: 0.5.0
   stars: null
-  downloads: 509
+  downloads: 511
   recent_commits: []
 - name: testes
   description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
@@ -1428,7 +1428,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 4240
+  downloads: 4242
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -4687,7 +4687,7 @@
   pushed_at: 2026-09-18T03:10:36.702440Z
   version: 0.1.1
   stars: null
-  downloads: 66
+  downloads: 74
   recent_commits: []
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
