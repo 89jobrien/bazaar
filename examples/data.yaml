@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-11-04T23:10:41Z
+  pushed_at: 2026-11-05T11:11:00Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-11-05T11:10:59Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-04T23:10:39Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-10-31T23:09:56Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-10-31T11:09:29Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-10-30T23:10:01Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,38 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: ltmx
+  description: Local-first activity retrieval over Claude transcripts, git history, and notes.
+  url: https://github.com/89jobrien/ltmx
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-11-05T14:53:37Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'docs: add changelog, v0.0.1 release notes, and mcpmem notes'
+    date: 2026-11-05T14:53:31Z
+  - message: 'chore: ignore the local mcpmem code index'
+    date: 2026-11-05T14:53:24Z
+  - message: 'docs: add ADR-015 and the git-history-source implementation plan'
+    date: 2026-10-31T02:13:07Z
+  - message: 'docs(ltmx): list ADR-015 in the ADR index'
+    date: 2026-10-31T02:12:17Z
+  - message: 'feat(ltmx-sources): implement GitHistoryReader git-history source adapter'
+    date: 2026-10-31T02:12:12Z
+  - message: 'fix(ltmx-sources): resolve gix feature set for history walk and tree diff'
+    date: 2026-10-31T02:11:48Z
+  - message: 'feat(ltmx-sources): wire git-history feature flag'
+    date: 2026-10-30T13:35:16Z
+  - message: 'flow: sync main into develop'
+    date: 2026-10-29T13:55:21Z
+  - message: 'flow: finish release into main'
+    date: 2026-10-29T13:55:21Z
+  - message: 'flow: stage staging into release'
+    date: 2026-10-29T13:55:17Z
+  readme: "# ltmx\n\nReconstruct what you actually worked on, and answer questions about it.\n\nltmx is a local-first replacement for Pieces LTM (\"Long-Term Memory\"), the\nWorkstream Pattern Engine that Pieces shipped and then disabled for users. It\nreads the durable traces already on your machine and serves them back over an\nMCP server.\n\n## The spike question\n\nBefore building anything further, this repository answers one question:\n\n> **Can local traces alone -- agent transcripts, git, notes -- answer the\n> questions Pieces LTM used to answer?**\n\nRun it against your own data:\n\n```sh\ncargo run -p ltmx-probe --release -- stats\ncargo run -p ltmx-probe --release -- eval\ncargo run -p ltmx-probe --release -- ask \"why did we switch to colima\"\n```\n\n`eval` runs the four query categories from the `pieces-ltm` skill -- temporal,\ndecision archaeology, prior art, and current-project context -- because those\nare the acceptance criteria, not a guess.\n\n## Source tiers\n\nSourcing capability is layered by cost, and each tier is behind a feature flag.\nBuild only the tier you need.\n\n| Tier | Sources                                                   | Cost                       | Feature              |\n| ---- | --------------------------------------------------------- | -------------------------- | -------------------- |\n| 0    | Claude Code transcripts (`~/.claude/projects/**/*.jsonl`) | none                       | `claude-transcripts` |\n| 0    | git history                                               | shells out to `git`        | _planned_            |\n| 0    | notes (Obsidian vault)                                    | none                       | _planned_            |\n| 1    | screen capture + OCR via `screencapture` / `tesseract`    | one `brew install`, no FFI | _planned_            |\n| 2    | Vision.framework OCR, accessibility tree                  | `objc2` bindings           | _planned_            |\n\nTier 2 is Objective-C. There is no pure-Rust path to it, so it stays optional.\nMost text "
 - name: 89jobrien.github.io
   description: Personal site
   url: https://github.com/89jobrien/89jobrien.github.io
@@ -372,7 +404,7 @@
   pushed_at: 2026-11-03T20:34:08Z
   version: v0.10.0
   stars: 1
-  downloads: 558
+  downloads: 559
   recent_commits:
   - message: 'flow: promote release into main'
     date: 2026-11-03T20:11:52Z
@@ -569,7 +601,7 @@
   pushed_at: 2026-11-01T05:58:09.373384Z
   version: 0.10.0
   stars: null
-  downloads: 320
+  downloads: 321
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -580,7 +612,7 @@
   pushed_at: 2026-11-01T05:58:02.169257Z
   version: 0.10.0
   stars: null
-  downloads: 361
+  downloads: 362
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -591,7 +623,7 @@
   pushed_at: 2026-11-01T05:57:54.516883Z
   version: 0.10.0
   stars: null
-  downloads: 315
+  downloads: 316
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -602,7 +634,7 @@
   pushed_at: 2026-11-01T05:57:48.279273Z
   version: 0.10.0
   stars: null
-  downloads: 431
+  downloads: 432
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -646,7 +678,7 @@
   pushed_at: 2026-11-01T05:57:24.108567Z
   version: 0.10.0
   stars: null
-  downloads: 466
+  downloads: 467
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -657,40 +689,8 @@
   pushed_at: 2026-11-01T05:57:20.105763Z
   version: 0.10.0
   stars: null
-  downloads: 711
+  downloads: 712
   recent_commits: []
-- name: ltmx
-  description: Local-first activity retrieval over Claude transcripts, git history, and notes.
-  url: https://github.com/89jobrien/ltmx
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-10-29T13:55:29Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'flow: sync main into develop'
-    date: 2026-10-29T13:55:21Z
-  - message: 'flow: finish release into main'
-    date: 2026-10-29T13:55:21Z
-  - message: 'flow: stage staging into release'
-    date: 2026-10-29T13:55:17Z
-  - message: 'flow: promote develop into staging'
-    date: 2026-10-29T13:55:17Z
-  - message: 'chore: ignore local mcpmem and taskit artifact files'
-    date: 2026-10-29T13:55:09Z
-  - message: 'chore: add hj handoff block to .gitignore'
-    date: 2026-10-29T13:54:38Z
-  - message: 'feat: add ltmx-brief crate and probe brief command'
-    date: 2026-10-29T08:34:43Z
-  - message: 'flow: sync main into develop'
-    date: 2026-10-29T02:12:14Z
-  - message: 'flow: finish release into main'
-    date: 2026-10-29T02:12:13Z
-  - message: 'fix: remove 5 unused dependencies flagged by cargo-machete'
-    date: 2026-10-29T02:11:28Z
-  readme: "# ltmx\n\nReconstruct what you actually worked on, and answer questions about it.\n\nltmx is a local-first replacement for Pieces LTM (\"Long-Term Memory\"), the\nWorkstream Pattern Engine that Pieces shipped and then disabled for users. It\nreads the durable traces already on your machine and serves them back over an\nMCP server.\n\n## The spike question\n\nBefore building anything further, this repository answers one question:\n\n> **Can local traces alone -- agent transcripts, git, notes -- answer the\n> questions Pieces LTM used to answer?**\n\nRun it against your own data:\n\n```sh\ncargo run -p ltmx-probe --release -- stats\ncargo run -p ltmx-probe --release -- eval\ncargo run -p ltmx-probe --release -- ask \"why did we switch to colima\"\n```\n\n`eval` runs the four query categories from the `pieces-ltm` skill -- temporal,\ndecision archaeology, prior art, and current-project context -- because those\nare the acceptance criteria, not a guess.\n\n## Source tiers\n\nSourcing capability is layered by cost, and each tier is behind a feature flag.\nBuild only the tier you need.\n\n| Tier | Sources                                                   | Cost                       | Feature              |\n| ---- | --------------------------------------------------------- | -------------------------- | -------------------- |\n| 0    | Claude Code transcripts (`~/.claude/projects/**/*.jsonl`) | none                       | `claude-transcripts` |\n| 0    | git history                                               | shells out to `git`        | _planned_            |\n| 0    | notes (Obsidian vault)                                    | none                       | _planned_            |\n| 1    | screen capture + OCR via `screencapture` / `tesseract`    | one `brew install`, no FFI | _planned_            |\n| 2    | Vision.framework OCR, accessibility tree                  | `objc2` bindings           | _planned_            |\n\nTier 2 is Objective-C. There is no pure-Rust path to it, so it stays optional.\nMost text "
 - name: praxis
   description: Self-improving agent runtime for the cruxx agentic DSL
   url: https://github.com/89jobrien/praxis
@@ -1023,7 +1023,7 @@
   pushed_at: 2026-10-21T15:11:14.640357Z
   version: 0.5.0
   stars: null
-  downloads: 85
+  downloads: 86
   recent_commits: []
 - name: crux-task
   description: Project task management for crux
@@ -1056,7 +1056,7 @@
   pushed_at: 2026-10-21T15:10:33.227638Z
   version: 0.5.0
   stars: null
-  downloads: 386
+  downloads: 387
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -1078,7 +1078,7 @@
   pushed_at: 2026-10-21T15:10:15.307838Z
   version: 0.5.0
   stars: null
-  downloads: 436
+  downloads: 437
   recent_commits: []
 - name: crux-schema
   description: Runtime-independent trace schema and combinators for Crux
@@ -1089,7 +1089,7 @@
   pushed_at: 2026-10-21T15:10:07.640171Z
   version: 0.5.0
   stars: null
-  downloads: 140
+  downloads: 141
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -1111,7 +1111,7 @@
   pushed_at: 2026-10-21T15:09:52.246550Z
   version: 0.5.0
   stars: null
-  downloads: 540
+  downloads: 542
   recent_commits: []
 - name: testes
   description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
@@ -1428,7 +1428,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 4322
+  downloads: 4325
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -4687,7 +4687,7 @@
   pushed_at: 2026-09-18T03:10:36.702440Z
   version: 0.1.1
   stars: null
-  downloads: 78
+  downloads: 79
   recent_commits: []
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
@@ -4764,7 +4764,7 @@
   pushed_at: 2026-09-06T09:33:53.764918Z
   version: 0.33.1
   stars: null
-  downloads: 184
+  downloads: 185
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -4775,7 +4775,7 @@
   pushed_at: 2026-09-06T09:33:20.863262Z
   version: 0.33.1
   stars: null
-  downloads: 721
+  downloads: 722
   recent_commits: []
 - name: minibox-cli
   description: User-facing CLI for the minibox container runtime daemon
@@ -5890,7 +5890,7 @@
   pushed_at: 2026-04-23T23:07:16.604202Z
   version: 0.1.0
   stars: null
-  downloads: 96
+  downloads: 97
   recent_commits: []
 - name: mlrs-core
   description: Core RLM engine — recursive LLM inference via Rhai scripting
@@ -6110,7 +6110,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 410
+  downloads: 411
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
