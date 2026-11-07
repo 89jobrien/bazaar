@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-11-06T11:11:08Z
+  pushed_at: 2026-11-07T11:09:17Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-11-07T11:09:16Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-06T11:11:06Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-11-02T11:11:24Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-01T23:09:59Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-11-01T11:09:28Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -504,7 +504,7 @@
   pushed_at: 2026-11-03T20:34:08Z
   version: v0.10.0
   stars: 1
-  downloads: 560
+  downloads: 561
   recent_commits:
   - message: 'flow: promote release into main'
     date: 2026-11-03T20:11:52Z
@@ -701,7 +701,7 @@
   pushed_at: 2026-11-01T05:58:09.373384Z
   version: 0.10.0
   stars: null
-  downloads: 322
+  downloads: 324
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -712,7 +712,7 @@
   pushed_at: 2026-11-01T05:58:02.169257Z
   version: 0.10.0
   stars: null
-  downloads: 365
+  downloads: 368
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -723,7 +723,7 @@
   pushed_at: 2026-11-01T05:57:54.516883Z
   version: 0.10.0
   stars: null
-  downloads: 317
+  downloads: 319
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -734,7 +734,7 @@
   pushed_at: 2026-11-01T05:57:48.279273Z
   version: 0.10.0
   stars: null
-  downloads: 435
+  downloads: 439
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -745,7 +745,7 @@
   pushed_at: 2026-11-01T05:57:34.227144Z
   version: 0.10.0
   stars: null
-  downloads: 142
+  downloads: 144
   recent_commits: []
 - name: taskit-crux
   description: Embedded Cruxfile runner for taskit (behind feature flag)
@@ -767,7 +767,7 @@
   pushed_at: 2026-11-01T05:57:27.384001Z
   version: 0.10.0
   stars: null
-  downloads: 265
+  downloads: 270
   recent_commits: []
 - name: taskit-core
   description: Core types and traits for taskit
@@ -778,7 +778,7 @@
   pushed_at: 2026-11-01T05:57:24.108567Z
   version: 0.10.0
   stars: null
-  downloads: 472
+  downloads: 477
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -789,7 +789,7 @@
   pushed_at: 2026-11-01T05:57:20.105763Z
   version: 0.10.0
   stars: null
-  downloads: 725
+  downloads: 735
   recent_commits: []
 - name: praxis
   description: Self-improving agent runtime for the cruxx agentic DSL
@@ -1156,7 +1156,7 @@
   pushed_at: 2026-10-21T15:10:33.227638Z
   version: 0.5.0
   stars: null
-  downloads: 404
+  downloads: 406
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -1178,7 +1178,7 @@
   pushed_at: 2026-10-21T15:10:15.307838Z
   version: 0.5.0
   stars: null
-  downloads: 455
+  downloads: 457
   recent_commits: []
 - name: crux-schema
   description: Runtime-independent trace schema and combinators for Crux
@@ -1211,7 +1211,7 @@
   pushed_at: 2026-10-21T15:09:52.246550Z
   version: 0.5.0
   stars: null
-  downloads: 563
+  downloads: 565
   recent_commits: []
 - name: testes
   description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
@@ -1348,7 +1348,7 @@
   pushed_at: 2026-10-17T16:57:33Z
   version: v0.1.0
   stars: 1
-  downloads: 183
+  downloads: 185
   recent_commits:
   - message: Merge branch 'docs/session-closeout-2026-09-13'
     date: 2026-10-17T16:56:42Z
@@ -1528,7 +1528,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 4393
+  downloads: 4401
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -1603,7 +1603,7 @@
   pushed_at: 2026-10-08T07:20:03Z
   version: v0.5.5
   stars: 1
-  downloads: 257
+  downloads: 259
   recent_commits:
   - message: 'Merge pull request #65 from 89jobrien/release'
     date: 2026-10-08T07:20:02Z
@@ -1897,7 +1897,7 @@
   pushed_at: 2026-10-04T00:26:42.198833Z
   version: 0.8.1
   stars: null
-  downloads: 38
+  downloads: 39
   recent_commits: []
 - name: devobs
   description: Public Obsidian vault for open-source project tracking
@@ -2669,7 +2669,7 @@
   pushed_at: 2026-09-28T11:14:55.567884Z
   version: 0.1.4
   stars: null
-  downloads: 113
+  downloads: 114
   recent_commits: []
 - name: hj
   description: Handoff state, reconciliation, rendering, and handup surveys
@@ -4104,7 +4104,7 @@
   pushed_at: 2026-09-22T06:08:02Z
   version: v0.5.0
   stars: null
-  downloads: 158
+  downloads: 159
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:20:58Z
@@ -4710,7 +4710,7 @@
   pushed_at: 2026-09-10T00:32:30.983491Z
   version: 0.5.4
   stars: null
-  downloads: 91
+  downloads: 92
   recent_commits: []
 - name: looprs-core
   description: Domain types, ports, and macros for looprs
@@ -4721,7 +4721,7 @@
   pushed_at: 2026-09-10T00:32:24.817094Z
   version: 0.5.4
   stars: null
-  downloads: 290
+  downloads: 293
   recent_commits: []
 - name: looprs-macros
   description: Reusable macro_rules! macros for looprs
@@ -4732,7 +4732,7 @@
   pushed_at: 2026-09-09T22:39:00.077887Z
   version: 0.5.4
   stars: null
-  downloads: 160
+  downloads: 164
   recent_commits: []
 - name: minibox-mcp
   description: MCP stdio server exposing minibox daemon operations
@@ -4754,7 +4754,7 @@
   pushed_at: 2026-09-06T09:35:09.342551Z
   version: 0.33.1
   stars: null
-  downloads: 514
+  downloads: 520
   recent_commits: []
 - name: minibox-domain
   description: Pure domain values and ports for the minibox container runtime
@@ -4765,7 +4765,7 @@
   pushed_at: 2026-09-06T09:33:53.764918Z
   version: 0.33.1
   stars: null
-  downloads: 189
+  downloads: 194
   recent_commits: []
 - name: minibox-macros
   description: Procedural macros for the minibox container runtime
@@ -4776,7 +4776,7 @@
   pushed_at: 2026-09-06T09:33:20.863262Z
   version: 0.33.1
   stars: null
-  downloads: 726
+  downloads: 734
   recent_commits: []
 - name: minibox-cli
   description: User-facing CLI for the minibox container runtime daemon
@@ -4798,7 +4798,7 @@
   pushed_at: 2026-08-26T22:35:58.085752Z
   version: 0.33.0
   stars: null
-  downloads: 50
+  downloads: 51
   recent_commits: []
 - name: minibox-crux-plugin
   description: Crux plugin binary exposing minibox container operations via JSON-RPC stdio
@@ -4972,7 +4972,7 @@
   pushed_at: 2026-08-22T04:09:53.925880Z
   version: 0.2.2
   stars: null
-  downloads: 74
+  downloads: 75
   recent_commits: []
 - name: trace-lang-core
   description: Core Trace<T> type — reasoning provenance as a first-class value
@@ -4983,7 +4983,7 @@
   pushed_at: 2026-08-22T04:09:49.374662Z
   version: 0.2.2
   stars: null
-  downloads: 139
+  downloads: 142
   recent_commits: []
 - name: fraude
   description: Fraude — Rust port of the claw-code agent runtime
@@ -5149,7 +5149,7 @@
   pushed_at: 2026-07-16T14:08:42.342099Z
   version: 0.2.0
   stars: null
-  downloads: 136
+  downloads: 137
   recent_commits: []
 - name: secx
   description: Security scanning and audit reporting for Rust workspaces
@@ -5858,7 +5858,7 @@
   pushed_at: 2026-04-24T19:55:52.356041Z
   version: 0.19.0
   stars: null
-  downloads: 99
+  downloads: 100
   recent_commits: []
 - name: minibox-client
   description: Unix socket client for the minibox container runtime daemon
@@ -5880,7 +5880,7 @@
   pushed_at: 2026-04-24T19:51:23.920171Z
   version: 0.19.0
   stars: null
-  downloads: 182
+  downloads: 184
   recent_commits: []
 - name: slash-core
   description: Orchestration layer for the slash-command language
@@ -5935,7 +5935,7 @@
   pushed_at: 2026-04-18T07:04:12.919826Z
   version: 0.1.0
   stars: null
-  downloads: 177
+  downloads: 179
   recent_commits: []
 - name: cruxai
   description: An agentic DSL for Rust — inspectable, serializable, replayable agent execution
@@ -6001,7 +6001,7 @@
   pushed_at: 2026-04-16T10:48:40.318249Z
   version: 0.1.2
   stars: null
-  downloads: 126
+  downloads: 127
   recent_commits: []
 - name: hj-doob
   description: Doob integration helpers for hj handoff workflows
@@ -6012,7 +6012,7 @@
   pushed_at: 2026-04-16T10:48:40.097995Z
   version: 0.1.2
   stars: null
-  downloads: 129
+  downloads: 130
   recent_commits: []
 - name: hj-sqlite
   description: SQLite backing stores for hj handoff workflows
@@ -6023,7 +6023,7 @@
   pushed_at: 2026-04-16T10:48:39.860929Z
   version: 0.1.2
   stars: null
-  downloads: 124
+  downloads: 125
   recent_commits: []
 - name: hj-git
   description: Git and repo discovery utilities for hj handoff workflows
@@ -6034,7 +6034,7 @@
   pushed_at: 2026-04-16T10:48:37.111269Z
   version: 0.1.2
   stars: null
-  downloads: 124
+  downloads: 125
   recent_commits: []
 - name: hj-core
   description: Core data types for hj handoff workflows
@@ -6045,7 +6045,7 @@
   pushed_at: 2026-04-16T10:48:15.416904Z
   version: 0.1.2
   stars: null
-  downloads: 435
+  downloads: 440
   recent_commits: []
 - name: rx-install
   description: Install rust-script scripts from local directories, files, and URLs
@@ -6089,7 +6089,7 @@
   pushed_at: 2026-04-12T22:20:40.803525Z
   version: 0.1.0
   stars: null
-  downloads: 97
+  downloads: 98
   recent_commits: []
 - name: slash-lib
   description: Executor types and high-level API for the slash-command language
@@ -6100,7 +6100,7 @@
   pushed_at: 2026-04-12T22:20:30.589964Z
   version: 0.1.0
   stars: null
-  downloads: 185
+  downloads: 187
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -6111,7 +6111,7 @@
   pushed_at: 2026-04-12T22:19:22.090671Z
   version: 0.1.0
   stars: null
-  downloads: 411
+  downloads: 415
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
