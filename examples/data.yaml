@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-11-07T11:09:17Z
+  pushed_at: 2026-11-07T23:09:57Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-11-07T23:09:55Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-07T11:09:16Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-11-02T23:10:49Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-02T11:11:24Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-11-01T23:09:59Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,144 +213,13 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-11-07T06:38:09Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-07T06:38:08Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-06T06:41:46Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-05T06:42:16Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-04T06:41:15Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-03T06:41:11Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-02T06:47:57Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-01T06:38:37Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-31T06:38:27Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-30T06:46:23Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-10-29T06:46:01Z
-- name: myrv
-  description: RV telemetry workspace for a 2015 Leprechaun 260DS — hexagonal Rust architecture, OBD-II, sled KV store
-  url: https://github.com/89jobrien/myrv
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-11-07T06:15:26Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat(rvc): scaffold RV-C telemetry source crate'
-    date: 2026-11-07T06:14:27Z
-  - message: 'fix(ci): install missing test-runner binary for CI gate'
-    date: 2026-11-07T01:01:27Z
-  - message: 'fix(ci): install libudev-dev for btleplug Linux backend'
-    date: 2026-11-07T00:59:51Z
-  - message: 'fix(ci): install libdbus-1-dev for btleplug Linux backend'
-    date: 2026-11-07T00:55:18Z
-  - message: 'feat(rv5,kv,obd-source): merge feat/channel-ingestion-runtime'
-    date: 2026-11-07T00:26:10Z
-  - message: 'feat(rv5): live BLE monitor loop, rv5-tui live mode, mDNS LAN lookup'
-    date: 2026-11-06T23:35:37Z
-  - message: 'feat(rv5-cli,rv5-tui): add rv5 CLI binary and replay TUI on the rv5 library'
-    date: 2026-11-06T21:24:43Z
-  - message: 'feat(rv5): add rv5 BLE crate with passive discovery'
-    date: 2026-11-06T21:14:17Z
-  - message: 'chore: checkpoint workspace and Rust documentation'
-    date: 2026-09-21T22:20:35Z
-  - message: 'fix(kv): propagate history iterator failures'
-    date: 2026-09-15T22:09:56Z
-  readme: |-
-    # myrv
-
-    Telemetry system for a 2015 Leprechaun 260DS RV. Reads OBD-II chassis data, house battery
-    state, and generator state; builds a typed snapshot for display or assistant queries.
-
-    ## Architecture
-
-    Hexagonal layout — the domain model never imports adapters:
-
-    ```text
-    TelemetrySource (port)
-      ├── ManualSource   crates/manual-source   TOML file, dev/field overrides
-      └── ObdSource      crates/obd-source      ELM327 over serial or TCP
-
-    TelemetryStore (port)
-      └── SledStore      crates/kv              embedded sled KV, chronological key encoding
-
-    core (crates/core)
-      ├── domain         bounded newtypes, Measurement, TelemetrySnapshot
-      ├── ports          TelemetrySource, TelemetryStore, HistoryFilter
-      └── snapshot       build_snapshot — assembles TelemetrySnapshot from Vec<Measurement>
-    ```
-
-    ## Dev environment
-
-    ```sh
-    cp .envrc.example .envrc
-    direnv allow          # loads .envrc — sets MYRV_OBD_PORT, MYRV_DB_PATH, MYRV_MANUAL_OVERRIDE
-    ```
-
-    Edit `.ctx/manual-override.toml` to inject measurements without real hardware. `ManualSource`
-    re-reads the file on every poll — no restart needed.
-
-    ## Manual override format
-
-    ```toml
-    [values]
-    chassis_voltage      = 12.6
-    chassis_rpm          = 800
-    chassis_speed        = 0
-    chassis_coolant_temp = 82.0
-    chassis_fuel_level   = 68.0
-    house_voltage        = 13.1
-    house_soc            = 87.0
-    generator_running    = false
-    ```
-
-    Supported value types: `f64`, `i64`, `bool`, string. Key names must match the snapshot
-    builder's expected measurement names exactly (e.g. `generator_running`, not `gen_running`).
-
-    ## Build & test
-
-    ```sh
-    cargo xtask ci          # check + nextest + clippy (matches CI)
-    cargo xtask pre-commit  # fmt-check + check + clippy (fast gate)
-    ```
-
-    ## Release
-
-    ```sh
-    cargo xtask prep 0.2.0  # bump workspace version, run ci, print next steps
-    cargo xtask release     # tag HEAD with workspace version and push
-    cargo xtask revert      # undo uncommitted version bumps
-    ```
-
-    ## License
-
-    MIT OR Apache-2
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-11-07T02:37:09Z
+  pushed_at: 2026-11-08T09:38:18Z
   version: v0.34.0
   stars: 1
   downloads: null
@@ -430,6 +299,192 @@
 
     - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
     - **Bridge networking** — veth pa
+- name: myrv
+  description: RV telemetry workspace for a 2015 Leprechaun 260DS — hexagonal Rust architecture, OBD-II, sled KV store
+  url: https://github.com/89jobrien/myrv
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-11-08T09:37:38Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'fix(rv5): decrypt handshake notifications before matching kex type'
+    date: 2026-11-08T09:36:57Z
+  - message: 'fix(rv5): bound the handshake wait with per-step timeouts'
+    date: 2026-11-08T08:28:48Z
+  - message: 'feat(rv5): merge feat/rv5-bluetti-protocol-port'
+    date: 2026-11-08T08:08:20Z
+  - message: 'chore(myrv): untrack OS/local-device artifacts'
+    date: 2026-11-08T08:06:36Z
+  - message: 'chore(myrv): track design docs, mise tasks, handoff state, and gitignore/lock updates'
+    date: 2026-11-08T08:05:12Z
+  - message: 'feat(ha_config): add Bluetti RV5 Home Assistant integration and alerts'
+    date: 2026-11-07T22:23:54Z
+  - message: 'fix(rv5-cli,rv5-tui): update call sites for BluettiSession transport'
+    date: 2026-11-07T15:40:22Z
+  - message: 'fix(rv5): drive monitor_loop via BluettiSession instead of standard BLE characteristics'
+    date: 2026-11-07T15:38:48Z
+  - message: 'feat(rv5): add BluettiSession handshake/Modbus orchestration'
+    date: 2026-11-07T15:35:16Z
+  - message: 'feat(rv5): add TransportLink::subscribe and write_characteristic'
+    date: 2026-11-07T15:29:52Z
+  readme: |-
+    # myrv
+
+    Telemetry system for a 2015 Leprechaun 260DS RV. Reads OBD-II chassis data, house battery
+    state, and generator state; builds a typed snapshot for display or assistant queries.
+
+    ## Architecture
+
+    Hexagonal layout — the domain model never imports adapters:
+
+    ```text
+    TelemetrySource (port)
+      ├── ManualSource   crates/manual-source   TOML file, dev/field overrides
+      └── ObdSource      crates/obd-source      ELM327 over serial or TCP
+
+    TelemetryStore (port)
+      └── SledStore      crates/kv              embedded sled KV, chronological key encoding
+
+    core (crates/core)
+      ├── domain         bounded newtypes, Measurement, TelemetrySnapshot
+      ├── ports          TelemetrySource, TelemetryStore, HistoryFilter
+      └── snapshot       build_snapshot — assembles TelemetrySnapshot from Vec<Measurement>
+    ```
+
+    ## Dev environment
+
+    ```sh
+    cp .envrc.example .envrc
+    direnv allow          # loads .envrc — sets MYRV_OBD_PORT, MYRV_DB_PATH, MYRV_MANUAL_OVERRIDE
+    ```
+
+    Edit `.ctx/manual-override.toml` to inject measurements without real hardware. `ManualSource`
+    re-reads the file on every poll — no restart needed.
+
+    ## Manual override format
+
+    ```toml
+    [values]
+    chassis_voltage      = 12.6
+    chassis_rpm          = 800
+    chassis_speed        = 0
+    chassis_coolant_temp = 82.0
+    chassis_fuel_level   = 68.0
+    house_voltage        = 13.1
+    house_soc            = 87.0
+    generator_running    = false
+    ```
+
+    Supported value types: `f64`, `i64`, `bool`, string. Key names must match the snapshot
+    builder's expected measurement names exactly (e.g. `generator_running`, not `gen_running`).
+
+    ## Build & test
+
+    ```sh
+    cargo xtask ci          # check + nextest + clippy (matches CI)
+    cargo xtask pre-commit  # fmt-check + check + clippy (fast gate)
+    ```
+
+    ## Release
+
+    ```sh
+    cargo xtask prep 0.2.0  # bump workspace version, run ci, print next steps
+    cargo xtask release     # tag HEAD with workspace version and push
+    cargo xtask revert      # undo uncommitted version bumps
+    ```
+
+    ## License
+
+    MIT OR Apache-2
+- name: slash-cmd
+  description: CLI for the slash-command language
+  url: https://crates.io/crates/slash-cmd
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-11-08T07:27:47.720164Z
+  version: 0.2.0
+  stars: null
+  downloads: 22
+  recent_commits: []
+- name: slash-testing
+  description: Proptest strategies and harness configuration for testing slash-command language parsers
+  url: https://crates.io/crates/slash-testing
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-11-08T07:27:37.683999Z
+  version: 0.2.0
+  stars: null
+  downloads: 98
+  recent_commits: []
+- name: slash-lib
+  description: Executor types and high-level API for the slash-command language
+  url: https://crates.io/crates/slash-lib
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-11-08T07:27:30.066897Z
+  version: 0.2.0
+  stars: null
+  downloads: 187
+  recent_commits: []
+- name: slash-core
+  description: Orchestration layer for the slash-command language
+  url: https://crates.io/crates/slash-core
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-11-08T07:27:21.349543Z
+  version: 0.2.0
+  stars: null
+  downloads: 98
+  recent_commits: []
+- name: slash-lang
+  description: Parser and AST for the slash-command language
+  url: https://crates.io/crates/slash-lang
+  kinds:
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-11-08T07:27:12.735235Z
+  version: 0.2.0
+  stars: null
+  downloads: 416
+  recent_commits: []
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
+  kinds:
+  - GitHubRepo
+  language: HTML
+  pushed_at: 2026-11-08T06:39:13Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-08T06:39:12Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-07T06:38:08Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-06T06:41:46Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-05T06:42:16Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-04T06:41:15Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-03T06:41:11Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-02T06:47:57Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-01T06:38:37Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-31T06:38:27Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-10-30T06:46:23Z
 - name: ltmx
   description: Local-first activity retrieval over Claude transcripts, git history, and notes.
   url: https://github.com/89jobrien/ltmx
@@ -1123,7 +1178,7 @@
   pushed_at: 2026-10-21T15:11:14.640357Z
   version: 0.5.0
   stars: null
-  downloads: 88
+  downloads: 89
   recent_commits: []
 - name: crux-task
   description: Project task management for crux
@@ -1156,7 +1211,7 @@
   pushed_at: 2026-10-21T15:10:33.227638Z
   version: 0.5.0
   stars: null
-  downloads: 406
+  downloads: 407
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -1178,7 +1233,7 @@
   pushed_at: 2026-10-21T15:10:15.307838Z
   version: 0.5.0
   stars: null
-  downloads: 457
+  downloads: 458
   recent_commits: []
 - name: crux-schema
   description: Runtime-independent trace schema and combinators for Crux
@@ -1189,7 +1244,7 @@
   pushed_at: 2026-10-21T15:10:07.640171Z
   version: 0.5.0
   stars: null
-  downloads: 155
+  downloads: 156
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -1211,7 +1266,7 @@
   pushed_at: 2026-10-21T15:09:52.246550Z
   version: 0.5.0
   stars: null
-  downloads: 565
+  downloads: 567
   recent_commits: []
 - name: testes
   description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
@@ -1528,7 +1583,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 4401
+  downloads: 4413
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -4484,7 +4539,7 @@
   pushed_at: 2026-09-22T06:07:43Z
   version: v0.5.0
   stars: null
-  downloads: 53
+  downloads: 54
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:26:48Z
@@ -4688,7 +4743,7 @@
   pushed_at: 2026-09-18T03:10:36.702440Z
   version: 0.1.1
   stars: null
-  downloads: 83
+  downloads: 89
   recent_commits: []
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
@@ -5806,38 +5861,6 @@
   stars: null
   downloads: 595
   recent_commits: []
-- name: warpx
-  description: 'Warp terminal fork: agentic dev environment, custom UI, MCP, skills'
-  url: https://github.com/89jobrien/warpx
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-05-12T08:45:04Z
-  version: v0.2.0
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'feat(warpx): add context provider trait and orchestrator with provider implementations'
-    date: 2026-05-12T08:31:19Z
-  - message: 'fix(ci): skip test_with_long_line on Linux in integration tests'
-    date: 2026-05-12T08:10:58Z
-  - message: 'fix(ci): allow unused imports in assertion.rs, skip test_clear on Linux'
-    date: 2026-05-12T06:38:00Z
-  - message: 'fix(ci): install multitime for Linux tests, skip block height assert on Linux'
-    date: 2026-05-12T05:46:02Z
-  - message: 'fix(tests): use retryable failure instead of PartialEq on AssertionOutcome'
-    date: 2026-05-12T04:35:42Z
-  - message: 'docs: update changelog with post-v0.4.0 changes'
-    date: 2026-05-12T04:13:43Z
-  - message: 'chore: point Justfile run/install at cargo xtask'
-    date: 2026-05-12T04:12:08Z
-  - message: 'fix(ci): update Cargo.lock for xtask command dependency'
-    date: 2026-05-12T04:09:35Z
-  - message: 'fix(tests): use retryable async_assert in block index assertions'
-    date: 2026-05-12T03:14:10Z
-  - message: 'feat(xtask): add run and install commands'
-    date: 2026-05-11T21:39:56Z
-  readme: "## About\n\n[Warp](https://www.warp.dev) is an agentic development environment, born out of the terminal. Use Warp's built-in coding agent, or bring your own CLI agent (Claude Code, Codex, Gemini CLI, and others).\n\n## Installation\n\nYou can [download Warp](https://www.warp.dev/download) and [read our docs](https://docs.warp.dev/) for platform-specific instructions.\n\n## Licensing\n\nWarp's UI framework (the `warpui_core` and `warpui` crates) are licensed under the [MIT license](LICENSE-MIT).\n\nThe rest of the code in this repository is licensed under the [AGPL v3](LICENSE-AGPL).\n\n## Open Source & Contributing\n\nWarp's client codebase is open source and lives in this repository. We welcome community contributions and have designed a lightweight workflow to help new contributors get started. For the full contribution flow, read our [CONTRIBUTING.md](CONTRIBUTING.md) guide.\n\n### Issue to PR\n\nBefore filing, [search existing issues](https://github.com/warpdotdev/warp/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc) for your bug or feature request. If nothing exists, [file an issue](https://github.com/warpdotdev/warp/issues/new/choose) using our templates. Security vulnerabilities should be reported privately as described in [CONTRIBUTING.md](CONTRIBUTING.md#reporting-security-issues).\n\nOnce filed, a Warp maintainer reviews the issue and may apply a readiness label: [`ready-to-spec`](https://github.com/warpdotdev/warp/issues?q=is%3Aissue+is%3Aopen+label%3Aready-to-spec) signals the design is open for contributors to spec out, and [`ready-to-implement`](https://github.com/warpdotdev/warp/issues?q=is%3Aissue+is%3Aopen+label%3Aready-to-implement) signals the design is settled and code PRs are welcome. Anyone can pick up a labeled issue — mention **@oss-maintainers** on an issue if you'd like it considered for a readiness label.\n\n### Building the Repo Locally\n\nTo build and run Warp from source:\n\n```bash\n./script/bootstrap   # platform-specific setup\n./script/run         # "
 - name: tailbox
   description: Tailscale-rs network adapter for minibox containers
   url: https://crates.io/crates/tailbox
@@ -5881,17 +5904,6 @@
   version: 0.19.0
   stars: null
   downloads: 184
-  recent_commits: []
-- name: slash-core
-  description: Orchestration layer for the slash-command language
-  url: https://crates.io/crates/slash-core
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-04-23T23:07:16.604202Z
-  version: 0.1.0
-  stars: null
-  downloads: 97
   recent_commits: []
 - name: mlrs-core
   description: Core RLM engine — recursive LLM inference via Rhai scripting
@@ -6068,50 +6080,6 @@
   version: 0.1.0
   stars: null
   downloads: 20
-  recent_commits: []
-- name: slash-cmd
-  description: CLI for the slash-command language
-  url: https://crates.io/crates/slash-cmd
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-04-12T22:21:14.454502Z
-  version: 0.1.0
-  stars: null
-  downloads: 22
-  recent_commits: []
-- name: slash-testing
-  description: Proptest strategies and harness configuration for testing slash-command language parsers
-  url: https://crates.io/crates/slash-testing
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-04-12T22:20:40.803525Z
-  version: 0.1.0
-  stars: null
-  downloads: 98
-  recent_commits: []
-- name: slash-lib
-  description: Executor types and high-level API for the slash-command language
-  url: https://crates.io/crates/slash-lib
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-04-12T22:20:30.589964Z
-  version: 0.1.0
-  stars: null
-  downloads: 187
-  recent_commits: []
-- name: slash-lang
-  description: Parser and AST for the slash-command language
-  url: https://crates.io/crates/slash-lang
-  kinds:
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-04-12T22:19:22.090671Z
-  version: 0.1.0
-  stars: null
-  downloads: 415
   recent_commits: []
 - name: valerie
   description: Claude Code plugin for task and todo management via doob
