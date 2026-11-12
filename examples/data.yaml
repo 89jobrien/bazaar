@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-11-11T11:10:49Z
+  pushed_at: 2026-11-11T23:10:32Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-11-11T23:10:30Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-11T11:10:47Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-11-07T23:09:55Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-07T11:09:16Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-11-06T11:11:06Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,11 +219,13 @@
   kinds:
   - GitHubRepo
   language: HTML
-  pushed_at: 2026-11-11T06:42:10Z
+  pushed_at: 2026-11-12T06:42:53Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-12T06:42:50Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-11-11T06:42:08Z
   - message: 'chore: sync showcase from bazaar'
@@ -242,15 +244,13 @@
     date: 2026-11-04T06:41:15Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-11-03T06:41:11Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-02T06:47:57Z
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-11-11T02:21:46Z
+  pushed_at: 2026-11-12T02:28:41Z
   version: v0.34.0
   stars: 1
   downloads: null
@@ -1483,7 +1483,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 4499
+  downloads: 4505
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -4643,7 +4643,7 @@
   pushed_at: 2026-09-18T03:10:36.702440Z
   version: 0.1.1
   stars: null
-  downloads: 99
+  downloads: 101
   recent_commits: []
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
@@ -5671,7 +5671,7 @@
   pushed_at: 2026-05-18T05:11:52.924923Z
   version: 0.2.6
   stars: null
-  downloads: 15648
+  downloads: 15649
   recent_commits: []
 - name: agentlint-opencode
   description: agentlint validator for OpenCode AGENTS.md and opencode.json files
