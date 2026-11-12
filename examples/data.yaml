@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-11-11T23:10:32Z
+  pushed_at: 2026-11-12T11:11:24Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-11-12T11:11:22Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-11T23:10:30Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-11-08T11:09:42Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-07T23:09:55Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-11-07T11:09:16Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -459,7 +459,7 @@
   pushed_at: 2026-11-03T20:34:08Z
   version: v0.10.0
   stars: 1
-  downloads: 565
+  downloads: 566
   recent_commits:
   - message: 'flow: promote release into main'
     date: 2026-11-03T20:11:52Z
@@ -656,7 +656,7 @@
   pushed_at: 2026-11-01T05:58:09.373384Z
   version: 0.10.0
   stars: null
-  downloads: 330
+  downloads: 331
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -667,7 +667,7 @@
   pushed_at: 2026-11-01T05:58:02.169257Z
   version: 0.10.0
   stars: null
-  downloads: 375
+  downloads: 376
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -678,7 +678,7 @@
   pushed_at: 2026-11-01T05:57:54.516883Z
   version: 0.10.0
   stars: null
-  downloads: 325
+  downloads: 326
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -689,7 +689,7 @@
   pushed_at: 2026-11-01T05:57:48.279273Z
   version: 0.10.0
   stars: null
-  downloads: 447
+  downloads: 448
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -733,7 +733,7 @@
   pushed_at: 2026-11-01T05:57:24.108567Z
   version: 0.10.0
   stars: null
-  downloads: 486
+  downloads: 487
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -744,7 +744,7 @@
   pushed_at: 2026-11-01T05:57:20.105763Z
   version: 0.10.0
   stars: null
-  downloads: 748
+  downloads: 749
   recent_commits: []
 - name: praxis
   description: Self-improving agent runtime for the cruxx agentic DSL
