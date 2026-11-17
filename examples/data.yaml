@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-11-16T11:13:41Z
+  pushed_at: 2026-11-16T23:10:25Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-11-16T23:10:24Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-16T11:13:40Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-11-12T23:10:40Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-12T11:11:22Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-11-11T23:10:30Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -219,11 +219,13 @@
   kinds:
   - GitHubRepo
   language: HTML
-  pushed_at: 2026-11-16T06:57:50Z
+  pushed_at: 2026-11-17T06:43:50Z
   version: null
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-17T06:43:49Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-11-16T06:57:49Z
   - message: 'chore: sync showcase from bazaar'
@@ -242,15 +244,13 @@
     date: 2026-11-09T06:49:17Z
   - message: 'chore: sync showcase from bazaar'
     date: 2026-11-08T06:39:12Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-07T06:38:08Z
 - name: minibox
   description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
   url: https://github.com/89jobrien/minibox
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-11-16T02:25:40Z
+  pushed_at: 2026-11-17T02:29:43Z
   version: v0.34.1
   stars: 1
   downloads: null
@@ -1111,7 +1111,7 @@
   pushed_at: 2026-10-21T15:10:33.227638Z
   version: 0.5.0
   stars: null
-  downloads: 448
+  downloads: 449
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -1133,7 +1133,7 @@
   pushed_at: 2026-10-21T15:10:15.307838Z
   version: 0.5.0
   stars: null
-  downloads: 500
+  downloads: 501
   recent_commits: []
 - name: crux-schema
   description: Runtime-independent trace schema and combinators for Crux
@@ -1166,7 +1166,7 @@
   pushed_at: 2026-10-21T15:09:52.246550Z
   version: 0.5.0
   stars: null
-  downloads: 619
+  downloads: 620
   recent_commits: []
 - name: testes
   description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
@@ -1483,7 +1483,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 4642
+  downloads: 4649
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -1852,7 +1852,7 @@
   pushed_at: 2026-10-04T00:26:42.198833Z
   version: 0.8.1
   stars: null
-  downloads: 45
+  downloads: 46
   recent_commits: []
 - name: devobs
   description: Public Obsidian vault for open-source project tracking
@@ -4643,7 +4643,7 @@
   pushed_at: 2026-09-18T03:10:36.702440Z
   version: 0.1.1
   stars: null
-  downloads: 119
+  downloads: 121
   recent_commits: []
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
