@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-11-19T11:12:14Z
+  pushed_at: 2026-11-19T23:10:38Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-11-19T23:10:36Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-19T11:12:12Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-11-15T23:12:26Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-15T11:10:07Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-11-14T23:10:29Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,158 +213,37 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
-- name: hooklings
-  description: YAML-driven developer preflight checks via crux pipelines
-  url: https://github.com/89jobrien/hooklings
+- name: 89jobrien.github.io
+  description: Personal site
+  url: https://github.com/89jobrien/89jobrien.github.io
   kinds:
   - GitHubRepo
-  language: Rust
-  pushed_at: 2026-11-19T19:29:50Z
+  language: HTML
+  pushed_at: 2026-11-20T06:43:30Z
   version: null
   stars: null
   downloads: null
   recent_commits:
-  - message: 'chore: update handoff state after session close-out'
-    date: 2026-11-19T19:29:45Z
-  - message: 'fix: silence clippy warnings in new test files for pre-push'
-    date: 2026-11-19T19:21:50Z
-  - message: 'feat(cli): add config validate subcommand and expand test coverage'
-    date: 2026-11-19T19:20:47Z
-  - message: 'test(hooklings): add regression coverage for config-fallback fix'
-    date: 2026-11-04T07:53:16Z
-  - message: Merge branch 'feat/check-op-conflicts'
-    date: 2026-11-04T07:38:24Z
-  - message: 'fix(hooklings): use Config::load_from_file instead of malformed fallback TOML in coalesce/handoff commands'
-    date: 2026-11-04T07:38:12Z
-  - message: 'feat(hooklings): add check-op-conflicts subcommand'
-    date: 2026-11-03T23:59:54Z
-  - message: 'config: make handoff db path approachable with default_db() helper'
-    date: 2026-11-03T17:13:15Z
-  - message: 'feat: add CLI subcommands for checkpoint coalesce and handoff limit management'
-    date: 2026-11-03T16:54:14Z
-  - message: 'feat(checkpoint-coalesced-commits): add coalesced commit support with default limits and cap enforcement'
-    date: 2026-11-03T16:36:01Z
-  readme: "# hooklings\n\nYAML-driven developer preflight checks via [crux](https://github.com/89jobrien/crux) pipelines.\n\n## Install\n\n```bash\ncargo install --path crates/hooklings\n```\n\n## Usage\n\n```bash\nhooklings preflight              # run all checks, emit JSON + markdown table\nhooklings preflight --emit table # markdown table only\nhooklings check detect_shell     # run a single check\nhooklings config show            # print merged config\nhooklings record <path>...       # record paths an agent harness just touched\nhooklings checkpoint             # commit everything recorded since the last one\nhooklings status                 # show the recorded checkpoint state\n```\n\n## Checkpoint\n\nCoalesced commits for agent-driven edits. A harness records each path it touches\nwhile it works; nothing is committed at that point. At a turn boundary, one\ncheckpoint commit collects everything recorded since the last commit, so a\nfive-file refactor lands as one coherent commit instead of five broken ones.\n\n```toml\n# .hooklings.toml — opt-in per repo\n[checkpoint]\nenabled = true\n```\n\n```bash\nhooklings record src/a.rs src/b.rs   # or: hooklings record --stdin < hook.json\nhooklings checkpoint --dry-run       # preview without committing\nhooklings checkpoint                 # commit\n```\n\nCommits carry an inferred Conventional Commit subject plus a per-file stat body:\n\n```text\nfeat(src): add 2 files\n\nFiles:\n  A src/alpha.rs  +1 -0\n  M src/beta.rs   +8 -2\n\nCoalesced checkpoint: 14 edit(s) since 2026-10-02T21:37:00Z.\n```\n\nType inference is deliberately conservative. A single-file changeset classifies by\nthat file's role (tests, docs, manifests, lockfiles); all-added becomes `feat`,\nall-removed or renamed becomes `refactor`. Everything else is `chore`. `fix` is\n**never** inferred, because nothing in a diff distinguishes a repair from any other\nedit — pass `--type fix --message \"fix(parser): handle empty input\"` when it matters.\n\n### Guardrails\n\nA checkpoint refuses rather than guesses:\n\n| Refusal    "
-- name: minibox
-  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
-  url: https://github.com/89jobrien/minibox
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-11-19T19:22:08Z
-  version: v0.34.1
-  stars: 1
-  downloads: null
-  recent_commits:
-  - message: 'Merge pull request #599 from 89jobrien/release'
-    date: 2026-10-15T16:30:52Z
-  - message: 'chore(release): update protocol drift lock for v0.34.1'
-    date: 2026-10-15T16:22:09Z
-  - message: Merge branch staging into release
-    date: 2026-10-15T16:11:24Z
-  - message: Merge branch develop into staging
-    date: 2026-10-15T16:11:24Z
-  - message: 'fix(minibox-tui): resolve clippy warnings in test module'
-    date: 2026-10-15T16:07:20Z
-  - message: Merge branch 'staging' of github.com:89jobrien/minibox into staging
-    date: 2026-10-15T15:56:51Z
-  - message: Merge branch 'staging' into release
-    date: 2026-10-15T15:56:27Z
-  - message: Merge branch 'develop' into staging
-    date: 2026-10-15T15:56:11Z
-  - message: 'refactor(ops): simplify e2e-local.nu daemon lifecycle with scoped with-env blocks'
-    date: 2026-10-15T15:55:54Z
-  - message: 'fix(minibox-signpost): suppress missing-const-for-fn clippy lint on cfg-gated functions'
-    date: 2026-10-15T15:48:37Z
-  tags:
-  - infra
-  topics:
-  - cgroups
-  - container-runtime
-  - linux
-  - namespaces
-  - oci
-  - rust
-  - systems-programming
-  readme: |-
-    # minibox
-
-    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
-
-    > **Status**: The stabilization freeze was lifted on 2026-08-18. The standing promotion
-    > gates remain in force; see [CONTRIBUTING.md](CONTRIBUTING.md) and
-    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
-
-    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
-    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
-    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
-    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
-    lifecycle without shelling out to the CLI.
-
-    **Status:** Active development — `v0.33.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
-    (VM-backed). See the [Platform Support](#platform-support) table.
-
-    ---
-
-    ## Why
-
-    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
-    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
-    daemon — is readable and swappable. It exists as both a working runtime and a reference for
-    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
-    structured tracing, property testing.
-
-    ---
-
-    ## What Works Today
-
-    ### Linux (production)
-
-    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
-    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
-    - Image management — local `search`, `prune` / `rmi` with lease-based GC
-    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
-    - Log capture — `mbx logs <id>` for stored stdout/stderr
-    - Container events — `mbx events` streams lifecycle events
-
-    ### Experimental-ish
-
-    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
-    - **Bridge networking** — veth pa
-- name: testes
-  description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
-  url: https://github.com/89jobrien/testes
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-11-19T19:08:11Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore(release): merge v0.2.0 from develop to main'
-    date: 2026-10-16T06:27:05Z
-  - message: 'chore(release): v0.2.0'
-    date: 2026-10-16T06:18:03Z
-  - message: 'feat: implement property! macro for property-based testing'
-    date: 2026-10-16T06:11:30Z
-  - message: 'test: add regression coverage for unit! macro evidence recording and shape validation'
-    date: 2026-10-16T05:03:48Z
-  - message: 'feat: implement unit! macro for native test evidence recording'
-    date: 2026-10-16T04:56:42Z
-  - message: 'refactor: split testes into a 9-crate workspace, one crate per dimension'
-    date: 2026-10-08T23:06:09Z
-  - message: 'refactor: split testes into a 9-crate workspace, one crate per dimension'
-    date: 2026-10-08T23:06:09Z
-  - message: 'docs: supersede ADR-0001 with the full layered-dependencies ADR'
-    date: 2026-10-08T22:38:07Z
-  - message: 'docs: correct CLAUDE.md for miette/thiserror dependency, drop stale std-only claims'
-    date: 2026-10-08T22:25:45Z
-  - message: 'feat: derive miette::Diagnostic + thiserror::Error for core error enums'
-    date: 2026-10-08T22:21:38Z
-  readme: |
-    # testes
-    Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-20T06:43:28Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-19T06:44:10Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-18T06:43:38Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-17T06:43:49Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-16T06:57:49Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-15T06:40:31Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-14T06:39:34Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-13T06:42:23Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-12T06:42:50Z
+  - message: 'chore: sync showcase from bazaar'
+    date: 2026-11-11T06:42:08Z
 - name: taskit
   description: Config-driven cargo xtask runner with affected-crate detection, protocol-drift tracking, and CI pipeline orchestration
   url: https://github.com/89jobrien/taskit
@@ -372,10 +251,10 @@
   - GitHubRepo
   - CratesIo
   language: Rust
-  pushed_at: 2026-11-19T18:24:01Z
+  pushed_at: 2026-11-20T04:09:31Z
   version: v0.10.0
   stars: 1
-  downloads: 579
+  downloads: 580
   recent_commits:
   - message: 'flow: promote release into main'
     date: 2026-11-03T20:11:52Z
@@ -460,6 +339,353 @@
 
     [[protocol.surfaces]]
     name = "c
+- name: notfiles
+  description: Nix-based dotfiles and system configuration
+  url: https://github.com/89jobrien/notfiles
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-11-20T04:08:01Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore(repo): remove nested agent worktree marker'
+    date: 2026-07-12T03:53:42Z
+  - message: 'Merge pull request #20 from 89jobrien/chore/sort-cargo-manifests'
+    date: 2026-07-12T03:49:24Z
+  - message: 'fix(ci): install nushell for integration tests'
+    date: 2026-07-12T03:44:04Z
+  - message: 'feat(notforge): add Gitea API foundation'
+    date: 2026-07-12T03:33:24Z
+  - message: 'chore(repo): stop tracking macOS artifacts'
+    date: 2026-07-12T03:33:04Z
+  - message: 'chore(manifests): sort Cargo.toml dependencies'
+    date: 2026-07-12T02:10:48Z
+  - message: 'docs(handoff): log 2026-07-08 — hexagonal architecture refactor, adapters, integration tests, notsecrets cleanup'
+    date: 2026-07-08T19:22:59Z
+  - message: 'chore(nushell): move config payload out of tool repo'
+    date: 2026-07-08T17:28:57Z
+  - message: 'feat(notfiles): hexagonal architecture refactor with adapters, integration tests, and notsecrets cleanup'
+    date: 2026-07-08T17:07:42Z
+  - message: 'feat(nushell): add x alias for cargo xtask'
+    date: 2026-07-07T09:43:59Z
+  tags:
+  - cli
+  - infra
+  readme: |-
+    # notfiles
+
+    A pure-Rust dotfiles manager — and eventually, a complete new-machine bootstrap system.
+
+    `notfiles` started as a Rust replacement for [GNU Stow](https://www.gnu.org/software/stow/). It's growing into a **Cargo workspace** of focused crates that together replace an entire shell-script-based dotfiles ecosystem.
+
+    ---
+
+    ## Quick Start
+
+    ```bash
+    # Symlink your dotfiles
+    notfiles link
+
+    # Check status
+    notfiles status
+
+    # Validate config without changes (CI-friendly)
+    notfiles check
+
+    # Show copy-method divergence
+    notfiles diff
+
+    # Move an existing file into a package
+    notfiles adopt git .gitconfig
+
+    # Remove symlinks
+    notfiles unlink
+
+    # Generate shell completions
+    notfiles completions bash > ~/.bash_completion.d/notfiles
+    ```
+
+    All commands support `--dry-run`, `--verbose`, and `--json` flags.
+
+    On a new machine (once `notstrap` ships):
+
+    ```bash
+    cargo install notstrap
+    notstrap run
+    ```
+
+    ---
+
+    ## Workspace Architecture
+
+    ```
+    notfiles/
+    ├── crates/
+    │   ├── notcore/        # shared types, config, paths, errors, Reporter trait
+    │   ├── notfiles/       # symlink engine (stow replacement)  ← you are here
+    │   ├── notsecrets/     # multi-provider secret resolution + age crypto
+    │   ├── nothooks/       # hook execution engine
+    │   ├── notnet/         # network utilities (Tailscale, Yubikey)
+    │   ├── notstrap/       # new-machine bootstrap orchestrator
+    │   └── notgraph/       # Rust dependency graph visualizer
+    ├── notfiles.toml       # symlink package config
+    └── notstrap.toml       # bootstrap hook/phase config
+    ```
+
+    ### Crate responsibilities
+
+    | Crate | Type | Does |
+    |-------|------|------|
+    | `notcore` | lib | Shared types, config, paths, errors, Reporter trait — no deps on other crates |
+    | `notfiles` | lib + bin | Symlink/copy packages into `$HOME`, track state, adopt/diff/check |
+    | `notsecrets` | lib | Multi-provider secret resolution, native age encryption/decryption |
+    | `nothooks` | lib + bin | Run bootstrap h
+- name: hooklings
+  description: YAML-driven developer preflight checks via crux pipelines
+  url: https://github.com/89jobrien/hooklings
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-11-20T03:57:38Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore: update handoff state after session close-out'
+    date: 2026-11-19T19:29:45Z
+  - message: 'fix: silence clippy warnings in new test files for pre-push'
+    date: 2026-11-19T19:21:50Z
+  - message: 'feat(cli): add config validate subcommand and expand test coverage'
+    date: 2026-11-19T19:20:47Z
+  - message: 'test(hooklings): add regression coverage for config-fallback fix'
+    date: 2026-11-04T07:53:16Z
+  - message: Merge branch 'feat/check-op-conflicts'
+    date: 2026-11-04T07:38:24Z
+  - message: 'fix(hooklings): use Config::load_from_file instead of malformed fallback TOML in coalesce/handoff commands'
+    date: 2026-11-04T07:38:12Z
+  - message: 'feat(hooklings): add check-op-conflicts subcommand'
+    date: 2026-11-03T23:59:54Z
+  - message: 'config: make handoff db path approachable with default_db() helper'
+    date: 2026-11-03T17:13:15Z
+  - message: 'feat: add CLI subcommands for checkpoint coalesce and handoff limit management'
+    date: 2026-11-03T16:54:14Z
+  - message: 'feat(checkpoint-coalesced-commits): add coalesced commit support with default limits and cap enforcement'
+    date: 2026-11-03T16:36:01Z
+  readme: "# hooklings\n\nYAML-driven developer preflight checks via [crux](https://github.com/89jobrien/crux) pipelines.\n\n## Install\n\n```bash\ncargo install --path crates/hooklings\n```\n\n## Usage\n\n```bash\nhooklings preflight              # run all checks, emit JSON + markdown table\nhooklings preflight --emit table # markdown table only\nhooklings check detect_shell     # run a single check\nhooklings config show            # print merged config\nhooklings record <path>...       # record paths an agent harness just touched\nhooklings checkpoint             # commit everything recorded since the last one\nhooklings status                 # show the recorded checkpoint state\n```\n\n## Checkpoint\n\nCoalesced commits for agent-driven edits. A harness records each path it touches\nwhile it works; nothing is committed at that point. At a turn boundary, one\ncheckpoint commit collects everything recorded since the last commit, so a\nfive-file refactor lands as one coherent commit instead of five broken ones.\n\n```toml\n# .hooklings.toml — opt-in per repo\n[checkpoint]\nenabled = true\n```\n\n```bash\nhooklings record src/a.rs src/b.rs   # or: hooklings record --stdin < hook.json\nhooklings checkpoint --dry-run       # preview without committing\nhooklings checkpoint                 # commit\n```\n\nCommits carry an inferred Conventional Commit subject plus a per-file stat body:\n\n```text\nfeat(src): add 2 files\n\nFiles:\n  A src/alpha.rs  +1 -0\n  M src/beta.rs   +8 -2\n\nCoalesced checkpoint: 14 edit(s) since 2026-10-02T21:37:00Z.\n```\n\nType inference is deliberately conservative. A single-file changeset classifies by\nthat file's role (tests, docs, manifests, lockfiles); all-added becomes `feat`,\nall-removed or renamed becomes `refactor`. Everything else is `chore`. `fix` is\n**never** inferred, because nothing in a diff distinguishes a repair from any other\nedit — pass `--type fix --message \"fix(parser): handle empty input\"` when it matters.\n\n### Guardrails\n\nA checkpoint refuses rather than guesses:\n\n| Refusal    "
+- name: minibox
+  description: Linux VM/VPS manager — Tailscale, QEMU, SSH provisioning
+  url: https://github.com/89jobrien/minibox
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-11-20T02:24:04Z
+  version: v0.34.1
+  stars: 1
+  downloads: null
+  recent_commits:
+  - message: 'Merge pull request #599 from 89jobrien/release'
+    date: 2026-10-15T16:30:52Z
+  - message: 'chore(release): update protocol drift lock for v0.34.1'
+    date: 2026-10-15T16:22:09Z
+  - message: Merge branch staging into release
+    date: 2026-10-15T16:11:24Z
+  - message: Merge branch develop into staging
+    date: 2026-10-15T16:11:24Z
+  - message: 'fix(minibox-tui): resolve clippy warnings in test module'
+    date: 2026-10-15T16:07:20Z
+  - message: Merge branch 'staging' of github.com:89jobrien/minibox into staging
+    date: 2026-10-15T15:56:51Z
+  - message: Merge branch 'staging' into release
+    date: 2026-10-15T15:56:27Z
+  - message: Merge branch 'develop' into staging
+    date: 2026-10-15T15:56:11Z
+  - message: 'refactor(ops): simplify e2e-local.nu daemon lifecycle with scoped with-env blocks'
+    date: 2026-10-15T15:55:54Z
+  - message: 'fix(minibox-signpost): suppress missing-const-for-fn clippy lint on cfg-gated functions'
+    date: 2026-10-15T15:48:37Z
+  tags:
+  - infra
+  topics:
+  - cgroups
+  - container-runtime
+  - linux
+  - namespaces
+  - oci
+  - rust
+  - systems-programming
+  readme: |-
+    # minibox
+
+    [![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+    > **Status**: The stabilization freeze was lifted on 2026-08-18. The standing promotion
+    > gates remain in force; see [CONTRIBUTING.md](CONTRIBUTING.md) and
+    > [docs/core/STABILITY_CHECKLIST.mbx.md](docs/core/STABILITY_CHECKLIST.mbx.md).
+
+    An agent-controllable container runtime written in Rust. Daemon/CLI split, OCI image pulling,
+    Linux namespace isolation, cgroups v2 resource limits, and overlay filesystem support. Hexagonal
+    architecture keeps adapter suites swappable at startup with no recompile. A built-in MCP stdio
+    server exposes policy-gated daemon operations directly to MCP clients so agents can drive container
+    lifecycle without shelling out to the CLI.
+
+    **Status:** Active development — `v0.33.0`. Linux runs natively and is production-ready; macOS feels like native but requires `smolvm`
+    (VM-backed). See the [Platform Support](#platform-support) table.
+
+    ---
+
+    ## Why
+
+    Most container runtimes are large, opaque, and hard to embed or extend. Minibox is an
+    intentionally small Rust implementation where every layer — protocol, domain traits, adapters,
+    daemon — is readable and swappable. It exists as both a working runtime and a reference for
+    how I structure systems software in Rust: hexagonal architecture, async/sync boundaries,
+    structured tracing, property testing.
+
+    ---
+
+    ## What Works Today
+
+    ### Linux (production)
+
+    - Container lifecycle — pull, run, stop, rm, ps, pause/resume
+    - OCI image pull — Docker Hub v2 + ghcr.io, anonymous auth, parallel layers
+    - Image management — local `search`, `prune` / `rmi` with lease-based GC
+    - Bind mounts and privileged mode — `-v`/`--mount`, `--privileged`
+    - Log capture — `mbx logs <id>` for stored stdout/stderr
+    - Container events — `mbx events` streams lifecycle events
+
+    ### Experimental-ish
+
+    - **Container exec** — `setns`-based exec with PTY support (`-it`); Linux (`native`) only
+    - **Bridge networking** — veth pa
+- name: mirror-displays
+  description: null
+  url: https://github.com/89jobrien/mirror-displays
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-11-20T01:50:56Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: Document one-liner install in README
+    date: 2026-11-20T01:50:54Z
+  - message: Add README with pull and install instructions
+    date: 2026-11-20T01:45:57Z
+  - message: Add mirror-displays crate
+    date: 2026-11-20T01:43:16Z
+  readme: |
+    # mirror-displays
+
+    macOS display mirroring via
+    [displayplacer](https://github.com/jakehilborn/displayplacer).
+
+    Mirrors the primary display to every connected external display and keeps
+    a backup of the original layout, so `--restore` can undo it.
+
+    ## Requirements
+
+    - macOS
+    - `cargo`/`rustc` (via [rustup](https://rustup.rs) if you don't have them)
+    - `displayplacer` (see [Install](#install-locally))
+
+    ## Pull
+
+    ```sh
+    git clone https://github.com/89jobrien/mirror-displays.git
+    cd mirror-displays
+    ```
+
+    To fetch updates from an existing clone:
+
+    ```sh
+    git pull
+    ```
+
+    (Alternatively: `gh repo clone 89jobrien/mirror-displays`.)
+
+    ## Install locally
+
+    One-liner — installs the binary into `~/.cargo/bin`:
+
+    ```sh
+    cargo install --git https://github.com/89jobrien/mirror-displays
+    ```
+
+    From a clone instead: `cargo install --path .`
+
+    Or build and run it from the target directory without installing:
+
+    ```sh
+    cargo build
+    ./target/debug/mirror-displays --help
+    ```
+
+    ### Install the displayplacer dependency
+
+    ```sh
+    brew install displayplacer
+    ```
+
+    `mirror-displays --install` does the same thing via Homebrew.
+
+    ## Usage
+
+    ```sh
+    mirror-displays            # mirror the primary display to all connected displays
+    mirror-displays --mirror   # same as the default above
+    mirror-displays --restore  # restore the original layout saved before mirroring
+    mirror-displays --list     # list connected displays
+    mirror-displays --install  # install the displayplacer dependency
+    mirror-displays --help     # usage
+    ```
+
+    The backup of the original layout lives at
+    `~/.config/mirror-displays/original-profile`.
+
+    ## Development
+
+    ```sh
+    cargo test    # run the unit tests
+    cargo build   # build the binary
+    ```
+- name: testes
+  description: Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
+  url: https://github.com/89jobrien/testes
+  kinds:
+  - GitHubRepo
+  language: Rust
+  pushed_at: 2026-11-19T19:08:11Z
+  version: null
+  stars: null
+  downloads: null
+  recent_commits:
+  - message: 'chore(release): merge v0.2.0 from develop to main'
+    date: 2026-10-16T06:27:05Z
+  - message: 'chore(release): v0.2.0'
+    date: 2026-10-16T06:18:03Z
+  - message: 'feat: implement property! macro for property-based testing'
+    date: 2026-10-16T06:11:30Z
+  - message: 'test: add regression coverage for unit! macro evidence recording and shape validation'
+    date: 2026-10-16T05:03:48Z
+  - message: 'feat: implement unit! macro for native test evidence recording'
+    date: 2026-10-16T04:56:42Z
+  - message: 'refactor: split testes into a 9-crate workspace, one crate per dimension'
+    date: 2026-10-08T23:06:09Z
+  - message: 'refactor: split testes into a 9-crate workspace, one crate per dimension'
+    date: 2026-10-08T23:06:09Z
+  - message: 'docs: supersede ADR-0001 with the full layered-dependencies ADR'
+    date: 2026-10-08T22:38:07Z
+  - message: 'docs: correct CLAUDE.md for miette/thiserror dependency, drop stale std-only claims'
+    date: 2026-10-08T22:25:45Z
+  - message: 'feat: derive miette::Diagnostic + thiserror::Error for core error enums'
+    date: 2026-10-08T22:21:38Z
+  readme: |
+    # testes
+    Rust testing declarations, reusable harnesses, and execution evidence for seven-dimensional testing and mutation analysis.
 - name: syntony
   description: Syncs one master alias list into nushell, zsh, and fish config files
   url: https://github.com/89jobrien/syntony
@@ -471,37 +697,6 @@
   stars: null
   downloads: null
   recent_commits: []
-- name: 89jobrien.github.io
-  description: Personal site
-  url: https://github.com/89jobrien/89jobrien.github.io
-  kinds:
-  - GitHubRepo
-  language: HTML
-  pushed_at: 2026-11-19T06:44:11Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-19T06:44:10Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-18T06:43:38Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-17T06:43:49Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-16T06:57:49Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-15T06:40:31Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-14T06:39:34Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-13T06:42:23Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-12T06:42:50Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-11T06:42:08Z
-  - message: 'chore: sync showcase from bazaar'
-    date: 2026-11-10T06:41:22Z
 - name: maid
   description: File organiser CLI — sorts, converts, and routes files to Obsidian vaults
   url: https://github.com/89jobrien/maid
@@ -645,7 +840,7 @@
   pushed_at: 2026-11-08T07:27:21.349543Z
   version: 0.2.0
   stars: null
-  downloads: 128
+  downloads: 129
   recent_commits: []
 - name: slash-lang
   description: Parser and AST for the slash-command language
@@ -656,7 +851,7 @@
   pushed_at: 2026-11-08T07:27:12.735235Z
   version: 0.2.0
   stars: null
-  downloads: 461
+  downloads: 462
   recent_commits: []
 - name: ltmx
   description: Local-first activity retrieval over Claude transcripts, git history, and notes.
@@ -690,109 +885,6 @@
   - message: 'flow: stage staging into release'
     date: 2026-10-29T13:55:17Z
   readme: "# ltmx\n\nReconstruct what you actually worked on, and answer questions about it.\n\nltmx is a local-first replacement for Pieces LTM (\"Long-Term Memory\"), the\nWorkstream Pattern Engine that Pieces shipped and then disabled for users. It\nreads the durable traces already on your machine and serves them back over an\nMCP server.\n\n## The spike question\n\nBefore building anything further, this repository answers one question:\n\n> **Can local traces alone -- agent transcripts, git, notes -- answer the\n> questions Pieces LTM used to answer?**\n\nRun it against your own data:\n\n```sh\ncargo run -p ltmx-probe --release -- stats\ncargo run -p ltmx-probe --release -- eval\ncargo run -p ltmx-probe --release -- ask \"why did we switch to colima\"\n```\n\n`eval` runs the four query categories from the `pieces-ltm` skill -- temporal,\ndecision archaeology, prior art, and current-project context -- because those\nare the acceptance criteria, not a guess.\n\n## Source tiers\n\nSourcing capability is layered by cost, and each tier is behind a feature flag.\nBuild only the tier you need.\n\n| Tier | Sources                                                   | Cost                       | Feature              |\n| ---- | --------------------------------------------------------- | -------------------------- | -------------------- |\n| 0    | Claude Code transcripts (`~/.claude/projects/**/*.jsonl`) | none                       | `claude-transcripts` |\n| 0    | git history                                               | shells out to `git`        | _planned_            |\n| 0    | notes (Obsidian vault)                                    | none                       | _planned_            |\n| 1    | screen capture + OCR via `screencapture` / `tesseract`    | one `brew install`, no FFI | _planned_            |\n| 2    | Vision.framework OCR, accessibility tree                  | `objc2` bindings           | _planned_            |\n\nTier 2 is Objective-C. There is no pure-Rust path to it, so it stays optional.\nMost text "
-- name: notfiles
-  description: Nix-based dotfiles and system configuration
-  url: https://github.com/89jobrien/notfiles
-  kinds:
-  - GitHubRepo
-  language: Rust
-  pushed_at: 2026-11-03T07:58:25Z
-  version: null
-  stars: null
-  downloads: null
-  recent_commits:
-  - message: 'chore(repo): remove nested agent worktree marker'
-    date: 2026-07-12T03:53:42Z
-  - message: 'Merge pull request #20 from 89jobrien/chore/sort-cargo-manifests'
-    date: 2026-07-12T03:49:24Z
-  - message: 'fix(ci): install nushell for integration tests'
-    date: 2026-07-12T03:44:04Z
-  - message: 'feat(notforge): add Gitea API foundation'
-    date: 2026-07-12T03:33:24Z
-  - message: 'chore(repo): stop tracking macOS artifacts'
-    date: 2026-07-12T03:33:04Z
-  - message: 'chore(manifests): sort Cargo.toml dependencies'
-    date: 2026-07-12T02:10:48Z
-  - message: 'docs(handoff): log 2026-07-08 — hexagonal architecture refactor, adapters, integration tests, notsecrets cleanup'
-    date: 2026-07-08T19:22:59Z
-  - message: 'chore(nushell): move config payload out of tool repo'
-    date: 2026-07-08T17:28:57Z
-  - message: 'feat(notfiles): hexagonal architecture refactor with adapters, integration tests, and notsecrets cleanup'
-    date: 2026-07-08T17:07:42Z
-  - message: 'feat(nushell): add x alias for cargo xtask'
-    date: 2026-07-07T09:43:59Z
-  tags:
-  - cli
-  - infra
-  readme: |-
-    # notfiles
-
-    A pure-Rust dotfiles manager — and eventually, a complete new-machine bootstrap system.
-
-    `notfiles` started as a Rust replacement for [GNU Stow](https://www.gnu.org/software/stow/). It's growing into a **Cargo workspace** of focused crates that together replace an entire shell-script-based dotfiles ecosystem.
-
-    ---
-
-    ## Quick Start
-
-    ```bash
-    # Symlink your dotfiles
-    notfiles link
-
-    # Check status
-    notfiles status
-
-    # Validate config without changes (CI-friendly)
-    notfiles check
-
-    # Show copy-method divergence
-    notfiles diff
-
-    # Move an existing file into a package
-    notfiles adopt git .gitconfig
-
-    # Remove symlinks
-    notfiles unlink
-
-    # Generate shell completions
-    notfiles completions bash > ~/.bash_completion.d/notfiles
-    ```
-
-    All commands support `--dry-run`, `--verbose`, and `--json` flags.
-
-    On a new machine (once `notstrap` ships):
-
-    ```bash
-    cargo install notstrap
-    notstrap run
-    ```
-
-    ---
-
-    ## Workspace Architecture
-
-    ```
-    notfiles/
-    ├── crates/
-    │   ├── notcore/        # shared types, config, paths, errors, Reporter trait
-    │   ├── notfiles/       # symlink engine (stow replacement)  ← you are here
-    │   ├── notsecrets/     # multi-provider secret resolution + age crypto
-    │   ├── nothooks/       # hook execution engine
-    │   ├── notnet/         # network utilities (Tailscale, Yubikey)
-    │   ├── notstrap/       # new-machine bootstrap orchestrator
-    │   └── notgraph/       # Rust dependency graph visualizer
-    ├── notfiles.toml       # symlink package config
-    └── notstrap.toml       # bootstrap hook/phase config
-    ```
-
-    ### Crate responsibilities
-
-    | Crate | Type | Does |
-    |-------|------|------|
-    | `notcore` | lib | Shared types, config, paths, errors, Reporter trait — no deps on other crates |
-    | `notfiles` | lib + bin | Symlink/copy packages into `$HOME`, track state, adopt/diff/check |
-    | `notsecrets` | lib | Multi-provider secret resolution, native age encryption/decryption |
-    | `nothooks` | lib + bin | Run bootstrap h
 - name: taskit-tui
   description: Terminal governance dashboard for taskit workspace health and telemetry
   url: https://crates.io/crates/taskit-tui
@@ -802,7 +894,7 @@
   pushed_at: 2026-11-01T05:58:09.373384Z
   version: 0.10.0
   stars: null
-  downloads: 345
+  downloads: 346
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -813,7 +905,7 @@
   pushed_at: 2026-11-01T05:58:02.169257Z
   version: 0.10.0
   stars: null
-  downloads: 392
+  downloads: 393
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -824,7 +916,7 @@
   pushed_at: 2026-11-01T05:57:54.516883Z
   version: 0.10.0
   stars: null
-  downloads: 340
+  downloads: 341
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -835,7 +927,7 @@
   pushed_at: 2026-11-01T05:57:48.279273Z
   version: 0.10.0
   stars: null
-  downloads: 467
+  downloads: 468
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -879,7 +971,7 @@
   pushed_at: 2026-11-01T05:57:24.108567Z
   version: 0.10.0
   stars: null
-  downloads: 508
+  downloads: 509
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -890,7 +982,7 @@
   pushed_at: 2026-11-01T05:57:20.105763Z
   version: 0.10.0
   stars: null
-  downloads: 776
+  downloads: 777
   recent_commits: []
 - name: praxis
   description: Self-improving agent runtime for the cruxx agentic DSL
@@ -1125,7 +1217,7 @@
   pushed_at: 2026-10-21T15:20:08.394509Z
   version: 0.5.0
   stars: null
-  downloads: 11
+  downloads: 12
   recent_commits: []
 - name: crux-dsl-cli
   description: Command-line interface for crux pipelines
@@ -1136,7 +1228,7 @@
   pushed_at: 2026-10-21T15:19:20.958089Z
   version: 0.5.0
   stars: null
-  downloads: 11
+  downloads: 12
   recent_commits: []
 - name: crux-planner
   description: Goal-to-pipeline planner for crux-script
@@ -1158,7 +1250,7 @@
   pushed_at: 2026-10-21T15:18:58.580158Z
   version: 0.5.0
   stars: null
-  downloads: 253
+  downloads: 254
   recent_commits: []
 - name: crux-plugin
   description: Subprocess plugin host for crux pipelines
@@ -1169,7 +1261,7 @@
   pushed_at: 2026-10-21T15:18:33.863232Z
   version: 0.5.0
   stars: null
-  downloads: 89
+  downloads: 90
   recent_commits: []
 - name: crux-stdlib
   description: Standard library handlers for crux-script pipelines (fs, git, json, text, ctrl)
@@ -1180,7 +1272,7 @@
   pushed_at: 2026-10-21T15:18:25.883489Z
   version: 0.5.0
   stars: null
-  downloads: 87
+  downloads: 88
   recent_commits: []
 - name: crux-typesafe
   description: TypeSafe System One judgment handlers for crux-script pipelines (calibrated score, choice, and noul)
@@ -1191,7 +1283,7 @@
   pushed_at: 2026-10-21T15:18:17.671439Z
   version: 0.5.0
   stars: null
-  downloads: 49
+  downloads: 50
   recent_commits: []
 - name: crux-baml
   description: BAML-powered LLM handlers for crux-script pipelines (analyze, confidence, complete, extract, decompose, plan)
@@ -1202,7 +1294,7 @@
   pushed_at: 2026-10-21T15:17:53.824838Z
   version: 0.5.0
   stars: null
-  downloads: 101
+  downloads: 102
   recent_commits: []
 - name: crux-regression
   description: Golden trace regression storage and evaluation for Crux
@@ -1213,7 +1305,7 @@
   pushed_at: 2026-10-21T15:11:28.352847Z
   version: 0.5.0
   stars: null
-  downloads: 24
+  downloads: 25
   recent_commits: []
 - name: crux-improve
   description: Improvement protocol types for the crux agent runtime
@@ -1224,7 +1316,7 @@
   pushed_at: 2026-10-21T15:11:14.640357Z
   version: 0.5.0
   stars: null
-  downloads: 103
+  downloads: 104
   recent_commits: []
 - name: crux-task
   description: Project task management for crux
@@ -1235,7 +1327,7 @@
   pushed_at: 2026-10-21T15:11:06.092988Z
   version: 0.5.0
   stars: null
-  downloads: 102
+  downloads: 103
   recent_commits: []
 - name: crux-script
   description: YAML-driven pipeline scripting for the crux agentic DSL
@@ -1246,7 +1338,7 @@
   pushed_at: 2026-10-21T15:10:51.008547Z
   version: 0.5.0
   stars: null
-  downloads: 222
+  downloads: 223
   recent_commits: []
 - name: crux-runtime
   description: Core types, traits, and runtime for the crux agentic DSL
@@ -1257,7 +1349,7 @@
   pushed_at: 2026-10-21T15:10:33.227638Z
   version: 0.5.0
   stars: null
-  downloads: 457
+  downloads: 459
   recent_commits: []
 - name: crux-derive
   description: Proc macros for the crux agentic DSL
@@ -1279,7 +1371,7 @@
   pushed_at: 2026-10-21T15:10:15.307838Z
   version: 0.5.0
   stars: null
-  downloads: 509
+  downloads: 511
   recent_commits: []
 - name: crux-schema
   description: Runtime-independent trace schema and combinators for Crux
@@ -1290,7 +1382,7 @@
   pushed_at: 2026-10-21T15:10:07.640171Z
   version: 0.5.0
   stars: null
-  downloads: 191
+  downloads: 192
   recent_commits: []
 - name: crux-model
   description: Canonical model ID types and provider-specific parsers for crux
@@ -1301,7 +1393,7 @@
   pushed_at: 2026-10-21T15:09:57.606285Z
   version: 0.5.0
   stars: null
-  downloads: 189
+  downloads: 190
   recent_commits: []
 - name: crux-types
   description: Serializable wire-format types for the crux agentic DSL
@@ -1312,7 +1404,7 @@
   pushed_at: 2026-10-21T15:09:52.246550Z
   version: 0.5.0
   stars: null
-  downloads: 631
+  downloads: 633
   recent_commits: []
 - name: coursers
   description: Claude Code hook — blocks anti-pattern CLI commands and tracks failures
@@ -1324,7 +1416,7 @@
   pushed_at: 2026-10-17T17:22:40Z
   version: v0.1.0
   stars: null
-  downloads: 14
+  downloads: 15
   recent_commits:
   - message: 'merge: feat/rule-conformance-fuzz-harness'
     date: 2026-10-17T16:58:00Z
@@ -1595,7 +1687,7 @@
   pushed_at: 2026-10-10T05:07:11Z
   version: 0.1.2
   stars: null
-  downloads: 4689
+  downloads: 4701
   recent_commits:
   - message: 'chore(release): v0.2.0'
     date: 2026-10-10T05:04:57Z
@@ -4070,7 +4162,7 @@
   pushed_at: 2026-09-22T06:08:02Z
   version: v0.5.0
   stars: null
-  downloads: 174
+  downloads: 175
   recent_commits:
   - message: 'chore: checkpoint workspace and Rust documentation'
     date: 2026-09-21T22:20:58Z
@@ -4275,7 +4367,7 @@
   pushed_at: 2026-09-22T06:07:55Z
   version: xtui-v0.3.0
   stars: 1
-  downloads: 64
+  downloads: 65
   recent_commits:
   - message: 'chore: restructure docs to xbook/ with configurable copies and glob support'
     date: 2026-06-09T22:57:01Z
@@ -4654,7 +4746,7 @@
   pushed_at: 2026-09-18T03:10:36.702440Z
   version: 0.1.1
   stars: null
-  downloads: 129
+  downloads: 134
   recent_commits: []
 - name: looprs-cli
   description: 'looprs binary: interactive REPL and scriptable entrypoint'
@@ -4786,7 +4878,7 @@
   pushed_at: 2026-08-26T20:14:35.927497Z
   version: 0.1.0
   stars: null
-  downloads: 47
+  downloads: 48
   recent_commits: []
 - name: coursers-types
   description: Domain types and port traits for the coursers workspace
@@ -4797,7 +4889,7 @@
   pushed_at: 2026-08-26T20:14:08.806708Z
   version: 0.1.0
   stars: null
-  downloads: 78
+  downloads: 79
   recent_commits: []
 - name: prefixe-cli
   description: CLI binary for the prefixe command-rewriting system
