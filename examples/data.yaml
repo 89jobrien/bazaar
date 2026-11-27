@@ -4,11 +4,13 @@
   kinds:
   - GitHubRepo
   language: Rust
-  pushed_at: 2026-11-26T23:11:35Z
+  pushed_at: 2026-11-27T11:12:07Z
   version: v0.4.0
   stars: null
   downloads: null
   recent_commits:
+  - message: 'chore: regenerate showcase [skip ci]'
+    date: 2026-11-27T11:12:05Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-26T23:11:33Z
   - message: 'chore: regenerate showcase [skip ci]'
@@ -27,8 +29,6 @@
     date: 2026-11-23T11:11:07Z
   - message: 'chore: regenerate showcase [skip ci]'
     date: 2026-11-22T23:11:03Z
-  - message: 'chore: regenerate showcase [skip ci]'
-    date: 2026-11-22T11:10:06Z
   readme: "# Open Source\n\nProjects I maintain or contribute to.\n\n_Generated 2026-08-18_\n\n| Project                                                                       | Kind          | Tags          | Description                                                                                                                                                                                            | Updated    |\n| ----------------------------------------------------------------------------- | ------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- |\n| [bazaar](https://github.com/89jobrien/bazaar)                                 | Repo          | —             | Claude Code plugin marketplace and showcase generator                                                                                                                                                  | 2026-08-17 |\n| [atelier](https://github.com/89jobrien/atelier)                               | Repo / Plugin | `plugins`     | Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse                                                                                                   | 2026-07-20 |\n| [orca-strait](https://github.com/89jobrien/orca-strait)                       | Repo / Plugin | `plugins`     | Parallel TDD sub-agent orchestrator for Rust workspaces                                                                                                                                                | 2026-06-08 |\n| [obfsck](https://github.com/89jobrien/obfsck)                                 | Repo / Crate  | `cli`         | Secret-detection and redaction CLI for pre-commit hooks                                                                                                             "
 - name: atelier
   description: Personal Claude Code dev workflow plugin — Rust gates, code review, CI, git safety, multi-repo pulse
@@ -213,6 +213,101 @@
 
     - New external dependencies → trait (port) in domain layer first
     - Implementations → adapters in
+- name: obfsck
+  description: Secret-detection and redaction CLI for pre-commit hooks
+  url: https://github.com/89jobrien/obfsck
+  kinds:
+  - GitHubRepo
+  - CratesIo
+  language: Rust
+  pushed_at: 2026-11-27T17:29:10Z
+  version: v0.1.0
+  stars: 1
+  downloads: 212
+  recent_commits:
+  - message: Merge branch 'docs/session-closeout-2026-09-13'
+    date: 2026-10-17T16:56:42Z
+  - message: 'ci(site): gate documentation drift in CI, just ci, and pre-push'
+    date: 2026-10-17T16:56:37Z
+  - message: Merge branch 'docs/session-closeout-2026-09-13'
+    date: 2026-10-17T15:09:59Z
+  - message: 'fix(site): correct help output and behavioural claims on the reference site'
+    date: 2026-10-17T15:09:53Z
+  - message: 'feat(cli): add obfsck scan subcommand; scan binary becomes a shim'
+    date: 2026-10-17T15:05:37Z
+  - message: Merge branch 'docs/session-closeout-2026-09-13'
+    date: 2026-10-16T06:22:30Z
+  - message: 'docs(site): add public reference site and GitHub Pages deploy'
+    date: 2026-10-16T06:22:26Z
+  - message: Merge branch 'docs/session-closeout-2026-09-13'
+    date: 2026-10-15T15:09:31Z
+  - message: 'feat(suppression): let a standalone obfsck:ignore cover the line below'
+    date: 2026-10-15T15:08:04Z
+  - message: 'feat(cli): add immutable model-ingress redaction policy'
+    date: 2026-10-06T18:17:23Z
+  tags:
+  - cli
+  readme: |-
+    # obfsck
+
+    Redacts secrets and PII from log lines and structured text.
+
+    ## Install
+
+    ```bash
+    cargo install --path .
+    ```
+
+    ## What it does
+
+    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
+    - Obfuscates identifiers with stable mappings (same input => same token)
+    - Supports privacy levels based on how aggressive redaction should be
+
+    ## Obfuscation levels
+
+    - `Minimal`: secret pattern redaction only
+    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
+    - `Paranoid`: adds path, hostname, and high-entropy token redaction
+
+    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
+    Sensitive system paths are preserved.
+
+    Preserved path segments include common roots like `home`, `usr`, `etc`,
+    `windows`, `users`, and `programdata`.
+
+    ### What each level redacts
+
+    | Pattern category | minimal | standard | paranoid |
+    |-----------------|---------|----------|----------|
+    | Prefixed API keys & tokens (AWS, GitHub, Stripe, …) | yes | yes | yes |
+    | Generic `password = …` / `api_key = …` in source | — | — | — |
+    | IPs, emails, container IDs, usernames | — | yes | yes |
+    | PII (names, SSN, phone, credit card) | — | yes | yes |
+    | Paths, hostnames, high-entropy strings | — | — | yes |
+    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
+
+    `standard` is the privacy-forward default for sharing logs externally.
+    `minimal` is safe for internal tooling where structural identifiers are useful.
+
+    Generic keyword-anchored patterns (`password = …`, `api_key = …`) live in the
+    `code_context` group, which is disabled by default because it false-positives
+    heavily on source code. Enable it in a custom config when scanning `.env`
+    files, config dumps, or log output rather than code.
+
+    ## obfsck CLI
+
+    Redact secrets and PII from a file or stdin.
+
+    ```bash
+    # Stdin -> stdout (default level: minimal — secrets only)
+    echo "key=sk-ant-api03-ABCDEF..." | obfsck redact
+
+    # File input
+    obfsck redact path/to/logfile.txt
+
+    # Write to output file
+    obfs
 - name: 89jobrien.github.io
   description: Personal site
   url: https://github.com/89jobrien/89jobrien.github.io
@@ -476,7 +571,7 @@
   pushed_at: 2026-11-24T22:40:29Z
   version: v0.10.0
   stars: 1
-  downloads: 587
+  downloads: 588
   recent_commits:
   - message: 'fix(taskit-types): derive package name from last dir component'
     date: 2026-11-23T05:48:11Z
@@ -1055,7 +1150,7 @@
   pushed_at: 2026-11-01T05:58:09.373384Z
   version: 0.10.0
   stars: null
-  downloads: 356
+  downloads: 357
   recent_commits: []
 - name: taskit-engine
   description: CI pipeline engine for taskit
@@ -1066,7 +1161,7 @@
   pushed_at: 2026-11-01T05:58:02.169257Z
   version: 0.10.0
   stars: null
-  downloads: 405
+  downloads: 406
   recent_commits: []
 - name: taskit-init
   description: Config and Cruxfile generator for taskit
@@ -1077,7 +1172,7 @@
   pushed_at: 2026-11-01T05:57:54.516883Z
   version: 0.10.0
   stars: null
-  downloads: 351
+  downloads: 352
   recent_commits: []
 - name: taskit-output
   description: Structured output, message sinks, and formatters for taskit
@@ -1088,7 +1183,7 @@
   pushed_at: 2026-11-01T05:57:48.279273Z
   version: 0.10.0
   stars: null
-  downloads: 483
+  downloads: 484
   recent_commits: []
 - name: taskit-macros
   description: 'Proc macros for taskit: #[taskit_test], #[derive(ConfigDefaults)]'
@@ -1132,7 +1227,7 @@
   pushed_at: 2026-11-01T05:57:24.108567Z
   version: 0.10.0
   stars: null
-  downloads: 526
+  downloads: 527
   recent_commits: []
 - name: taskit-types
   description: Shared types and error definitions for taskit
@@ -1143,7 +1238,7 @@
   pushed_at: 2026-11-01T05:57:20.105763Z
   version: 0.10.0
   stars: null
-  downloads: 802
+  downloads: 803
   recent_commits: []
 - name: praxis
   description: Self-improving agent runtime for the cruxx agentic DSL
@@ -1517,101 +1612,6 @@
     | `insights` | Analyze session facets enriched with git context |
     | `audit` | Show rx prefix learning state |
     | `suggest` | Suggest new rules from unhandled co
-- name: obfsck
-  description: Secret-detection and redaction CLI for pre-commit hooks
-  url: https://github.com/89jobrien/obfsck
-  kinds:
-  - GitHubRepo
-  - CratesIo
-  language: Rust
-  pushed_at: 2026-10-17T16:57:33Z
-  version: v0.1.0
-  stars: 1
-  downloads: 211
-  recent_commits:
-  - message: Merge branch 'docs/session-closeout-2026-09-13'
-    date: 2026-10-17T16:56:42Z
-  - message: 'ci(site): gate documentation drift in CI, just ci, and pre-push'
-    date: 2026-10-17T16:56:37Z
-  - message: Merge branch 'docs/session-closeout-2026-09-13'
-    date: 2026-10-17T15:09:59Z
-  - message: 'fix(site): correct help output and behavioural claims on the reference site'
-    date: 2026-10-17T15:09:53Z
-  - message: 'feat(cli): add obfsck scan subcommand; scan binary becomes a shim'
-    date: 2026-10-17T15:05:37Z
-  - message: Merge branch 'docs/session-closeout-2026-09-13'
-    date: 2026-10-16T06:22:30Z
-  - message: 'docs(site): add public reference site and GitHub Pages deploy'
-    date: 2026-10-16T06:22:26Z
-  - message: Merge branch 'docs/session-closeout-2026-09-13'
-    date: 2026-10-15T15:09:31Z
-  - message: 'feat(suppression): let a standalone obfsck:ignore cover the line below'
-    date: 2026-10-15T15:08:04Z
-  - message: 'feat(cli): add immutable model-ingress redaction policy'
-    date: 2026-10-06T18:17:23Z
-  tags:
-  - cli
-  readme: |-
-    # obfsck
-
-    Redacts secrets and PII from log lines and structured text.
-
-    ## Install
-
-    ```bash
-    cargo install --path .
-    ```
-
-    ## What it does
-
-    - Replaces secrets with labeled tokens (for example `[REDACTED-AWS-KEY]`)
-    - Obfuscates identifiers with stable mappings (same input => same token)
-    - Supports privacy levels based on how aggressive redaction should be
-
-    ## Obfuscation levels
-
-    - `Minimal`: secret pattern redaction only
-    - `Standard`: adds IP, email, container ID, user, and PII obfuscation
-    - `Paranoid`: adds path, hostname, and high-entropy token redaction
-
-    Path obfuscation supports Unix, Windows drive paths, and UNC paths.
-    Sensitive system paths are preserved.
-
-    Preserved path segments include common roots like `home`, `usr`, `etc`,
-    `windows`, `users`, and `programdata`.
-
-    ### What each level redacts
-
-    | Pattern category | minimal | standard | paranoid |
-    |-----------------|---------|----------|----------|
-    | Prefixed API keys & tokens (AWS, GitHub, Stripe, …) | yes | yes | yes |
-    | Generic `password = …` / `api_key = …` in source | — | — | — |
-    | IPs, emails, container IDs, usernames | — | yes | yes |
-    | PII (names, SSN, phone, credit card) | — | yes | yes |
-    | Paths, hostnames, high-entropy strings | — | — | yes |
-    | Paranoid-only PII (IBAN, passport, DL) | — | — | yes |
-
-    `standard` is the privacy-forward default for sharing logs externally.
-    `minimal` is safe for internal tooling where structural identifiers are useful.
-
-    Generic keyword-anchored patterns (`password = …`, `api_key = …`) live in the
-    `code_context` group, which is disabled by default because it false-positives
-    heavily on source code. Enable it in a custom config when scanning `.env`
-    files, config dumps, or log output rather than code.
-
-    ## obfsck CLI
-
-    Redact secrets and PII from a file or stdin.
-
-    ```bash
-    # Stdin -> stdout (default level: minimal — secrets only)
-    echo "key=sk-ant-api03-ABCDEF..." | obfsck redact
-
-    # File input
-    obfsck redact path/to/logfile.txt
-
-    # Write to output file
-    obfs
 - name: evidra
   description: Local-first operational intelligence. Append-only observation ledger plus validated, idempotent persistence for redacted agent-harness evidence.
   url: https://github.com/89jobrien/evidra
